@@ -4,7 +4,7 @@
 
 An AI-powered portfolio analytics platform that proves the S&P 500 is effectively a ~20-stock index, then builds optimized derived indices that outperform it. Features an interactive machine-metaphor visualization built with React, and a Python analytics backend powered by OLS regression and variance decomposition.
 
-> **Live demo**: *Coming soon — deploying to Vercel*
+> **Live demo**: [sp-index-lab.vercel.app](https://sp-index-lab.vercel.app)
 
 ---
 
