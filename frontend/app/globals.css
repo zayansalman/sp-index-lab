@@ -1,0 +1,287 @@
+@import "tailwindcss";
+
+/* ============================================================
+   S&P Index Lab -- Global Design Tokens & Utilities
+   Tailwind CSS v4 -- @theme inline syntax (no config file)
+   ============================================================ */
+
+@theme inline {
+  /* ── Fonts ─────────────────────────────────────────────── */
+  --font-heading: var(--font-space-grotesk);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* ── Background palette ────────────────────────────────── */
+  --color-bg-primary: #0A0A0F;
+  --color-bg-secondary: #111118;
+  --color-bg-tertiary: #1A1A24;
+
+  /* ── Accent palette ────────────────────────────────────── */
+  --color-accent-primary: #00D4AA;
+  --color-accent-secondary: #FFD700;
+  --color-accent-tertiary: #6366F1;
+
+  /* ── Text palette ──────────────────────────────────────── */
+  --color-text-primary: #F0F0F0;
+  --color-text-secondary: #888899;
+  --color-text-muted: #555566;
+
+  /* ── Wire / circuit palette ────────────────────────────── */
+  --color-wire-inactive: #2A2A35;
+  --color-wire-active: #00D4AA;
+
+  /* ── Semantic aliases (Tailwind utilities) ──────────────── */
+  --color-background: var(--color-bg-primary);
+  --color-foreground: var(--color-text-primary);
+}
+
+/* ============================================================
+   Base styles
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   Selection highlight
+   ============================================================ */
+
+::selection {
+  background-color: rgba(0, 212, 170, 0.25);
+  color: #F0F0F0;
+}
+
+/* ============================================================
+   Scrollbar (Webkit)
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-wire-inactive);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ============================================================
+   Keyframe Animations
+   ============================================================ */
+
+@keyframes electricFlow {
+  0% {
+    stroke-dashoffset: 40;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(0, 212, 170, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(0, 212, 170, 0.9));
+  }
+}
+
+@keyframes rotateGear {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes breatheGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(0, 212, 170, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 212, 170, 0.6);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes buttonPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 212, 170, 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   Utility Classes -- Wires & Circuits
+   ============================================================ */
+
+.wire-active {
+  stroke: var(--color-wire-active);
+  stroke-dasharray: 8 4;
+  animation: electricFlow 1s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(0, 212, 170, 0.5));
+}
+
+.wire-inactive {
+  stroke: var(--color-wire-inactive);
+  stroke-dasharray: 0;
+  filter: none;
+  transition: stroke 0.4s ease, filter 0.4s ease;
+}
+
+/* ============================================================
+   Utility Classes -- Glow Effects
+   ============================================================ */
+
+.glow-text {
+  color: var(--color-accent-primary);
+  text-shadow:
+    0 0 8px rgba(0, 212, 170, 0.5),
+    0 0 20px rgba(0, 212, 170, 0.25);
+}
+
+.glow-pulse {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+.breathe-glow {
+  animation: breatheGlow 3s ease-in-out infinite;
+}
+
+.button-pulse {
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+.rotate-gear {
+  animation: rotateGear 4s linear infinite;
+}
+
+/* ============================================================
+   Utility Classes -- Cards & Surfaces
+   ============================================================ */
+
+.card-surface {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-wire-inactive);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-surface:hover {
+  border-color: rgba(0, 212, 170, 0.3);
+  box-shadow: 0 0 20px rgba(0, 212, 170, 0.08);
+}
+
+.card-surface-elevated {
+  background-color: var(--color-bg-tertiary);
+  border: 1px solid var(--color-wire-inactive);
+  border-radius: 12px;
+}
+
+/* ============================================================
+   Utility Classes -- Shimmer / Skeleton Loading
+   ============================================================ */
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-secondary) 25%,
+    var(--color-bg-tertiary) 50%,
+    var(--color-bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ============================================================
+   Utility Classes -- Typography
+   ============================================================ */
+
+.heading-font {
+  font-family: var(--font-heading), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.mono-font {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* ============================================================
+   Utility Classes -- Accent Borders
+   ============================================================ */
+
+.accent-border-green {
+  border-color: rgba(0, 212, 170, 0.3);
+}
+
+.accent-border-gold {
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.accent-border-indigo {
+  border-color: rgba(99, 102, 241, 0.3);
+}

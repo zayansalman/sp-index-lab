@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data cache (keep .gitkeep, ignore generated parquet)
+data/*.parquet
+data/*.csv
+!data/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/*.html
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# uv
+.python-version
+
+# Node / Frontend
+node_modules/
+.next/
+out/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Vercel
+.vercel/
+
+# Claude
+.claude/

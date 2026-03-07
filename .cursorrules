@@ -1,0 +1,91 @@
+# S&P Index Lab — AI Assistant Rules
+
+## Project Context
+AI-powered portfolio analytics platform proving the S&P 500 is a ~20-stock index. Python backend computes analytics (OLS regression, variance decomposition, mirror indices). React frontend displays results via an interactive machine-metaphor visualization with SVG animations. Static JSON bridge between the two — no Python at runtime.
+
+## Python Code Style
+- Python 3.11+ with type hints on all function signatures
+- Google-style docstrings on all public functions
+- Use `logging` module, never `print()` in library code
+- Vectorized pandas/numpy operations, never `iterrows()`
+- Financial values: round to 4 decimal places
+- Imports: stdlib → third-party → local, separated by blank lines
+- Constants from `src/config.py` — never hardcode tickers or thresholds
+
+## TypeScript/React Code Style
+- Strict TypeScript — all props and data typed in `lib/types.ts`
+- Components: `components/{feature}/{ComponentName}.tsx`
+- Hooks: `hooks/use{Name}.ts`
+- Design tokens in `lib/constants.ts` — no inline colors or timing values
+- Tailwind CSS v4 with `@theme inline` syntax, custom dark tokens
+- Framer Motion for animations — use spring physics, not duration-based
+- Snake_case JSON keys → camelCase TypeScript via transform layer
+
+## Architecture Rules
+- All data fetching through `src/data/fetcher.py` — no direct yfinance elsewhere
+- All DB operations through `src/data/storage.py` — no direct Supabase elsewhere
+- Frontend reads static JSON from `/public/data/` — never calls Python
+- No look-ahead bias in any calculation — only past data at decision time
+- ML models must be serializable (joblib) and versioned
+- Dashboard pre-computes everything — never calculate on render
+
+## Key Libraries
+### Python
+- pandas, numpy, statsmodels: Data / analytics
+- scikit-learn: OLS LinearRegression for R² analysis
+- yfinance: Market data source
+- PyPortfolioOpt: Portfolio optimization (HRP, Black-Litterman, MVO)
+- LightGBM: Factor model scoring
+- hmmlearn: Regime detection (GaussianHMM)
+
+### TypeScript
+- Next.js 16 (App Router), React 19
+- Framer Motion 12+: Animations
+- Recharts 3: Charts (line, area, bar)
+- @radix-ui/react-tooltip: Accessible tooltips
+- Tailwind CSS v4: Styling
+- clsx + tailwind-merge: Class utilities
+
+## Testing
+- pytest with fixtures for sample data
+- Financial calculations: test with known analytical solutions
+- ML models: test input/output shapes, constraint satisfaction
+- Never test with live API calls — use fixtures/mocks
+- Frontend: `npm run build` as type-check gate
+
+## Common Patterns
+
+### Data transform (useLabData.ts)
+```typescript
+function transformPerformanceNav(raw: any): PerformanceNavData {
+  const source = raw.weekly || raw.recent_daily || [];
+  return source.map((p: any): PerformanceNavPoint => ({
+    date: p.date ?? "",
+    sp500: p.sp500 ?? 0,
+    sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
+    sp20Equal: p.sp20_equal ?? p.sp20Equal ?? 0,
+  }));
+}
+```
+
+### Machine state (useMachineState.ts)
+```typescript
+// useReducer-based state machine: IDLE → stages → COMPLETE
+type MachineStage = "idle" | "powering_up" | "data_pipeline" | "concentration"
+  | "building" | "optimizing" | "monitoring" | "complete";
+```
+
+### Portfolio weight constraints
+```python
+def apply_constraints(weights: dict[str, float]) -> dict[str, float]:
+    clipped = {k: np.clip(v, MIN_POSITION_WEIGHT, MAX_POSITION_WEIGHT)
+               for k, v in weights.items()}
+    total = sum(clipped.values())
+    return {k: v / total for k, v in clipped.items()}
+```
+
+## Constraints
+- Free tier: Supabase 500MB, GitHub Actions 2000 min/month
+- Transaction costs: 5 bps round-trip for backtesting
+- Frontend purely static — no server-side Python
+- Time series downsampled to weekly for chart performance

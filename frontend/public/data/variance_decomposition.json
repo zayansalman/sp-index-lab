@@ -1,0 +1,44 @@
+{
+  "decomposition": [
+    {
+      "n_stocks": 5,
+      "r_squared": 0.568075,
+      "adj_r_squared": 0.567368
+    },
+    {
+      "n_stocks": 10,
+      "r_squared": 0.711263,
+      "adj_r_squared": 0.710316
+    },
+    {
+      "n_stocks": 15,
+      "r_squared": 0.828938,
+      "adj_r_squared": 0.828095
+    },
+    {
+      "n_stocks": 20,
+      "r_squared": 0.905806,
+      "adj_r_squared": 0.905186
+    },
+    {
+      "n_stocks": 25,
+      "r_squared": 0.939229,
+      "adj_r_squared": 0.938728
+    },
+    {
+      "n_stocks": 30,
+      "r_squared": 0.956826,
+      "adj_r_squared": 0.956399
+    },
+    {
+      "n_stocks": 40,
+      "r_squared": 0.96875,
+      "adj_r_squared": 0.968336
+    },
+    {
+      "n_stocks": 50,
+      "r_squared": 0.975808,
+      "adj_r_squared": 0.975407
+    }
+  ]
+}

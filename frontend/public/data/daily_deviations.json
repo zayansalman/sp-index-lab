@@ -1,0 +1,315 @@
+{
+  "bins": [
+    {
+      "bin_start": -5.4493,
+      "bin_end": -5.2577,
+      "bin_center": -5.3535,
+      "count": 1
+    },
+    {
+      "bin_start": -5.2577,
+      "bin_end": -5.066,
+      "bin_center": -5.1618,
+      "count": 0
+    },
+    {
+      "bin_start": -5.066,
+      "bin_end": -4.8743,
+      "bin_center": -4.9701,
+      "count": 0
+    },
+    {
+      "bin_start": -4.8743,
+      "bin_end": -4.6826,
+      "bin_center": -4.7785,
+      "count": 0
+    },
+    {
+      "bin_start": -4.6826,
+      "bin_end": -4.4909,
+      "bin_center": -4.5868,
+      "count": 0
+    },
+    {
+      "bin_start": -4.4909,
+      "bin_end": -4.2992,
+      "bin_center": -4.3951,
+      "count": 0
+    },
+    {
+      "bin_start": -4.2992,
+      "bin_end": -4.1076,
+      "bin_center": -4.2034,
+      "count": 0
+    },
+    {
+      "bin_start": -4.1076,
+      "bin_end": -3.9159,
+      "bin_center": -4.0117,
+      "count": 0
+    },
+    {
+      "bin_start": -3.9159,
+      "bin_end": -3.7242,
+      "bin_center": -3.82,
+      "count": 3
+    },
+    {
+      "bin_start": -3.7242,
+      "bin_end": -3.5325,
+      "bin_center": -3.6284,
+      "count": 0
+    },
+    {
+      "bin_start": -3.5325,
+      "bin_end": -3.3408,
+      "bin_center": -3.4367,
+      "count": 0
+    },
+    {
+      "bin_start": -3.3408,
+      "bin_end": -3.1492,
+      "bin_center": -3.245,
+      "count": 2
+    },
+    {
+      "bin_start": -3.1492,
+      "bin_end": -2.9575,
+      "bin_center": -3.0533,
+      "count": 1
+    },
+    {
+      "bin_start": -2.9575,
+      "bin_end": -2.7658,
+      "bin_center": -2.8616,
+      "count": 2
+    },
+    {
+      "bin_start": -2.7658,
+      "bin_end": -2.5741,
+      "bin_center": -2.6699,
+      "count": 1
+    },
+    {
+      "bin_start": -2.5741,
+      "bin_end": -2.3824,
+      "bin_center": -2.4783,
+      "count": 1
+    },
+    {
+      "bin_start": -2.3824,
+      "bin_end": -2.1907,
+      "bin_center": -2.2866,
+      "count": 2
+    },
+    {
+      "bin_start": -2.1907,
+      "bin_end": -1.9991,
+      "bin_center": -2.0949,
+      "count": 5
+    },
+    {
+      "bin_start": -1.9991,
+      "bin_end": -1.8074,
+      "bin_center": -1.9032,
+      "count": 9
+    },
+    {
+      "bin_start": -1.8074,
+      "bin_end": -1.6157,
+      "bin_center": -1.7115,
+      "count": 6
+    },
+    {
+      "bin_start": -1.6157,
+      "bin_end": -1.424,
+      "bin_center": -1.5199,
+      "count": 12
+    },
+    {
+      "bin_start": -1.424,
+      "bin_end": -1.2323,
+      "bin_center": -1.3282,
+      "count": 19
+    },
+    {
+      "bin_start": -1.2323,
+      "bin_end": -1.0406,
+      "bin_center": -1.1365,
+      "count": 38
+    },
+    {
+      "bin_start": -1.0406,
+      "bin_end": -0.849,
+      "bin_center": -0.9448,
+      "count": 52
+    },
+    {
+      "bin_start": -0.849,
+      "bin_end": -0.6573,
+      "bin_center": -0.7531,
+      "count": 121
+    },
+    {
+      "bin_start": -0.6573,
+      "bin_end": -0.4656,
+      "bin_center": -0.5614,
+      "count": 178
+    },
+    {
+      "bin_start": -0.4656,
+      "bin_end": -0.2739,
+      "bin_center": -0.3698,
+      "count": 309
+    },
+    {
+      "bin_start": -0.2739,
+      "bin_end": -0.0822,
+      "bin_center": -0.1781,
+      "count": 467
+    },
+    {
+      "bin_start": -0.0822,
+      "bin_end": 0.1095,
+      "bin_center": 0.0136,
+      "count": 536
+    },
+    {
+      "bin_start": 0.1095,
+      "bin_end": 0.3011,
+      "bin_center": 0.2053,
+      "count": 512
+    },
+    {
+      "bin_start": 0.3011,
+      "bin_end": 0.4928,
+      "bin_center": 0.397,
+      "count": 326
+    },
+    {
+      "bin_start": 0.4928,
+      "bin_end": 0.6845,
+      "bin_center": 0.5887,
+      "count": 198
+    },
+    {
+      "bin_start": 0.6845,
+      "bin_end": 0.8762,
+      "bin_center": 0.7803,
+      "count": 110
+    },
+    {
+      "bin_start": 0.8762,
+      "bin_end": 1.0679,
+      "bin_center": 0.972,
+      "count": 60
+    },
+    {
+      "bin_start": 1.0679,
+      "bin_end": 1.2595,
+      "bin_center": 1.1637,
+      "count": 22
+    },
+    {
+      "bin_start": 1.2595,
+      "bin_end": 1.4512,
+      "bin_center": 1.3554,
+      "count": 27
+    },
+    {
+      "bin_start": 1.4512,
+      "bin_end": 1.6429,
+      "bin_center": 1.5471,
+      "count": 16
+    },
+    {
+      "bin_start": 1.6429,
+      "bin_end": 1.8346,
+      "bin_center": 1.7388,
+      "count": 6
+    },
+    {
+      "bin_start": 1.8346,
+      "bin_end": 2.0263,
+      "bin_center": 1.9304,
+      "count": 5
+    },
+    {
+      "bin_start": 2.0263,
+      "bin_end": 2.218,
+      "bin_center": 2.1221,
+      "count": 4
+    },
+    {
+      "bin_start": 2.218,
+      "bin_end": 2.4096,
+      "bin_center": 2.3138,
+      "count": 1
+    },
+    {
+      "bin_start": 2.4096,
+      "bin_end": 2.6013,
+      "bin_center": 2.5055,
+      "count": 2
+    },
+    {
+      "bin_start": 2.6013,
+      "bin_end": 2.793,
+      "bin_center": 2.6972,
+      "count": 1
+    },
+    {
+      "bin_start": 2.793,
+      "bin_end": 2.9847,
+      "bin_center": 2.8888,
+      "count": 2
+    },
+    {
+      "bin_start": 2.9847,
+      "bin_end": 3.1764,
+      "bin_center": 3.0805,
+      "count": 1
+    },
+    {
+      "bin_start": 3.1764,
+      "bin_end": 3.3681,
+      "bin_center": 3.2722,
+      "count": 1
+    },
+    {
+      "bin_start": 3.3681,
+      "bin_end": 3.5597,
+      "bin_center": 3.4639,
+      "count": 0
+    },
+    {
+      "bin_start": 3.5597,
+      "bin_end": 3.7514,
+      "bin_center": 3.6556,
+      "count": 1
+    },
+    {
+      "bin_start": 3.7514,
+      "bin_end": 3.9431,
+      "bin_center": 3.8473,
+      "count": 0
+    },
+    {
+      "bin_start": 3.9431,
+      "bin_end": 4.1348,
+      "bin_center": 4.0389,
+      "count": 1
+    }
+  ],
+  "n_observations": 3061,
+  "unit": "percentage_points",
+  "stats": {
+    "mean": 0.0158,
+    "std": 0.5926,
+    "median": 0.0297,
+    "min": -5.4493,
+    "max": 4.1348,
+    "skewness": -0.4332,
+    "kurtosis": 8.1043
+  }
+}
