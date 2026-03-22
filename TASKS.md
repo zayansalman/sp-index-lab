@@ -154,3 +154,110 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 - [ ] **T15.2**: Downloadable PDF research report
 - [ ] **T15.3**: Comparison vs real ETFs (XLG, RSP, QQQ)
 - [ ] **T15.4**: Blog post / social media announcement
+
+---
+
+# AI Alpha Hedge Fund — Sprint Roadmap (Phases 16–27)
+
+*The following phases evolve SP Index Lab from an analytics tool into a live algorithmic trading fund.*
+
+---
+
+## Phase 16: Sprint 1 — Foundation 🔲 [CRITICAL]
+*Unblocks all downstream sprints. Must complete before any new infrastructure.*
+- [ ] **S1.1**: Extract `compute_performance_metrics()` → `src/backtest/metrics.py` shared utility
+- [ ] **S1.2**: Build walk-forward backtest engine (756D train / 21D test, using existing config.py constants)
+- [ ] **S1.3**: Build classical optimizers: HRP, MVO, Black-Litterman via PyPortfolioOpt
+- [ ] **S1.4**: Extend `src/config.py` with fund constants (RUN_MODE, POD_ALLOCATIONS, risk limits, new data paths)
+
+---
+
+## Phase 17: Sprint 2 — ML Signal Stack 🔲 [HIGH]
+*Core "AI alpha" capability. Required before any pod can generate signals.*
+- [ ] **S2.1**: Build `src/features/technical.py` — momentum (1M/3M/6M/12M), realized vol, RSI, MA distance
+- [ ] **S2.2**: Build `src/optimizer/regime.py` — 3-state Gaussian HMM (bull/bear/transition)
+- [ ] **S2.3**: Build `src/optimizer/factor_model.py` — LightGBM forward 21D return quintile predictor
+- [ ] **S2.4**: Build `src/optimizer/ensemble.py` — regime-weighted combination (Bull: 40% HRP + 60% MVO; Bear: 70/30)
+- [ ] **S2.5**: Build `src/optimizer/rebalancer.py` — drift-check (2%), regime-change trigger, quarterly calendar
+
+---
+
+## Phase 18: Sprint 3 — Strategy Pods 🔲 [HIGH]
+- [ ] **S3.1**: Build `src/strategies/pod_base.py` — `PodBase` ABC + `Signal` dataclass
+- [ ] **S3.2**: Build `src/strategies/passive_core.py` — SP-N Alpha pod (70% of fund NAV)
+- [ ] **S3.3**: Build `src/strategies/portfolio.py` — `FundPortfolio`: aggregate pods, enforce fund constraints
+- [ ] **S3.4**: Build `src/indices/` classes — `SP20Mirror`, `SP20Equal`, `SP20Alpha`, `SPNAlpha`
+
+---
+
+## Phase 19: Sprint 4 — Execution Abstraction 🔲 [HIGH]
+*Design correct once, swap brokers forever.*
+- [ ] **S4.1**: Build `src/execution/order.py` — `Order`, `Fill`, `Position` dataclasses
+- [ ] **S4.2**: Build `src/execution/broker_base.py` — `BrokerInterface` ABC
+- [ ] **S4.3**: Build `src/execution/paper_broker.py` — `PaperBroker` with sqrt impact slippage, next-open fills
+- [ ] **S4.4**: Build `src/execution/order_router.py` — target weights → `Order` list
+- [ ] **S4.5**: Build `src/execution/__init__.py` — `get_broker(RUN_MODE)` factory (paper/alpaca/ibkr)
+
+---
+
+## Phase 20: Sprint 5 — Risk Management 🔲 [HIGH]
+- [ ] **S5.1**: Build `src/risk/calculator.py` — historical VaR 95%, CVaR, portfolio beta, active share
+- [ ] **S5.2**: Build `src/risk/circuit_breaker.py` — halt: drawdown > 15% or VaR > 5% NAV
+- [ ] **S5.3**: Build `src/risk/monitor.py` — `RiskSnapshot` computed after every fill batch
+- [ ] **S5.4**: Build `src/portfolio/ledger.py` + `state.py` — immutable trade log + live NAV tracker
+
+---
+
+## Phase 21: Sprint 6 — Backtest Validation 🔲 [HIGH]
+*Gate before paper trading. Nothing goes live until all 5 gates pass.*
+- [ ] **S6.1**: Build `src/backtest/simulator.py` — trade simulation with realistic costs and slippage
+- [ ] **S6.2**: Build `src/backtest/report.py` — `BacktestReport` with 5-gate promotion check
+- [ ] **S6.3**: Build `scripts/run_full_backtest.py` — walk-forward orchestration, exit 1 on gate fail
+- [ ] **S6.4**: Validate SP-N Alpha: Sharpe > 0.80, max DD < 25% out-of-sample — all gates must pass
+
+---
+
+## Phase 22: Sprint 7 — Reporting & Tearsheets 🔲 [MEDIUM]
+- [ ] **S7.1**: Build `src/reporting/tearsheet.py` — daily PDF via weasyprint + Jinja2 (7 sections)
+- [ ] **S7.2**: Build `src/reporting/attribution.py` — Brinson-Hood-Beebower attribution
+- [ ] **S7.3**: Build `scripts/export_fund_data.py` — JSON bridge for fund dashboard (6 output files)
+- [ ] **S7.4**: Build Jinja2 HTML templates in `src/reporting/templates/`
+
+---
+
+## Phase 23: Sprint 8 — Paper Trading Pipeline 🔲 [MEDIUM]
+- [ ] **S8.1**: Build `scripts/run_paper_trading.py` — 16-step nightly end-to-end pipeline
+- [ ] **S8.2**: Build `.github/workflows/paper_trading.yml` — nightly GitHub Actions (23:00 UTC)
+- [ ] **S8.3**: Build `frontend-fund/` — private Next.js dashboard (NAV, positions, risk, tearsheets)
+- [ ] **S8.4**: Paper trading validation — 90-day parallel run vs backtest expectation (±5% gate)
+
+---
+
+## Phase 24: Sprint 9 — Vol Overlay (Phase 2, ~Q3 2026) 🔲
+- [ ] **S9.1**: Integrate Polygon.io options chain data — `src/data/options_fetcher.py`
+- [ ] **S9.2**: Build `src/strategies/vol_overlay.py` — covered calls at 0.20–0.30 delta, 30–45 DTE
+- [ ] **S9.3**: Vol overlay backtest — validate against BXM, confirm Sharpe improvement
+
+---
+
+## Phase 25: Sprint 10 — Active Trading (Phase 2, ~Q4 2026) 🔲
+- [ ] **S10.1**: Build cointegration pair scanner — Engle-Granger on all 190 pairs, rank by ADF stat
+- [ ] **S10.2**: Build `src/strategies/active_trading.py` — pairs trading (z-score entry > 2σ, exit < 0.5σ)
+- [ ] **S10.3**: Build dispersion strategy — long single-stock vol, short index vol when dispersion > 30th pct
+- [ ] **S10.4**: Active trading backtest — walk-forward Sharpe + market-neutral verification (beta < 0.10)
+
+---
+
+## Phase 26: Sprint 11 — Live Trading (After 90-day paper gate) 🔲
+- [ ] **S11.1**: Build `src/execution/alpaca_broker.py` — `AlpacaBroker(BrokerInterface)` via alpaca-py
+- [ ] **S11.2**: 30-day parallel run — Alpaca paper API vs internal PaperBroker (< 2% NAV difference)
+- [ ] **S11.3**: Build `scripts/run_live_trading.py` — same as paper, swap `get_broker("alpaca_live")`
+- [ ] **S11.4**: Create `LIVE_TRADING_CHECKLIST.md` — all gates signed off, secrets rotated, circuit breaker tested
+
+---
+
+## Phase 27: Sprint 12 — Fund Operations (Phase 3, F&F) 🔲
+- [ ] **S12.1**: Build `src/reporting/investor_report.py` — monthly PDF for F&F investors
+- [ ] **S12.2**: Add Supabase Auth to fund dashboard — replace Vercel password protection
+- [ ] **S12.3**: Build `src/portfolio/reconciler.py` — broker vs internal ledger diff + alert
+- [ ] **S12.4**: Add IBKR broker adapter — `src/execution/ibkr_broker.py` via ib_insync (enables options)

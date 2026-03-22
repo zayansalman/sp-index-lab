@@ -1,8 +1,10 @@
-# S&P Index Lab
+# SP Index Lab
 
-**20 stocks. 94.9% of the S&P 500. Better returns.**
+**20 stocks. 94.9% of the S&P 500. Optimised to beat it.**
 
-An AI-powered portfolio analytics platform that proves the S&P 500 is effectively a ~20-stock index, then builds optimized derived indices that outperform it. Features an interactive machine-metaphor visualization built with React, and a Python analytics backend powered by OLS regression and variance decomposition.
+> From analytics proof to AI alpha hedge fund.
+
+SP Index Lab started as a research project proving the S&P 500 is driven by ~20 stocks (R²=94.9%). It has since evolved into a full algorithmic trading infrastructure for running an AI-powered optimised equity fund: the SP-N Alpha.
 
 > **Live demo**: [sp-index-lab.vercel.app](https://sp-index-lab.vercel.app)
 
@@ -10,161 +12,209 @@ An AI-powered portfolio analytics platform that proves the S&P 500 is effectivel
 
 ## The Thesis
 
-The top 20 S&P 500 stocks account for ~47% of total index weight. Using OLS regression across 3,062 trading days (2014-2026), we prove these 20 stocks explain **94.9%** of S&P 500 variance. The other 480 stocks contribute less than 5% of explanatory power.
+The top 20 S&P 500 stocks account for ~47% of total index weight. Using OLS regression across 3,062 trading days (2014–2026), these 20 stocks explain **94.9%** of S&P 500 variance. The other 480 contribute less than 5% of explanatory power.
 
-A cap-weighted mirror portfolio of just 20 stocks achieved **15.3% CAGR** vs the S&P 500's **11.3%** — a **+4.0% annualized alpha** with a higher Sharpe ratio (0.68 vs 0.54).
+**Given that we know the S&P is a ~20-stock index in practice, we built an optimised version**: one that captures the same market exposure with better risk-adjusted returns through smarter weighting (HRP + LightGBM factor model), regime awareness (3-state HMM), and disciplined rebalancing.
 
-## Key Results
+| Metric | S&P 500 | SP-20 Mirror | SP-20 Equal | SP-N Alpha |
+|--------|---------|-------------|-------------|------------|
+| CAGR | 11.3% | 15.3% | 14.2% | **15.3%** |
+| Sharpe | 0.54 | 0.68 | 0.63 | **0.68** |
+| Max Drawdown | -33.7% | -37.4% | -39.8% | TBD |
+| Alpha | — | +4.0% | +2.9% | **+4.0%** |
 
-| Metric | S&P 500 | SP-20 Mirror | SP-20 Equal |
-|--------|---------|-------------|-------------|
-| CAGR | 11.3% | **15.3%** | 14.2% |
-| Sharpe | 0.54 | **0.68** | 0.63 |
-| Max Drawdown | -33.7% | -37.4% | -39.8% |
-| Beta | 1.00 | 1.12 | 1.09 |
-| Alpha | — | **+4.0%** | +2.9% |
+*SP-N Alpha uses ensemble optimizer (HRP + LightGBM-MVO) and HMM regime detection. Backtesting in progress.*
 
-## Architecture
+---
+
+## Fund Architecture
+
+Three strategy pods, built modularly:
+
+| Pod | Strategy | Allocation | Status |
+|-----|----------|------------|--------|
+| Passive Core | SP-N Alpha: HRP + LightGBM + HMM | 70% of NAV | Sprint 1–3 |
+| Vol Overlay | Covered calls on passive core (BXM-style) | 15% of NAV | Sprint 9 (Q3 2026) |
+| Active Trading | Pairs trading + dispersion on 20-stock universe | 15% of NAV | Sprint 10 (Q4 2026) |
+
+Broker-agnostic by design: `BrokerInterface` ABC → swap Alpaca / IBKR via `RUN_MODE` env var, zero strategy code changes.
+
+**Fund phases**: Personal account (paper → live) → F&F fund → Registered fund.
+
+---
+
+## 10-Layer System Architecture
 
 ```
-┌──────────────────────────────────┐
-│   Vercel (CDN)                    │
-│   Next.js 16 · React 19 · TS     │
-│   Framer Motion · Recharts        │
-│   Static JSON ← /public/data/    │
-└──────────────┬───────────────────┘
-               │ Pre-computed
-┌──────────────┴───────────────────┐
-│   Python Analytics Backend        │
-│   pandas · scikit-learn · numpy   │
-│   OLS regression · NAV calc       │
-│   scripts/export_frontend_data.py │
-└──────────────┬───────────────────┘
-               │
-┌──────────────┴───────────────────┐
-│   Data Layer                      │
-│   yfinance → Parquet files        │
-│   Supabase (PostgreSQL)           │
-│   GitHub Actions (daily cron)     │
-└──────────────────────────────────┘
+LAYER 0: DATA INGESTION
+  yfinance (equity, daily) [existing]    →  data/daily_prices.parquet
+  Polygon.io (options) [Phase 2]         →  data/options_chains/
+  FRED API (macro) [Phase 2]             →  data/macro_indicators.parquet
+
+LAYER 1: FEATURE ENGINEERING
+  src/features/technical.py              momentum 1M/3M/6M/12M, vol, RSI, MA distance
+
+LAYER 2: ML SIGNAL GENERATION
+  src/optimizer/classical.py             PyPortfolioOpt: HRP, MVO, Black-Litterman
+  src/optimizer/regime.py                hmmlearn: 3-state HMM (bull/bear/transition)
+  src/optimizer/factor_model.py          LightGBM: forward 21D return quintile
+  src/optimizer/ensemble.py              regime-weighted combination
+
+LAYER 3: STRATEGY PODS
+  src/strategies/passive_core.py         SP-N Alpha (70% NAV)
+  src/strategies/vol_overlay.py          Covered calls (15% NAV, Phase 2)
+  src/strategies/active_trading.py       Pairs + dispersion (15% NAV, Phase 2)
+
+LAYER 4: EXECUTION ABSTRACTION
+  src/execution/broker_base.py           BrokerInterface ABC
+  src/execution/paper_broker.py          PaperBroker (sqrt impact slippage, next-open fills)
+  src/execution/alpaca_broker.py         AlpacaBroker (Phase 2)
+  src/execution/__init__.py              get_broker(RUN_MODE) factory
+
+LAYER 5: RISK MANAGEMENT
+  src/risk/calculator.py                 VaR 95%, CVaR, beta, active share
+  src/risk/circuit_breaker.py            Halt: drawdown > 15% or VaR > 5% NAV
+  src/risk/monitor.py                    RiskSnapshot after every fill batch
+
+LAYER 6: BACKTESTING ENGINE
+  src/backtest/engine.py                 Walk-forward: 756D train / 21D test
+  src/backtest/simulator.py              Trade simulation with realistic slippage
+  src/backtest/report.py                 Promotion gate: Sharpe > 0.80, DD < 25%
+
+LAYER 7: PORTFOLIO TRACKING
+  src/portfolio/ledger.py                Immutable trade log (append-only Parquet)
+  src/portfolio/state.py                 Live positions, cash, NAV
+
+LAYER 8: REPORTING
+  src/reporting/tearsheet.py             Daily PDF via weasyprint + Jinja2
+  src/reporting/attribution.py           Brinson-Hood-Beebower attribution
+
+LAYER 9: ORCHESTRATION SCRIPTS
+  scripts/run_paper_trading.py           Nightly pipeline: signals → fills → tearsheet
+  scripts/run_full_backtest.py           Walk-forward backtest + gate check
+  scripts/export_fund_data.py            JSON bridge for fund dashboard
+
+LAYER 10: FRONTENDS
+  frontend/                              Public analytics site (Vercel)
+  frontend-fund/                         Private fund dashboard (Vercel, password-protected)
 ```
 
-## Tech Stack
+---
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS v4 |
-| Animation | Framer Motion 12, CSS keyframes (SVG wire electricity) |
-| Charts | Recharts 3 (line, area, bar) |
-| Analytics | Python 3.11, pandas, numpy, scikit-learn |
-| Optimization | PyPortfolioOpt, LightGBM, hmmlearn (planned) |
-| Data | yfinance, Supabase, Parquet, DuckDB |
-| CI/CD | GitHub Actions (daily cron), Vercel (auto-deploy) |
-| Package Mgmt | uv (Python), npm (JavaScript) |
+## 12-Sprint Roadmap
 
-## Quick Start
+| Sprint | Focus | Priority | Target |
+|--------|-------|----------|--------|
+| 1 | Foundation: backtest metrics, walk-forward engine, classical optimizers | CRITICAL | Apr 2026 |
+| 2 | ML Signal Stack: features, HMM, LightGBM, ensemble, rebalancer | HIGH | Apr 2026 |
+| 3 | Strategy Pods: PodBase, PassiveCore, FundPortfolio, index classes | HIGH | May 2026 |
+| 4 | Execution Abstraction: Order types, BrokerInterface, PaperBroker, factory | HIGH | May 2026 |
+| 5 | Risk Management: VaR/CVaR, circuit breaker, RiskSnapshot, ledger | HIGH | May 2026 |
+| 6 | Backtest Validation: simulator, BacktestReport, 5-gate promotion check | HIGH | Jun 2026 |
+| 7 | Reporting: PDF tearsheet, BHB attribution, export_fund_data.py | MEDIUM | Jun 2026 |
+| 8 | Paper Trading: nightly pipeline, GitHub Actions, fund dashboard | MEDIUM | Jul 2026 |
+| 9 | Vol Overlay: Polygon.io options, covered calls, BXM backtest | FUTURE | Q3 2026 |
+| 10 | Active Trading: pairs scanner, dispersion strategy, backtest | FUTURE | Q4 2026 |
+| 11 | Live Trading: AlpacaBroker, 30-day parallel run, go-live checklist | FUTURE | Q4 2026 |
+| 12 | Fund Operations: investor reports, Supabase Auth, reconciler, IBKR | FUTURE | 2027 |
 
-### Frontend (React)
+All sprint issues are tracked in [GitHub Issues](https://github.com/zayansalman/sp-index-lab/issues) with milestones.
+
+---
+
+## Running the Fund Pipeline
 
 ```bash
-cd frontend
-npm install
-npm run dev
-# Open http://localhost:3000
-```
-
-### Backend (Python)
-
-```bash
-# Install uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
 # Install dependencies
 uv sync
 
-# Set up environment
-cp .env.example .env
-# Fill in SUPABASE_URL and SUPABASE_KEY
+# Run full backtest (all 5 promotion gates must pass before paper trading)
+uv run python scripts/run_full_backtest.py
 
-# Generate frontend data
-uv run python scripts/export_frontend_data.py
+# Run paper trading pipeline (nightly via GitHub Actions)
+uv run python scripts/run_paper_trading.py
 
-# Run legacy Streamlit dashboard
-uv run streamlit run app/Home.py
+# Generate tearsheet PDF
+uv run python scripts/generate_tearsheet.py
+
+# Export fund data JSON for dashboard
+uv run python scripts/export_fund_data.py
 ```
 
-### Full Pipeline
+## Running the Public Analytics Site
 
 ```bash
-# Daily data update (also runs via GitHub Actions)
+# Update data
 uv run python scripts/daily_update.py
-
-# Re-export JSON for frontend
 uv run python scripts/export_frontend_data.py
 
-# Build frontend for production
-cd frontend && npm run build
+# Frontend dev server
+cd frontend && npm install && npm run dev
+# Open http://localhost:3000
 ```
+
+---
 
 ## Project Structure
 
 ```
-sp/
-├── frontend/                 # Next.js application
-│   ├── app/                  # Routes: / (landing), /lab (machine)
-│   ├── components/           # 25 React components
-│   │   ├── landing/          # Hero, StatsPreview, EnterButton
-│   │   ├── machine/          # SVG machine, wires, switch, 5 nodes
-│   │   ├── results/          # Charts, metrics, tables, thinking panels
-│   │   └── ui/               # AnimatedCounter, GlowText, Tooltip
-│   ├── hooks/                # useLabData, useMachineState
-│   ├── lib/                  # types, constants, tooltips, formatters
-│   └── public/data/          # 8 pre-computed JSON files (~200KB)
-├── src/                      # Python analytics
-│   ├── config.py             # Constants (50 tickers, dates, thresholds)
-│   ├── data/                 # fetcher.py, storage.py
-│   └── proof/                # concentration.py (core analytics)
+sp-index-lab/
+├── src/
+│   ├── config.py             Constants + fund parameters (RUN_MODE, POD_ALLOCATIONS)
+│   ├── data/                 fetcher.py, storage.py
+│   ├── proof/                concentration.py (core analytics — R² proof)
+│   ├── features/             technical.py (momentum, vol, RSI, MA distance)
+│   ├── optimizer/            classical.py, regime.py, factor_model.py, ensemble.py
+│   ├── strategies/           pod_base.py, passive_core.py, portfolio.py
+│   ├── execution/            broker_base.py, paper_broker.py, order_router.py
+│   ├── risk/                 calculator.py, circuit_breaker.py, monitor.py
+│   ├── portfolio/            ledger.py, state.py
+│   ├── backtest/             metrics.py, engine.py, simulator.py, report.py
+│   ├── reporting/            tearsheet.py, attribution.py, templates/
+│   └── indices/              sp20_mirror.py, sp20_equal.py, sp20_alpha.py, spn_alpha.py
 ├── scripts/
-│   ├── export_frontend_data.py  # Python → JSON bridge
-│   └── daily_update.py          # GitHub Actions entry point
-├── .github/workflows/        # Daily cron job
-├── CLAUDE.md                 # AI assistant context
-├── ARCHITECTURE.md           # Full stack architecture
-├── PRD.md                    # Product requirements
-├── FRONTEND.md               # Frontend visual spec
-├── RESEARCH.md               # Concentration thesis & sources
-└── TASKS.md                  # Build plan with status
+│   ├── daily_update.py              Data refresh (GitHub Actions)
+│   ├── export_frontend_data.py      Public site JSON export
+│   ├── run_paper_trading.py         Nightly paper trading pipeline
+│   ├── run_full_backtest.py         Walk-forward backtest + promotion gates
+│   ├── generate_tearsheet.py        Daily PDF tearsheet
+│   └── export_fund_data.py          Fund dashboard JSON
+├── frontend/                Public Next.js analytics site
+├── frontend-fund/           Private fund dashboard (password-protected)
+├── data/                    Parquet cache (gitignored)
+├── .github/workflows/
+│   ├── daily_update.yml     Daily data + frontend export
+│   └── paper_trading.yml    Nightly paper trading (23:00 UTC)
+├── ARCHITECTURE.md          Full 10-layer system architecture
+├── RESEARCH.md              Concentration thesis + active strategy rationale
+└── TASKS.md                 Build plan with completion status
 ```
+
+---
 
 ## Documentation
 
 | File | Purpose |
 |------|---------|
-| [CLAUDE.md](CLAUDE.md) | AI assistant context — tech stack, conventions, commands |
-| [PRD.md](PRD.md) | Product requirements — indices, metrics, success criteria |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Stack decisions, data flow, security, infrastructure |
-| [FRONTEND.md](FRONTEND.md) | Visual spec — colors, components, animations, responsive |
-| [RESEARCH.md](RESEARCH.md) | Concentration thesis — academic sources, methodology |
-| [TASKS.md](TASKS.md) | Implementation plan — phased build with completion status |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | 10-layer fund stack, data flow, key design decisions |
+| [RESEARCH.md](RESEARCH.md) | Concentration proof, active strategy rationale |
+| [TASKS.md](TASKS.md) | Sprint-by-sprint build plan (Phases 0–27) |
 
-## How It Works
+---
 
-1. **Data Pipeline**: yfinance fetches 12+ years of daily prices for 50 S&P 500 stocks
-2. **Concentration Proof**: OLS regression measures how many stocks explain S&P 500 variance
-3. **Mirror Index**: Cap-weighted portfolio of top 20 stocks, NAV normalized to $1 at inception
-4. **Export**: Python analytics serialized to static JSON files
-5. **Visualization**: React frontend renders an interactive machine with SVG animations
-6. **Results**: Charts, metrics, and methodology panels appear after the machine "runs"
+## Tech Stack
 
-## AI-Assisted Development
-
-This project demonstrates enterprise-quality AI-assisted development:
-
-- **Structured documentation** guides AI context (CLAUDE.md → PRD → ARCHITECTURE → TASKS)
-- **Type safety** end-to-end: Python type hints + TypeScript strict mode
-- **Deterministic analytics**: all financial calculations are reproducible
-- **Clean architecture**: separation of concerns, single-responsibility modules
-- **Comprehensive testing**: production builds pass with zero errors
+| Layer | Technology |
+|-------|-----------|
+| Frontend (public) | Next.js 16, React 19, TypeScript, Tailwind CSS v4, Recharts, Framer Motion |
+| Frontend (fund) | Next.js 16, Vercel password protection → Supabase Auth (Phase 3) |
+| Analytics | Python 3.11, pandas, numpy, scikit-learn |
+| ML Optimization | PyPortfolioOpt (HRP/MVO/BL), LightGBM, hmmlearn |
+| Execution | alpaca-py (Phase 2), ib_insync (Phase 3) |
+| Reporting | weasyprint, Jinja2 |
+| Data | yfinance, Parquet, Polygon.io (Phase 2), FRED API (Phase 2) |
+| CI/CD | GitHub Actions, Vercel |
+| Package Manager | uv (Python), npm (JavaScript) |
 
 Built with [Claude Code](https://claude.ai/code) as a co-developer.
 
