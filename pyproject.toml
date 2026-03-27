@@ -46,7 +46,10 @@ select = ["E", "F", "I", "N", "W"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v"
+addopts = "-v -m 'not slow'"
+markers = [
+    "slow: tests requiring network or long runtime",
+]
 
 [tool.mypy]
 python_version = "3.11"

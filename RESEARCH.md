@@ -89,7 +89,7 @@ All annualized using 252 trading days. Risk-free rate = 0 (conservative).
 | Tracking Error | std(portfolio_return - benchmark_return) × sqrt(252) |
 | Information Ratio | mean(excess_return) / std(excess_return) × sqrt(252) |
 
-Implementation: `src/proof/concentration.py::compute_performance_metrics()`
+Implementation: `src/backtest/metrics.py::compute_performance_metrics()`
 
 ## Why This Becomes an Alpha Opportunity
 

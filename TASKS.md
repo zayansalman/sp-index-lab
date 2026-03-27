@@ -165,7 +165,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 
 ## Phase 16: Sprint 1 — Foundation 🔲 [CRITICAL]
 *Unblocks all downstream sprints. Must complete before any new infrastructure.*
-- [ ] **S1.1**: Extract `compute_performance_metrics()` → `src/backtest/metrics.py` shared utility
+- [x] **S1.1**: Extract `compute_performance_metrics()` → `src/backtest/metrics.py` shared utility
 - [ ] **S1.2**: Build walk-forward backtest engine (756D train / 21D test, using existing config.py constants)
 - [ ] **S1.3**: Build classical optimizers: HRP, MVO, Black-Litterman via PyPortfolioOpt
 - [ ] **S1.4**: Extend `src/config.py` with fund constants (RUN_MODE, POD_ALLOCATIONS, risk limits, new data paths)
