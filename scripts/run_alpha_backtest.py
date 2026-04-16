@@ -94,11 +94,11 @@ def main() -> int:
 
     # ------------------------------------------------------------------
     # Walk-forward backtests for classical optimizers.
-    # NOTE: MVO Min-Vol dropped — it fails to beat the SP-20 Equal
-    # baseline on CAGR (17.2% vs 19.2%), so the complexity isn't earning
-    # its keep relative to simple equal-weighting.
+    # NOTE: MVO Min-Vol and HRP dropped — both fail to clearly beat the
+    # SP-20 Equal baseline on CAGR, so the complexity isn't earning its
+    # keep relative to simple equal-weighting.
     # ------------------------------------------------------------------
-    optimizers = ["hrp", "mvo_sharpe"]
+    optimizers = ["mvo_sharpe"]
     alpha_navs: dict[str, pd.Series] = {}
 
     for opt_name in optimizers:
@@ -213,8 +213,8 @@ def main() -> int:
 
     holdings_records: list[dict] = []
 
-    # Classical variants (Min-Vol dropped — fails to beat Equal baseline)
-    for opt_name in ["hrp", "mvo_sharpe"]:
+    # Classical variants (HRP and Min-Vol dropped — both fail to beat Equal)
+    for opt_name in ["mvo_sharpe"]:
         fn = make_alpha_weights_fn(optimizer=opt_name)
         w = fn(final_train, final_bench)
         for ticker, weight in w.items():

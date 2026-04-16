@@ -31,7 +31,6 @@ type SeriesKey =
   | "sp20Mirror"
   | "sp20Equal"
   | "spnAlpha"
-  | "spnAlphaHrp"
   | "spnAlphaMvoSharpe"
   | "spnHedged";
 
@@ -48,7 +47,6 @@ const SERIES_CONFIG: SeriesConfig[] = [
   { key: "sp20Mirror",        label: CHART_LABELS.sp20Mirror,        color: "#EF4444",                      gradientId: "ddMirror",      defaultVisible: true },
   { key: "sp20Equal",         label: CHART_LABELS.sp20Equal,         color: CHART_COLORS.sp20Equal,         gradientId: "ddEqual",       defaultVisible: false },
   { key: "spnAlpha",          label: CHART_LABELS.spnAlpha,          color: CHART_COLORS.spnAlpha,          gradientId: "ddAlpha",       defaultVisible: true },
-  { key: "spnAlphaHrp",       label: CHART_LABELS.spnAlphaHrp,       color: CHART_COLORS.spnAlphaHrp,       gradientId: "ddAlphaHrp",    defaultVisible: false },
   { key: "spnAlphaMvoSharpe", label: CHART_LABELS.spnAlphaMvoSharpe, color: CHART_COLORS.spnAlphaMvoSharpe, gradientId: "ddAlphaSharpe", defaultVisible: false },
   { key: "spnHedged",         label: CHART_LABELS.spnHedged,         color: CHART_COLORS.spnHedged,         gradientId: "ddHedged",      defaultVisible: true },
 ];

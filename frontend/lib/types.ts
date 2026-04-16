@@ -90,8 +90,6 @@ export interface PerformanceNavPoint {
   sp20Equal: number;
   /** SP-N Alpha (canonical — ML ensemble) normalised NAV */
   spnAlpha?: number;
-  /** SP-N Alpha HRP variant */
-  spnAlphaHrp?: number;
   /** SP-N Alpha MVO max-Sharpe variant */
   spnAlphaMvoSharpe?: number;
   /** SP-N Hedged (dynamic beta + cash) normalised NAV */
@@ -99,6 +97,16 @@ export interface PerformanceNavPoint {
 }
 
 export type PerformanceNavData = PerformanceNavPoint[];
+
+/**
+ * NAV series at both granularities for interactive time-range switching.
+ * `weekly` covers the full backtest; `daily` is the trailing ~1 year at
+ * daily resolution.
+ */
+export interface PerformanceNavBundle {
+  weekly: PerformanceNavData;
+  daily: PerformanceNavData;
+}
 
 /* ──────────────────────────────────────────────────────────────
    Performance -- Metrics
@@ -143,7 +151,6 @@ export interface AllPerformanceMetrics {
   sp20Mirror: PerformanceMetrics;
   sp20Equal: PerformanceMetrics;
   spnAlpha?: PerformanceMetrics;
-  spnAlphaHrp?: PerformanceMetrics;
   spnAlphaMvoSharpe?: PerformanceMetrics;
   spnHedged?: PerformanceMetrics;
 }
@@ -193,8 +200,6 @@ export interface DrawdownPoint {
   sp20Equal?: number;
   /** SP-N Alpha (canonical) drawdown from peak */
   spnAlpha?: number;
-  /** SP-N Alpha HRP variant drawdown */
-  spnAlphaHrp?: number;
   /** SP-N Alpha MVO max-Sharpe variant drawdown */
   spnAlphaMvoSharpe?: number;
   /** SP-N Hedged drawdown from peak (optional) */
@@ -286,7 +291,10 @@ export interface LabData {
   meta: MetaData;
   concentrationCurve: ConcentrationCurveData;
   varianceDecomposition: VarianceDecompositionPoint[];
+  /** Backward-compat weekly series (default chart data) */
   performanceNav: PerformanceNavData;
+  /** Both granularities for time-range switching */
+  performanceNavBundle: PerformanceNavBundle;
   performanceMetrics: AllPerformanceMetrics;
   holdings: HoldingsData;
   drawdown: DrawdownData;

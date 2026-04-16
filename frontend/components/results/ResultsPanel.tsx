@@ -164,8 +164,7 @@ interface HoldingsSelectorProps {
 const STRATEGY_LABELS: Record<string, string> = {
   sp20Mirror: "SP-20 Mirror",
   sp20Equal: "SP-20 Equal",
-  spn_alpha_hrp: "SP-N Alpha (HRP)",
-  spn_alpha_mvo_sharpe: "SP-N Alpha (MVO Sharpe)",
+  spn_alpha_mvo_sharpe: "SP-N Alpha (Aggressive)",
   spn_alpha_ml_ensemble: "SP-N Alpha (ML Ensemble)",
   spn_hedged: "SP-N Hedged",
 };
@@ -181,7 +180,6 @@ const HoldingsSelector: React.FC<HoldingsSelectorProps> = ({ holdings }) => {
       // Show alpha variants in a predictable order
       const order = [
         "spn_alpha_ml_ensemble",
-        "spn_alpha_hrp",
         "spn_alpha_mvo_sharpe",
         "spn_hedged",
       ];
@@ -358,7 +356,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="rounded-xl border border-[#1A1A24] bg-bg-secondary p-6"
               >
-                <PerformanceChart data={data.performanceNav} />
+                <PerformanceChart bundle={data.performanceNavBundle} />
               </motion.div>
 
               {/* ── Performance Comparison Table ──────────────── */}
@@ -393,14 +391,9 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                           SP-N α (ML)
                         </th>
                       )}
-                      {data.performanceMetrics.spnAlphaHrp && (
-                        <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                          SP-N α (HRP)
-                        </th>
-                      )}
                       {data.performanceMetrics.spnAlphaMvoSharpe && (
                         <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                          SP-N α (Sharpe)
+                          SP-N α (Aggressive)
                         </th>
                       )}
                       {data.performanceMetrics.spnHedged && (
@@ -416,13 +409,11 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                       const mirrorVal = data.performanceMetrics.sp20Mirror[row.key];
                       const equalVal = data.performanceMetrics.sp20Equal[row.key];
                       const alphaVal = data.performanceMetrics.spnAlpha?.[row.key];
-                      const alphaHrpVal = data.performanceMetrics.spnAlphaHrp?.[row.key];
                       const alphaSharpeVal = data.performanceMetrics.spnAlphaMvoSharpe?.[row.key];
                       const hedgedVal = data.performanceMetrics.spnHedged?.[row.key];
 
                       const values: number[] = [sp500Val, mirrorVal, equalVal];
                       if (alphaVal !== undefined) values.push(alphaVal);
-                      if (alphaHrpVal !== undefined) values.push(alphaHrpVal);
                       if (alphaSharpeVal !== undefined) values.push(alphaSharpeVal);
                       if (hedgedVal !== undefined) values.push(hedgedVal);
 

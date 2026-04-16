@@ -1,12 +1,10 @@
 "use client";
 
 /* ================================================================
-   PerformanceChart -- Growth of $1 comparison
-   Recharts LineChart with interactive legend: click any series to
-   toggle its visibility.  Displays up to 7 portfolios side-by-side.
+   PerformanceChart -- Growth of $1 with time range + legend toggles
    ================================================================ */
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   LineChart,
   Line,
@@ -16,15 +14,73 @@ import {
   Tooltip as RechartsTooltip,
   ResponsiveContainer,
 } from "recharts";
-import type { PerformanceNavPoint } from "@/lib/types";
+import type { PerformanceNavPoint, PerformanceNavBundle } from "@/lib/types";
 import { CHART_COLORS, CHART_LABELS } from "@/lib/constants";
+import TimeRangeSelector, { type TimeRange } from "./TimeRangeSelector";
+
+/* ──────────────────────────────────────────────────────────────
+   Time-range logic
+   ────────────────────────────────────────────────────────────── */
+
+/** How many days of history each range represents (approx trading days). */
+const RANGE_DAYS: Record<TimeRange, number | null> = {
+  "1M": 21,
+  "3M": 63,
+  "6M": 126,
+  "1Y": 252,
+  "2Y": 504,
+  "5Y": 1260,
+  ALL: null,
+};
+
+/** Shorter ranges use daily resolution; longer ranges use weekly. */
+function useRangeData(
+  bundle: PerformanceNavBundle,
+  range: TimeRange,
+): PerformanceNavPoint[] {
+  return useMemo(() => {
+    const windowDays = RANGE_DAYS[range];
+    const useDaily = windowDays !== null && windowDays <= 252;
+    const source = useDaily ? bundle.daily : bundle.weekly;
+
+    if (source.length === 0) return [];
+    if (windowDays === null) return source;
+
+    // Each weekly point is ~5 trading days; each daily point ~1.
+    const pointsPerDay = useDaily ? 1 : 1 / 5;
+    const keepPoints = Math.ceil(windowDays * pointsPerDay);
+    return source.slice(Math.max(0, source.length - keepPoints));
+  }, [bundle, range]);
+}
+
+/** Re-normalise every series so it starts at $1 on the first row. */
+function normaliseToOne(points: PerformanceNavPoint[]): PerformanceNavPoint[] {
+  if (points.length === 0) return points;
+  const first = points[0];
+  const baselines: Record<string, number> = {};
+  Object.entries(first).forEach(([k, v]) => {
+    if (k !== "date" && typeof v === "number" && v > 0) baselines[k] = v;
+  });
+  return points.map((p) => {
+    const out: PerformanceNavPoint = { date: p.date, sp500: 0, sp20Mirror: 0, sp20Equal: 0 };
+    Object.entries(p).forEach(([k, v]) => {
+      if (k === "date") return;
+      const base = baselines[k];
+      if (typeof v === "number" && base) {
+        (out as unknown as Record<string, number>)[k] = v / base;
+      }
+    });
+    return out;
+  });
+}
 
 /* ──────────────────────────────────────────────────────────────
    Props + series config
    ────────────────────────────────────────────────────────────── */
 
 interface PerformanceChartProps {
-  data: PerformanceNavPoint[];
+  /** Bundle with both weekly and daily series for time-range switching. */
+  bundle: PerformanceNavBundle;
 }
 
 type SeriesKey =
@@ -32,7 +88,6 @@ type SeriesKey =
   | "sp20Mirror"
   | "sp20Equal"
   | "spnAlpha"
-  | "spnAlphaHrp"
   | "spnAlphaMvoSharpe"
   | "spnHedged";
 
@@ -51,8 +106,7 @@ const SERIES_CONFIG: SeriesConfig[] = [
   { key: "sp20Mirror",        label: CHART_LABELS.sp20Mirror,        color: CHART_COLORS.sp20Mirror,        strokeWidth: 1.5, defaultVisible: true },
   { key: "sp20Equal",         label: CHART_LABELS.sp20Equal,         color: CHART_COLORS.sp20Equal,         strokeWidth: 1.5, defaultVisible: true },
   { key: "spnAlpha",          label: CHART_LABELS.spnAlpha,          color: CHART_COLORS.spnAlpha,          strokeWidth: 2.5, defaultVisible: true },
-  { key: "spnAlphaHrp",       label: CHART_LABELS.spnAlphaHrp,       color: CHART_COLORS.spnAlphaHrp,       strokeWidth: 1.5, defaultVisible: false },
-  { key: "spnAlphaMvoSharpe", label: CHART_LABELS.spnAlphaMvoSharpe, color: CHART_COLORS.spnAlphaMvoSharpe, strokeWidth: 1.5, defaultVisible: false },
+  { key: "spnAlphaMvoSharpe", label: CHART_LABELS.spnAlphaMvoSharpe, color: CHART_COLORS.spnAlphaMvoSharpe, strokeWidth: 2.5, defaultVisible: true },
   { key: "spnHedged",         label: CHART_LABELS.spnHedged,         color: CHART_COLORS.spnHedged,         strokeWidth: 2.5, defaultVisible: true },
 ];
 
@@ -96,9 +150,13 @@ const CustomTooltip: React.FC<{
   );
 };
 
-function formatDateTick(dateStr: string): string {
+function formatDateTick(dateStr: string, showMonth: boolean): string {
   if (!dateStr) return "";
-  return dateStr.substring(0, 4);
+  if (!showMonth) return dateStr.substring(0, 4);
+  // YYYY-MM-DD → "Mmm 'YY" or "Mmm DD"
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr.substring(0, 7);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -147,7 +205,11 @@ const InteractiveLegend: React.FC<LegendProps> = ({ series, visibility, onToggle
    Component
    ────────────────────────────────────────────────────────────── */
 
-const PerformanceChart: React.FC<PerformanceChartProps> = ({ data }) => {
+const PerformanceChart: React.FC<PerformanceChartProps> = ({ bundle }) => {
+  const [range, setRange] = useState<TimeRange>("5Y");
+  const rangeData = useRangeData(bundle, range);
+  const data = useMemo(() => normaliseToOne(rangeData), [rangeData]);
+
   // Determine which series have actual data (non-null in at least 1 point)
   const availableSeries = SERIES_CONFIG.filter((s) =>
     data.some((d) => d[s.key] !== undefined && d[s.key] !== null),
@@ -173,13 +235,11 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ data }) => {
 
   return (
     <div className="w-full">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h3 className="text-sm font-semibold tracking-wide text-text-secondary">
           Growth of $1: All Portfolios
         </h3>
-        <span className="text-xs text-text-muted">
-          Click pills to toggle lines
-        </span>
+        <TimeRangeSelector value={range} onChange={setRange} />
       </div>
 
       <ResponsiveContainer width="100%" height={400}>
@@ -193,7 +253,9 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ data }) => {
             tick={{ fill: "#888899", fontSize: 11 }}
             axisLine={{ stroke: "#1A1A24" }}
             tickLine={{ stroke: "#1A1A24" }}
-            tickFormatter={formatDateTick}
+            tickFormatter={(v: string) =>
+              formatDateTick(v, range === "1M" || range === "3M" || range === "6M")
+            }
             interval="preserveStartEnd"
             minTickGap={60}
           />

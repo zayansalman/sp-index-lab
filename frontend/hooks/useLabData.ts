@@ -134,24 +134,31 @@ function transformVarianceDecomposition(raw: any): VarianceDecompositionPoint[] 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformPerformanceNav(raw: any): PerformanceNavData {
-  // JSON has { weekly: [...], recent_daily: [...] }
-  // Use weekly for the main growth chart (smaller payload, full history)
-  const source = raw.weekly || raw.recent_daily || [];
+function navPointFromRaw(p: any): PerformanceNavPoint {
+  return {
+    date: p.date ?? "",
+    sp500: p.sp500 ?? 0,
+    sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
+    sp20Equal: p.sp20_equal ?? p.sp20Equal ?? 0,
+    spnAlpha: p.spn_alpha ?? p.spnAlpha,
+    spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
+    spnHedged: p.spn_hedged ?? p.spnHedged,
+  };
+}
 
-  return source.map(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (p: any): PerformanceNavPoint => ({
-      date: p.date ?? "",
-      sp500: p.sp500 ?? 0,
-      sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
-      sp20Equal: p.sp20_equal ?? p.sp20Equal ?? 0,
-      spnAlpha: p.spn_alpha ?? p.spnAlpha,
-      spnAlphaHrp: p.spn_alpha_hrp ?? p.spnAlphaHrp,
-      spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
-      spnHedged: p.spn_hedged ?? p.spnHedged,
-    }),
-  );
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformPerformanceNav(raw: any): PerformanceNavData {
+  // Weekly series covers the full backtest with manageable payload size
+  const source = raw.weekly || raw.recent_daily || [];
+  return source.map(navPointFromRaw);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformPerformanceNavBundle(raw: any) {
+  return {
+    weekly: (raw.weekly || []).map(navPointFromRaw),
+    daily: (raw.recent_daily || []).map(navPointFromRaw),
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -184,9 +191,6 @@ function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
   };
   const alphaRaw = raw.spn_alpha ?? raw.spnAlpha;
   if (alphaRaw) result.spnAlpha = transformSingleMetrics(alphaRaw);
-
-  const hrpRaw = raw.spn_alpha_hrp ?? raw.spnAlphaHrp;
-  if (hrpRaw) result.spnAlphaHrp = transformSingleMetrics(hrpRaw);
 
   const mvoSharpeRaw = raw.spn_alpha_mvo_sharpe ?? raw.spnAlphaMvoSharpe;
   if (mvoSharpeRaw) result.spnAlphaMvoSharpe = transformSingleMetrics(mvoSharpeRaw);
@@ -258,7 +262,6 @@ function transformDrawdown(raw: any): DrawdownData {
       sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
       sp20Equal: p.sp20_equal ?? p.sp20Equal,
       spnAlpha: p.spn_alpha ?? p.spnAlpha,
-      spnAlphaHrp: p.spn_alpha_hrp ?? p.spnAlphaHrp,
       spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
       spnHedged: p.spn_hedged ?? p.spnHedged,
     }),
@@ -332,6 +335,7 @@ export function useLabData(): UseLabDataReturn {
         concentrationCurve: transformConcentrationCurve(rawConcentration),
         varianceDecomposition: transformVarianceDecomposition(rawVarianceDecomp),
         performanceNav: transformPerformanceNav(rawPerformanceNav),
+        performanceNavBundle: transformPerformanceNavBundle(rawPerformanceNav),
         performanceMetrics: transformPerformanceMetrics(rawPerformanceMetrics),
         holdings: transformHoldings(rawHoldings, rawStrategyHoldings),
         drawdown: transformDrawdown(rawDrawdown),

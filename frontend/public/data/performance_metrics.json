@@ -73,25 +73,6 @@
     "win_rate": 0.569493,
     "avg_daily_return": 0.000894
   },
-  "spn_alpha_hrp": {
-    "total_return": 4.528006,
-    "cagr": 0.20722,
-    "annualised_volatility": 0.16655,
-    "sharpe_ratio": 1.004021,
-    "sortino_ratio": 1.207592,
-    "max_drawdown": -0.269096,
-    "calmar_ratio": 0.770059,
-    "n_years": 9.079365,
-    "excess_return": 0.052941,
-    "tracking_error": 0.066571,
-    "information_ratio": 0.920639,
-    "beta": 0.838738,
-    "alpha": 0.061288,
-    "best_day": 0.097635,
-    "worst_day": -0.10337,
-    "win_rate": 0.573864,
-    "avg_daily_return": 0.000803
-  },
   "spn_alpha_mvo_sharpe": {
     "total_return": 9.259302,
     "cagr": 0.292303,
