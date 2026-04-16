@@ -243,6 +243,9 @@ export const CHART_COLORS = {
   sp20Equal: "#FFD700",
   sp20Alpha: "#6366F1",
   spnAlpha: "#A78BFA",
+  spnAlphaHrp: "#7C3AED",
+  spnAlphaMvoSharpe: "#EC4899",
+  spnAlphaMvoMinvol: "#06B6D4",
   spnHedged: "#F97316",
 } as const;
 
@@ -251,7 +254,10 @@ export const CHART_LABELS = {
   sp20Mirror: "SP-20 Mirror",
   sp20Equal: "SP-20 Equal",
   sp20Alpha: "SP-20 Alpha",
-  spnAlpha: "SP-N Alpha",
+  spnAlpha: "SP-N Alpha (ML)",
+  spnAlphaHrp: "SP-N Alpha (HRP)",
+  spnAlphaMvoSharpe: "SP-N Alpha (MVO Sharpe)",
+  spnAlphaMvoMinvol: "SP-N Alpha (MVO Min-Vol)",
   spnHedged: "SP-N Hedged",
 } as const;
 

@@ -55,6 +55,7 @@ const DATA_FILES = {
   holdings: "/data/holdings.json",
   drawdown: "/data/drawdowns.json",
   deviation: "/data/daily_deviations.json",
+  strategyHoldings: "/data/strategy_holdings.json",
 } as const;
 
 type DataKey = keyof typeof DATA_FILES;
@@ -146,6 +147,9 @@ function transformPerformanceNav(raw: any): PerformanceNavData {
       sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
       sp20Equal: p.sp20_equal ?? p.sp20Equal ?? 0,
       spnAlpha: p.spn_alpha ?? p.spnAlpha,
+      spnAlphaHrp: p.spn_alpha_hrp ?? p.spnAlphaHrp,
+      spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
+      spnAlphaMvoMinvol: p.spn_alpha_mvo_minvol ?? p.spnAlphaMvoMinvol,
       spnHedged: p.spn_hedged ?? p.spnHedged,
     }),
   );
@@ -180,18 +184,24 @@ function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
     sp20Equal: transformSingleMetrics(raw.sp20_equal || raw.sp20Equal || {}),
   };
   const alphaRaw = raw.spn_alpha ?? raw.spnAlpha;
-  if (alphaRaw) {
-    result.spnAlpha = transformSingleMetrics(alphaRaw);
-  }
+  if (alphaRaw) result.spnAlpha = transformSingleMetrics(alphaRaw);
+
+  const hrpRaw = raw.spn_alpha_hrp ?? raw.spnAlphaHrp;
+  if (hrpRaw) result.spnAlphaHrp = transformSingleMetrics(hrpRaw);
+
+  const mvoSharpeRaw = raw.spn_alpha_mvo_sharpe ?? raw.spnAlphaMvoSharpe;
+  if (mvoSharpeRaw) result.spnAlphaMvoSharpe = transformSingleMetrics(mvoSharpeRaw);
+
+  const mvoMinvolRaw = raw.spn_alpha_mvo_minvol ?? raw.spnAlphaMvoMinvol;
+  if (mvoMinvolRaw) result.spnAlphaMvoMinvol = transformSingleMetrics(mvoMinvolRaw);
+
   const hedgedRaw = raw.spn_hedged ?? raw.spnHedged;
-  if (hedgedRaw) {
-    result.spnHedged = transformSingleMetrics(hedgedRaw);
-  }
+  if (hedgedRaw) result.spnHedged = transformSingleMetrics(hedgedRaw);
   return result;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformHoldings(raw: any): HoldingsData {
+function transformHoldings(raw: any, strategyRaw: any = null): HoldingsData {
   // JSON: { as_of, n_holdings, holdings: [{ ticker, weight, last_price, name?, sector? }] }
   const rawHoldings = raw.holdings || [];
   const nHoldings = rawHoldings.length || 1;
@@ -214,9 +224,28 @@ function transformHoldings(raw: any): HoldingsData {
     weight: 1 / nHoldings,
   }));
 
+  // Strategy-specific holdings from strategy_holdings.json
+  const strategies: Record<string, Holding[]> = {};
+  if (strategyRaw && strategyRaw.strategies) {
+    for (const [key, arr] of Object.entries(strategyRaw.strategies)) {
+      if (!Array.isArray(arr)) continue;
+      strategies[key] = arr.map(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (h: any, i: number) => ({
+          ticker: h.ticker ?? "",
+          name: h.name ?? h.ticker ?? "",
+          weight: h.weight ?? 0,
+          sector: h.sector ?? "",
+          rank: h.rank ?? i + 1,
+        }),
+      );
+    }
+  }
+
   return {
     sp20Mirror: mirrorHoldings,
     sp20Equal: equalHoldings,
+    strategies,
   };
 }
 
@@ -233,6 +262,9 @@ function transformDrawdown(raw: any): DrawdownData {
       sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
       sp20Equal: p.sp20_equal ?? p.sp20Equal,
       spnAlpha: p.spn_alpha ?? p.spnAlpha,
+      spnAlphaHrp: p.spn_alpha_hrp ?? p.spnAlphaHrp,
+      spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
+      spnAlphaMvoMinvol: p.spn_alpha_mvo_minvol ?? p.spnAlphaMvoMinvol,
       spnHedged: p.spn_hedged ?? p.spnHedged,
     }),
   );
@@ -286,6 +318,7 @@ export function useLabData(): UseLabDataReturn {
         rawHoldings,
         rawDrawdown,
         rawDeviation,
+        rawStrategyHoldings,
       ] = await Promise.all([
         fetchJSON(DATA_FILES.meta),
         fetchJSON(DATA_FILES.concentrationCurve),
@@ -295,6 +328,7 @@ export function useLabData(): UseLabDataReturn {
         fetchJSON(DATA_FILES.holdings),
         fetchJSON(DATA_FILES.drawdown),
         fetchJSON(DATA_FILES.deviation),
+        fetchJSON(DATA_FILES.strategyHoldings).catch(() => null),
       ]);
 
       // Transform snake_case JSON → camelCase TypeScript types
@@ -304,7 +338,7 @@ export function useLabData(): UseLabDataReturn {
         varianceDecomposition: transformVarianceDecomposition(rawVarianceDecomp),
         performanceNav: transformPerformanceNav(rawPerformanceNav),
         performanceMetrics: transformPerformanceMetrics(rawPerformanceMetrics),
-        holdings: transformHoldings(rawHoldings),
+        holdings: transformHoldings(rawHoldings, rawStrategyHoldings),
         drawdown: transformDrawdown(rawDrawdown),
         deviation: transformDeviation(rawDeviation),
       });

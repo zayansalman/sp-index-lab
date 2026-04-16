@@ -88,8 +88,14 @@ export interface PerformanceNavPoint {
   sp20Mirror: number;
   /** SP-20 Equal-weighted normalised NAV */
   sp20Equal: number;
-  /** SP-N Alpha (ML ensemble) normalised NAV */
+  /** SP-N Alpha (canonical — ML ensemble) normalised NAV */
   spnAlpha?: number;
+  /** SP-N Alpha HRP variant */
+  spnAlphaHrp?: number;
+  /** SP-N Alpha MVO max-Sharpe variant */
+  spnAlphaMvoSharpe?: number;
+  /** SP-N Alpha MVO min-vol variant */
+  spnAlphaMvoMinvol?: number;
   /** SP-N Hedged (dynamic beta + cash) normalised NAV */
   spnHedged?: number;
 }
@@ -139,6 +145,9 @@ export interface AllPerformanceMetrics {
   sp20Mirror: PerformanceMetrics;
   sp20Equal: PerformanceMetrics;
   spnAlpha?: PerformanceMetrics;
+  spnAlphaHrp?: PerformanceMetrics;
+  spnAlphaMvoSharpe?: PerformanceMetrics;
+  spnAlphaMvoMinvol?: PerformanceMetrics;
   spnHedged?: PerformanceMetrics;
 }
 
@@ -167,6 +176,8 @@ export interface HoldingsData {
   sp20Mirror: Holding[];
   /** Equal-weighted holdings */
   sp20Equal: Holding[];
+  /** Strategy-specific holdings keyed by strategy identifier */
+  strategies?: Record<string, Holding[]>;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -183,8 +194,14 @@ export interface DrawdownPoint {
   sp20Mirror: number;
   /** SP-20 Equal drawdown from peak (optional) */
   sp20Equal?: number;
-  /** SP-N Alpha drawdown from peak (optional) */
+  /** SP-N Alpha (canonical) drawdown from peak */
   spnAlpha?: number;
+  /** SP-N Alpha HRP variant drawdown */
+  spnAlphaHrp?: number;
+  /** SP-N Alpha MVO max-Sharpe variant drawdown */
+  spnAlphaMvoSharpe?: number;
+  /** SP-N Alpha MVO min-vol variant drawdown */
+  spnAlphaMvoMinvol?: number;
   /** SP-N Hedged drawdown from peak (optional) */
   spnHedged?: number;
 }

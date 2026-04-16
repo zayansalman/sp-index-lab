@@ -1,0 +1,823 @@
+{
+  "as_of": "2026-03-06",
+  "strategies": {
+    "spn_alpha_hrp": [
+      {
+        "ticker": "PG",
+        "name": "Procter & Gamble Co.",
+        "weight": 0.137966,
+        "sector": "Consumer Staples",
+        "last_price": 153.630005,
+        "rank": 1
+      },
+      {
+        "ticker": "JNJ",
+        "name": "Johnson & Johnson",
+        "weight": 0.111679,
+        "sector": "Health Care",
+        "last_price": 240.399994,
+        "rank": 2
+      },
+      {
+        "ticker": "BRK-B",
+        "name": "Berkshire Hathaway Inc.",
+        "weight": 0.108375,
+        "sector": "Financials",
+        "last_price": 498.980011,
+        "rank": 3
+      },
+      {
+        "ticker": "COST",
+        "name": "Costco Wholesale Corp.",
+        "weight": 0.068802,
+        "sector": "Consumer Staples",
+        "last_price": 998.099976,
+        "rank": 4
+      },
+      {
+        "ticker": "HD",
+        "name": "The Home Depot Inc.",
+        "weight": 0.064908,
+        "sector": "Consumer Discretionary",
+        "last_price": 357.920013,
+        "rank": 5
+      },
+      {
+        "ticker": "XOM",
+        "name": "Exxon Mobil Corp.",
+        "weight": 0.063309,
+        "sector": "Energy",
+        "last_price": 151.210007,
+        "rank": 6
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart Inc.",
+        "weight": 0.063074,
+        "sector": "Consumer Staples",
+        "last_price": 123.800003,
+        "rank": 7
+      },
+      {
+        "ticker": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "weight": 0.050053,
+        "sector": "Financials",
+        "last_price": 289.480011,
+        "rank": 8
+      },
+      {
+        "ticker": "V",
+        "name": "Visa Inc.",
+        "weight": 0.04358,
+        "sector": "Financials",
+        "last_price": 317.359985,
+        "rank": 9
+      },
+      {
+        "ticker": "MA",
+        "name": "Mastercard Inc.",
+        "weight": 0.042495,
+        "sector": "Financials",
+        "last_price": 522.340027,
+        "rank": 10
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly and Co.",
+        "weight": 0.041972,
+        "sector": "Health Care",
+        "last_price": 990.330017,
+        "rank": 11
+      },
+      {
+        "ticker": "UNH",
+        "name": "UnitedHealth Group Inc.",
+        "weight": 0.039175,
+        "sector": "Health Care",
+        "last_price": 286.480011,
+        "rank": 12
+      },
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft Corp.",
+        "weight": 0.038335,
+        "sector": "Technology",
+        "last_price": 408.959991,
+        "rank": 13
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 0.037902,
+        "sector": "Technology",
+        "last_price": 257.459991,
+        "rank": 14
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet Inc.",
+        "weight": 0.031974,
+        "sector": "Communication Services",
+        "last_price": 298.519989,
+        "rank": 15
+      },
+      {
+        "ticker": "AMZN",
+        "name": "Amazon.com Inc.",
+        "weight": 0.013711,
+        "sector": "Consumer Discretionary",
+        "last_price": 213.210007,
+        "rank": 16
+      },
+      {
+        "ticker": "AVGO",
+        "name": "Broadcom Inc.",
+        "weight": 0.011812,
+        "sector": "Technology",
+        "last_price": 330.480011,
+        "rank": 17
+      },
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA Corp.",
+        "weight": 0.010575,
+        "sector": "Technology",
+        "last_price": 177.820007,
+        "rank": 18
+      },
+      {
+        "ticker": "META",
+        "name": "Meta Platforms Inc.",
+        "weight": 0.010305,
+        "sector": "Communication Services",
+        "last_price": 644.859985,
+        "rank": 19
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 0.009996,
+        "sector": "Consumer Discretionary",
+        "last_price": 396.730011,
+        "rank": 20
+      }
+    ],
+    "spn_alpha_ml_ensemble": [
+      {
+        "ticker": "PG",
+        "name": "Procter & Gamble Co.",
+        "weight": 0.140373,
+        "sector": "Consumer Staples",
+        "last_price": 153.630005,
+        "rank": 1
+      },
+      {
+        "ticker": "JNJ",
+        "name": "Johnson & Johnson",
+        "weight": 0.110273,
+        "sector": "Health Care",
+        "last_price": 240.399994,
+        "rank": 2
+      },
+      {
+        "ticker": "BRK-B",
+        "name": "Berkshire Hathaway Inc.",
+        "weight": 0.0887,
+        "sector": "Financials",
+        "last_price": 498.980011,
+        "rank": 3
+      },
+      {
+        "ticker": "XOM",
+        "name": "Exxon Mobil Corp.",
+        "weight": 0.073239,
+        "sector": "Energy",
+        "last_price": 151.210007,
+        "rank": 4
+      },
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft Corp.",
+        "weight": 0.060668,
+        "sector": "Technology",
+        "last_price": 408.959991,
+        "rank": 5
+      },
+      {
+        "ticker": "COST",
+        "name": "Costco Wholesale Corp.",
+        "weight": 0.057041,
+        "sector": "Consumer Staples",
+        "last_price": 998.099976,
+        "rank": 6
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet Inc.",
+        "weight": 0.055579,
+        "sector": "Communication Services",
+        "last_price": 298.519989,
+        "rank": 7
+      },
+      {
+        "ticker": "HD",
+        "name": "The Home Depot Inc.",
+        "weight": 0.053927,
+        "sector": "Consumer Discretionary",
+        "last_price": 357.920013,
+        "rank": 8
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart Inc.",
+        "weight": 0.052459,
+        "sector": "Consumer Staples",
+        "last_price": 123.800003,
+        "rank": 9
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly and Co.",
+        "weight": 0.046961,
+        "sector": "Health Care",
+        "last_price": 990.330017,
+        "rank": 10
+      },
+      {
+        "ticker": "V",
+        "name": "Visa Inc.",
+        "weight": 0.043292,
+        "sector": "Financials",
+        "last_price": 317.359985,
+        "rank": 11
+      },
+      {
+        "ticker": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "weight": 0.042042,
+        "sector": "Financials",
+        "last_price": 289.480011,
+        "rank": 12
+      },
+      {
+        "ticker": "UNH",
+        "name": "UnitedHealth Group Inc.",
+        "weight": 0.036082,
+        "sector": "Health Care",
+        "last_price": 286.480011,
+        "rank": 13
+      },
+      {
+        "ticker": "MA",
+        "name": "Mastercard Inc.",
+        "weight": 0.035996,
+        "sector": "Financials",
+        "last_price": 522.340027,
+        "rank": 14
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 0.032321,
+        "sector": "Technology",
+        "last_price": 257.459991,
+        "rank": 15
+      },
+      {
+        "ticker": "AVGO",
+        "name": "Broadcom Inc.",
+        "weight": 0.027374,
+        "sector": "Technology",
+        "last_price": 330.480011,
+        "rank": 16
+      },
+      {
+        "ticker": "AMZN",
+        "name": "Amazon.com Inc.",
+        "weight": 0.012968,
+        "sector": "Consumer Discretionary",
+        "last_price": 213.210007,
+        "rank": 17
+      },
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA Corp.",
+        "weight": 0.01046,
+        "sector": "Technology",
+        "last_price": 177.820007,
+        "rank": 18
+      },
+      {
+        "ticker": "META",
+        "name": "Meta Platforms Inc.",
+        "weight": 0.010244,
+        "sector": "Communication Services",
+        "last_price": 644.859985,
+        "rank": 19
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 0.01,
+        "sector": "Consumer Discretionary",
+        "last_price": 396.730011,
+        "rank": 20
+      }
+    ],
+    "spn_alpha_mvo_minvol": [
+      {
+        "ticker": "JNJ",
+        "name": "Johnson & Johnson",
+        "weight": 0.150002,
+        "sector": "Health Care",
+        "last_price": 240.399994,
+        "rank": 1
+      },
+      {
+        "ticker": "PG",
+        "name": "Procter & Gamble Co.",
+        "weight": 0.150002,
+        "sector": "Consumer Staples",
+        "last_price": 153.630005,
+        "rank": 2
+      },
+      {
+        "ticker": "XOM",
+        "name": "Exxon Mobil Corp.",
+        "weight": 0.130251,
+        "sector": "Energy",
+        "last_price": 151.210007,
+        "rank": 3
+      },
+      {
+        "ticker": "BRK-B",
+        "name": "Berkshire Hathaway Inc.",
+        "weight": 0.119531,
+        "sector": "Financials",
+        "last_price": 498.980011,
+        "rank": 4
+      },
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft Corp.",
+        "weight": 0.108681,
+        "sector": "Technology",
+        "last_price": 408.959991,
+        "rank": 5
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart Inc.",
+        "weight": 0.071791,
+        "sector": "Consumer Staples",
+        "last_price": 123.800003,
+        "rank": 6
+      },
+      {
+        "ticker": "COST",
+        "name": "Costco Wholesale Corp.",
+        "weight": 0.065221,
+        "sector": "Consumer Staples",
+        "last_price": 998.099976,
+        "rank": 7
+      },
+      {
+        "ticker": "UNH",
+        "name": "UnitedHealth Group Inc.",
+        "weight": 0.050541,
+        "sector": "Health Care",
+        "last_price": 286.480011,
+        "rank": 8
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet Inc.",
+        "weight": 0.0353,
+        "sector": "Communication Services",
+        "last_price": 298.519989,
+        "rank": 9
+      },
+      {
+        "ticker": "HD",
+        "name": "The Home Depot Inc.",
+        "weight": 0.01749,
+        "sector": "Consumer Discretionary",
+        "last_price": 357.920013,
+        "rank": 10
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly and Co.",
+        "weight": 0.01119,
+        "sector": "Health Care",
+        "last_price": 990.330017,
+        "rank": 11
+      },
+      {
+        "ticker": "MA",
+        "name": "Mastercard Inc.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 522.340027,
+        "rank": 12
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 257.459991,
+        "rank": 13
+      },
+      {
+        "ticker": "V",
+        "name": "Visa Inc.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 317.359985,
+        "rank": 14
+      },
+      {
+        "ticker": "AVGO",
+        "name": "Broadcom Inc.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 330.480011,
+        "rank": 15
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 0.01,
+        "sector": "Consumer Discretionary",
+        "last_price": 396.730011,
+        "rank": 16
+      },
+      {
+        "ticker": "META",
+        "name": "Meta Platforms Inc.",
+        "weight": 0.01,
+        "sector": "Communication Services",
+        "last_price": 644.859985,
+        "rank": 17
+      },
+      {
+        "ticker": "AMZN",
+        "name": "Amazon.com Inc.",
+        "weight": 0.01,
+        "sector": "Consumer Discretionary",
+        "last_price": 213.210007,
+        "rank": 18
+      },
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA Corp.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 177.820007,
+        "rank": 19
+      },
+      {
+        "ticker": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 289.480011,
+        "rank": 20
+      }
+    ],
+    "spn_alpha_mvo_sharpe": [
+      {
+        "ticker": "JNJ",
+        "name": "Johnson & Johnson",
+        "weight": 0.15,
+        "sector": "Health Care",
+        "last_price": 240.399994,
+        "rank": 1
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart Inc.",
+        "weight": 0.15,
+        "sector": "Consumer Staples",
+        "last_price": 123.800003,
+        "rank": 2
+      },
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA Corp.",
+        "weight": 0.14764,
+        "sector": "Technology",
+        "last_price": 177.820007,
+        "rank": 3
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet Inc.",
+        "weight": 0.12061,
+        "sector": "Communication Services",
+        "last_price": 298.519989,
+        "rank": 4
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly and Co.",
+        "weight": 0.11095,
+        "sector": "Health Care",
+        "last_price": 990.330017,
+        "rank": 5
+      },
+      {
+        "ticker": "XOM",
+        "name": "Exxon Mobil Corp.",
+        "weight": 0.07547,
+        "sector": "Energy",
+        "last_price": 151.210007,
+        "rank": 6
+      },
+      {
+        "ticker": "COST",
+        "name": "Costco Wholesale Corp.",
+        "weight": 0.06165,
+        "sector": "Consumer Staples",
+        "last_price": 998.099976,
+        "rank": 7
+      },
+      {
+        "ticker": "AVGO",
+        "name": "Broadcom Inc.",
+        "weight": 0.04342,
+        "sector": "Technology",
+        "last_price": 330.480011,
+        "rank": 8
+      },
+      {
+        "ticker": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "weight": 0.02031,
+        "sector": "Financials",
+        "last_price": 289.480011,
+        "rank": 9
+      },
+      {
+        "ticker": "META",
+        "name": "Meta Platforms Inc.",
+        "weight": 0.01995,
+        "sector": "Communication Services",
+        "last_price": 644.859985,
+        "rank": 10
+      },
+      {
+        "ticker": "BRK-B",
+        "name": "Berkshire Hathaway Inc.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 498.980011,
+        "rank": 11
+      },
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft Corp.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 408.959991,
+        "rank": 12
+      },
+      {
+        "ticker": "V",
+        "name": "Visa Inc.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 317.359985,
+        "rank": 13
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 0.01,
+        "sector": "Consumer Discretionary",
+        "last_price": 396.730011,
+        "rank": 14
+      },
+      {
+        "ticker": "UNH",
+        "name": "UnitedHealth Group Inc.",
+        "weight": 0.01,
+        "sector": "Health Care",
+        "last_price": 286.480011,
+        "rank": 15
+      },
+      {
+        "ticker": "MA",
+        "name": "Mastercard Inc.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 522.340027,
+        "rank": 16
+      },
+      {
+        "ticker": "AMZN",
+        "name": "Amazon.com Inc.",
+        "weight": 0.01,
+        "sector": "Consumer Discretionary",
+        "last_price": 213.210007,
+        "rank": 17
+      },
+      {
+        "ticker": "HD",
+        "name": "The Home Depot Inc.",
+        "weight": 0.01,
+        "sector": "Consumer Discretionary",
+        "last_price": 357.920013,
+        "rank": 18
+      },
+      {
+        "ticker": "PG",
+        "name": "Procter & Gamble Co.",
+        "weight": 0.01,
+        "sector": "Consumer Staples",
+        "last_price": 153.630005,
+        "rank": 19
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 257.459991,
+        "rank": 20
+      }
+    ],
+    "spn_hedged": [
+      {
+        "ticker": "CASH",
+        "name": "Cash (Risk-Free)",
+        "weight": 0.4,
+        "sector": "Cash",
+        "last_price": null,
+        "rank": 1
+      },
+      {
+        "ticker": "PG",
+        "name": "Procter & Gamble Co.",
+        "weight": 0.084224,
+        "sector": "Consumer Staples",
+        "last_price": 153.630005,
+        "rank": 2
+      },
+      {
+        "ticker": "JNJ",
+        "name": "Johnson & Johnson",
+        "weight": 0.066164,
+        "sector": "Health Care",
+        "last_price": 240.399994,
+        "rank": 3
+      },
+      {
+        "ticker": "BRK-B",
+        "name": "Berkshire Hathaway Inc.",
+        "weight": 0.05322,
+        "sector": "Financials",
+        "last_price": 498.980011,
+        "rank": 4
+      },
+      {
+        "ticker": "XOM",
+        "name": "Exxon Mobil Corp.",
+        "weight": 0.043943,
+        "sector": "Energy",
+        "last_price": 151.210007,
+        "rank": 5
+      },
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft Corp.",
+        "weight": 0.036401,
+        "sector": "Technology",
+        "last_price": 408.959991,
+        "rank": 6
+      },
+      {
+        "ticker": "COST",
+        "name": "Costco Wholesale Corp.",
+        "weight": 0.034225,
+        "sector": "Consumer Staples",
+        "last_price": 998.099976,
+        "rank": 7
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet Inc.",
+        "weight": 0.033348,
+        "sector": "Communication Services",
+        "last_price": 298.519989,
+        "rank": 8
+      },
+      {
+        "ticker": "HD",
+        "name": "The Home Depot Inc.",
+        "weight": 0.032356,
+        "sector": "Consumer Discretionary",
+        "last_price": 357.920013,
+        "rank": 9
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart Inc.",
+        "weight": 0.031476,
+        "sector": "Consumer Staples",
+        "last_price": 123.800003,
+        "rank": 10
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly and Co.",
+        "weight": 0.028177,
+        "sector": "Health Care",
+        "last_price": 990.330017,
+        "rank": 11
+      },
+      {
+        "ticker": "V",
+        "name": "Visa Inc.",
+        "weight": 0.025975,
+        "sector": "Financials",
+        "last_price": 317.359985,
+        "rank": 12
+      },
+      {
+        "ticker": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "weight": 0.025225,
+        "sector": "Financials",
+        "last_price": 289.480011,
+        "rank": 13
+      },
+      {
+        "ticker": "UNH",
+        "name": "UnitedHealth Group Inc.",
+        "weight": 0.021649,
+        "sector": "Health Care",
+        "last_price": 286.480011,
+        "rank": 14
+      },
+      {
+        "ticker": "MA",
+        "name": "Mastercard Inc.",
+        "weight": 0.021597,
+        "sector": "Financials",
+        "last_price": 522.340027,
+        "rank": 15
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 0.019393,
+        "sector": "Technology",
+        "last_price": 257.459991,
+        "rank": 16
+      },
+      {
+        "ticker": "AVGO",
+        "name": "Broadcom Inc.",
+        "weight": 0.016424,
+        "sector": "Technology",
+        "last_price": 330.480011,
+        "rank": 17
+      },
+      {
+        "ticker": "AMZN",
+        "name": "Amazon.com Inc.",
+        "weight": 0.007781,
+        "sector": "Consumer Discretionary",
+        "last_price": 213.210007,
+        "rank": 18
+      },
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA Corp.",
+        "weight": 0.006276,
+        "sector": "Technology",
+        "last_price": 177.820007,
+        "rank": 19
+      },
+      {
+        "ticker": "META",
+        "name": "Meta Platforms Inc.",
+        "weight": 0.006146,
+        "sector": "Communication Services",
+        "last_price": 644.859985,
+        "rank": 20
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 0.006,
+        "sector": "Consumer Discretionary",
+        "last_price": 396.730011,
+        "rank": 21
+      }
+    ]
+  }
+}

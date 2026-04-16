@@ -265,6 +265,7 @@ def export_performance_nav(
     equal_nav: pd.Series,
     alpha_nav: pd.Series | None = None,
     hedged_nav: pd.Series | None = None,
+    extra_navs: dict[str, pd.Series] | None = None,
 ) -> Path:
     """Generate performance_nav.json with weekly and recent daily NAV series."""
     logger.info("Building performance NAV data...")
@@ -277,6 +278,10 @@ def export_performance_nav(
     }
     if alpha_nav is not None:
         nav_dict["spn_alpha"] = alpha_nav
+    if extra_navs:
+        for key, series in extra_navs.items():
+            if series is not None:
+                nav_dict[key] = series
     if hedged_nav is not None:
         nav_dict["spn_hedged"] = hedged_nav
 
@@ -377,6 +382,7 @@ def export_performance_metrics(
     benchmark_nav: pd.Series,
     alpha_nav: pd.Series | None = None,
     hedged_nav: pd.Series | None = None,
+    extra_navs: dict[str, pd.Series] | None = None,
 ) -> Path:
     """Generate performance_metrics.json for all indices."""
     logger.info("Computing performance metrics...")
@@ -405,6 +411,15 @@ def export_performance_metrics(
         alpha_extra = _compute_extra_metrics(alpha_nav, benchmark_nav)
         alpha_metrics.update(alpha_extra)
         payload["spn_alpha"] = _clean_dict(alpha_metrics)
+
+    if extra_navs:
+        for key, series in extra_navs.items():
+            if series is None or series.empty:
+                continue
+            extra_metrics = compute_performance_metrics(series, benchmark_nav)
+            extra_extra = _compute_extra_metrics(series, benchmark_nav)
+            extra_metrics.update(extra_extra)
+            payload[key] = _clean_dict(extra_metrics)
 
     if hedged_nav is not None:
         hedged_metrics = compute_performance_metrics(hedged_nav, benchmark_nav)
@@ -478,6 +493,7 @@ def export_drawdowns(
     equal_nav: pd.Series,
     alpha_nav: pd.Series | None = None,
     hedged_nav: pd.Series | None = None,
+    extra_navs: dict[str, pd.Series] | None = None,
 ) -> Path:
     """Generate drawdowns.json with weekly-downsampled drawdown series."""
     logger.info("Computing drawdown series...")
@@ -490,6 +506,10 @@ def export_drawdowns(
     }
     if alpha_nav is not None:
         dd_dict["spn_alpha"] = alpha_nav / alpha_nav.cummax() - 1
+    if extra_navs:
+        for key, series in extra_navs.items():
+            if series is not None and not series.empty:
+                dd_dict[key] = series / series.cummax() - 1
     if hedged_nav is not None:
         dd_dict["spn_hedged"] = hedged_nav / hedged_nav.cummax() - 1
 
@@ -522,6 +542,77 @@ def export_drawdowns(
         payload[f"max_drawdown_date_{col}"] = str(dd[col].idxmin().date())
 
     return _write_json(payload, "drawdowns.json")
+
+
+# Company names and sectors for holdings display (shared across exporters)
+_COMPANY_NAMES: dict[str, str] = {
+    "AAPL": "Apple Inc.", "MSFT": "Microsoft Corp.", "NVDA": "NVIDIA Corp.",
+    "AMZN": "Amazon.com Inc.", "GOOGL": "Alphabet Inc.", "META": "Meta Platforms Inc.",
+    "BRK-B": "Berkshire Hathaway Inc.", "LLY": "Eli Lilly and Co.",
+    "AVGO": "Broadcom Inc.", "JPM": "JPMorgan Chase & Co.", "TSLA": "Tesla Inc.",
+    "UNH": "UnitedHealth Group Inc.", "V": "Visa Inc.", "XOM": "Exxon Mobil Corp.",
+    "MA": "Mastercard Inc.", "COST": "Costco Wholesale Corp.",
+    "PG": "Procter & Gamble Co.", "HD": "The Home Depot Inc.",
+    "JNJ": "Johnson & Johnson", "WMT": "Walmart Inc.", "CASH": "Cash (Risk-Free)",
+}
+_SECTORS: dict[str, str] = {
+    "AAPL": "Technology", "MSFT": "Technology", "NVDA": "Technology",
+    "AMZN": "Consumer Discretionary", "GOOGL": "Communication Services",
+    "META": "Communication Services", "BRK-B": "Financials",
+    "LLY": "Health Care", "AVGO": "Technology", "JPM": "Financials",
+    "TSLA": "Consumer Discretionary", "UNH": "Health Care",
+    "V": "Financials", "XOM": "Energy", "MA": "Financials",
+    "COST": "Consumer Staples", "PG": "Consumer Staples",
+    "HD": "Consumer Discretionary", "JNJ": "Health Care",
+    "WMT": "Consumer Staples", "CASH": "Cash",
+}
+
+
+def export_strategy_holdings(stock_prices: pd.DataFrame) -> Path:
+    """Generate strategy_holdings.json with per-strategy portfolio weights.
+
+    Each strategy (SP-N Alpha variants + SP-N Hedged) gets its own holdings
+    list based on the final walk-forward training window's weights.  Falls
+    back to market-cap weights if strategy_holdings.parquet is missing.
+    """
+    logger.info("Computing strategy holdings...")
+
+    payload: dict[str, Any] = {
+        "as_of": str(stock_prices.index.max().date()),
+        "strategies": {},
+    }
+
+    try:
+        raw = load_parquet("strategy_holdings")
+        if raw.empty:
+            raise ValueError("empty")
+
+        last_prices = stock_prices.iloc[-1]
+
+        # Group by strategy
+        for strategy, group in raw.groupby("strategy"):
+            sorted_group = group.sort_values("weight", ascending=False)
+            holdings = []
+            for rank, row in enumerate(sorted_group.itertuples(), start=1):
+                ticker = row.ticker
+                holdings.append({
+                    "ticker": ticker,
+                    "name": _COMPANY_NAMES.get(ticker, ticker),
+                    "weight": _clean_value(row.weight),
+                    "sector": _SECTORS.get(ticker, ""),
+                    "last_price": _clean_value(
+                        last_prices[ticker] if ticker in last_prices.index else None
+                    ),
+                    "rank": rank,
+                })
+            payload["strategies"][str(strategy)] = holdings
+
+        logger.info("Exported holdings for %d strategies", len(payload["strategies"]))
+
+    except Exception as e:
+        logger.warning("No strategy holdings found — falling back to empty. %s", e)
+
+    return _write_json(payload, "strategy_holdings.json")
 
 
 def export_daily_deviations(
@@ -659,6 +750,24 @@ def main() -> int:
     except Exception:
         logger.info("No SP-N Hedged NAV found — run scripts/run_alpha_backtest.py first")
 
+    # Load all SP-N Alpha variants (HRP, MVO Sharpe, MVO Min-Vol)
+    # ml_ensemble is exposed as the canonical "spn_alpha"
+    extra_navs: dict[str, pd.Series] = {}
+    for variant in ("hrp", "mvo_sharpe", "mvo_minvol"):
+        key = f"spn_alpha_{variant}"
+        try:
+            variant_df = load_parquet(f"alpha_nav_{variant}")
+            if not variant_df.empty:
+                variant_df["date"] = pd.to_datetime(variant_df["date"])
+                extra_navs[key] = pd.Series(
+                    variant_df["nav"].values,
+                    index=variant_df["date"],
+                    name=key,
+                )
+                logger.info("Loaded %s NAV (%d days)", key, len(extra_navs[key]))
+        except Exception:
+            logger.info("No %s NAV found", key)
+
     # ------------------------------------------------------------------
     # 3. Export each JSON file
     # ------------------------------------------------------------------
@@ -677,12 +786,14 @@ def main() -> int:
             sp20_mirror, sp20_equal,
             benchmark_nav, mirror_nav, equal_nav,
             alpha_nav=alpha_nav, hedged_nav=hedged_nav,
+            extra_navs=extra_navs,
         )
     )
     written_files.append(
         export_performance_metrics(
             mirror_nav, equal_nav, benchmark_nav,
             alpha_nav=alpha_nav, hedged_nav=hedged_nav,
+            extra_navs=extra_navs,
         )
     )
     written_files.append(export_holdings(stock_prices))
@@ -690,8 +801,10 @@ def main() -> int:
         export_drawdowns(
             benchmark_nav, mirror_nav, equal_nav,
             alpha_nav=alpha_nav, hedged_nav=hedged_nav,
+            extra_navs=extra_navs,
         )
     )
+    written_files.append(export_strategy_holdings(stock_prices))
     written_files.append(
         export_daily_deviations(sp20_mirror, benchmark_returns)
     )

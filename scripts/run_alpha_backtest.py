@@ -184,38 +184,80 @@ def main() -> int:
     logger.info("=" * 70)
 
     # ------------------------------------------------------------------
-    # Save best alpha NAV to parquet for export pipeline
+    # Save all alpha NAVs individually for the frontend
     # ------------------------------------------------------------------
-    # Pick the optimizer with the highest Sharpe ratio
-    best_opt = max(
-        alpha_navs,
-        key=lambda k: all_metrics[f"SP-N Alpha ({k})"].get("sharpe_ratio", 0),
-    )
-    best_nav = alpha_navs[best_opt]
-    logger.info("Best optimizer: %s (saving to parquet)", best_opt)
-
-    # Save as a DataFrame for the export pipeline
-    alpha_df = pd.DataFrame({
-        "date": best_nav.index,
-        "nav": best_nav.values,
-    })
-    save_parquet(alpha_df, "alpha_nav")
-
-    # Save all NAVs for comparison
-    all_navs_df = pd.DataFrame({"date": best_nav.index})
+    reference_idx = alpha_navs["ml_ensemble"].index
     for opt_name, nav in alpha_navs.items():
-        aligned = nav.reindex(best_nav.index)
-        all_navs_df[f"nav_{opt_name}"] = aligned.values
-    save_parquet(all_navs_df, "alpha_nav_all")
+        nav_df = pd.DataFrame({
+            "date": nav.index,
+            "nav": nav.values,
+        })
+        save_parquet(nav_df, f"alpha_nav_{opt_name}")
 
+    # Canonical "SP-N Alpha" is the ML ensemble (matches the docs)
+    ml_nav_df = pd.DataFrame({
+        "date": alpha_navs["ml_ensemble"].index,
+        "nav": alpha_navs["ml_ensemble"].values,
+    })
+    save_parquet(ml_nav_df, "alpha_nav")
+
+    # ------------------------------------------------------------------
+    # Save final weights (holdings) for each strategy variant
+    # ------------------------------------------------------------------
+    # Use the most recent training window to compute final weights for each strategy
+    final_train = stock_prices.iloc[-TRAIN_WINDOW_DAYS:]
+    final_bench = benchmark.iloc[-TRAIN_WINDOW_DAYS:]
+
+    holdings_records: list[dict] = []
+
+    # Classical variants
+    for opt_name in ["hrp", "mvo_sharpe", "mvo_minvol"]:
+        fn = make_alpha_weights_fn(optimizer=opt_name)
+        w = fn(final_train, final_bench)
+        for ticker, weight in w.items():
+            if weight > 0:
+                holdings_records.append({
+                    "strategy": f"spn_alpha_{opt_name}",
+                    "ticker": ticker,
+                    "weight": float(weight),
+                })
+
+    # ML ensemble variant
+    ml_fn = make_ml_alpha_weights_fn(market_indicators)
+    ml_w = ml_fn(final_train, final_bench)
+    for ticker, weight in ml_w.items():
+        if weight > 0:
+            holdings_records.append({
+                "strategy": "spn_alpha_ml_ensemble",
+                "ticker": ticker,
+                "weight": float(weight),
+            })
+
+    # Hedged variant (uses cash column)
+    hedged_fn = make_hedged_weights_fn(market_indicators, benchmark_prices=benchmark)
+    final_train_with_cash = add_cash_column(final_train)
+    hedged_w = hedged_fn(final_train_with_cash, final_bench)
+    for ticker, weight in hedged_w.items():
+        if weight > 0:
+            holdings_records.append({
+                "strategy": "spn_hedged",
+                "ticker": ticker,
+                "weight": float(weight),
+            })
+
+    holdings_df = pd.DataFrame(holdings_records)
+    save_parquet(holdings_df, "strategy_holdings")
+
+    # ------------------------------------------------------------------
     # Save hedged NAV
+    # ------------------------------------------------------------------
     hedged_df = pd.DataFrame({
         "date": hedged_nav.index,
         "nav": hedged_nav.values,
     })
     save_parquet(hedged_df, "hedged_nav")
 
-    logger.info("Done. Results saved to data/alpha_nav.parquet and data/hedged_nav.parquet")
+    logger.info("Done. Saved alpha variants, hedged NAV, and strategy holdings.")
     return 0
 
 

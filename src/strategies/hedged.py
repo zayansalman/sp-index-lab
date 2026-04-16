@@ -1,16 +1,17 @@
-"""SP-N Hedged strategy — market-neutral portfolio aiming for all-weather returns.
+"""SP-N Hedged strategy — beat the market with reduced drawdown.
 
-Uses three mechanisms to reduce market exposure:
-1. **Dynamic beta targeting**: Scale equity weights to achieve a target beta
-   that varies by regime (lower in bear markets).
-2. **Regime-driven cash allocation**: Reduce total equity exposure in
-   bear/transition regimes, parking the remainder in cash (risk-free).
-3. **Defensive tilt**: In bear regimes, overweight historically low-beta
-   stocks and underweight high-beta stocks.
+Philosophy: stay mostly invested in the ML alpha portfolio (proven CAGR ~23%)
+and only activate defense when signals confirm danger — not on every regime
+shift. The goal is to capture most of the upside while trimming the tails.
 
-The CASH pseudo-ticker (from ``src.utils.helpers.add_cash_column``) lets
-this strategy work with the walk-forward engine's weight normalisation
-(weights always sum to 1.0, but some weight goes to CASH).
+Defense triggers (only meaningful hedging when ≥1 fires):
+1. **Bear regime**: HMM detects bear (VIX > ~20, rising) → reduce equity.
+2. **VIX spike**: VIX > 25 → add cash buffer.
+3. **Portfolio drawdown**: if alpha has drawn down >8% in recent window → trim.
+
+Each trigger adds independently to the cash allocation (capped at 60% cash).
+In calm bull markets (VIX < 18, no drawdown, bull regime) → 0% cash, full
+exposure to the ML alpha portfolio.
 """
 
 from __future__ import annotations
@@ -21,9 +22,8 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 from src.config import TOP_20_TICKERS
-from src.features.beta import compute_portfolio_beta, compute_stock_betas
 from src.features.factors import predict_forward_returns
-from src.features.regime import detect_regime
+from src.features.regime import BEAR, TRANSITION, detect_regime
 from src.optimizer.ensemble import ensemble_weights
 
 if TYPE_CHECKING:
@@ -31,68 +31,78 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-# Target beta by regime: lower beta = more hedged
-HEDGED_TARGET_BETA: dict[int, float] = {
-    0: 0.5,    # Bull  — moderate exposure
-    1: 0.25,   # Transition — cautious
-    2: 0.05,   # Bear  — near-zero market exposure
-}
+# Thresholds
+VIX_ELEVATED = 20.0
+VIX_SPIKE = 25.0
+VIX_PANIC = 35.0
 
-# Max equity allocation by regime (rest goes to CASH)
-HEDGED_EQUITY_ALLOCATION: dict[int, float] = {
-    0: 0.90,   # Bull  — 90% invested
-    1: 0.60,   # Transition — 60% invested
-    2: 0.30,   # Bear  — 30% invested (very defensive)
-}
+# Maximum cash allocation (never go fully defensive — stay in the market)
+MAX_CASH_WEIGHT = 0.60
 
-# Known low-beta defensive stocks in the top-20 universe
-DEFENSIVE_TICKERS = {"XOM", "JNJ", "PG", "WMT", "COST", "HD", "V", "MA"}
+# Drawdown lookback for the trailing-stop trigger
+DD_LOOKBACK_DAYS = 60
+DD_THRESHOLD = 0.08  # 8% drawdown over lookback → trim
 
 
-def _apply_defensive_tilt(
+def _compute_alpha_recent_drawdown(
+    train_prices: pd.DataFrame,
     weights: pd.Series,
-    stock_betas: pd.Series,
-    regime: int,
-    tilt_strength: float = 0.3,
-) -> pd.Series:
-    """Tilt weights toward low-beta stocks in bear/transition regimes.
+    lookback: int = DD_LOOKBACK_DAYS,
+) -> float:
+    """Estimate the alpha portfolio's recent max drawdown.
 
-    In bull regime, no tilt is applied.  In bear, stocks with below-median
-    beta get their weight boosted; stocks with above-median beta get reduced.
-
-    Args:
-        weights: Starting weights indexed by ticker.
-        stock_betas: Latest rolling beta per ticker.
-        regime: Current regime (0=bull, 1=transition, 2=bear).
-        tilt_strength: How aggressively to tilt (0=none, 1=full).
-
-    Returns:
-        Tilted weights (still summing to 1.0 among equity tickers).
+    Returns a non-negative float (0.0 if no drawdown).
     """
-    if regime == 0:
-        return weights
+    if len(train_prices) < lookback + 1:
+        return 0.0
 
-    # Scale tilt by regime severity
-    scale = tilt_strength if regime == 2 else tilt_strength * 0.5
+    recent_prices = train_prices.iloc[-(lookback + 1):]
+    returns = recent_prices.pct_change().dropna()
 
-    active = weights[weights > 0].copy()
-    if len(active) < 2:
-        return weights
+    # Align weights
+    w = weights.reindex(recent_prices.columns, fill_value=0.0)
+    portfolio_returns = (returns * w).sum(axis=1)
 
-    # Get betas for active tickers
-    betas = stock_betas.reindex(active.index, fill_value=1.0)
-    median_beta = betas.median()
+    nav = (1 + portfolio_returns).cumprod()
+    if len(nav) == 0:
+        return 0.0
 
-    # Tilt: reduce high-beta, boost low-beta
-    adjustment = 1.0 - scale * (betas - median_beta) / max(betas.std(), 0.01)
-    adjustment = adjustment.clip(lower=0.3)  # Never reduce below 30% of original
+    dd = (nav / nav.cummax() - 1).min()
+    return abs(float(dd))
 
-    tilted = active * adjustment
-    tilted = tilted / tilted.sum()  # Renormalise
 
-    result = weights.copy()
-    result[tilted.index] = tilted
-    return result
+def _compute_cash_allocation(
+    regime: int,
+    current_vix: float,
+    recent_drawdown: float,
+) -> float:
+    """Compute total cash allocation based on defense triggers.
+
+    Each trigger contributes independently; total is capped at
+    :data:`MAX_CASH_WEIGHT`.
+    """
+    cash = 0.0
+
+    # Trigger 1: Bear regime → 25% cash. Transition → 10% cash.
+    if regime == BEAR:
+        cash += 0.25
+    elif regime == TRANSITION:
+        cash += 0.10
+
+    # Trigger 2: VIX-based defense
+    if current_vix >= VIX_PANIC:
+        cash += 0.30  # panic mode
+    elif current_vix >= VIX_SPIKE:
+        cash += 0.15
+    elif current_vix >= VIX_ELEVATED:
+        cash += 0.05
+
+    # Trigger 3: Alpha portfolio drawdown (trailing stop)
+    if recent_drawdown >= DD_THRESHOLD:
+        # Scale: 8% DD → 10% cash, 15% DD → 25% cash
+        cash += min(0.25, (recent_drawdown - DD_THRESHOLD) * 2.0 + 0.10)
+
+    return min(cash, MAX_CASH_WEIGHT)
 
 
 def make_hedged_weights_fn(
@@ -102,21 +112,15 @@ def make_hedged_weights_fn(
 ) -> WeightsFn:
     """Factory returning a hedged weights_fn for walk-forward backtesting.
 
-    The hedged strategy:
-    1. Computes ensemble alpha weights (same as SP-N Alpha)
-    2. Detects current regime
-    3. Applies defensive tilt in bear/transition
-    4. Scales equity exposure by regime
-    5. Allocates remaining weight to CASH
-
     Args:
-        market_indicators: Full market indicators DataFrame.
-        benchmark_prices: Benchmark price Series (for beta calculation).
+        market_indicators: Full market indicators DataFrame (``vix``,
+            ``risk_free``, ``treasury_10y``, ``date``).
+        benchmark_prices: Kept for API compatibility; unused in the new design.
         universe: Tickers to include.  Defaults to :data:`TOP_20_TICKERS`.
 
     Returns:
-        A callable ``(train_prices, train_bench) -> pd.Series`` of weights.
-        The returned weights include a ``CASH`` ticker.
+        A callable ``(train_prices, train_bench) -> pd.Series`` of weights
+        including a ``CASH`` allocation.
     """
     tickers = list(universe or TOP_20_TICKERS)
 
@@ -130,7 +134,7 @@ def make_hedged_weights_fn(
         train_prices: pd.DataFrame,
         train_bench: pd.Series | None,
     ) -> pd.Series:
-        # Filter to available tickers (excluding CASH for now)
+        # Filter to equity tickers (exclude CASH from optimization)
         equity_tickers = [t for t in tickers if t in train_prices.columns and t != "CASH"]
         if len(equity_tickers) < 2:
             raise ValueError(
@@ -145,61 +149,39 @@ def make_hedged_weights_fn(
             train_mi.reset_index().rename(columns={train_mi.index.name or "index": "date"}),
         )
         current_regime = int(regimes.iloc[-1]) if len(regimes) > 0 else 0
+        current_vix = float(train_mi["vix"].iloc[-1]) if len(train_mi) > 0 else 15.0
 
-        # --- 2. Get base alpha weights from ensemble ---
+        # --- 2. Full ML alpha weights (the performance engine) ---
         predicted = predict_forward_returns(equity_prices)
         alpha_w = ensemble_weights(equity_prices, current_regime, predicted)
 
-        # --- 3. Apply defensive tilt in bear/transition ---
-        if train_bench is not None and current_regime > 0:
-            betas_df = compute_stock_betas(equity_prices, train_bench, window=63)
-            latest_betas = betas_df.iloc[-1].fillna(1.0)
-            alpha_w = _apply_defensive_tilt(alpha_w, latest_betas, current_regime)
+        # --- 3. Compute alpha's recent drawdown (used as a defense trigger) ---
+        recent_dd = _compute_alpha_recent_drawdown(equity_prices, alpha_w)
 
-        # --- 4. Scale equity exposure by regime ---
-        max_equity = HEDGED_EQUITY_ALLOCATION.get(current_regime, 0.6)
+        # --- 4. Determine cash allocation from all triggers ---
+        cash_weight = _compute_cash_allocation(current_regime, current_vix, recent_dd)
+        equity_weight = 1.0 - cash_weight
 
-        # Also scale by target beta if benchmark available
-        if train_bench is not None:
-            current_beta = compute_portfolio_beta(
-                equity_prices, train_bench, alpha_w, window=63,
-            )
-            target_beta = HEDGED_TARGET_BETA.get(current_regime, 0.3)
+        # --- 5. Scale alpha weights by the equity fraction ---
+        scaled_equity = alpha_w * equity_weight
 
-            if current_beta > 0:
-                beta_scale = min(target_beta / current_beta, 1.0)
-            else:
-                beta_scale = 1.0
-
-            # Use the more conservative of beta-scaling and regime allocation
-            equity_fraction = min(max_equity, beta_scale)
-        else:
-            equity_fraction = max_equity
-
-        # --- 5. Construct final weights with CASH ---
-        equity_w = alpha_w * equity_fraction
-        cash_weight = 1.0 - equity_w.sum()
-
-        # Build full weight vector including CASH
-        full_weights = equity_w.copy()
+        # --- 6. Construct final weight vector including CASH ---
+        full_weights = scaled_equity.copy()
         if "CASH" in train_prices.columns:
-            full_weights["CASH"] = max(cash_weight, 0.0)
-        else:
-            # If no CASH column, just return scaled equity weights
-            # (the engine will renormalise to 1.0)
-            pass
+            full_weights["CASH"] = cash_weight
 
-        # Renormalise to exactly 1.0
+        # Ensure exact normalisation
         total = full_weights.sum()
         if total > 0:
             full_weights = full_weights / total
 
         logger.info(
-            "Hedged: regime=%d, equity=%.0f%%, cash=%.0f%%, beta_target=%.2f",
+            "Hedged: regime=%d, VIX=%.1f, alpha_dd=%.1f%%, equity=%.0f%%, cash=%.0f%%",
             current_regime,
-            equity_fraction * 100,
-            (1 - equity_fraction) * 100,
-            HEDGED_TARGET_BETA.get(current_regime, 0.3),
+            current_vix,
+            recent_dd * 100,
+            equity_weight * 100,
+            cash_weight * 100,
         )
 
         return full_weights
