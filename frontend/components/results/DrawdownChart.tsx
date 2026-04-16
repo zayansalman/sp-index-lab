@@ -117,6 +117,14 @@ const DrawdownChart: React.FC<DrawdownChartProps> = ({ data }) => {
               <stop offset="0%" stopColor="#EF4444" stopOpacity={0.05} />
               <stop offset="100%" stopColor="#EF4444" stopOpacity={0.2} />
             </linearGradient>
+            <linearGradient id="gradientAlphaDD" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={CHART_COLORS.spnAlpha} stopOpacity={0.05} />
+              <stop offset="100%" stopColor={CHART_COLORS.spnAlpha} stopOpacity={0.25} />
+            </linearGradient>
+            <linearGradient id="gradientHedgedDD" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={CHART_COLORS.spnHedged} stopOpacity={0.05} />
+              <stop offset="100%" stopColor={CHART_COLORS.spnHedged} stopOpacity={0.25} />
+            </linearGradient>
           </defs>
 
           <CartesianGrid
@@ -173,6 +181,28 @@ const DrawdownChart: React.FC<DrawdownChartProps> = ({ data }) => {
             strokeWidth={1}
             fill="url(#gradientMirrorDD)"
             dot={false}
+          />
+
+          <Area
+            type="monotone"
+            dataKey="spnAlpha"
+            name={CHART_LABELS.spnAlpha}
+            stroke={CHART_COLORS.spnAlpha}
+            strokeWidth={1.5}
+            fill="url(#gradientAlphaDD)"
+            dot={false}
+            connectNulls
+          />
+
+          <Area
+            type="monotone"
+            dataKey="spnHedged"
+            name={CHART_LABELS.spnHedged}
+            stroke={CHART_COLORS.spnHedged}
+            strokeWidth={1.5}
+            fill="url(#gradientHedgedDD)"
+            dot={false}
+            connectNulls
           />
         </AreaChart>
       </ResponsiveContainer>

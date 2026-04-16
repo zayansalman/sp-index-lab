@@ -145,6 +145,8 @@ function transformPerformanceNav(raw: any): PerformanceNavData {
       sp500: p.sp500 ?? 0,
       sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
       sp20Equal: p.sp20_equal ?? p.sp20Equal ?? 0,
+      spnAlpha: p.spn_alpha ?? p.spnAlpha,
+      spnHedged: p.spn_hedged ?? p.spnHedged,
     }),
   );
 }
@@ -172,11 +174,20 @@ function transformSingleMetrics(m: any): PerformanceMetrics {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
-  return {
+  const result: AllPerformanceMetrics = {
     sp500: transformSingleMetrics(raw.sp500 || {}),
     sp20Mirror: transformSingleMetrics(raw.sp20_mirror || raw.sp20Mirror || {}),
     sp20Equal: transformSingleMetrics(raw.sp20_equal || raw.sp20Equal || {}),
   };
+  const alphaRaw = raw.spn_alpha ?? raw.spnAlpha;
+  if (alphaRaw) {
+    result.spnAlpha = transformSingleMetrics(alphaRaw);
+  }
+  const hedgedRaw = raw.spn_hedged ?? raw.spnHedged;
+  if (hedgedRaw) {
+    result.spnHedged = transformSingleMetrics(hedgedRaw);
+  }
+  return result;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -221,6 +232,8 @@ function transformDrawdown(raw: any): DrawdownData {
       sp500: p.sp500 ?? 0,
       sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
       sp20Equal: p.sp20_equal ?? p.sp20Equal,
+      spnAlpha: p.spn_alpha ?? p.spnAlpha,
+      spnHedged: p.spn_hedged ?? p.spnHedged,
     }),
   );
 }

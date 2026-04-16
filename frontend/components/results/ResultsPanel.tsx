@@ -309,6 +309,16 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                       <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
                         SP-20 Equal
                       </th>
+                      {data.performanceMetrics.spnAlpha && (
+                        <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
+                          SP-N Alpha
+                        </th>
+                      )}
+                      {data.performanceMetrics.spnHedged && (
+                        <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
+                          SP-N Hedged
+                        </th>
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -316,7 +326,13 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                       const sp500Val = data.performanceMetrics.sp500[row.key];
                       const mirrorVal = data.performanceMetrics.sp20Mirror[row.key];
                       const equalVal = data.performanceMetrics.sp20Equal[row.key];
-                      const values = [sp500Val, mirrorVal, equalVal];
+                      const alphaVal = data.performanceMetrics.spnAlpha?.[row.key];
+                      const hedgedVal = data.performanceMetrics.spnHedged?.[row.key];
+
+                      const values: number[] = [sp500Val, mirrorVal, equalVal];
+                      if (alphaVal !== undefined) values.push(alphaVal);
+                      if (hedgedVal !== undefined) values.push(hedgedVal);
+
                       const bestIdx = getBestIndex(values, row.higherIsBetter);
 
                       return (

@@ -163,6 +163,28 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ data }) => {
             dot={false}
             activeDot={{ r: 3, fill: CHART_COLORS.sp20Equal }}
           />
+
+          <Line
+            type="monotone"
+            dataKey="spnAlpha"
+            name={CHART_LABELS.spnAlpha}
+            stroke={CHART_COLORS.spnAlpha}
+            strokeWidth={2}
+            dot={false}
+            activeDot={{ r: 3, fill: CHART_COLORS.spnAlpha }}
+            connectNulls
+          />
+
+          <Line
+            type="monotone"
+            dataKey="spnHedged"
+            name={CHART_LABELS.spnHedged}
+            stroke={CHART_COLORS.spnHedged}
+            strokeWidth={2}
+            dot={false}
+            activeDot={{ r: 3, fill: CHART_COLORS.spnHedged }}
+            connectNulls
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
