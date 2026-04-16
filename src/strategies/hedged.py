@@ -1,17 +1,21 @@
-"""SP-N Hedged strategy — beat the market with reduced drawdown.
+"""SP-N Hedged strategy — beat the market decisively with reduced drawdown.
 
-Philosophy: stay mostly invested in the ML alpha portfolio (proven CAGR ~23%)
-and only activate defense when signals confirm danger — not on every regime
-shift. The goal is to capture most of the upside while trimming the tails.
+Philosophy: use the highest-return base strategy (MVO max-Sharpe, 29.2%
+raw CAGR) and shed 20-30% of that upside in exchange for much better
+drawdown protection.  Hedging only activates when signals confirm real
+danger — routine volatility is not hedged.
 
-Defense triggers (only meaningful hedging when ≥1 fires):
-1. **Bear regime**: HMM detects bear (VIX > ~20, rising) → reduce equity.
-2. **VIX spike**: VIX > 25 → add cash buffer.
-3. **Portfolio drawdown**: if alpha has drawn down >8% in recent window → trim.
+Why MVO Sharpe as base (not the regime-aware ensemble):
+  Ensemble base → 23.4% raw → ~20% after hedge drag → too close to Equal
+  MVO Sharpe base → 29.2% raw → ~24-26% after hedge drag → clear victory
 
-Each trigger adds independently to the cash allocation (capped at 60% cash).
-In calm bull markets (VIX < 18, no drawdown, bull regime) → 0% cash, full
-exposure to the ML alpha portfolio.
+Defense triggers:
+1. **Bear regime**: HMM detects bear → 20% cash.
+2. **VIX spike**: VIX > 25 → 12% cash; VIX > 35 (panic) → 30% cash.
+3. **Portfolio drawdown**: if recent drawdown > 10% → 8-20% cash.
+
+Each trigger adds independently to the cash allocation (capped at 60%).
+In calm bull markets → 0% cash, full MVO-Sharpe exposure.
 """
 
 from __future__ import annotations
@@ -22,9 +26,8 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 from src.config import TOP_20_TICKERS
-from src.features.factors import predict_forward_returns
-from src.features.regime import BEAR, TRANSITION, detect_regime
-from src.optimizer.ensemble import ensemble_weights
+from src.features.regime import BEAR, detect_regime
+from src.optimizer.mvo import mvo_max_sharpe_weights
 
 if TYPE_CHECKING:
     from src.backtest.engine import WeightsFn
@@ -153,9 +156,8 @@ def make_hedged_weights_fn(
         current_regime = int(regimes.iloc[-1]) if len(regimes) > 0 else 0
         current_vix = float(train_mi["vix"].iloc[-1]) if len(train_mi) > 0 else 15.0
 
-        # --- 2. Full ML alpha weights (the performance engine) ---
-        predicted = predict_forward_returns(equity_prices)
-        alpha_w = ensemble_weights(equity_prices, current_regime, predicted)
+        # --- 2. MVO max-Sharpe weights (the highest-return base) ---
+        alpha_w = mvo_max_sharpe_weights(equity_prices)
 
         # --- 3. Compute alpha's recent drawdown (used as a defense trigger) ---
         recent_dd = _compute_alpha_recent_drawdown(equity_prices, alpha_w)

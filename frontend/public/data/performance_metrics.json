@@ -112,22 +112,22 @@
     "avg_daily_return": 0.00111
   },
   "spn_hedged": {
-    "total_return": 4.366738,
-    "cagr": 0.20329,
-    "annualised_volatility": 0.131617,
-    "sharpe_ratio": 1.240642,
-    "sortino_ratio": 1.61278,
-    "max_drawdown": -0.188381,
-    "calmar_ratio": 1.079141,
+    "total_return": 6.712344,
+    "cagr": 0.252318,
+    "annualised_volatility": 0.166079,
+    "sharpe_ratio": 1.278412,
+    "sortino_ratio": 1.695451,
+    "max_drawdown": -0.296738,
+    "calmar_ratio": 0.850307,
     "n_years": 9.079365,
-    "excess_return": 0.049011,
-    "tracking_error": 0.098757,
-    "information_ratio": 0.534699,
-    "beta": 0.61002,
-    "alpha": 0.052805,
-    "best_day": 0.047983,
-    "worst_day": -0.047119,
-    "win_rate": 0.571241,
-    "avg_daily_return": 0.000769
+    "excess_return": 0.098039,
+    "tracking_error": 0.111621,
+    "information_ratio": 0.877173,
+    "beta": 0.719795,
+    "alpha": 0.097911,
+    "best_day": 0.056837,
+    "worst_day": -0.055093,
+    "win_rate": 0.579108,
+    "avg_daily_return": 0.000948
   }
 }

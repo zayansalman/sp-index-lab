@@ -291,6 +291,13 @@ def export_performance_nav(
     # Forward-fill small gaps, then drop any remaining NaN rows
     all_navs = all_navs.ffill().dropna()
 
+    # CRITICAL: re-normalise every series to $1 at the first common date.
+    # Otherwise baselines (which start at inception 2014) appear visually
+    # "ahead" of walk-forward strategies (which start 3 years later after
+    # the training window), making comparison misleading.
+    if not all_navs.empty:
+        all_navs = all_navs.div(all_navs.iloc[0])
+
     # --- Weekly downsample: take every 5th trading day ---
     weekly_indices = list(range(0, len(all_navs), 5))
     # Always include the last data point
