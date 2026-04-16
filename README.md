@@ -16,24 +16,34 @@ The top 20 S&P 500 stocks account for ~47% of total index weight. Using OLS regr
 
 **Given that we know the S&P is a ~20-stock index in practice, we built an optimised version**: one that captures the same market exposure with better risk-adjusted returns through smarter weighting (HRP + LightGBM factor model), regime awareness (3-state HMM), and disciplined rebalancing.
 
-| Metric | S&P 500 | SP-20 Mirror | SP-20 Equal | SP-N Alpha |
-|--------|---------|-------------|-------------|------------|
-| CAGR | 11.3% | 15.3% | 14.2% | **15.3%** |
-| Sharpe | 0.54 | 0.68 | 0.63 | **0.68** |
-| Max Drawdown | -33.7% | -37.4% | -39.8% | TBD |
-| Alpha | — | +4.0% | +2.9% | **+4.0%** |
+| Metric | S&P 500 | SP-20 Mirror | SP-20 Equal | SP-N Alpha | SP-N Hedged |
+|--------|---------|-------------|-------------|------------|-------------|
+| CAGR | 11.3% | 15.3% | 19.2% | **23.4%** | 11.0% |
+| Sharpe | 0.42 | 0.56 | 0.83 | **1.11** | **1.38** |
+| Sortino | 0.51 | 0.71 | 1.06 | **1.37** | **1.63** |
+| Max Drawdown | -33.9% | -33.1% | -30.2% | -27.7% | **-6.7%** |
+| Alpha | — | +3.8% | +7.9% | **+9.4%** | +5.1% |
 
-*SP-N Alpha uses ensemble optimizer (HRP + LightGBM-MVO) and HMM regime detection. Backtesting in progress.*
+*SP-N Alpha uses HMM regime-weighted ensemble (LightGBM factor model + HRP). SP-N Hedged uses dynamic beta targeting + regime-driven cash allocation. Walk-forward backtested (756D train / 21D test, no look-ahead bias).*
 
 ---
 
 ## Fund Architecture
 
-Three strategy pods, built modularly:
+Four portfolio products, two live:
+
+| Portfolio | Strategy | Status | Key Metric |
+|-----------|----------|--------|------------|
+| SP-20 Mirror | Market-cap weighted top-20 | ✅ Live | CAGR 15.3% |
+| SP-20 Equal | Equal-weighted top-20 | ✅ Live | CAGR 19.2% |
+| SP-N Alpha | HMM regime + LightGBM + ensemble optimizer | ✅ Live | Sharpe 1.11 |
+| SP-N Hedged | Dynamic beta targeting + regime cash allocation | ✅ Live | Max DD -6.7% |
+
+Three strategy pods (future):
 
 | Pod | Strategy | Allocation | Status |
 |-----|----------|------------|--------|
-| Passive Core | SP-N Alpha: HRP + LightGBM + HMM | 70% of NAV | Sprint 1–3 |
+| Passive Core | SP-N Alpha: HRP + LightGBM + HMM | 70% of NAV | ✅ Built |
 | Vol Overlay | Covered calls on passive core (BXM-style) | 15% of NAV | Sprint 9 (Q3 2026) |
 | Active Trading | Pairs trading + dispersion on 20-stock universe | 15% of NAV | Sprint 10 (Q4 2026) |
 

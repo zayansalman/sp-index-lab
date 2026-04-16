@@ -37,6 +37,7 @@ INDEX_NAMES: list[str] = [
     "sp20_equal",
     "sp20_alpha",
     "spn_alpha",
+    "spn_hedged",
 ]
 
 # ──────────────────────────────────────────────
@@ -73,6 +74,49 @@ TRADING_DAYS_PER_YEAR = 252
 # ──────────────────────────────────────────────
 SPN_MIN_STOCKS = 10
 SPN_MAX_STOCKS = 30
+
+# ──────────────────────────────────────────────
+# Regime detection (HMM)
+# ──────────────────────────────────────────────
+HMM_N_STATES = 3
+
+# ──────────────────────────────────────────────
+# Factor model (LightGBM)
+# ──────────────────────────────────────────────
+LGBM_FORWARD_DAYS = 21
+LGBM_N_ESTIMATORS = 100
+LGBM_MAX_DEPTH = 5
+LGBM_LEARNING_RATE = 0.05
+
+# ──────────────────────────────────────────────
+# Ensemble optimizer — blend ratios by regime
+# {regime_id: (factor_mvo_weight, hrp_weight)}
+# ──────────────────────────────────────────────
+ENSEMBLE_REGIME_BLENDS: dict[int, tuple[float, float]] = {
+    0: (0.7, 0.3),   # Bull
+    1: (0.5, 0.5),   # Transition
+    2: (0.2, 0.8),   # Bear
+}
+
+# ──────────────────────────────────────────────
+# Hedged portfolio
+# ──────────────────────────────────────────────
+HEDGED_TARGET_BETA: dict[int, float] = {
+    0: 0.5,    # Bull
+    1: 0.25,   # Transition
+    2: 0.05,   # Bear
+}
+HEDGED_EQUITY_ALLOCATION: dict[int, float] = {
+    0: 0.90,   # Bull
+    1: 0.60,   # Transition
+    2: 0.30,   # Bear
+}
+
+# ──────────────────────────────────────────────
+# HuggingFace / Sentiment
+# ──────────────────────────────────────────────
+HF_MODEL_SENTIMENT = "ProsusAI/finbert"
+SENTIMENT_CACHE_FILE = DATA_DIR / "sentiment_cache.parquet"
 
 # ──────────────────────────────────────────────
 # Database / storage

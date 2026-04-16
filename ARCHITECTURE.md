@@ -38,6 +38,26 @@
 │   ├── build_mirror_index()      Cap-weighted NAV construction    │
 │   └── compute_performance_metrics()  15+ risk-adjusted metrics   │
 │                                                                  │
+│   src/features/ ── ML feature engineering                        │
+│   ├── technical.py   Momentum, vol, RSI, MA distance             │
+│   ├── regime.py      3-state HMM (bull/transition/bear)          │
+│   ├── factors.py     LightGBM forward return predictor           │
+│   ├── sentiment.py   FinBERT (HuggingFace) + backtest proxy     │
+│   └── beta.py        Rolling stock & portfolio beta              │
+│                                                                  │
+│   src/optimizer/ ── Portfolio optimization                        │
+│   ├── hrp.py         Hierarchical Risk Parity (PyPortfolioOpt)   │
+│   ├── mvo.py         Mean-Variance Optimization + fallback       │
+│   └── ensemble.py    Regime-weighted HRP + factor-MVO blend      │
+│                                                                  │
+│   src/strategies/ ── Portfolio strategies                         │
+│   ├── alpha.py       SP-N Alpha (classical + ML ensemble)        │
+│   └── hedged.py      SP-N Hedged (dynamic beta + cash alloc)     │
+│                                                                  │
+│   src/backtest/ ── Walk-forward backtesting                       │
+│   ├── engine.py      756D train / 21D test, WeightsFn interface  │
+│   └── metrics.py     CAGR, Sharpe, Sortino, alpha, beta, etc.   │
+│                                                                  │
 │   src/data/storage.py ── load_parquet() / save_parquet()        │
 │   src/data/fetcher.py ── yfinance with retry + validation       │
 │   src/config.py ── TOP_50_TICKERS, INCEPTION_DATE, thresholds   │
