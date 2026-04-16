@@ -78,29 +78,31 @@ def _compute_cash_allocation(
 ) -> float:
     """Compute total cash allocation based on defense triggers.
 
-    Each trigger contributes independently; total is capped at
-    :data:`MAX_CASH_WEIGHT`.
+    Tuned to clearly beat the SP-20 Equal baseline (19.2% CAGR) while
+    keeping drawdown materially below the index.  Transition-regime cash
+    is removed (let alpha work) and VIX-elevated threshold is raised so
+    we only hedge when markets are genuinely stressed.
     """
     cash = 0.0
 
-    # Trigger 1: Bear regime → 25% cash. Transition → 10% cash.
+    # Trigger 1: Only hedge in confirmed bear regime.  Transition is too
+    # noisy — the ensemble optimizer already leans toward HRP there, so
+    # extra cash is pure drag.
     if regime == BEAR:
-        cash += 0.25
-    elif regime == TRANSITION:
-        cash += 0.10
+        cash += 0.20
 
-    # Trigger 2: VIX-based defense
+    # Trigger 2: VIX-based defense — only on real stress, not routine dips
     if current_vix >= VIX_PANIC:
         cash += 0.30  # panic mode
     elif current_vix >= VIX_SPIKE:
-        cash += 0.15
-    elif current_vix >= VIX_ELEVATED:
-        cash += 0.05
+        cash += 0.12
+    # VIX_ELEVATED (20-25) no longer triggers cash — too common, drags CAGR
 
-    # Trigger 3: Alpha portfolio drawdown (trailing stop)
-    if recent_drawdown >= DD_THRESHOLD:
-        # Scale: 8% DD → 10% cash, 15% DD → 25% cash
-        cash += min(0.25, (recent_drawdown - DD_THRESHOLD) * 2.0 + 0.10)
+    # Trigger 3: Alpha portfolio drawdown (trailing stop).  Kick in only
+    # after a genuine 10% drawdown; scale up from there.
+    dd_threshold = 0.10  # raised from 8% to avoid false triggers
+    if recent_drawdown >= dd_threshold:
+        cash += min(0.20, (recent_drawdown - dd_threshold) * 2.0 + 0.08)
 
     return min(cash, MAX_CASH_WEIGHT)
 

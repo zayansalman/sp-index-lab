@@ -149,7 +149,6 @@ function transformPerformanceNav(raw: any): PerformanceNavData {
       spnAlpha: p.spn_alpha ?? p.spnAlpha,
       spnAlphaHrp: p.spn_alpha_hrp ?? p.spnAlphaHrp,
       spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
-      spnAlphaMvoMinvol: p.spn_alpha_mvo_minvol ?? p.spnAlphaMvoMinvol,
       spnHedged: p.spn_hedged ?? p.spnHedged,
     }),
   );
@@ -191,9 +190,6 @@ function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
 
   const mvoSharpeRaw = raw.spn_alpha_mvo_sharpe ?? raw.spnAlphaMvoSharpe;
   if (mvoSharpeRaw) result.spnAlphaMvoSharpe = transformSingleMetrics(mvoSharpeRaw);
-
-  const mvoMinvolRaw = raw.spn_alpha_mvo_minvol ?? raw.spnAlphaMvoMinvol;
-  if (mvoMinvolRaw) result.spnAlphaMvoMinvol = transformSingleMetrics(mvoMinvolRaw);
 
   const hedgedRaw = raw.spn_hedged ?? raw.spnHedged;
   if (hedgedRaw) result.spnHedged = transformSingleMetrics(hedgedRaw);
@@ -264,7 +260,6 @@ function transformDrawdown(raw: any): DrawdownData {
       spnAlpha: p.spn_alpha ?? p.spnAlpha,
       spnAlphaHrp: p.spn_alpha_hrp ?? p.spnAlphaHrp,
       spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
-      spnAlphaMvoMinvol: p.spn_alpha_mvo_minvol ?? p.spnAlphaMvoMinvol,
       spnHedged: p.spn_hedged ?? p.spnHedged,
     }),
   );

@@ -8,7 +8,6 @@
       "spn_alpha": 1.0,
       "spn_alpha_hrp": 1.0,
       "spn_alpha_mvo_sharpe": 1.0,
-      "spn_alpha_mvo_minvol": 1.0,
       "spn_hedged": 1.0
     },
     {
@@ -19,7 +18,6 @@
       "spn_alpha": 1.018366,
       "spn_alpha_hrp": 1.005059,
       "spn_alpha_mvo_sharpe": 1.018632,
-      "spn_alpha_mvo_minvol": 0.999048,
       "spn_hedged": 1.018366
     },
     {
@@ -30,7 +28,6 @@
       "spn_alpha": 1.020251,
       "spn_alpha_hrp": 1.007663,
       "spn_alpha_mvo_sharpe": 1.018899,
-      "spn_alpha_mvo_minvol": 1.003676,
       "spn_hedged": 1.020251
     },
     {
@@ -41,7 +38,6 @@
       "spn_alpha": 1.03657,
       "spn_alpha_hrp": 1.020467,
       "spn_alpha_mvo_sharpe": 1.046679,
-      "spn_alpha_mvo_minvol": 1.007004,
       "spn_hedged": 1.03657
     },
     {
@@ -52,7 +48,6 @@
       "spn_alpha": 1.04384,
       "spn_alpha_hrp": 1.020355,
       "spn_alpha_mvo_sharpe": 1.057901,
-      "spn_alpha_mvo_minvol": 1.003514,
       "spn_hedged": 1.04384
     },
     {
@@ -63,8 +58,7 @@
       "spn_alpha": 1.059013,
       "spn_alpha_hrp": 1.033131,
       "spn_alpha_mvo_sharpe": 1.072737,
-      "spn_alpha_mvo_minvol": 1.016282,
-      "spn_hedged": 1.05757
+      "spn_hedged": 1.059013
     },
     {
       "date": "2017-02-15",
@@ -74,8 +68,7 @@
       "spn_alpha": 1.077896,
       "spn_alpha_hrp": 1.059955,
       "spn_alpha_mvo_sharpe": 1.081503,
-      "spn_alpha_mvo_minvol": 1.043895,
-      "spn_hedged": 1.074617
+      "spn_hedged": 1.077896
     },
     {
       "date": "2017-02-23",
@@ -85,8 +78,7 @@
       "spn_alpha": 1.080435,
       "spn_alpha_hrp": 1.067293,
       "spn_alpha_mvo_sharpe": 1.077703,
-      "spn_alpha_mvo_minvol": 1.057464,
-      "spn_hedged": 1.076989
+      "spn_hedged": 1.080435
     },
     {
       "date": "2017-03-02",
@@ -96,8 +88,7 @@
       "spn_alpha": 1.086402,
       "spn_alpha_hrp": 1.076439,
       "spn_alpha_mvo_sharpe": 1.09176,
-      "spn_alpha_mvo_minvol": 1.068786,
-      "spn_hedged": 1.082437
+      "spn_hedged": 1.086402
     },
     {
       "date": "2017-03-09",
@@ -107,8 +98,7 @@
       "spn_alpha": 1.082691,
       "spn_alpha_hrp": 1.071818,
       "spn_alpha_mvo_sharpe": 1.085383,
-      "spn_alpha_mvo_minvol": 1.057952,
-      "spn_hedged": 1.079062
+      "spn_hedged": 1.082691
     },
     {
       "date": "2017-03-16",
@@ -118,8 +108,7 @@
       "spn_alpha": 1.09855,
       "spn_alpha_hrp": 1.085086,
       "spn_alpha_mvo_sharpe": 1.104591,
-      "spn_alpha_mvo_minvol": 1.069277,
-      "spn_hedged": 1.094868
+      "spn_hedged": 1.09855
     },
     {
       "date": "2017-03-23",
@@ -129,8 +118,7 @@
       "spn_alpha": 1.087517,
       "spn_alpha_hrp": 1.072343,
       "spn_alpha_mvo_sharpe": 1.095608,
-      "spn_alpha_mvo_minvol": 1.057611,
-      "spn_hedged": 1.083871
+      "spn_hedged": 1.087517
     },
     {
       "date": "2017-03-30",
@@ -140,8 +128,7 @@
       "spn_alpha": 1.102667,
       "spn_alpha_hrp": 1.080874,
       "spn_alpha_mvo_sharpe": 1.106474,
-      "spn_alpha_mvo_minvol": 1.063021,
-      "spn_hedged": 1.098971
+      "spn_hedged": 1.102667
     },
     {
       "date": "2017-04-06",
@@ -151,8 +138,7 @@
       "spn_alpha": 1.091681,
       "spn_alpha_hrp": 1.080067,
       "spn_alpha_mvo_sharpe": 1.095272,
-      "spn_alpha_mvo_minvol": 1.06271,
-      "spn_hedged": 1.088022
+      "spn_hedged": 1.091681
     },
     {
       "date": "2017-04-13",
@@ -162,8 +148,7 @@
       "spn_alpha": 1.078622,
       "spn_alpha_hrp": 1.074523,
       "spn_alpha_mvo_sharpe": 1.076033,
-      "spn_alpha_mvo_minvol": 1.060917,
-      "spn_hedged": 1.075006
+      "spn_hedged": 1.078622
     },
     {
       "date": "2017-04-21",
@@ -173,8 +158,7 @@
       "spn_alpha": 1.098276,
       "spn_alpha_hrp": 1.081167,
       "spn_alpha_mvo_sharpe": 1.107554,
-      "spn_alpha_mvo_minvol": 1.064042,
-      "spn_hedged": 1.094595
+      "spn_hedged": 1.098276
     },
     {
       "date": "2017-04-28",
@@ -184,8 +168,7 @@
       "spn_alpha": 1.118613,
       "spn_alpha_hrp": 1.100291,
       "spn_alpha_mvo_sharpe": 1.137944,
-      "spn_alpha_mvo_minvol": 1.079068,
-      "spn_hedged": 1.114864
+      "spn_hedged": 1.118613
     },
     {
       "date": "2017-05-05",
@@ -195,8 +178,7 @@
       "spn_alpha": 1.132085,
       "spn_alpha_hrp": 1.105614,
       "spn_alpha_mvo_sharpe": 1.144488,
-      "spn_alpha_mvo_minvol": 1.085198,
-      "spn_hedged": 1.127883
+      "spn_hedged": 1.132085
     },
     {
       "date": "2017-05-12",
@@ -206,8 +188,7 @@
       "spn_alpha": 1.141692,
       "spn_alpha_hrp": 1.112181,
       "spn_alpha_mvo_sharpe": 1.194522,
-      "spn_alpha_mvo_minvol": 1.08542,
-      "spn_hedged": 1.136585
+      "spn_hedged": 1.141692
     },
     {
       "date": "2017-05-19",
@@ -217,8 +198,7 @@
       "spn_alpha": 1.142015,
       "spn_alpha_hrp": 1.112647,
       "spn_alpha_mvo_sharpe": 1.203591,
-      "spn_alpha_mvo_minvol": 1.094559,
-      "spn_hedged": 1.13698
+      "spn_hedged": 1.142015
     },
     {
       "date": "2017-05-26",
@@ -228,8 +208,7 @@
       "spn_alpha": 1.156974,
       "spn_alpha_hrp": 1.129506,
       "spn_alpha_mvo_sharpe": 1.234341,
-      "spn_alpha_mvo_minvol": 1.107458,
-      "spn_hedged": 1.150468
+      "spn_hedged": 1.156974
     },
     {
       "date": "2017-06-05",
@@ -239,8 +218,7 @@
       "spn_alpha": 1.174802,
       "spn_alpha_hrp": 1.146358,
       "spn_alpha_mvo_sharpe": 1.263266,
-      "spn_alpha_mvo_minvol": 1.126288,
-      "spn_hedged": 1.166505
+      "spn_hedged": 1.174802
     },
     {
       "date": "2017-06-12",
@@ -250,8 +228,7 @@
       "spn_alpha": 1.178633,
       "spn_alpha_hrp": 1.137921,
       "spn_alpha_mvo_sharpe": 1.244527,
-      "spn_alpha_mvo_minvol": 1.126004,
-      "spn_hedged": 1.170023
+      "spn_hedged": 1.178633
     },
     {
       "date": "2017-06-19",
@@ -261,8 +238,7 @@
       "spn_alpha": 1.194527,
       "spn_alpha_hrp": 1.146934,
       "spn_alpha_mvo_sharpe": 1.260234,
-      "spn_alpha_mvo_minvol": 1.116631,
-      "spn_hedged": 1.184314
+      "spn_hedged": 1.194527
     },
     {
       "date": "2017-06-26",
@@ -272,8 +248,7 @@
       "spn_alpha": 1.186329,
       "spn_alpha_hrp": 1.140784,
       "spn_alpha_mvo_sharpe": 1.245215,
-      "spn_alpha_mvo_minvol": 1.109489,
-      "spn_hedged": 1.17709
+      "spn_hedged": 1.186329
     },
     {
       "date": "2017-07-03",
@@ -283,8 +258,7 @@
       "spn_alpha": 1.174493,
       "spn_alpha_hrp": 1.125817,
       "spn_alpha_mvo_sharpe": 1.212895,
-      "spn_alpha_mvo_minvol": 1.100247,
-      "spn_hedged": 1.166621
+      "spn_hedged": 1.174493
     },
     {
       "date": "2017-07-11",
@@ -294,8 +268,7 @@
       "spn_alpha": 1.168625,
       "spn_alpha_hrp": 1.122035,
       "spn_alpha_mvo_sharpe": 1.241284,
-      "spn_alpha_mvo_minvol": 1.083528,
-      "spn_hedged": 1.160793
+      "spn_hedged": 1.168625
     },
     {
       "date": "2017-07-18",
@@ -305,8 +278,7 @@
       "spn_alpha": 1.192094,
       "spn_alpha_hrp": 1.14389,
       "spn_alpha_mvo_sharpe": 1.275175,
-      "spn_alpha_mvo_minvol": 1.102829,
-      "spn_hedged": 1.184104
+      "spn_hedged": 1.192094
     },
     {
       "date": "2017-07-25",
@@ -316,8 +288,7 @@
       "spn_alpha": 1.198912,
       "spn_alpha_hrp": 1.150849,
       "spn_alpha_mvo_sharpe": 1.280691,
-      "spn_alpha_mvo_minvol": 1.109247,
-      "spn_hedged": 1.190876
+      "spn_hedged": 1.198912
     },
     {
       "date": "2017-08-01",
@@ -327,8 +298,7 @@
       "spn_alpha": 1.209873,
       "spn_alpha_hrp": 1.159082,
       "spn_alpha_mvo_sharpe": 1.280849,
-      "spn_alpha_mvo_minvol": 1.125925,
-      "spn_hedged": 1.201764
+      "spn_hedged": 1.209873
     },
     {
       "date": "2017-08-08",
@@ -338,8 +308,7 @@
       "spn_alpha": 1.224761,
       "spn_alpha_hrp": 1.171083,
       "spn_alpha_mvo_sharpe": 1.297638,
-      "spn_alpha_mvo_minvol": 1.131187,
-      "spn_hedged": 1.216553
+      "spn_hedged": 1.224761
     },
     {
       "date": "2017-08-15",
@@ -349,8 +318,7 @@
       "spn_alpha": 1.224324,
       "spn_alpha_hrp": 1.171371,
       "spn_alpha_mvo_sharpe": 1.290653,
-      "spn_alpha_mvo_minvol": 1.130649,
-      "spn_hedged": 1.216119
+      "spn_hedged": 1.224324
     },
     {
       "date": "2017-08-22",
@@ -360,8 +328,7 @@
       "spn_alpha": 1.222404,
       "spn_alpha_hrp": 1.167938,
       "spn_alpha_mvo_sharpe": 1.28364,
-      "spn_alpha_mvo_minvol": 1.130763,
-      "spn_hedged": 1.214212
+      "spn_hedged": 1.222404
     },
     {
       "date": "2017-08-29",
@@ -371,8 +338,7 @@
       "spn_alpha": 1.213962,
       "spn_alpha_hrp": 1.16161,
       "spn_alpha_mvo_sharpe": 1.273427,
-      "spn_alpha_mvo_minvol": 1.119718,
-      "spn_hedged": 1.205826
+      "spn_hedged": 1.213962
     },
     {
       "date": "2017-09-06",
@@ -382,8 +348,7 @@
       "spn_alpha": 1.229825,
       "spn_alpha_hrp": 1.172645,
       "spn_alpha_mvo_sharpe": 1.29781,
-      "spn_alpha_mvo_minvol": 1.133,
-      "spn_hedged": 1.221434
+      "spn_hedged": 1.229825
     },
     {
       "date": "2017-09-13",
@@ -393,8 +358,7 @@
       "spn_alpha": 1.248006,
       "spn_alpha_hrp": 1.191155,
       "spn_alpha_mvo_sharpe": 1.320539,
-      "spn_alpha_mvo_minvol": 1.148052,
-      "spn_hedged": 1.23778
+      "spn_hedged": 1.248006
     },
     {
       "date": "2017-09-20",
@@ -404,8 +368,7 @@
       "spn_alpha": 1.261109,
       "spn_alpha_hrp": 1.197886,
       "spn_alpha_mvo_sharpe": 1.327878,
-      "spn_alpha_mvo_minvol": 1.155321,
-      "spn_hedged": 1.24957
+      "spn_hedged": 1.261109
     },
     {
       "date": "2017-09-27",
@@ -415,8 +378,7 @@
       "spn_alpha": 1.24608,
       "spn_alpha_hrp": 1.185756,
       "spn_alpha_mvo_sharpe": 1.30735,
-      "spn_alpha_mvo_minvol": 1.143597,
-      "spn_hedged": 1.236264
+      "spn_hedged": 1.24608
     },
     {
       "date": "2017-10-04",
@@ -426,8 +388,7 @@
       "spn_alpha": 1.264581,
       "spn_alpha_hrp": 1.20458,
       "spn_alpha_mvo_sharpe": 1.332506,
-      "spn_alpha_mvo_minvol": 1.159251,
-      "spn_hedged": 1.253612
+      "spn_hedged": 1.264581
     },
     {
       "date": "2017-10-11",
@@ -437,8 +398,7 @@
       "spn_alpha": 1.283492,
       "spn_alpha_hrp": 1.219341,
       "spn_alpha_mvo_sharpe": 1.352023,
-      "spn_alpha_mvo_minvol": 1.172301,
-      "spn_hedged": 1.27236
+      "spn_hedged": 1.283492
     },
     {
       "date": "2017-10-18",
@@ -448,8 +408,7 @@
       "spn_alpha": 1.297533,
       "spn_alpha_hrp": 1.230928,
       "spn_alpha_mvo_sharpe": 1.367567,
-      "spn_alpha_mvo_minvol": 1.184188,
-      "spn_hedged": 1.286279
+      "spn_hedged": 1.297533
     },
     {
       "date": "2017-10-25",
@@ -459,8 +418,7 @@
       "spn_alpha": 1.290036,
       "spn_alpha_hrp": 1.226854,
       "spn_alpha_mvo_sharpe": 1.366728,
-      "spn_alpha_mvo_minvol": 1.185008,
-      "spn_hedged": 1.278846
+      "spn_hedged": 1.290036
     },
     {
       "date": "2017-11-01",
@@ -470,8 +428,7 @@
       "spn_alpha": 1.306015,
       "spn_alpha_hrp": 1.242507,
       "spn_alpha_mvo_sharpe": 1.42029,
-      "spn_alpha_mvo_minvol": 1.186705,
-      "spn_hedged": 1.294378
+      "spn_hedged": 1.306015
     },
     {
       "date": "2017-11-08",
@@ -481,8 +438,7 @@
       "spn_alpha": 1.319172,
       "spn_alpha_hrp": 1.255815,
       "spn_alpha_mvo_sharpe": 1.434186,
-      "spn_alpha_mvo_minvol": 1.19881,
-      "spn_hedged": 1.306214
+      "spn_hedged": 1.319172
     },
     {
       "date": "2017-11-15",
@@ -492,8 +448,7 @@
       "spn_alpha": 1.311543,
       "spn_alpha_hrp": 1.245432,
       "spn_alpha_mvo_sharpe": 1.427086,
-      "spn_alpha_mvo_minvol": 1.191141,
-      "spn_hedged": 1.299521
+      "spn_hedged": 1.311543
     },
     {
       "date": "2017-11-22",
@@ -503,8 +458,7 @@
       "spn_alpha": 1.332384,
       "spn_alpha_hrp": 1.265047,
       "spn_alpha_mvo_sharpe": 1.455417,
-      "spn_alpha_mvo_minvol": 1.210528,
-      "spn_hedged": 1.31821
+      "spn_hedged": 1.332384
     },
     {
       "date": "2017-11-30",
@@ -514,8 +468,7 @@
       "spn_alpha": 1.354622,
       "spn_alpha_hrp": 1.294311,
       "spn_alpha_mvo_sharpe": 1.478648,
-      "spn_alpha_mvo_minvol": 1.24788,
-      "spn_hedged": 1.338116
+      "spn_hedged": 1.354622
     },
     {
       "date": "2017-12-07",
@@ -525,8 +478,7 @@
       "spn_alpha": 1.355133,
       "spn_alpha_hrp": 1.292229,
       "spn_alpha_mvo_sharpe": 1.457788,
-      "spn_alpha_mvo_minvol": 1.250093,
-      "spn_hedged": 1.338676
+      "spn_hedged": 1.355133
     },
     {
       "date": "2017-12-14",
@@ -536,8 +488,7 @@
       "spn_alpha": 1.372288,
       "spn_alpha_hrp": 1.303095,
       "spn_alpha_mvo_sharpe": 1.456938,
-      "spn_alpha_mvo_minvol": 1.258131,
-      "spn_hedged": 1.35403
+      "spn_hedged": 1.372288
     },
     {
       "date": "2017-12-21",
@@ -547,8 +498,7 @@
       "spn_alpha": 1.378496,
       "spn_alpha_hrp": 1.31207,
       "spn_alpha_mvo_sharpe": 1.477405,
-      "spn_alpha_mvo_minvol": 1.266546,
-      "spn_hedged": 1.359652
+      "spn_hedged": 1.378496
     },
     {
       "date": "2017-12-29",
@@ -558,8 +508,7 @@
       "spn_alpha": 1.36604,
       "spn_alpha_hrp": 1.305619,
       "spn_alpha_mvo_sharpe": 1.46852,
-      "spn_alpha_mvo_minvol": 1.262584,
-      "spn_hedged": 1.348699
+      "spn_hedged": 1.36604
     },
     {
       "date": "2018-01-08",
@@ -569,8 +518,7 @@
       "spn_alpha": 1.412832,
       "spn_alpha_hrp": 1.345295,
       "spn_alpha_mvo_sharpe": 1.544364,
-      "spn_alpha_mvo_minvol": 1.291071,
-      "spn_hedged": 1.394256
+      "spn_hedged": 1.412832
     },
     {
       "date": "2018-01-16",
@@ -580,8 +528,7 @@
       "spn_alpha": 1.428121,
       "spn_alpha_hrp": 1.360445,
       "spn_alpha_mvo_sharpe": 1.571514,
-      "spn_alpha_mvo_minvol": 1.304605,
-      "spn_hedged": 1.409345
+      "spn_hedged": 1.428121
     },
     {
       "date": "2018-01-23",
@@ -591,8 +538,7 @@
       "spn_alpha": 1.456675,
       "spn_alpha_hrp": 1.386685,
       "spn_alpha_mvo_sharpe": 1.627779,
-      "spn_alpha_mvo_minvol": 1.322509,
-      "spn_hedged": 1.437523
+      "spn_hedged": 1.456675
     },
     {
       "date": "2018-01-30",
@@ -602,8 +548,7 @@
       "spn_alpha": 1.457416,
       "spn_alpha_hrp": 1.376362,
       "spn_alpha_mvo_sharpe": 1.630732,
-      "spn_alpha_mvo_minvol": 1.318176,
-      "spn_hedged": 1.438255
+      "spn_hedged": 1.457416
     },
     {
       "date": "2018-02-06",
@@ -613,8 +558,7 @@
       "spn_alpha": 1.382221,
       "spn_alpha_hrp": 1.305248,
       "spn_alpha_mvo_sharpe": 1.557219,
-      "spn_alpha_mvo_minvol": 1.235599,
-      "spn_hedged": 1.364048
+      "spn_hedged": 1.382221
     },
     {
       "date": "2018-02-13",
@@ -624,8 +568,7 @@
       "spn_alpha": 1.374259,
       "spn_alpha_hrp": 1.290522,
       "spn_alpha_mvo_sharpe": 1.542933,
-      "spn_alpha_mvo_minvol": 1.221365,
-      "spn_hedged": 1.356191
+      "spn_hedged": 1.374259
     },
     {
       "date": "2018-02-21",
@@ -635,8 +578,7 @@
       "spn_alpha": 1.377704,
       "spn_alpha_hrp": 1.292649,
       "spn_alpha_mvo_sharpe": 1.569862,
-      "spn_alpha_mvo_minvol": 1.21167,
-      "spn_hedged": 1.359591
+      "spn_hedged": 1.377704
     },
     {
       "date": "2018-02-28",
@@ -646,8 +588,7 @@
       "spn_alpha": 1.388104,
       "spn_alpha_hrp": 1.300406,
       "spn_alpha_mvo_sharpe": 1.579358,
-      "spn_alpha_mvo_minvol": 1.217084,
-      "spn_hedged": 1.369854
+      "spn_hedged": 1.388104
     },
     {
       "date": "2018-03-07",
@@ -657,8 +598,7 @@
       "spn_alpha": 1.385367,
       "spn_alpha_hrp": 1.295842,
       "spn_alpha_mvo_sharpe": 1.583058,
-      "spn_alpha_mvo_minvol": 1.205937,
-      "spn_hedged": 1.370079
+      "spn_hedged": 1.387515
     },
     {
       "date": "2018-03-14",
@@ -668,8 +608,7 @@
       "spn_alpha": 1.395464,
       "spn_alpha_hrp": 1.30466,
       "spn_alpha_mvo_sharpe": 1.599515,
-      "spn_alpha_mvo_minvol": 1.209853,
-      "spn_hedged": 1.376556
+      "spn_hedged": 1.395061
     },
     {
       "date": "2018-03-21",
@@ -679,8 +618,7 @@
       "spn_alpha": 1.382209,
       "spn_alpha_hrp": 1.291589,
       "spn_alpha_mvo_sharpe": 1.583413,
-      "spn_alpha_mvo_minvol": 1.204057,
-      "spn_hedged": 1.369169
+      "spn_hedged": 1.385991
     },
     {
       "date": "2018-03-28",
@@ -690,8 +628,7 @@
       "spn_alpha": 1.336028,
       "spn_alpha_hrp": 1.248098,
       "spn_alpha_mvo_sharpe": 1.491137,
-      "spn_alpha_mvo_minvol": 1.179236,
-      "spn_hedged": 1.342234
+      "spn_hedged": 1.353494
     },
     {
       "date": "2018-04-05",
@@ -701,8 +638,7 @@
       "spn_alpha": 1.372257,
       "spn_alpha_hrp": 1.282361,
       "spn_alpha_mvo_sharpe": 1.532579,
-      "spn_alpha_mvo_minvol": 1.206071,
-      "spn_hedged": 1.363819
+      "spn_hedged": 1.379655
     },
     {
       "date": "2018-04-12",
@@ -712,8 +648,7 @@
       "spn_alpha": 1.369726,
       "spn_alpha_hrp": 1.278672,
       "spn_alpha_mvo_sharpe": 1.541072,
-      "spn_alpha_mvo_minvol": 1.20066,
-      "spn_hedged": 1.36315
+      "spn_hedged": 1.378384
     },
     {
       "date": "2018-04-19",
@@ -723,8 +658,7 @@
       "spn_alpha": 1.386442,
       "spn_alpha_hrp": 1.295059,
       "spn_alpha_mvo_sharpe": 1.571009,
-      "spn_alpha_mvo_minvol": 1.215249,
-      "spn_hedged": 1.372279
+      "spn_hedged": 1.390134
     },
     {
       "date": "2018-04-26",
@@ -734,8 +668,7 @@
       "spn_alpha": 1.379769,
       "spn_alpha_hrp": 1.288503,
       "spn_alpha_mvo_sharpe": 1.559983,
-      "spn_alpha_mvo_minvol": 1.217242,
-      "spn_hedged": 1.369485
+      "spn_hedged": 1.386046
     },
     {
       "date": "2018-05-03",
@@ -745,8 +678,7 @@
       "spn_alpha": 1.364415,
       "spn_alpha_hrp": 1.271554,
       "spn_alpha_mvo_sharpe": 1.565113,
-      "spn_alpha_mvo_minvol": 1.189392,
-      "spn_hedged": 1.362101
+      "spn_hedged": 1.375934
     },
     {
       "date": "2018-05-10",
@@ -756,8 +688,7 @@
       "spn_alpha": 1.41615,
       "spn_alpha_hrp": 1.318143,
       "spn_alpha_mvo_sharpe": 1.625421,
-      "spn_alpha_mvo_minvol": 1.218472,
-      "spn_hedged": 1.40098
+      "spn_hedged": 1.41778
     },
     {
       "date": "2018-05-17",
@@ -767,8 +698,7 @@
       "spn_alpha": 1.411011,
       "spn_alpha_hrp": 1.315477,
       "spn_alpha_mvo_sharpe": 1.613726,
-      "spn_alpha_mvo_minvol": 1.226874,
-      "spn_hedged": 1.397454
+      "spn_hedged": 1.413898
     },
     {
       "date": "2018-05-24",
@@ -778,8 +708,7 @@
       "spn_alpha": 1.40761,
       "spn_alpha_hrp": 1.314222,
       "spn_alpha_mvo_sharpe": 1.619618,
-      "spn_alpha_mvo_minvol": 1.219631,
-      "spn_hedged": 1.395216
+      "spn_hedged": 1.411406
     },
     {
       "date": "2018-06-01",
@@ -789,8 +718,7 @@
       "spn_alpha": 1.422788,
       "spn_alpha_hrp": 1.326944,
       "spn_alpha_mvo_sharpe": 1.646103,
-      "spn_alpha_mvo_minvol": 1.225563,
-      "spn_hedged": 1.406817
+      "spn_hedged": 1.42384
     },
     {
       "date": "2018-06-08",
@@ -800,8 +728,7 @@
       "spn_alpha": 1.463068,
       "spn_alpha_hrp": 1.362257,
       "spn_alpha_mvo_sharpe": 1.693086,
-      "spn_alpha_mvo_minvol": 1.262748,
-      "spn_hedged": 1.436901
+      "spn_hedged": 1.456258
     },
     {
       "date": "2018-06-15",
@@ -811,8 +738,7 @@
       "spn_alpha": 1.471252,
       "spn_alpha_hrp": 1.368259,
       "spn_alpha_mvo_sharpe": 1.714441,
-      "spn_alpha_mvo_minvol": 1.263554,
-      "spn_hedged": 1.443209
+      "spn_hedged": 1.463001
     },
     {
       "date": "2018-06-22",
@@ -822,8 +748,7 @@
       "spn_alpha": 1.463253,
       "spn_alpha_hrp": 1.363134,
       "spn_alpha_mvo_sharpe": 1.699322,
-      "spn_alpha_mvo_minvol": 1.265147,
-      "spn_hedged": 1.437603
+      "spn_hedged": 1.456864
     },
     {
       "date": "2018-06-29",
@@ -833,8 +758,7 @@
       "spn_alpha": 1.447969,
       "spn_alpha_hrp": 1.346821,
       "spn_alpha_mvo_sharpe": 1.659237,
-      "spn_alpha_mvo_minvol": 1.257389,
-      "spn_hedged": 1.426627
+      "spn_hedged": 1.444922
     },
     {
       "date": "2018-07-09",
@@ -844,8 +768,7 @@
       "spn_alpha": 1.47141,
       "spn_alpha_hrp": 1.371603,
       "spn_alpha_mvo_sharpe": 1.699519,
-      "spn_alpha_mvo_minvol": 1.276209,
-      "spn_hedged": 1.444231
+      "spn_hedged": 1.463865
     },
     {
       "date": "2018-07-16",
@@ -855,8 +778,7 @@
       "spn_alpha": 1.482713,
       "spn_alpha_hrp": 1.381907,
       "spn_alpha_mvo_sharpe": 1.725802,
-      "spn_alpha_mvo_minvol": 1.287109,
-      "spn_hedged": 1.452843
+      "spn_hedged": 1.473098
     },
     {
       "date": "2018-07-23",
@@ -866,8 +788,7 @@
       "spn_alpha": 1.494469,
       "spn_alpha_hrp": 1.394547,
       "spn_alpha_mvo_sharpe": 1.73659,
-      "spn_alpha_mvo_minvol": 1.294143,
-      "spn_hedged": 1.461772
+      "spn_hedged": 1.482676
     },
     {
       "date": "2018-07-30",
@@ -877,8 +798,7 @@
       "spn_alpha": 1.49029,
       "spn_alpha_hrp": 1.395127,
       "spn_alpha_mvo_sharpe": 1.71545,
-      "spn_alpha_mvo_minvol": 1.309268,
-      "spn_hedged": 1.459038
+      "spn_hedged": 1.479631
     },
     {
       "date": "2018-08-06",
@@ -888,8 +808,7 @@
       "spn_alpha": 1.52309,
       "spn_alpha_hrp": 1.42767,
       "spn_alpha_mvo_sharpe": 1.754036,
-      "spn_alpha_mvo_minvol": 1.326859,
-      "spn_hedged": 1.48635
+      "spn_hedged": 1.508302
     },
     {
       "date": "2018-08-13",
@@ -899,8 +818,7 @@
       "spn_alpha": 1.513021,
       "spn_alpha_hrp": 1.4218,
       "spn_alpha_mvo_sharpe": 1.760479,
-      "spn_alpha_mvo_minvol": 1.319804,
-      "spn_hedged": 1.476525
+      "spn_hedged": 1.498332
     },
     {
       "date": "2018-08-20",
@@ -910,8 +828,7 @@
       "spn_alpha": 1.545029,
       "spn_alpha_hrp": 1.442073,
       "spn_alpha_mvo_sharpe": 1.769343,
-      "spn_alpha_mvo_minvol": 1.353889,
-      "spn_hedged": 1.507761
+      "spn_hedged": 1.530029
     },
     {
       "date": "2018-08-27",
@@ -921,8 +838,7 @@
       "spn_alpha": 1.559903,
       "spn_alpha_hrp": 1.461882,
       "spn_alpha_mvo_sharpe": 1.825674,
-      "spn_alpha_mvo_minvol": 1.364643,
-      "spn_hedged": 1.522276
+      "spn_hedged": 1.544759
     },
     {
       "date": "2018-09-04",
@@ -932,8 +848,7 @@
       "spn_alpha": 1.570395,
       "spn_alpha_hrp": 1.464464,
       "spn_alpha_mvo_sharpe": 1.858323,
-      "spn_alpha_mvo_minvol": 1.36933,
-      "spn_hedged": 1.532515
+      "spn_hedged": 1.555149
     },
     {
       "date": "2018-09-11",
@@ -943,8 +858,7 @@
       "spn_alpha": 1.578983,
       "spn_alpha_hrp": 1.473875,
       "spn_alpha_mvo_sharpe": 1.849612,
-      "spn_alpha_mvo_minvol": 1.389006,
-      "spn_hedged": 1.540895
+      "spn_hedged": 1.563653
     },
     {
       "date": "2018-09-18",
@@ -954,8 +868,7 @@
       "spn_alpha": 1.584192,
       "spn_alpha_hrp": 1.481701,
       "spn_alpha_mvo_sharpe": 1.841803,
-      "spn_alpha_mvo_minvol": 1.390045,
-      "spn_hedged": 1.545979
+      "spn_hedged": 1.568811
     },
     {
       "date": "2018-09-25",
@@ -965,8 +878,7 @@
       "spn_alpha": 1.595065,
       "spn_alpha_hrp": 1.48659,
       "spn_alpha_mvo_sharpe": 1.84623,
-      "spn_alpha_mvo_minvol": 1.391357,
-      "spn_hedged": 1.55659
+      "spn_hedged": 1.579579
     },
     {
       "date": "2018-10-02",
@@ -976,8 +888,7 @@
       "spn_alpha": 1.605003,
       "spn_alpha_hrp": 1.497602,
       "spn_alpha_mvo_sharpe": 1.879057,
-      "spn_alpha_mvo_minvol": 1.405367,
-      "spn_hedged": 1.566287
+      "spn_hedged": 1.58942
     },
     {
       "date": "2018-10-09",
@@ -987,8 +898,7 @@
       "spn_alpha": 1.583342,
       "spn_alpha_hrp": 1.472391,
       "spn_alpha_mvo_sharpe": 1.816243,
-      "spn_alpha_mvo_minvol": 1.384948,
-      "spn_hedged": 1.545149
+      "spn_hedged": 1.56797
     },
     {
       "date": "2018-10-16",
@@ -998,8 +908,7 @@
       "spn_alpha": 1.558722,
       "spn_alpha_hrp": 1.444398,
       "spn_alpha_mvo_sharpe": 1.782276,
-      "spn_alpha_mvo_minvol": 1.361658,
-      "spn_hedged": 1.521123
+      "spn_hedged": 1.543589
     },
     {
       "date": "2018-10-23",
@@ -1009,8 +918,7 @@
       "spn_alpha": 1.555719,
       "spn_alpha_hrp": 1.440958,
       "spn_alpha_mvo_sharpe": 1.736499,
-      "spn_alpha_mvo_minvol": 1.365961,
-      "spn_hedged": 1.518193
+      "spn_hedged": 1.540615
     },
     {
       "date": "2018-10-30",
@@ -1020,8 +928,7 @@
       "spn_alpha": 1.524614,
       "spn_alpha_hrp": 1.422721,
       "spn_alpha_mvo_sharpe": 1.664275,
-      "spn_alpha_mvo_minvol": 1.362172,
-      "spn_hedged": 1.487838
+      "spn_hedged": 1.509812
     },
     {
       "date": "2018-11-06",
@@ -1031,8 +938,7 @@
       "spn_alpha": 1.563347,
       "spn_alpha_hrp": 1.462574,
       "spn_alpha_mvo_sharpe": 1.726197,
-      "spn_alpha_mvo_minvol": 1.394862,
-      "spn_hedged": 1.519035
+      "spn_hedged": 1.543702
     },
     {
       "date": "2018-11-13",
@@ -1042,8 +948,7 @@
       "spn_alpha": 1.5596,
       "spn_alpha_hrp": 1.459546,
       "spn_alpha_mvo_sharpe": 1.715805,
-      "spn_alpha_mvo_minvol": 1.394355,
-      "spn_hedged": 1.516966
+      "spn_hedged": 1.541079
     },
     {
       "date": "2018-11-20",
@@ -1053,8 +958,7 @@
       "spn_alpha": 1.506253,
       "spn_alpha_hrp": 1.409087,
       "spn_alpha_mvo_sharpe": 1.587892,
-      "spn_alpha_mvo_minvol": 1.351818,
-      "spn_hedged": 1.480899
+      "spn_hedged": 1.499071
     },
     {
       "date": "2018-11-28",
@@ -1064,8 +968,7 @@
       "spn_alpha": 1.561722,
       "spn_alpha_hrp": 1.462448,
       "spn_alpha_mvo_sharpe": 1.677504,
-      "spn_alpha_mvo_minvol": 1.395012,
-      "spn_hedged": 1.519351
+      "spn_hedged": 1.543415
     },
     {
       "date": "2018-12-06",
@@ -1075,8 +978,7 @@
       "spn_alpha": 1.551154,
       "spn_alpha_hrp": 1.4519,
       "spn_alpha_mvo_sharpe": 1.664353,
-      "spn_alpha_mvo_minvol": 1.390076,
-      "spn_hedged": 1.514013
+      "spn_hedged": 1.535417
     },
     {
       "date": "2018-12-13",
@@ -1086,8 +988,7 @@
       "spn_alpha": 1.545397,
       "spn_alpha_hrp": 1.450136,
       "spn_alpha_mvo_sharpe": 1.639488,
-      "spn_alpha_mvo_minvol": 1.384795,
-      "spn_hedged": 1.510872
+      "spn_hedged": 1.531156
     },
     {
       "date": "2018-12-20",
@@ -1097,8 +998,7 @@
       "spn_alpha": 1.420592,
       "spn_alpha_hrp": 1.333615,
       "spn_alpha_mvo_sharpe": 1.487349,
-      "spn_alpha_mvo_minvol": 1.259735,
-      "spn_hedged": 1.431388
+      "spn_hedged": 1.431852
     },
     {
       "date": "2018-12-28",
@@ -1108,8 +1008,7 @@
       "spn_alpha": 1.444211,
       "spn_alpha_hrp": 1.355974,
       "spn_alpha_mvo_sharpe": 1.507521,
-      "spn_alpha_mvo_minvol": 1.279004,
-      "spn_hedged": 1.447752
+      "spn_hedged": 1.451511
     },
     {
       "date": "2019-01-07",
@@ -1119,8 +1018,7 @@
       "spn_alpha": 1.470486,
       "spn_alpha_hrp": 1.376024,
       "spn_alpha_mvo_sharpe": 1.560213,
-      "spn_alpha_mvo_minvol": 1.301187,
-      "spn_hedged": 1.452405
+      "spn_hedged": 1.457811
     },
     {
       "date": "2019-01-14",
@@ -1130,8 +1028,7 @@
       "spn_alpha": 1.480933,
       "spn_alpha_hrp": 1.385727,
       "spn_alpha_mvo_sharpe": 1.583004,
-      "spn_alpha_mvo_minvol": 1.309115,
-      "spn_hedged": 1.45722
+      "spn_hedged": 1.46367
     },
     {
       "date": "2019-01-22",
@@ -1141,8 +1038,7 @@
       "spn_alpha": 1.502859,
       "spn_alpha_hrp": 1.407104,
       "spn_alpha_mvo_sharpe": 1.614648,
-      "spn_alpha_mvo_minvol": 1.326449,
-      "spn_hedged": 1.466573
+      "spn_hedged": 1.475352
     },
     {
       "date": "2019-01-29",
@@ -1152,8 +1048,7 @@
       "spn_alpha": 1.505659,
       "spn_alpha_hrp": 1.411621,
       "spn_alpha_mvo_sharpe": 1.584267,
-      "spn_alpha_mvo_minvol": 1.331233,
-      "spn_hedged": 1.468374
+      "spn_hedged": 1.477343
     },
     {
       "date": "2019-02-05",
@@ -1163,8 +1058,7 @@
       "spn_alpha": 1.572371,
       "spn_alpha_hrp": 1.467814,
       "spn_alpha_mvo_sharpe": 1.652793,
-      "spn_alpha_mvo_minvol": 1.373588,
-      "spn_hedged": 1.495193
+      "spn_hedged": 1.511457
     },
     {
       "date": "2019-02-12",
@@ -1174,8 +1068,7 @@
       "spn_alpha": 1.575834,
       "spn_alpha_hrp": 1.470335,
       "spn_alpha_mvo_sharpe": 1.650323,
-      "spn_alpha_mvo_minvol": 1.379946,
-      "spn_hedged": 1.497481
+      "spn_hedged": 1.513996
     },
     {
       "date": "2019-02-20",
@@ -1185,8 +1078,7 @@
       "spn_alpha": 1.604876,
       "spn_alpha_hrp": 1.494727,
       "spn_alpha_mvo_sharpe": 1.68381,
-      "spn_alpha_mvo_minvol": 1.410226,
-      "spn_hedged": 1.511841
+      "spn_hedged": 1.531354
     },
     {
       "date": "2019-02-27",
@@ -1196,8 +1088,7 @@
       "spn_alpha": 1.593875,
       "spn_alpha_hrp": 1.483195,
       "spn_alpha_mvo_sharpe": 1.669756,
-      "spn_alpha_mvo_minvol": 1.401856,
-      "spn_hedged": 1.507251
+      "spn_hedged": 1.525463
     },
     {
       "date": "2019-03-06",
@@ -1207,8 +1098,7 @@
       "spn_alpha": 1.5899,
       "spn_alpha_hrp": 1.479794,
       "spn_alpha_mvo_sharpe": 1.657115,
-      "spn_alpha_mvo_minvol": 1.402609,
-      "spn_hedged": 1.505969
+      "spn_hedged": 1.523635
     },
     {
       "date": "2019-03-13",
@@ -1218,8 +1108,7 @@
       "spn_alpha": 1.630712,
       "spn_alpha_hrp": 1.509364,
       "spn_alpha_mvo_sharpe": 1.708003,
-      "spn_alpha_mvo_minvol": 1.42736,
-      "spn_hedged": 1.528384
+      "spn_hedged": 1.550488
     },
     {
       "date": "2019-03-20",
@@ -1229,8 +1118,7 @@
       "spn_alpha": 1.642997,
       "spn_alpha_hrp": 1.523442,
       "spn_alpha_mvo_sharpe": 1.742746,
-      "spn_alpha_mvo_minvol": 1.435441,
-      "spn_hedged": 1.535435
+      "spn_hedged": 1.558793
     },
     {
       "date": "2019-03-27",
@@ -1240,8 +1128,7 @@
       "spn_alpha": 1.636155,
       "spn_alpha_hrp": 1.517491,
       "spn_alpha_mvo_sharpe": 1.730138,
-      "spn_alpha_mvo_minvol": 1.43106,
-      "spn_hedged": 1.532398
+      "spn_hedged": 1.554854
     },
     {
       "date": "2019-04-03",
@@ -1251,8 +1138,7 @@
       "spn_alpha": 1.673402,
       "spn_alpha_hrp": 1.547233,
       "spn_alpha_mvo_sharpe": 1.776004,
-      "spn_alpha_mvo_minvol": 1.448357,
-      "spn_hedged": 1.552656
+      "spn_hedged": 1.579176
     },
     {
       "date": "2019-04-10",
@@ -1262,8 +1148,7 @@
       "spn_alpha": 1.680303,
       "spn_alpha_hrp": 1.554609,
       "spn_alpha_mvo_sharpe": 1.78641,
-      "spn_alpha_mvo_minvol": 1.456717,
-      "spn_hedged": 1.560827
+      "spn_hedged": 1.587029
     },
     {
       "date": "2019-04-17",
@@ -1273,8 +1158,7 @@
       "spn_alpha": 1.675015,
       "spn_alpha_hrp": 1.565366,
       "spn_alpha_mvo_sharpe": 1.750577,
-      "spn_alpha_mvo_minvol": 1.460591,
-      "spn_hedged": 1.555915
+      "spn_hedged": 1.582034
     },
     {
       "date": "2019-04-25",
@@ -1284,8 +1168,7 @@
       "spn_alpha": 1.677169,
       "spn_alpha_hrp": 1.577344,
       "spn_alpha_mvo_sharpe": 1.781092,
-      "spn_alpha_mvo_minvol": 1.468859,
-      "spn_hedged": 1.557915
+      "spn_hedged": 1.584069
     },
     {
       "date": "2019-05-02",
@@ -1295,8 +1178,7 @@
       "spn_alpha": 1.664373,
       "spn_alpha_hrp": 1.569928,
       "spn_alpha_mvo_sharpe": 1.780425,
-      "spn_alpha_mvo_minvol": 1.457372,
-      "spn_hedged": 1.54603
+      "spn_hedged": 1.571983
     },
     {
       "date": "2019-05-09",
@@ -1306,8 +1188,7 @@
       "spn_alpha": 1.652504,
       "spn_alpha_hrp": 1.549045,
       "spn_alpha_mvo_sharpe": 1.747783,
-      "spn_alpha_mvo_minvol": 1.438443,
-      "spn_hedged": 1.542429
+      "spn_hedged": 1.566812
     },
     {
       "date": "2019-05-16",
@@ -1317,8 +1198,7 @@
       "spn_alpha": 1.659722,
       "spn_alpha_hrp": 1.556453,
       "spn_alpha_mvo_sharpe": 1.749215,
-      "spn_alpha_mvo_minvol": 1.448875,
-      "spn_hedged": 1.547859
+      "spn_hedged": 1.572597
     },
     {
       "date": "2019-05-23",
@@ -1328,8 +1208,7 @@
       "spn_alpha": 1.63282,
       "spn_alpha_hrp": 1.533427,
       "spn_alpha_mvo_sharpe": 1.703809,
-      "spn_alpha_mvo_minvol": 1.435358,
-      "spn_hedged": 1.529319
+      "spn_hedged": 1.552429
     },
     {
       "date": "2019-05-31",
@@ -1339,8 +1218,7 @@
       "spn_alpha": 1.585984,
       "spn_alpha_hrp": 1.491017,
       "spn_alpha_mvo_sharpe": 1.661417,
-      "spn_alpha_mvo_minvol": 1.393703,
-      "spn_hedged": 1.496645
+      "spn_hedged": 1.516984
     },
     {
       "date": "2019-06-07",
@@ -1350,8 +1228,7 @@
       "spn_alpha": 1.661499,
       "spn_alpha_hrp": 1.560916,
       "spn_alpha_mvo_sharpe": 1.740625,
-      "spn_alpha_mvo_minvol": 1.459422,
-      "spn_hedged": 1.550187
+      "spn_hedged": 1.574836
     },
     {
       "date": "2019-06-14",
@@ -1361,8 +1238,7 @@
       "spn_alpha": 1.673835,
       "spn_alpha_hrp": 1.575982,
       "spn_alpha_mvo_sharpe": 1.737844,
-      "spn_alpha_mvo_minvol": 1.470992,
-      "spn_hedged": 1.559118
+      "spn_hedged": 1.584433
     },
     {
       "date": "2019-06-21",
@@ -1372,8 +1248,7 @@
       "spn_alpha": 1.709426,
       "spn_alpha_hrp": 1.607864,
       "spn_alpha_mvo_sharpe": 1.778135,
-      "spn_alpha_mvo_minvol": 1.501903,
-      "spn_hedged": 1.584245
+      "spn_hedged": 1.611596
     },
     {
       "date": "2019-06-28",
@@ -1383,8 +1258,7 @@
       "spn_alpha": 1.700413,
       "spn_alpha_hrp": 1.601261,
       "spn_alpha_mvo_sharpe": 1.763836,
-      "spn_alpha_mvo_minvol": 1.484184,
-      "spn_hedged": 1.578295
+      "spn_hedged": 1.605055
     },
     {
       "date": "2019-07-08",
@@ -1394,8 +1268,7 @@
       "spn_alpha": 1.724481,
       "spn_alpha_hrp": 1.628124,
       "spn_alpha_mvo_sharpe": 1.795454,
-      "spn_alpha_mvo_minvol": 1.508113,
-      "spn_hedged": 1.595314
+      "spn_hedged": 1.622735
     },
     {
       "date": "2019-07-15",
@@ -1405,8 +1278,7 @@
       "spn_alpha": 1.766281,
       "spn_alpha_hrp": 1.65705,
       "spn_alpha_mvo_sharpe": 1.838799,
-      "spn_alpha_mvo_minvol": 1.522045,
-      "spn_hedged": 1.624995
+      "spn_hedged": 1.662069
     },
     {
       "date": "2019-07-22",
@@ -1416,8 +1288,7 @@
       "spn_alpha": 1.743056,
       "spn_alpha_hrp": 1.635781,
       "spn_alpha_mvo_sharpe": 1.831751,
-      "spn_alpha_mvo_minvol": 1.49656,
-      "spn_hedged": 1.609011
+      "spn_hedged": 1.640214
     },
     {
       "date": "2019-07-29",
@@ -1427,8 +1298,7 @@
       "spn_alpha": 1.751584,
       "spn_alpha_hrp": 1.653106,
       "spn_alpha_mvo_sharpe": 1.849592,
-      "spn_alpha_mvo_minvol": 1.512175,
-      "spn_hedged": 1.615355
+      "spn_hedged": 1.648239
     },
     {
       "date": "2019-08-05",
@@ -1438,8 +1308,7 @@
       "spn_alpha": 1.654515,
       "spn_alpha_hrp": 1.56567,
       "spn_alpha_mvo_sharpe": 1.733116,
-      "spn_alpha_mvo_minvol": 1.445327,
-      "spn_hedged": 1.547215
+      "spn_hedged": 1.556897
     },
     {
       "date": "2019-08-12",
@@ -1449,8 +1318,7 @@
       "spn_alpha": 1.67764,
       "spn_alpha_hrp": 1.588152,
       "spn_alpha_mvo_sharpe": 1.770213,
-      "spn_alpha_mvo_minvol": 1.463465,
-      "spn_hedged": 1.562788
+      "spn_hedged": 1.574605
     },
     {
       "date": "2019-08-19",
@@ -1460,8 +1328,7 @@
       "spn_alpha": 1.709652,
       "spn_alpha_hrp": 1.618216,
       "spn_alpha_mvo_sharpe": 1.810899,
-      "spn_alpha_mvo_minvol": 1.492635,
-      "spn_hedged": 1.584226
+      "spn_hedged": 1.599039
     },
     {
       "date": "2019-08-26",
@@ -1471,8 +1338,7 @@
       "spn_alpha": 1.683198,
       "spn_alpha_hrp": 1.595682,
       "spn_alpha_mvo_sharpe": 1.783749,
-      "spn_alpha_mvo_minvol": 1.471935,
-      "spn_hedged": 1.567535
+      "spn_hedged": 1.57957
     },
     {
       "date": "2019-09-03",
@@ -1482,8 +1348,7 @@
       "spn_alpha": 1.70653,
       "spn_alpha_hrp": 1.615932,
       "spn_alpha_mvo_sharpe": 1.80869,
-      "spn_alpha_mvo_minvol": 1.495095,
-      "spn_hedged": 1.583119
+      "spn_hedged": 1.597338
     },
     {
       "date": "2019-09-10",
@@ -1493,8 +1358,7 @@
       "spn_alpha": 1.736383,
       "spn_alpha_hrp": 1.646782,
       "spn_alpha_mvo_sharpe": 1.813352,
-      "spn_alpha_mvo_minvol": 1.523454,
-      "spn_hedged": 1.603604
+      "spn_hedged": 1.61993
     },
     {
       "date": "2019-09-17",
@@ -1504,8 +1368,7 @@
       "spn_alpha": 1.747174,
       "spn_alpha_hrp": 1.657204,
       "spn_alpha_mvo_sharpe": 1.820857,
-      "spn_alpha_mvo_minvol": 1.531133,
-      "spn_hedged": 1.6114
+      "spn_hedged": 1.628245
     },
     {
       "date": "2019-09-24",
@@ -1515,8 +1378,7 @@
       "spn_alpha": 1.731412,
       "spn_alpha_hrp": 1.642062,
       "spn_alpha_mvo_sharpe": 1.809025,
-      "spn_alpha_mvo_minvol": 1.527216,
-      "spn_hedged": 1.600809
+      "spn_hedged": 1.616745
     },
     {
       "date": "2019-10-01",
@@ -1526,8 +1388,7 @@
       "spn_alpha": 1.718617,
       "spn_alpha_hrp": 1.632723,
       "spn_alpha_mvo_sharpe": 1.801727,
-      "spn_alpha_mvo_minvol": 1.512841,
-      "spn_hedged": 1.592246
+      "spn_hedged": 1.607438
     },
     {
       "date": "2019-10-08",
@@ -1537,8 +1398,7 @@
       "spn_alpha": 1.701216,
       "spn_alpha_hrp": 1.614723,
       "spn_alpha_mvo_sharpe": 1.791038,
-      "spn_alpha_mvo_minvol": 1.496899,
-      "spn_hedged": 1.580539
+      "spn_hedged": 1.594731
     },
     {
       "date": "2019-10-15",
@@ -1548,8 +1408,7 @@
       "spn_alpha": 1.750996,
       "spn_alpha_hrp": 1.663416,
       "spn_alpha_mvo_sharpe": 1.851313,
-      "spn_alpha_mvo_minvol": 1.536138,
-      "spn_hedged": 1.615451
+      "spn_hedged": 1.63224
     },
     {
       "date": "2019-10-22",
@@ -1559,8 +1418,7 @@
       "spn_alpha": 1.762221,
       "spn_alpha_hrp": 1.674863,
       "spn_alpha_mvo_sharpe": 1.838606,
-      "spn_alpha_mvo_minvol": 1.548213,
-      "spn_hedged": 1.623547
+      "spn_hedged": 1.640878
     },
     {
       "date": "2019-10-29",
@@ -1570,8 +1428,7 @@
       "spn_alpha": 1.788854,
       "spn_alpha_hrp": 1.695089,
       "spn_alpha_mvo_sharpe": 1.869446,
-      "spn_alpha_mvo_minvol": 1.555242,
-      "spn_hedged": 1.642269
+      "spn_hedged": 1.660975
     },
     {
       "date": "2019-11-05",
@@ -1581,8 +1438,7 @@
       "spn_alpha": 1.808453,
       "spn_alpha_hrp": 1.71331,
       "spn_alpha_mvo_sharpe": 1.876078,
-      "spn_alpha_mvo_minvol": 1.570464,
-      "spn_hedged": 1.65608
+      "spn_hedged": 1.675789
     },
     {
       "date": "2019-11-12",
@@ -1592,8 +1448,7 @@
       "spn_alpha": 1.815203,
       "spn_alpha_hrp": 1.722502,
       "spn_alpha_mvo_sharpe": 1.896992,
-      "spn_alpha_mvo_minvol": 1.573493,
-      "spn_hedged": 1.661044
+      "spn_hedged": 1.681059
     },
     {
       "date": "2019-11-19",
@@ -1603,8 +1458,7 @@
       "spn_alpha": 1.832429,
       "spn_alpha_hrp": 1.740613,
       "spn_alpha_mvo_sharpe": 1.917294,
-      "spn_alpha_mvo_minvol": 1.591668,
-      "spn_hedged": 1.673192
+      "spn_hedged": 1.694085
     },
     {
       "date": "2019-11-26",
@@ -1614,8 +1468,7 @@
       "spn_alpha": 1.842832,
       "spn_alpha_hrp": 1.749125,
       "spn_alpha_mvo_sharpe": 1.92083,
-      "spn_alpha_mvo_minvol": 1.604039,
-      "spn_hedged": 1.680645
+      "spn_hedged": 1.702046
     },
     {
       "date": "2019-12-04",
@@ -1625,8 +1478,7 @@
       "spn_alpha": 1.841388,
       "spn_alpha_hrp": 1.746808,
       "spn_alpha_mvo_sharpe": 1.900561,
-      "spn_alpha_mvo_minvol": 1.607349,
-      "spn_hedged": 1.680003
+      "spn_hedged": 1.70126
     },
     {
       "date": "2019-12-11",
@@ -1636,8 +1488,7 @@
       "spn_alpha": 1.860909,
       "spn_alpha_hrp": 1.764367,
       "spn_alpha_mvo_sharpe": 1.919186,
-      "spn_alpha_mvo_minvol": 1.620624,
-      "spn_hedged": 1.693681
+      "spn_hedged": 1.715947
     },
     {
       "date": "2019-12-18",
@@ -1647,8 +1498,7 @@
       "spn_alpha": 1.900229,
       "spn_alpha_hrp": 1.800138,
       "spn_alpha_mvo_sharpe": 1.955515,
-      "spn_alpha_mvo_minvol": 1.653569,
-      "spn_hedged": 1.720809
+      "spn_hedged": 1.745185
     },
     {
       "date": "2019-12-26",
@@ -1658,8 +1508,7 @@
       "spn_alpha": 1.92639,
       "spn_alpha_hrp": 1.825016,
       "spn_alpha_mvo_sharpe": 1.988684,
-      "spn_alpha_mvo_minvol": 1.672129,
-      "spn_hedged": 1.738897
+      "spn_hedged": 1.764664
     },
     {
       "date": "2020-01-03",
@@ -1669,8 +1518,7 @@
       "spn_alpha": 1.917885,
       "spn_alpha_hrp": 1.815902,
       "spn_alpha_mvo_sharpe": 1.982787,
-      "spn_alpha_mvo_minvol": 1.659917,
-      "spn_hedged": 1.733501
+      "spn_hedged": 1.758727
     },
     {
       "date": "2020-01-10",
@@ -1680,8 +1528,7 @@
       "spn_alpha": 1.946141,
       "spn_alpha_hrp": 1.840995,
       "spn_alpha_mvo_sharpe": 2.030143,
-      "spn_alpha_mvo_minvol": 1.675212,
-      "spn_hedged": 1.756616
+      "spn_hedged": 1.784637
     },
     {
       "date": "2020-01-17",
@@ -1691,8 +1538,7 @@
       "spn_alpha": 1.983532,
       "spn_alpha_hrp": 1.880713,
       "spn_alpha_mvo_sharpe": 2.080093,
-      "spn_alpha_mvo_minvol": 1.699076,
-      "spn_hedged": 1.787111
+      "spn_hedged": 1.818925
     },
     {
       "date": "2020-01-27",
@@ -1702,8 +1548,7 @@
       "spn_alpha": 1.960288,
       "spn_alpha_hrp": 1.850512,
       "spn_alpha_mvo_sharpe": 2.051981,
-      "spn_alpha_mvo_minvol": 1.675362,
-      "spn_hedged": 1.768414
+      "spn_hedged": 1.79761
     },
     {
       "date": "2020-02-03",
@@ -1713,8 +1558,7 @@
       "spn_alpha": 2.01833,
       "spn_alpha_hrp": 1.859282,
       "spn_alpha_mvo_sharpe": 2.085135,
-      "spn_alpha_mvo_minvol": 1.668433,
-      "spn_hedged": 1.815672
+      "spn_hedged": 1.850836
     },
     {
       "date": "2020-02-10",
@@ -1724,8 +1568,7 @@
       "spn_alpha": 2.085584,
       "spn_alpha_hrp": 1.91089,
       "spn_alpha_mvo_sharpe": 2.14652,
-      "spn_alpha_mvo_minvol": 1.704034,
-      "spn_hedged": 1.867335
+      "spn_hedged": 1.908569
     },
     {
       "date": "2020-02-18",
@@ -1735,8 +1578,7 @@
       "spn_alpha": 2.11299,
       "spn_alpha_hrp": 1.924004,
       "spn_alpha_mvo_sharpe": 2.178906,
-      "spn_alpha_mvo_minvol": 1.711939,
-      "spn_hedged": 1.886086
+      "spn_hedged": 1.928916
     },
     {
       "date": "2020-02-25",
@@ -1746,8 +1588,7 @@
       "spn_alpha": 1.980153,
       "spn_alpha_hrp": 1.810712,
       "spn_alpha_mvo_sharpe": 2.015777,
-      "spn_alpha_mvo_minvol": 1.617691,
-      "spn_hedged": 1.797178
+      "spn_hedged": 1.831903
     },
     {
       "date": "2020-03-03",
@@ -1757,8 +1598,7 @@
       "spn_alpha": 1.918034,
       "spn_alpha_hrp": 1.75065,
       "spn_alpha_mvo_sharpe": 1.963337,
-      "spn_alpha_mvo_minvol": 1.559018,
-      "spn_hedged": 1.756192
+      "spn_hedged": 1.787036
     },
     {
       "date": "2020-03-10",
@@ -1768,8 +1608,7 @@
       "spn_alpha": 1.900014,
       "spn_alpha_hrp": 1.737002,
       "spn_alpha_mvo_sharpe": 1.967074,
-      "spn_alpha_mvo_minvol": 1.553191,
-      "spn_hedged": 1.764037
+      "spn_hedged": 1.796677
     },
     {
       "date": "2020-03-17",
@@ -1779,8 +1618,7 @@
       "spn_alpha": 1.736894,
       "spn_alpha_hrp": 1.593267,
       "spn_alpha_mvo_sharpe": 1.81144,
-      "spn_alpha_mvo_minvol": 1.445848,
-      "spn_hedged": 1.709884
+      "spn_hedged": 1.741522
     },
     {
       "date": "2020-03-24",
@@ -1790,8 +1628,7 @@
       "spn_alpha": 1.664575,
       "spn_alpha_hrp": 1.525069,
       "spn_alpha_mvo_sharpe": 1.762824,
-      "spn_alpha_mvo_minvol": 1.359632,
-      "spn_hedged": 1.684056
+      "spn_hedged": 1.715216
     },
     {
       "date": "2020-03-31",
@@ -1801,8 +1638,7 @@
       "spn_alpha": 1.753654,
       "spn_alpha_hrp": 1.603973,
       "spn_alpha_mvo_sharpe": 1.838345,
-      "spn_alpha_mvo_minvol": 1.436402,
-      "spn_hedged": 1.721299
+      "spn_hedged": 1.753149
     },
     {
       "date": "2020-04-07",
@@ -1812,8 +1648,7 @@
       "spn_alpha": 1.833497,
       "spn_alpha_hrp": 1.67716,
       "spn_alpha_mvo_sharpe": 1.922768,
-      "spn_alpha_mvo_minvol": 1.498182,
-      "spn_hedged": 1.754158
+      "spn_hedged": 1.786616
     },
     {
       "date": "2020-04-15",
@@ -1823,8 +1658,7 @@
       "spn_alpha": 1.928925,
       "spn_alpha_hrp": 1.764452,
       "spn_alpha_mvo_sharpe": 2.032085,
-      "spn_alpha_mvo_minvol": 1.583276,
-      "spn_hedged": 1.791386
+      "spn_hedged": 1.824532
     },
     {
       "date": "2020-04-22",
@@ -1834,8 +1668,7 @@
       "spn_alpha": 1.947678,
       "spn_alpha_hrp": 1.781605,
       "spn_alpha_mvo_sharpe": 2.059667,
-      "spn_alpha_mvo_minvol": 1.607974,
-      "spn_hedged": 1.799638
+      "spn_hedged": 1.832937
     },
     {
       "date": "2020-04-29",
@@ -1845,8 +1678,7 @@
       "spn_alpha": 2.001236,
       "spn_alpha_hrp": 1.830596,
       "spn_alpha_mvo_sharpe": 2.092381,
-      "spn_alpha_mvo_minvol": 1.615643,
-      "spn_hedged": 1.820254
+      "spn_hedged": 1.853935
     },
     {
       "date": "2020-05-06",
@@ -1856,8 +1688,7 @@
       "spn_alpha": 1.968839,
       "spn_alpha_hrp": 1.802219,
       "spn_alpha_mvo_sharpe": 2.087443,
-      "spn_alpha_mvo_minvol": 1.588955,
-      "spn_hedged": 1.809384
+      "spn_hedged": 1.841574
     },
     {
       "date": "2020-05-13",
@@ -1867,8 +1698,7 @@
       "spn_alpha": 1.954559,
       "spn_alpha_hrp": 1.791704,
       "spn_alpha_mvo_sharpe": 2.082386,
-      "spn_alpha_mvo_minvol": 1.582696,
-      "spn_hedged": 1.805143
+      "spn_hedged": 1.836082
     },
     {
       "date": "2020-05-20",
@@ -1878,8 +1708,7 @@
       "spn_alpha": 2.037719,
       "spn_alpha_hrp": 1.860069,
       "spn_alpha_mvo_sharpe": 2.156945,
-      "spn_alpha_mvo_minvol": 1.615925,
-      "spn_hedged": 1.836596
+      "spn_hedged": 1.874203
     },
     {
       "date": "2020-05-28",
@@ -1889,8 +1718,7 @@
       "spn_alpha": 2.064335,
       "spn_alpha_hrp": 1.879394,
       "spn_alpha_mvo_sharpe": 2.136725,
-      "spn_alpha_mvo_minvol": 1.622038,
-      "spn_hedged": 1.847076
+      "spn_hedged": 1.886742
     },
     {
       "date": "2020-06-04",
@@ -1900,8 +1728,7 @@
       "spn_alpha": 2.107703,
       "spn_alpha_hrp": 1.909853,
       "spn_alpha_mvo_sharpe": 2.158969,
-      "spn_alpha_mvo_minvol": 1.641167,
-      "spn_hedged": 1.863439
+      "spn_hedged": 1.906508
     },
     {
       "date": "2020-06-11",
@@ -1911,8 +1738,7 @@
       "spn_alpha": 2.052831,
       "spn_alpha_hrp": 1.866097,
       "spn_alpha_mvo_sharpe": 2.145051,
-      "spn_alpha_mvo_minvol": 1.603065,
-      "spn_hedged": 1.845471
+      "spn_hedged": 1.882682
     },
     {
       "date": "2020-06-18",
@@ -1922,8 +1748,7 @@
       "spn_alpha": 2.115235,
       "spn_alpha_hrp": 1.930082,
       "spn_alpha_mvo_sharpe": 2.238358,
-      "spn_alpha_mvo_minvol": 1.641449,
-      "spn_hedged": 1.868726
+      "spn_hedged": 1.912368
     },
     {
       "date": "2020-06-25",
@@ -1933,8 +1758,7 @@
       "spn_alpha": 2.107665,
       "spn_alpha_hrp": 1.924875,
       "spn_alpha_mvo_sharpe": 2.254952,
-      "spn_alpha_mvo_minvol": 1.638001,
-      "spn_hedged": 1.86708
+      "spn_hedged": 1.909799
     },
     {
       "date": "2020-07-02",
@@ -1944,8 +1768,7 @@
       "spn_alpha": 2.129737,
       "spn_alpha_hrp": 1.950791,
       "spn_alpha_mvo_sharpe": 2.319378,
-      "spn_alpha_mvo_minvol": 1.658308,
-      "spn_hedged": 1.87598
+      "spn_hedged": 1.920892
     },
     {
       "date": "2020-07-10",
@@ -1955,8 +1778,7 @@
       "spn_alpha": 2.201484,
       "spn_alpha_hrp": 2.012215,
       "spn_alpha_mvo_sharpe": 2.468271,
-      "spn_alpha_mvo_minvol": 1.729031,
-      "spn_hedged": 1.907719
+      "spn_hedged": 1.959368
     },
     {
       "date": "2020-07-17",
@@ -1966,8 +1788,7 @@
       "spn_alpha": 2.217322,
       "spn_alpha_hrp": 2.033135,
       "spn_alpha_mvo_sharpe": 2.422136,
-      "spn_alpha_mvo_minvol": 1.746134,
-      "spn_hedged": 1.916618
+      "spn_hedged": 1.969507
     },
     {
       "date": "2020-07-24",
@@ -1977,8 +1798,7 @@
       "spn_alpha": 2.209823,
       "spn_alpha_hrp": 2.026678,
       "spn_alpha_mvo_sharpe": 2.382651,
-      "spn_alpha_mvo_minvol": 1.74301,
-      "spn_hedged": 1.9134
+      "spn_hedged": 1.965538
     },
     {
       "date": "2020-07-31",
@@ -1988,8 +1808,7 @@
       "spn_alpha": 2.242001,
       "spn_alpha_hrp": 2.045012,
       "spn_alpha_mvo_sharpe": 2.43515,
-      "spn_alpha_mvo_minvol": 1.748522,
-      "spn_hedged": 1.930706
+      "spn_hedged": 1.985484
     },
     {
       "date": "2020-08-07",
@@ -1999,8 +1818,7 @@
       "spn_alpha": 2.314417,
       "spn_alpha_hrp": 2.112085,
       "spn_alpha_mvo_sharpe": 2.5067,
-      "spn_alpha_mvo_minvol": 1.795068,
-      "spn_hedged": 1.97088
+      "spn_hedged": 2.032303
     },
     {
       "date": "2020-08-14",
@@ -2010,8 +1828,7 @@
       "spn_alpha": 2.342971,
       "spn_alpha_hrp": 2.128872,
       "spn_alpha_mvo_sharpe": 2.550248,
-      "spn_alpha_mvo_minvol": 1.804437,
-      "spn_hedged": 1.988437
+      "spn_hedged": 2.052738
     },
     {
       "date": "2020-08-21",
@@ -2021,8 +1838,7 @@
       "spn_alpha": 2.396487,
       "spn_alpha_hrp": 2.164517,
       "spn_alpha_mvo_sharpe": 2.696808,
-      "spn_alpha_mvo_minvol": 1.829461,
-      "spn_hedged": 2.020638
+      "spn_hedged": 2.090523
     },
     {
       "date": "2020-08-28",
@@ -2032,8 +1848,7 @@
       "spn_alpha": 2.477254,
       "spn_alpha_hrp": 2.237609,
       "spn_alpha_mvo_sharpe": 2.786734,
-      "spn_alpha_mvo_minvol": 1.877783,
-      "spn_hedged": 2.068605
+      "spn_hedged": 2.147075
     },
     {
       "date": "2020-09-04",
@@ -2043,8 +1858,7 @@
       "spn_alpha": 2.421057,
       "spn_alpha_hrp": 2.196091,
       "spn_alpha_mvo_sharpe": 2.702656,
-      "spn_alpha_mvo_minvol": 1.860051,
-      "spn_hedged": 2.045056
+      "spn_hedged": 2.119346
     },
     {
       "date": "2020-09-14",
@@ -2054,8 +1868,7 @@
       "spn_alpha": 2.385109,
       "spn_alpha_hrp": 2.165556,
       "spn_alpha_mvo_sharpe": 2.635549,
-      "spn_alpha_mvo_minvol": 1.831621,
-      "spn_hedged": 2.02792
+      "spn_hedged": 2.098895
     },
     {
       "date": "2020-09-21",
@@ -2065,8 +1878,7 @@
       "spn_alpha": 2.333454,
       "spn_alpha_hrp": 2.121945,
       "spn_alpha_mvo_sharpe": 2.606947,
-      "spn_alpha_mvo_minvol": 1.803556,
-      "spn_hedged": 2.002133
+      "spn_hedged": 2.068445
     },
     {
       "date": "2020-09-28",
@@ -2076,8 +1888,7 @@
       "spn_alpha": 2.373622,
       "spn_alpha_hrp": 2.15309,
       "spn_alpha_mvo_sharpe": 2.658049,
-      "spn_alpha_mvo_minvol": 1.826623,
-      "spn_hedged": 2.023582
+      "spn_hedged": 2.09331
     },
     {
       "date": "2020-10-05",
@@ -2087,8 +1898,7 @@
       "spn_alpha": 2.406347,
       "spn_alpha_hrp": 2.181297,
       "spn_alpha_mvo_sharpe": 2.699358,
-      "spn_alpha_mvo_minvol": 1.847483,
-      "spn_hedged": 2.037332
+      "spn_hedged": 2.113566
     },
     {
       "date": "2020-10-12",
@@ -2098,8 +1908,7 @@
       "spn_alpha": 2.499026,
       "spn_alpha_hrp": 2.264778,
       "spn_alpha_mvo_sharpe": 2.829546,
-      "spn_alpha_mvo_minvol": 1.914212,
-      "spn_hedged": 2.076173
+      "spn_hedged": 2.169306
     },
     {
       "date": "2020-10-19",
@@ -2109,8 +1918,7 @@
       "spn_alpha": 2.41439,
       "spn_alpha_hrp": 2.191248,
       "spn_alpha_mvo_sharpe": 2.731372,
-      "spn_alpha_mvo_minvol": 1.854126,
-      "spn_hedged": 2.042584
+      "spn_hedged": 2.119702
     },
     {
       "date": "2020-10-26",
@@ -2120,8 +1928,7 @@
       "spn_alpha": 2.400878,
       "spn_alpha_hrp": 2.176891,
       "spn_alpha_mvo_sharpe": 2.703518,
-      "spn_alpha_mvo_minvol": 1.845332,
-      "spn_hedged": 2.037908
+      "spn_hedged": 2.112227
     },
     {
       "date": "2020-11-02",
@@ -2131,8 +1938,7 @@
       "spn_alpha": 2.327324,
       "spn_alpha_hrp": 2.109754,
       "spn_alpha_mvo_sharpe": 2.603956,
-      "spn_alpha_mvo_minvol": 1.794764,
-      "spn_hedged": 2.008566
+      "spn_hedged": 2.068951
     },
     {
       "date": "2020-11-09",
@@ -2142,8 +1948,7 @@
       "spn_alpha": 2.456969,
       "spn_alpha_hrp": 2.226289,
       "spn_alpha_mvo_sharpe": 2.714849,
-      "spn_alpha_mvo_minvol": 1.875852,
-      "spn_hedged": 2.053855
+      "spn_hedged": 2.126949
     },
     {
       "date": "2020-11-16",
@@ -2153,8 +1958,7 @@
       "spn_alpha": 2.515266,
       "spn_alpha_hrp": 2.279116,
       "spn_alpha_mvo_sharpe": 2.763268,
-      "spn_alpha_mvo_minvol": 1.936499,
-      "spn_hedged": 2.074245
+      "spn_hedged": 2.152942
     },
     {
       "date": "2020-11-23",
@@ -2164,8 +1968,7 @@
       "spn_alpha": 2.508751,
       "spn_alpha_hrp": 2.25363,
       "spn_alpha_mvo_sharpe": 2.823882,
-      "spn_alpha_mvo_minvol": 1.917648,
-      "spn_hedged": 2.073102
+      "spn_hedged": 2.151032
     },
     {
       "date": "2020-12-01",
@@ -2175,8 +1978,7 @@
       "spn_alpha": 2.576281,
       "spn_alpha_hrp": 2.310891,
       "spn_alpha_mvo_sharpe": 2.95715,
-      "spn_alpha_mvo_minvol": 1.95608,
-      "spn_hedged": 2.096307
+      "spn_hedged": 2.180729
     },
     {
       "date": "2020-12-08",
@@ -2186,8 +1988,7 @@
       "spn_alpha": 2.610222,
       "spn_alpha_hrp": 2.321232,
       "spn_alpha_mvo_sharpe": 2.998145,
-      "spn_alpha_mvo_minvol": 1.95951,
-      "spn_hedged": 2.120403
+      "spn_hedged": 2.210158
     },
     {
       "date": "2020-12-15",
@@ -2197,8 +1998,7 @@
       "spn_alpha": 2.63492,
       "spn_alpha_hrp": 2.318475,
       "spn_alpha_mvo_sharpe": 3.01503,
-      "spn_alpha_mvo_minvol": 1.957834,
-      "spn_hedged": 2.137579
+      "spn_hedged": 2.23107
     },
     {
       "date": "2020-12-22",
@@ -2208,8 +2008,7 @@
       "spn_alpha": 2.625058,
       "spn_alpha_hrp": 2.311595,
       "spn_alpha_mvo_sharpe": 3.027297,
-      "spn_alpha_mvo_minvol": 1.947853,
-      "spn_hedged": 2.13113
+      "spn_hedged": 2.22272
     },
     {
       "date": "2020-12-30",
@@ -2219,8 +2018,7 @@
       "spn_alpha": 2.663538,
       "spn_alpha_hrp": 2.350142,
       "spn_alpha_mvo_sharpe": 3.109563,
-      "spn_alpha_mvo_minvol": 1.983115,
-      "spn_hedged": 2.15766
+      "spn_hedged": 2.255302
     },
     {
       "date": "2021-01-07",
@@ -2230,8 +2028,7 @@
       "spn_alpha": 2.73228,
       "spn_alpha_hrp": 2.379696,
       "spn_alpha_mvo_sharpe": 3.16419,
-      "spn_alpha_mvo_minvol": 2.003309,
-      "spn_hedged": 2.193795
+      "spn_hedged": 2.306596
     },
     {
       "date": "2021-01-14",
@@ -2241,8 +2038,7 @@
       "spn_alpha": 2.771397,
       "spn_alpha_hrp": 2.384298,
       "spn_alpha_mvo_sharpe": 3.213142,
-      "spn_alpha_mvo_minvol": 2.018352,
-      "spn_hedged": 2.214573
+      "spn_hedged": 2.335868
     },
     {
       "date": "2021-01-22",
@@ -2252,8 +2048,7 @@
       "spn_alpha": 2.812263,
       "spn_alpha_hrp": 2.42655,
       "spn_alpha_mvo_sharpe": 3.322295,
-      "spn_alpha_mvo_minvol": 2.03539,
-      "spn_hedged": 2.236156
+      "spn_hedged": 2.366392
     },
     {
       "date": "2021-01-29",
@@ -2263,8 +2058,7 @@
       "spn_alpha": 2.734541,
       "spn_alpha_hrp": 2.355014,
       "spn_alpha_mvo_sharpe": 3.22326,
-      "spn_alpha_mvo_minvol": 1.990174,
-      "spn_hedged": 2.197206
+      "spn_hedged": 2.309121
     },
     {
       "date": "2021-02-05",
@@ -2274,8 +2068,7 @@
       "spn_alpha": 2.82622,
       "spn_alpha_hrp": 2.436679,
       "spn_alpha_mvo_sharpe": 3.311179,
-      "spn_alpha_mvo_minvol": 2.034832,
-      "spn_hedged": 2.246905
+      "spn_hedged": 2.374486
     },
     {
       "date": "2021-02-12",
@@ -2285,8 +2078,7 @@
       "spn_alpha": 2.851683,
       "spn_alpha_hrp": 2.459624,
       "spn_alpha_mvo_sharpe": 3.302329,
-      "spn_alpha_mvo_minvol": 2.048132,
-      "spn_hedged": 2.261613
+      "spn_hedged": 2.391981
     },
     {
       "date": "2021-02-22",
@@ -2296,8 +2088,7 @@
       "spn_alpha": 2.805448,
       "spn_alpha_hrp": 2.416786,
       "spn_alpha_mvo_sharpe": 3.163226,
-      "spn_alpha_mvo_minvol": 2.01578,
-      "spn_hedged": 2.236454
+      "spn_hedged": 2.361312
     },
     {
       "date": "2021-03-01",
@@ -2307,8 +2098,7 @@
       "spn_alpha": 2.803223,
       "spn_alpha_hrp": 2.409167,
       "spn_alpha_mvo_sharpe": 3.161213,
-      "spn_alpha_mvo_minvol": 1.988825,
-      "spn_hedged": 2.23597
+      "spn_hedged": 2.360371
     },
     {
       "date": "2021-03-08",
@@ -2318,8 +2108,7 @@
       "spn_alpha": 2.738179,
       "spn_alpha_hrp": 2.35752,
       "spn_alpha_mvo_sharpe": 2.966993,
-      "spn_alpha_mvo_minvol": 1.961259,
-      "spn_hedged": 2.197587
+      "spn_hedged": 2.313265
     },
     {
       "date": "2021-03-15",
@@ -2329,8 +2118,7 @@
       "spn_alpha": 2.831393,
       "spn_alpha_hrp": 2.425309,
       "spn_alpha_mvo_sharpe": 3.128185,
-      "spn_alpha_mvo_minvol": 2.003262,
-      "spn_hedged": 2.261392
+      "spn_hedged": 2.392014
     },
     {
       "date": "2021-03-22",
@@ -2340,8 +2128,7 @@
       "spn_alpha": 2.799514,
       "spn_alpha_hrp": 2.419409,
       "spn_alpha_mvo_sharpe": 3.103824,
-      "spn_alpha_mvo_minvol": 1.998437,
-      "spn_hedged": 2.240049
+      "spn_hedged": 2.365082
     },
     {
       "date": "2021-03-29",
@@ -2351,8 +2138,7 @@
       "spn_alpha": 2.842581,
       "spn_alpha_hrp": 2.470128,
       "spn_alpha_mvo_sharpe": 3.117415,
-      "spn_alpha_mvo_minvol": 2.064666,
-      "spn_hedged": 2.269604
+      "spn_hedged": 2.401466
     },
     {
       "date": "2021-04-06",
@@ -2362,8 +2148,7 @@
       "spn_alpha": 2.892269,
       "spn_alpha_hrp": 2.514274,
       "spn_alpha_mvo_sharpe": 3.216399,
-      "spn_alpha_mvo_minvol": 2.082984,
-      "spn_hedged": 2.303593
+      "spn_hedged": 2.443443
     },
     {
       "date": "2021-04-13",
@@ -2373,8 +2158,7 @@
       "spn_alpha": 2.944259,
       "spn_alpha_hrp": 2.551836,
       "spn_alpha_mvo_sharpe": 3.313161,
-      "spn_alpha_mvo_minvol": 2.093477,
-      "spn_hedged": 2.341019
+      "spn_hedged": 2.487365
     },
     {
       "date": "2021-04-20",
@@ -2384,8 +2168,7 @@
       "spn_alpha": 2.953344,
       "spn_alpha_hrp": 2.571952,
       "spn_alpha_mvo_sharpe": 3.321095,
-      "spn_alpha_mvo_minvol": 2.125393,
-      "spn_hedged": 2.347723
+      "spn_hedged": 2.49504
     },
     {
       "date": "2021-04-27",
@@ -2395,8 +2178,7 @@
       "spn_alpha": 2.935731,
       "spn_alpha_hrp": 2.561549,
       "spn_alpha_mvo_sharpe": 3.275379,
-      "spn_alpha_mvo_minvol": 2.103506,
-      "spn_hedged": 2.335336
+      "spn_hedged": 2.48016
     },
     {
       "date": "2021-05-04",
@@ -2406,8 +2188,7 @@
       "spn_alpha": 2.971599,
       "spn_alpha_hrp": 2.588744,
       "spn_alpha_mvo_sharpe": 3.263792,
-      "spn_alpha_mvo_minvol": 2.139858,
-      "spn_hedged": 2.361203
+      "spn_hedged": 2.510462
     },
     {
       "date": "2021-05-11",
@@ -2417,8 +2198,7 @@
       "spn_alpha": 2.961316,
       "spn_alpha_hrp": 2.588837,
       "spn_alpha_mvo_sharpe": 3.241915,
-      "spn_alpha_mvo_minvol": 2.154451,
-      "spn_hedged": 2.35407
+      "spn_hedged": 2.501775
     },
     {
       "date": "2021-05-18",
@@ -2428,8 +2208,7 @@
       "spn_alpha": 2.952341,
       "spn_alpha_hrp": 2.588991,
       "spn_alpha_mvo_sharpe": 3.217061,
-      "spn_alpha_mvo_minvol": 2.165854,
-      "spn_hedged": 2.347913
+      "spn_hedged": 2.494193
     },
     {
       "date": "2021-05-25",
@@ -2439,8 +2218,7 @@
       "spn_alpha": 3.004083,
       "spn_alpha_hrp": 2.631026,
       "spn_alpha_mvo_sharpe": 3.283267,
-      "spn_alpha_mvo_minvol": 2.187022,
-      "spn_hedged": 2.385131
+      "spn_hedged": 2.537905
     },
     {
       "date": "2021-06-02",
@@ -2450,8 +2228,7 @@
       "spn_alpha": 2.992077,
       "spn_alpha_hrp": 2.624045,
       "spn_alpha_mvo_sharpe": 3.254268,
-      "spn_alpha_mvo_minvol": 2.167174,
-      "spn_hedged": 2.376738
+      "spn_hedged": 2.527763
     },
     {
       "date": "2021-06-09",
@@ -2461,8 +2238,7 @@
       "spn_alpha": 3.043966,
       "spn_alpha_hrp": 2.657583,
       "spn_alpha_mvo_sharpe": 3.320006,
-      "spn_alpha_mvo_minvol": 2.186408,
-      "spn_hedged": 2.416266
+      "spn_hedged": 2.5716
     },
     {
       "date": "2021-06-16",
@@ -2472,8 +2248,7 @@
       "spn_alpha": 3.044024,
       "spn_alpha_hrp": 2.646176,
       "spn_alpha_mvo_sharpe": 3.307565,
-      "spn_alpha_mvo_minvol": 2.170497,
-      "spn_hedged": 2.416312
+      "spn_hedged": 2.571648
     },
     {
       "date": "2021-06-23",
@@ -2483,8 +2258,7 @@
       "spn_alpha": 3.075859,
       "spn_alpha_hrp": 2.666014,
       "spn_alpha_mvo_sharpe": 3.370246,
-      "spn_alpha_mvo_minvol": 2.173024,
-      "spn_hedged": 2.441583
+      "spn_hedged": 2.598543
     },
     {
       "date": "2021-06-30",
@@ -2494,8 +2268,7 @@
       "spn_alpha": 3.133881,
       "spn_alpha_hrp": 2.716369,
       "spn_alpha_mvo_sharpe": 3.4629,
-      "spn_alpha_mvo_minvol": 2.212226,
-      "spn_hedged": 2.48764
+      "spn_hedged": 2.647561
     },
     {
       "date": "2021-07-08",
@@ -2505,8 +2278,7 @@
       "spn_alpha": 3.178142,
       "spn_alpha_hrp": 2.746121,
       "spn_alpha_mvo_sharpe": 3.498434,
-      "spn_alpha_mvo_minvol": 2.240955,
-      "spn_hedged": 2.522774
+      "spn_hedged": 2.684954
     },
     {
       "date": "2021-07-15",
@@ -2516,8 +2288,7 @@
       "spn_alpha": 3.190308,
       "spn_alpha_hrp": 2.770424,
       "spn_alpha_mvo_sharpe": 3.528553,
-      "spn_alpha_mvo_minvol": 2.257309,
-      "spn_hedged": 2.532431
+      "spn_hedged": 2.695232
     },
     {
       "date": "2021-07-22",
@@ -2527,8 +2298,7 @@
       "spn_alpha": 3.193458,
       "spn_alpha_hrp": 2.776873,
       "spn_alpha_mvo_sharpe": 3.544822,
-      "spn_alpha_mvo_minvol": 2.264531,
-      "spn_hedged": 2.534932
+      "spn_hedged": 2.697893
     },
     {
       "date": "2021-07-29",
@@ -2538,8 +2308,7 @@
       "spn_alpha": 3.27044,
       "spn_alpha_hrp": 2.820354,
       "spn_alpha_mvo_sharpe": 3.60527,
-      "spn_alpha_mvo_minvol": 2.29358,
-      "spn_hedged": 2.596039
+      "spn_hedged": 2.762929
     },
     {
       "date": "2021-08-05",
@@ -2549,8 +2318,7 @@
       "spn_alpha": 3.33405,
       "spn_alpha_hrp": 2.852997,
       "spn_alpha_mvo_sharpe": 3.72315,
-      "spn_alpha_mvo_minvol": 2.332453,
-      "spn_hedged": 2.644244
+      "spn_hedged": 2.816668
     },
     {
       "date": "2021-08-12",
@@ -2560,8 +2328,7 @@
       "spn_alpha": 3.360378,
       "spn_alpha_hrp": 2.868123,
       "spn_alpha_mvo_sharpe": 3.748796,
-      "spn_alpha_mvo_minvol": 2.357649,
-      "spn_hedged": 2.66324
+      "spn_hedged": 2.83891
     },
     {
       "date": "2021-08-19",
@@ -2571,8 +2338,7 @@
       "spn_alpha": 3.315558,
       "spn_alpha_hrp": 2.859082,
       "spn_alpha_mvo_sharpe": 3.739868,
-      "spn_alpha_mvo_minvol": 2.365729,
-      "spn_hedged": 2.631474
+      "spn_hedged": 2.801045
     },
     {
       "date": "2021-08-26",
@@ -2582,8 +2348,7 @@
       "spn_alpha": 3.367238,
       "spn_alpha_hrp": 2.865324,
       "spn_alpha_mvo_sharpe": 3.736427,
-      "spn_alpha_mvo_minvol": 2.347728,
-      "spn_hedged": 2.668602
+      "spn_hedged": 2.844705
     },
     {
       "date": "2021-09-02",
@@ -2593,8 +2358,7 @@
       "spn_alpha": 3.403763,
       "spn_alpha_hrp": 2.893045,
       "spn_alpha_mvo_sharpe": 3.804136,
-      "spn_alpha_mvo_minvol": 2.374277,
-      "spn_hedged": 2.694862
+      "spn_hedged": 2.875563
     },
     {
       "date": "2021-09-10",
@@ -2604,8 +2368,7 @@
       "spn_alpha": 3.34289,
       "spn_alpha_hrp": 2.846856,
       "spn_alpha_mvo_sharpe": 3.745354,
-      "spn_alpha_mvo_minvol": 2.331539,
-      "spn_hedged": 2.646666
+      "spn_hedged": 2.824136
     },
     {
       "date": "2021-09-17",
@@ -2615,8 +2378,7 @@
       "spn_alpha": 3.315038,
       "spn_alpha_hrp": 2.832188,
       "spn_alpha_mvo_sharpe": 3.735577,
-      "spn_alpha_mvo_minvol": 2.314126,
-      "spn_hedged": 2.624616
+      "spn_hedged": 2.800607
     },
     {
       "date": "2021-09-24",
@@ -2626,8 +2388,7 @@
       "spn_alpha": 3.345694,
       "spn_alpha_hrp": 2.850571,
       "spn_alpha_mvo_sharpe": 3.760864,
-      "spn_alpha_mvo_minvol": 2.319945,
-      "spn_hedged": 2.648886
+      "spn_hedged": 2.826505
     },
     {
       "date": "2021-10-01",
@@ -2637,8 +2398,7 @@
       "spn_alpha": 3.302837,
       "spn_alpha_hrp": 2.789042,
       "spn_alpha_mvo_sharpe": 3.671695,
-      "spn_alpha_mvo_minvol": 2.260861,
-      "spn_hedged": 2.614956
+      "spn_hedged": 2.790299
     },
     {
       "date": "2021-10-08",
@@ -2648,8 +2408,7 @@
       "spn_alpha": 3.345928,
       "spn_alpha_hrp": 2.825895,
       "spn_alpha_mvo_sharpe": 3.727077,
-      "spn_alpha_mvo_minvol": 2.292434,
-      "spn_hedged": 2.645473
+      "spn_hedged": 2.826702
     },
     {
       "date": "2021-10-15",
@@ -2659,8 +2418,7 @@
       "spn_alpha": 3.385066,
       "spn_alpha_hrp": 2.864629,
       "spn_alpha_mvo_sharpe": 3.812503,
-      "spn_alpha_mvo_minvol": 2.315407,
-      "spn_hedged": 2.674997
+      "spn_hedged": 2.859767
     },
     {
       "date": "2021-10-22",
@@ -2670,8 +2428,7 @@
       "spn_alpha": 3.44171,
       "spn_alpha_hrp": 2.929984,
       "spn_alpha_mvo_sharpe": 3.922652,
-      "spn_alpha_mvo_minvol": 2.37012,
-      "spn_hedged": 2.717618
+      "spn_hedged": 2.907621
     },
     {
       "date": "2021-10-29",
@@ -2681,8 +2438,7 @@
       "spn_alpha": 3.423553,
       "spn_alpha_hrp": 2.980722,
       "spn_alpha_mvo_sharpe": 4.156401,
-      "spn_alpha_mvo_minvol": 2.400055,
-      "spn_hedged": 2.704126
+      "spn_hedged": 2.892282
     },
     {
       "date": "2021-11-05",
@@ -2692,8 +2448,7 @@
       "spn_alpha": 3.488297,
       "spn_alpha_hrp": 3.045609,
       "spn_alpha_mvo_sharpe": 4.357301,
-      "spn_alpha_mvo_minvol": 2.45127,
-      "spn_hedged": 2.750048
+      "spn_hedged": 2.946979
     },
     {
       "date": "2021-11-12",
@@ -2703,8 +2458,7 @@
       "spn_alpha": 3.443004,
       "spn_alpha_hrp": 3.038292,
       "spn_alpha_mvo_sharpe": 4.263453,
-      "spn_alpha_mvo_minvol": 2.446229,
-      "spn_hedged": 2.718122
+      "spn_hedged": 2.908714
     },
     {
       "date": "2021-11-19",
@@ -2714,8 +2468,7 @@
       "spn_alpha": 3.469305,
       "spn_alpha_hrp": 3.050838,
       "spn_alpha_mvo_sharpe": 4.400546,
-      "spn_alpha_mvo_minvol": 2.442541,
-      "spn_hedged": 2.737021
+      "spn_hedged": 2.930933
     },
     {
       "date": "2021-11-29",
@@ -2725,8 +2478,7 @@
       "spn_alpha": 3.453322,
       "spn_alpha_hrp": 3.044118,
       "spn_alpha_mvo_sharpe": 4.402492,
-      "spn_alpha_mvo_minvol": 2.451576,
-      "spn_hedged": 2.725939
+      "spn_hedged": 2.917431
     },
     {
       "date": "2021-12-06",
@@ -2736,8 +2488,7 @@
       "spn_alpha": 3.380804,
       "spn_alpha_hrp": 3.016627,
       "spn_alpha_mvo_sharpe": 4.217606,
-      "spn_alpha_mvo_minvol": 2.42719,
-      "spn_hedged": 2.672218
+      "spn_hedged": 2.854093
     },
     {
       "date": "2021-12-13",
@@ -2747,8 +2498,7 @@
       "spn_alpha": 3.437412,
       "spn_alpha_hrp": 3.094725,
       "spn_alpha_mvo_sharpe": 4.260023,
-      "spn_alpha_mvo_minvol": 2.500109,
-      "spn_hedged": 2.706327
+      "spn_hedged": 2.896434
     },
     {
       "date": "2021-12-20",
@@ -2758,8 +2508,7 @@
       "spn_alpha": 3.403526,
       "spn_alpha_hrp": 3.060986,
       "spn_alpha_mvo_sharpe": 4.203971,
-      "spn_alpha_mvo_minvol": 2.479185,
-      "spn_hedged": 2.687125
+      "spn_hedged": 2.871746
     },
     {
       "date": "2021-12-28",
@@ -2769,8 +2518,7 @@
       "spn_alpha": 3.552209,
       "spn_alpha_hrp": 3.190382,
       "spn_alpha_mvo_sharpe": 4.515545,
-      "spn_alpha_mvo_minvol": 2.559066,
-      "spn_hedged": 2.775362
+      "spn_hedged": 2.982216
     },
     {
       "date": "2022-01-04",
@@ -2780,8 +2528,7 @@
       "spn_alpha": 3.553704,
       "spn_alpha_hrp": 3.197784,
       "spn_alpha_mvo_sharpe": 4.518513,
-      "spn_alpha_mvo_minvol": 2.568241,
-      "spn_hedged": 2.773129
+      "spn_hedged": 2.981719
     },
     {
       "date": "2022-01-11",
@@ -2791,8 +2538,7 @@
       "spn_alpha": 3.463756,
       "spn_alpha_hrp": 3.12717,
       "spn_alpha_mvo_sharpe": 4.332311,
-      "spn_alpha_mvo_minvol": 2.532996,
-      "spn_hedged": 2.702938
+      "spn_hedged": 2.906248
     },
     {
       "date": "2022-01-19",
@@ -2802,8 +2548,7 @@
       "spn_alpha": 3.310271,
       "spn_alpha_hrp": 3.016342,
       "spn_alpha_mvo_sharpe": 4.100677,
-      "spn_alpha_mvo_minvol": 2.467158,
-      "spn_hedged": 2.583166
+      "spn_hedged": 2.777467
     },
     {
       "date": "2022-01-26",
@@ -2813,8 +2558,7 @@
       "spn_alpha": 3.199448,
       "spn_alpha_hrp": 2.929451,
       "spn_alpha_mvo_sharpe": 3.932447,
-      "spn_alpha_mvo_minvol": 2.393096,
-      "spn_hedged": 2.496686
+      "spn_hedged": 2.684482
     },
     {
       "date": "2022-02-02",
@@ -2824,8 +2568,7 @@
       "spn_alpha": 3.403007,
       "spn_alpha_hrp": 3.119545,
       "spn_alpha_mvo_sharpe": 4.172486,
-      "spn_alpha_mvo_minvol": 2.514998,
-      "spn_hedged": 2.655532
+      "spn_hedged": 2.855276
     },
     {
       "date": "2022-02-09",
@@ -2835,8 +2578,7 @@
       "spn_alpha": 3.305408,
       "spn_alpha_hrp": 3.083058,
       "spn_alpha_mvo_sharpe": 4.20077,
-      "spn_alpha_mvo_minvol": 2.514946,
-      "spn_hedged": 2.603092
+      "spn_hedged": 2.781095
     },
     {
       "date": "2022-02-16",
@@ -2846,8 +2588,7 @@
       "spn_alpha": 3.233967,
       "spn_alpha_hrp": 3.02125,
       "spn_alpha_mvo_sharpe": 4.148723,
-      "spn_alpha_mvo_minvol": 2.46119,
-      "spn_hedged": 2.564484
+      "spn_hedged": 2.726684
     },
     {
       "date": "2022-02-24",
@@ -2857,8 +2598,7 @@
       "spn_alpha": 3.103316,
       "spn_alpha_hrp": 2.905546,
       "spn_alpha_mvo_sharpe": 3.908731,
-      "spn_alpha_mvo_minvol": 2.389861,
-      "spn_hedged": 2.492426
+      "spn_hedged": 2.62662
     },
     {
       "date": "2022-03-03",
@@ -2868,8 +2608,7 @@
       "spn_alpha": 3.193582,
       "spn_alpha_hrp": 2.973826,
       "spn_alpha_mvo_sharpe": 4.030725,
-      "spn_alpha_mvo_minvol": 2.474655,
-      "spn_hedged": 2.543724
+      "spn_hedged": 2.696286
     },
     {
       "date": "2022-03-10",
@@ -2879,8 +2618,7 @@
       "spn_alpha": 3.154437,
       "spn_alpha_hrp": 2.935572,
       "spn_alpha_mvo_sharpe": 3.960959,
-      "spn_alpha_mvo_minvol": 2.457133,
-      "spn_hedged": 2.527891
+      "spn_hedged": 2.672694
     },
     {
       "date": "2022-03-17",
@@ -2890,8 +2628,7 @@
       "spn_alpha": 3.316514,
       "spn_alpha_hrp": 3.066945,
       "spn_alpha_mvo_sharpe": 4.15373,
-      "spn_alpha_mvo_minvol": 2.560515,
-      "spn_hedged": 2.59929
+      "spn_hedged": 2.773927
     },
     {
       "date": "2022-03-24",
@@ -2901,8 +2638,7 @@
       "spn_alpha": 3.409848,
       "spn_alpha_hrp": 3.120982,
       "spn_alpha_mvo_sharpe": 4.414963,
-      "spn_alpha_mvo_minvol": 2.591604,
-      "spn_hedged": 2.640047
+      "spn_hedged": 2.831842
     },
     {
       "date": "2022-03-31",
@@ -2912,8 +2648,7 @@
       "spn_alpha": 3.41587,
       "spn_alpha_hrp": 3.136734,
       "spn_alpha_mvo_sharpe": 4.462774,
-      "spn_alpha_mvo_minvol": 2.628369,
-      "spn_hedged": 2.64368
+      "spn_hedged": 2.836235
     },
     {
       "date": "2022-04-07",
@@ -2923,8 +2658,7 @@
       "spn_alpha": 3.419327,
       "spn_alpha_hrp": 3.172196,
       "spn_alpha_mvo_sharpe": 4.478479,
-      "spn_alpha_mvo_minvol": 2.684932,
-      "spn_hedged": 2.640074
+      "spn_hedged": 2.833634
     },
     {
       "date": "2022-04-14",
@@ -2934,8 +2668,7 @@
       "spn_alpha": 3.342438,
       "spn_alpha_hrp": 3.10103,
       "spn_alpha_mvo_sharpe": 4.283313,
-      "spn_alpha_mvo_minvol": 2.646733,
-      "spn_hedged": 2.598462
+      "spn_hedged": 2.77842
     },
     {
       "date": "2022-04-22",
@@ -2945,8 +2678,7 @@
       "spn_alpha": 3.258645,
       "spn_alpha_hrp": 3.027377,
       "spn_alpha_mvo_sharpe": 4.150926,
-      "spn_alpha_mvo_minvol": 2.608709,
-      "spn_hedged": 2.552882
+      "spn_hedged": 2.718117
     },
     {
       "date": "2022-04-29",
@@ -2956,8 +2688,7 @@
       "spn_alpha": 3.21669,
       "spn_alpha_hrp": 2.97339,
       "spn_alpha_mvo_sharpe": 3.989631,
-      "spn_alpha_mvo_minvol": 2.522839,
-      "spn_hedged": 2.531092
+      "spn_hedged": 2.688491
     },
     {
       "date": "2022-05-06",
@@ -2967,8 +2698,7 @@
       "spn_alpha": 3.191336,
       "spn_alpha_hrp": 2.943578,
       "spn_alpha_mvo_sharpe": 3.979666,
-      "spn_alpha_mvo_minvol": 2.466018,
-      "spn_hedged": 2.526413
+      "spn_hedged": 2.669524
     },
     {
       "date": "2022-05-13",
@@ -2978,8 +2708,7 @@
       "spn_alpha": 3.138309,
       "spn_alpha_hrp": 2.889146,
       "spn_alpha_mvo_sharpe": 3.830578,
-      "spn_alpha_mvo_minvol": 2.429468,
-      "spn_hedged": 2.500451
+      "spn_hedged": 2.630871
     },
     {
       "date": "2022-05-20",
@@ -2989,8 +2718,7 @@
       "spn_alpha": 2.93132,
       "spn_alpha_hrp": 2.728679,
       "spn_alpha_mvo_sharpe": 3.490528,
-      "spn_alpha_mvo_minvol": 2.246024,
-      "spn_hedged": 2.394895
+      "spn_hedged": 2.478214
     },
     {
       "date": "2022-05-27",
@@ -3000,8 +2728,7 @@
       "spn_alpha": 3.153214,
       "spn_alpha_hrp": 2.925468,
       "spn_alpha_mvo_sharpe": 3.827661,
-      "spn_alpha_mvo_minvol": 2.401219,
-      "spn_hedged": 2.51094
+      "spn_hedged": 2.643073
     },
     {
       "date": "2022-06-06",
@@ -3011,8 +2738,7 @@
       "spn_alpha": 3.140379,
       "spn_alpha_hrp": 2.886697,
       "spn_alpha_mvo_sharpe": 3.729631,
-      "spn_alpha_mvo_minvol": 2.373428,
-      "spn_hedged": 2.505292
+      "spn_hedged": 2.633806
     },
     {
       "date": "2022-06-13",
@@ -3022,8 +2748,7 @@
       "spn_alpha": 2.907848,
       "spn_alpha_hrp": 2.669871,
       "spn_alpha_mvo_sharpe": 3.42017,
-      "spn_alpha_mvo_minvol": 2.218805,
-      "spn_hedged": 2.38858
+      "spn_hedged": 2.470207
     },
     {
       "date": "2022-06-21",
@@ -3033,8 +2758,7 @@
       "spn_alpha": 2.929557,
       "spn_alpha_hrp": 2.688191,
       "spn_alpha_mvo_sharpe": 3.547253,
-      "spn_alpha_mvo_minvol": 2.231352,
-      "spn_hedged": 2.400819
+      "spn_hedged": 2.486178
     },
     {
       "date": "2022-06-28",
@@ -3044,8 +2768,7 @@
       "spn_alpha": 2.969948,
       "spn_alpha_hrp": 2.732125,
       "spn_alpha_mvo_sharpe": 3.585527,
-      "spn_alpha_mvo_minvol": 2.264416,
-      "spn_hedged": 2.422683
+      "spn_hedged": 2.515435
     },
     {
       "date": "2022-07-06",
@@ -3055,8 +2778,7 @@
       "spn_alpha": 3.026563,
       "spn_alpha_hrp": 2.788122,
       "spn_alpha_mvo_sharpe": 3.63501,
-      "spn_alpha_mvo_minvol": 2.311362,
-      "spn_hedged": 2.45231
+      "spn_hedged": 2.555871
     },
     {
       "date": "2022-07-13",
@@ -3066,8 +2788,7 @@
       "spn_alpha": 3.012642,
       "spn_alpha_hrp": 2.774231,
       "spn_alpha_mvo_sharpe": 3.624052,
-      "spn_alpha_mvo_minvol": 2.301872,
-      "spn_hedged": 2.447688
+      "spn_hedged": 2.548571
     },
     {
       "date": "2022-07-20",
@@ -3077,8 +2798,7 @@
       "spn_alpha": 3.132019,
       "spn_alpha_hrp": 2.86548,
       "spn_alpha_mvo_sharpe": 3.776388,
-      "spn_alpha_mvo_minvol": 2.362601,
-      "spn_hedged": 2.496929
+      "spn_hedged": 2.61769
     },
     {
       "date": "2022-07-27",
@@ -3088,8 +2808,7 @@
       "spn_alpha": 3.13781,
       "spn_alpha_hrp": 2.896913,
       "spn_alpha_mvo_sharpe": 3.884652,
-      "spn_alpha_mvo_minvol": 2.380875,
-      "spn_hedged": 2.500551
+      "spn_hedged": 2.621945
     },
     {
       "date": "2022-08-03",
@@ -3099,8 +2818,7 @@
       "spn_alpha": 3.192053,
       "spn_alpha_hrp": 2.959349,
       "spn_alpha_mvo_sharpe": 4.021956,
-      "spn_alpha_mvo_minvol": 2.438171,
-      "spn_hedged": 2.523131
+      "spn_hedged": 2.653414
     },
     {
       "date": "2022-08-10",
@@ -3110,8 +2828,7 @@
       "spn_alpha": 3.199251,
       "spn_alpha_hrp": 2.96625,
       "spn_alpha_mvo_sharpe": 3.959249,
-      "spn_alpha_mvo_minvol": 2.428459,
-      "spn_hedged": 2.531192
+      "spn_hedged": 2.663218
     },
     {
       "date": "2022-08-17",
@@ -3121,8 +2838,7 @@
       "spn_alpha": 3.253193,
       "spn_alpha_hrp": 3.029786,
       "spn_alpha_mvo_sharpe": 4.056338,
-      "spn_alpha_mvo_minvol": 2.492488,
-      "spn_hedged": 2.561623
+      "spn_hedged": 2.70423
     },
     {
       "date": "2022-08-24",
@@ -3132,8 +2848,7 @@
       "spn_alpha": 3.182534,
       "spn_alpha_hrp": 2.945709,
       "spn_alpha_mvo_sharpe": 3.955875,
-      "spn_alpha_mvo_minvol": 2.437641,
-      "spn_hedged": 2.52329
+      "spn_hedged": 2.65101
     },
     {
       "date": "2022-08-31",
@@ -3143,8 +2858,7 @@
       "spn_alpha": 3.050634,
       "spn_alpha_hrp": 2.818153,
       "spn_alpha_mvo_sharpe": 3.727845,
-      "spn_alpha_mvo_minvol": 2.342221,
-      "spn_hedged": 2.450648
+      "spn_hedged": 2.551263
     },
     {
       "date": "2022-09-08",
@@ -3154,8 +2868,7 @@
       "spn_alpha": 3.10486,
       "spn_alpha_hrp": 2.864806,
       "spn_alpha_mvo_sharpe": 3.763974,
-      "spn_alpha_mvo_minvol": 2.378113,
-      "spn_hedged": 2.47689
+      "spn_hedged": 2.581054
     },
     {
       "date": "2022-09-15",
@@ -3165,8 +2878,7 @@
       "spn_alpha": 3.032713,
       "spn_alpha_hrp": 2.798352,
       "spn_alpha_mvo_sharpe": 3.72306,
-      "spn_alpha_mvo_minvol": 2.329532,
-      "spn_hedged": 2.44352
+      "spn_hedged": 2.541284
     },
     {
       "date": "2022-09-22",
@@ -3176,8 +2888,7 @@
       "spn_alpha": 2.967273,
       "spn_alpha_hrp": 2.738252,
       "spn_alpha_mvo_sharpe": 3.656635,
-      "spn_alpha_mvo_minvol": 2.287438,
-      "spn_hedged": 2.412593
+      "spn_hedged": 2.504579
     },
     {
       "date": "2022-09-29",
@@ -3187,8 +2898,7 @@
       "spn_alpha": 2.911066,
       "spn_alpha_hrp": 2.690019,
       "spn_alpha_mvo_sharpe": 3.578706,
-      "spn_alpha_mvo_minvol": 2.252001,
-      "spn_hedged": 2.386094
+      "spn_hedged": 2.473101
     },
     {
       "date": "2022-10-06",
@@ -3198,8 +2908,7 @@
       "spn_alpha": 2.971536,
       "spn_alpha_hrp": 2.73513,
       "spn_alpha_mvo_sharpe": 3.579422,
-      "spn_alpha_mvo_minvol": 2.278674,
-      "spn_hedged": 2.420624
+      "spn_hedged": 2.511632
     },
     {
       "date": "2022-10-13",
@@ -3209,8 +2918,7 @@
       "spn_alpha": 2.924688,
       "spn_alpha_hrp": 2.696902,
       "spn_alpha_mvo_sharpe": 3.49672,
-      "spn_alpha_mvo_minvol": 2.260599,
-      "spn_hedged": 2.406694
+      "spn_hedged": 2.49137
     },
     {
       "date": "2022-10-20",
@@ -3220,8 +2928,7 @@
       "spn_alpha": 2.94188,
       "spn_alpha_hrp": 2.708262,
       "spn_alpha_mvo_sharpe": 3.47547,
-      "spn_alpha_mvo_minvol": 2.268287,
-      "spn_hedged": 2.413754
+      "spn_hedged": 2.500465
     },
     {
       "date": "2022-10-27",
@@ -3231,8 +2938,7 @@
       "spn_alpha": 3.037065,
       "spn_alpha_hrp": 2.82468,
       "spn_alpha_mvo_sharpe": 3.649749,
-      "spn_alpha_mvo_minvol": 2.372527,
-      "spn_hedged": 2.446275
+      "spn_hedged": 2.54521
     },
     {
       "date": "2022-11-03",
@@ -3242,8 +2948,7 @@
       "spn_alpha": 2.971586,
       "spn_alpha_hrp": 2.770476,
       "spn_alpha_mvo_sharpe": 3.602511,
-      "spn_alpha_mvo_minvol": 2.335312,
-      "spn_hedged": 2.426466
+      "spn_hedged": 2.517009
     },
     {
       "date": "2022-11-10",
@@ -3253,8 +2958,7 @@
       "spn_alpha": 3.137861,
       "spn_alpha_hrp": 2.92886,
       "spn_alpha_mvo_sharpe": 3.647999,
-      "spn_alpha_mvo_minvol": 2.446125,
-      "spn_hedged": 2.481978
+      "spn_hedged": 2.591973
     },
     {
       "date": "2022-11-17",
@@ -3264,8 +2968,7 @@
       "spn_alpha": 3.153992,
       "spn_alpha_hrp": 2.945429,
       "spn_alpha_mvo_sharpe": 3.619132,
-      "spn_alpha_mvo_minvol": 2.472142,
-      "spn_hedged": 2.488296
+      "spn_hedged": 2.599988
     },
     {
       "date": "2022-11-25",
@@ -3275,8 +2978,7 @@
       "spn_alpha": 3.220759,
       "spn_alpha_hrp": 3.016188,
       "spn_alpha_mvo_sharpe": 3.679695,
-      "spn_alpha_mvo_minvol": 2.534307,
-      "spn_hedged": 2.51049
+      "spn_hedged": 2.629809
     },
     {
       "date": "2022-12-02",
@@ -3286,8 +2988,7 @@
       "spn_alpha": 3.251855,
       "spn_alpha_hrp": 3.036586,
       "spn_alpha_mvo_sharpe": 3.693111,
-      "spn_alpha_mvo_minvol": 2.530923,
-      "spn_hedged": 2.521646
+      "spn_hedged": 2.644427
     },
     {
       "date": "2022-12-09",
@@ -3297,8 +2998,7 @@
       "spn_alpha": 3.142349,
       "spn_alpha_hrp": 2.944894,
       "spn_alpha_mvo_sharpe": 3.565777,
-      "spn_alpha_mvo_minvol": 2.459953,
-      "spn_hedged": 2.458903
+      "spn_hedged": 2.564112
     },
     {
       "date": "2022-12-16",
@@ -3308,8 +3008,7 @@
       "spn_alpha": 3.11571,
       "spn_alpha_hrp": 2.901694,
       "spn_alpha_mvo_sharpe": 3.426544,
-      "spn_alpha_mvo_minvol": 2.422974,
-      "spn_hedged": 2.444071
+      "spn_hedged": 2.544748
     },
     {
       "date": "2022-12-23",
@@ -3319,8 +3018,7 @@
       "spn_alpha": 3.112944,
       "spn_alpha_hrp": 2.898861,
       "spn_alpha_mvo_sharpe": 3.351068,
-      "spn_alpha_mvo_minvol": 2.442229,
-      "spn_hedged": 2.443093
+      "spn_hedged": 2.542968
     },
     {
       "date": "2023-01-03",
@@ -3330,8 +3028,7 @@
       "spn_alpha": 3.113611,
       "spn_alpha_hrp": 2.88374,
       "spn_alpha_mvo_sharpe": 3.248472,
-      "spn_alpha_mvo_minvol": 2.431206,
-      "spn_hedged": 2.444056
+      "spn_hedged": 2.543692
     },
     {
       "date": "2023-01-10",
@@ -3341,8 +3038,7 @@
       "spn_alpha": 3.158951,
       "spn_alpha_hrp": 2.918595,
       "spn_alpha_mvo_sharpe": 3.323237,
-      "spn_alpha_mvo_minvol": 2.468096,
-      "spn_hedged": 2.472342
+      "spn_hedged": 2.57757
     },
     {
       "date": "2023-01-18",
@@ -3352,8 +3048,7 @@
       "spn_alpha": 3.176585,
       "spn_alpha_hrp": 2.898148,
       "spn_alpha_mvo_sharpe": 3.366313,
-      "spn_alpha_mvo_minvol": 2.430949,
-      "spn_hedged": 2.483897
+      "spn_hedged": 2.590922
     },
     {
       "date": "2023-01-25",
@@ -3363,8 +3058,7 @@
       "spn_alpha": 3.262907,
       "spn_alpha_hrp": 2.938278,
       "spn_alpha_mvo_sharpe": 3.495907,
-      "spn_alpha_mvo_minvol": 2.45265,
-      "spn_hedged": 2.538352
+      "spn_hedged": 2.655265
     },
     {
       "date": "2023-02-01",
@@ -3374,8 +3068,7 @@
       "spn_alpha": 3.391599,
       "spn_alpha_hrp": 2.994923,
       "spn_alpha_mvo_sharpe": 3.679879,
-      "spn_alpha_mvo_minvol": 2.486419,
-      "spn_hedged": 2.618983
+      "spn_hedged": 2.75091
     },
     {
       "date": "2023-02-08",
@@ -3385,8 +3078,7 @@
       "spn_alpha": 3.402999,
       "spn_alpha_hrp": 2.980372,
       "spn_alpha_mvo_sharpe": 3.735805,
-      "spn_alpha_mvo_minvol": 2.456583,
-      "spn_hedged": 2.625726
+      "spn_hedged": 2.758832
     },
     {
       "date": "2023-02-15",
@@ -3396,8 +3088,7 @@
       "spn_alpha": 3.4292,
       "spn_alpha_hrp": 3.000609,
       "spn_alpha_mvo_sharpe": 3.813392,
-      "spn_alpha_mvo_minvol": 2.474981,
-      "spn_hedged": 2.644144
+      "spn_hedged": 2.780072
     },
     {
       "date": "2023-02-23",
@@ -3407,8 +3098,7 @@
       "spn_alpha": 3.341986,
       "spn_alpha_hrp": 2.927534,
       "spn_alpha_mvo_sharpe": 3.729176,
-      "spn_alpha_mvo_minvol": 2.423818,
-      "spn_hedged": 2.583795
+      "spn_hedged": 2.709368
     },
     {
       "date": "2023-03-02",
@@ -3418,8 +3108,7 @@
       "spn_alpha": 3.289091,
       "spn_alpha_hrp": 2.890461,
       "spn_alpha_mvo_sharpe": 3.652816,
-      "spn_alpha_mvo_minvol": 2.39799,
-      "spn_hedged": 2.547177
+      "spn_hedged": 2.666485
     },
     {
       "date": "2023-03-09",
@@ -3429,8 +3118,7 @@
       "spn_alpha": 3.250629,
       "spn_alpha_hrp": 2.857322,
       "spn_alpha_mvo_sharpe": 3.58513,
-      "spn_alpha_mvo_minvol": 2.366633,
-      "spn_hedged": 2.520611
+      "spn_hedged": 2.635304
     },
     {
       "date": "2023-03-16",
@@ -3440,8 +3128,7 @@
       "spn_alpha": 3.343999,
       "spn_alpha_hrp": 2.922675,
       "spn_alpha_mvo_sharpe": 3.683716,
-      "spn_alpha_mvo_minvol": 2.406608,
-      "spn_hedged": 2.585926
+      "spn_hedged": 2.711
     },
     {
       "date": "2023-03-23",
@@ -3451,8 +3138,7 @@
       "spn_alpha": 3.349016,
       "spn_alpha_hrp": 2.934854,
       "spn_alpha_mvo_sharpe": 3.771563,
-      "spn_alpha_mvo_minvol": 2.413661,
-      "spn_hedged": 2.589659
+      "spn_hedged": 2.715067
     },
     {
       "date": "2023-03-30",
@@ -3462,8 +3148,7 @@
       "spn_alpha": 3.408851,
       "spn_alpha_hrp": 2.986149,
       "spn_alpha_mvo_sharpe": 3.836097,
-      "spn_alpha_mvo_minvol": 2.466535,
-      "spn_hedged": 2.631488
+      "spn_hedged": 2.763576
     },
     {
       "date": "2023-04-06",
@@ -3473,8 +3158,7 @@
       "spn_alpha": 3.541088,
       "spn_alpha_hrp": 3.091598,
       "spn_alpha_mvo_sharpe": 3.897899,
-      "spn_alpha_mvo_minvol": 2.556893,
-      "spn_hedged": 2.723445
+      "spn_hedged": 2.870781
     },
     {
       "date": "2023-04-14",
@@ -3484,8 +3168,7 @@
       "spn_alpha": 3.564196,
       "spn_alpha_hrp": 3.11411,
       "spn_alpha_mvo_sharpe": 3.914511,
-      "spn_alpha_mvo_minvol": 2.570527,
-      "spn_hedged": 2.739683
+      "spn_hedged": 2.889515
     },
     {
       "date": "2023-04-21",
@@ -3495,8 +3178,7 @@
       "spn_alpha": 3.568405,
       "spn_alpha_hrp": 3.127622,
       "spn_alpha_mvo_sharpe": 3.871021,
-      "spn_alpha_mvo_minvol": 2.590602,
-      "spn_hedged": 2.742826
+      "spn_hedged": 2.892927
     },
     {
       "date": "2023-04-28",
@@ -3506,8 +3188,7 @@
       "spn_alpha": 3.604332,
       "spn_alpha_hrp": 3.164076,
       "spn_alpha_mvo_sharpe": 3.917708,
-      "spn_alpha_mvo_minvol": 2.613929,
-      "spn_hedged": 2.767966
+      "spn_hedged": 2.922054
     },
     {
       "date": "2023-05-05",
@@ -3517,8 +3198,7 @@
       "spn_alpha": 3.607729,
       "spn_alpha_hrp": 3.159697,
       "spn_alpha_mvo_sharpe": 3.94447,
-      "spn_alpha_mvo_minvol": 2.612486,
-      "spn_hedged": 2.77057
+      "spn_hedged": 2.924807
     },
     {
       "date": "2023-05-12",
@@ -3528,8 +3208,7 @@
       "spn_alpha": 3.63983,
       "spn_alpha_hrp": 3.160367,
       "spn_alpha_mvo_sharpe": 3.935371,
-      "spn_alpha_mvo_minvol": 2.611463,
-      "spn_hedged": 2.795223
+      "spn_hedged": 2.950832
     },
     {
       "date": "2023-05-19",
@@ -3539,8 +3218,7 @@
       "spn_alpha": 3.701984,
       "spn_alpha_hrp": 3.183805,
       "spn_alpha_mvo_sharpe": 4.048873,
-      "spn_alpha_mvo_minvol": 2.612099,
-      "spn_hedged": 2.842954
+      "spn_hedged": 3.001221
     },
     {
       "date": "2023-05-26",
@@ -3550,8 +3228,7 @@
       "spn_alpha": 3.710594,
       "spn_alpha_hrp": 3.172406,
       "spn_alpha_mvo_sharpe": 4.183336,
-      "spn_alpha_mvo_minvol": 2.573594,
-      "spn_hedged": 2.849566
+      "spn_hedged": 3.008201
     },
     {
       "date": "2023-06-05",
@@ -3561,8 +3238,7 @@
       "spn_alpha": 3.809978,
       "spn_alpha_hrp": 3.236534,
       "spn_alpha_mvo_sharpe": 4.257699,
-      "spn_alpha_mvo_minvol": 2.62997,
-      "spn_hedged": 2.925888
+      "spn_hedged": 3.088772
     },
     {
       "date": "2023-06-12",
@@ -3572,8 +3248,7 @@
       "spn_alpha": 3.871117,
       "spn_alpha_hrp": 3.273586,
       "spn_alpha_mvo_sharpe": 4.35807,
-      "spn_alpha_mvo_minvol": 2.657948,
-      "spn_hedged": 2.969449
+      "spn_hedged": 3.138337
     },
     {
       "date": "2023-06-20",
@@ -3583,8 +3258,7 @@
       "spn_alpha": 3.905499,
       "spn_alpha_hrp": 3.296991,
       "spn_alpha_mvo_sharpe": 4.442444,
-      "spn_alpha_mvo_minvol": 2.675023,
-      "spn_hedged": 2.993436
+      "spn_hedged": 3.166211
     },
     {
       "date": "2023-06-27",
@@ -3594,8 +3268,7 @@
       "spn_alpha": 3.936911,
       "spn_alpha_hrp": 3.31599,
       "spn_alpha_mvo_sharpe": 4.421369,
-      "spn_alpha_mvo_minvol": 2.690904,
-      "spn_hedged": 3.015361
+      "spn_hedged": 3.191677
     },
     {
       "date": "2023-07-05",
@@ -3605,8 +3278,7 @@
       "spn_alpha": 3.984948,
       "spn_alpha_hrp": 3.364758,
       "spn_alpha_mvo_sharpe": 4.497542,
-      "spn_alpha_mvo_minvol": 2.722822,
-      "spn_hedged": 3.048719
+      "spn_hedged": 3.230621
     },
     {
       "date": "2023-07-12",
@@ -3616,8 +3288,7 @@
       "spn_alpha": 3.963103,
       "spn_alpha_hrp": 3.323754,
       "spn_alpha_mvo_sharpe": 4.485367,
-      "spn_alpha_mvo_minvol": 2.681084,
-      "spn_hedged": 3.038268
+      "spn_hedged": 3.212912
     },
     {
       "date": "2023-07-19",
@@ -3627,8 +3298,7 @@
       "spn_alpha": 4.015363,
       "spn_alpha_hrp": 3.387249,
       "spn_alpha_mvo_sharpe": 4.588278,
-      "spn_alpha_mvo_minvol": 2.719832,
-      "spn_hedged": 3.078333
+      "spn_hedged": 3.255279
     },
     {
       "date": "2023-07-26",
@@ -3638,8 +3308,7 @@
       "spn_alpha": 4.087071,
       "spn_alpha_hrp": 3.46068,
       "spn_alpha_mvo_sharpe": 4.608849,
-      "spn_alpha_mvo_minvol": 2.797299,
-      "spn_hedged": 3.133307
+      "spn_hedged": 3.313413
     },
     {
       "date": "2023-08-02",
@@ -3649,8 +3318,7 @@
       "spn_alpha": 4.095894,
       "spn_alpha_hrp": 3.445146,
       "spn_alpha_mvo_sharpe": 4.591473,
-      "spn_alpha_mvo_minvol": 2.793317,
-      "spn_hedged": 3.14007
+      "spn_hedged": 3.320565
     },
     {
       "date": "2023-08-09",
@@ -3660,8 +3328,7 @@
       "spn_alpha": 4.155439,
       "spn_alpha_hrp": 3.486836,
       "spn_alpha_mvo_sharpe": 4.687486,
-      "spn_alpha_mvo_minvol": 2.846373,
-      "spn_hedged": 3.185408
+      "spn_hedged": 3.368839
     },
     {
       "date": "2023-08-16",
@@ -3671,8 +3338,7 @@
       "spn_alpha": 4.128693,
       "spn_alpha_hrp": 3.467804,
       "spn_alpha_mvo_sharpe": 4.683,
-      "spn_alpha_mvo_minvol": 2.826622,
-      "spn_hedged": 3.167221
+      "spn_hedged": 3.347156
     },
     {
       "date": "2023-08-23",
@@ -3682,8 +3348,7 @@
       "spn_alpha": 4.157076,
       "spn_alpha_hrp": 3.449925,
       "spn_alpha_mvo_sharpe": 4.755239,
-      "spn_alpha_mvo_minvol": 2.805749,
-      "spn_hedged": 3.187115
+      "spn_hedged": 3.370166
     },
     {
       "date": "2023-08-30",
@@ -3693,8 +3358,7 @@
       "spn_alpha": 4.229775,
       "spn_alpha_hrp": 3.49623,
       "spn_alpha_mvo_sharpe": 4.837577,
-      "spn_alpha_mvo_minvol": 2.842131,
-      "spn_hedged": 3.23754
+      "spn_hedged": 3.429104
     },
     {
       "date": "2023-09-07",
@@ -3704,8 +3368,7 @@
       "spn_alpha": 4.216058,
       "spn_alpha_hrp": 3.487509,
       "spn_alpha_mvo_sharpe": 4.823443,
-      "spn_alpha_mvo_minvol": 2.843542,
-      "spn_hedged": 3.228348
+      "spn_hedged": 3.417983
     },
     {
       "date": "2023-09-14",
@@ -3715,8 +3378,7 @@
       "spn_alpha": 4.305171,
       "spn_alpha_hrp": 3.543643,
       "spn_alpha_mvo_sharpe": 4.923451,
-      "spn_alpha_mvo_minvol": 2.894251,
-      "spn_hedged": 3.289983
+      "spn_hedged": 3.490228
     },
     {
       "date": "2023-09-21",
@@ -3726,8 +3388,7 @@
       "spn_alpha": 4.139883,
       "spn_alpha_hrp": 3.450376,
       "spn_alpha_mvo_sharpe": 4.741055,
-      "spn_alpha_mvo_minvol": 2.831208,
-      "spn_hedged": 3.176402
+      "spn_hedged": 3.356228
     },
     {
       "date": "2023-09-28",
@@ -3737,8 +3398,7 @@
       "spn_alpha": 4.11929,
       "spn_alpha_hrp": 3.419912,
       "spn_alpha_mvo_sharpe": 4.799594,
-      "spn_alpha_mvo_minvol": 2.808628,
-      "spn_hedged": 3.162453
+      "spn_hedged": 3.339533
     },
     {
       "date": "2023-10-05",
@@ -3748,8 +3408,7 @@
       "spn_alpha": 4.07993,
       "spn_alpha_hrp": 3.386078,
       "spn_alpha_mvo_sharpe": 4.721737,
-      "spn_alpha_mvo_minvol": 2.760615,
-      "spn_hedged": 3.13554
+      "spn_hedged": 3.307623
     },
     {
       "date": "2023-10-12",
@@ -3759,8 +3418,7 @@
       "spn_alpha": 4.215231,
       "spn_alpha_hrp": 3.439454,
       "spn_alpha_mvo_sharpe": 4.894697,
-      "spn_alpha_mvo_minvol": 2.787177,
-      "spn_hedged": 3.239523
+      "spn_hedged": 3.417313
     },
     {
       "date": "2023-10-19",
@@ -3770,8 +3428,7 @@
       "spn_alpha": 4.167769,
       "spn_alpha_hrp": 3.4189,
       "spn_alpha_mvo_sharpe": 4.843784,
-      "spn_alpha_mvo_minvol": 2.787552,
-      "spn_hedged": 3.203047
+      "spn_hedged": 3.378835
     },
     {
       "date": "2023-10-26",
@@ -3781,8 +3438,7 @@
       "spn_alpha": 4.067,
       "spn_alpha_hrp": 3.342878,
       "spn_alpha_mvo_sharpe": 4.691984,
-      "spn_alpha_mvo_minvol": 2.743977,
-      "spn_hedged": 3.125603
+      "spn_hedged": 3.297141
     },
     {
       "date": "2023-11-02",
@@ -3792,8 +3448,7 @@
       "spn_alpha": 4.212268,
       "spn_alpha_hrp": 3.44564,
       "spn_alpha_mvo_sharpe": 4.845681,
-      "spn_alpha_mvo_minvol": 2.813207,
-      "spn_hedged": 3.237246
+      "spn_hedged": 3.414911
     },
     {
       "date": "2023-11-09",
@@ -3803,8 +3458,7 @@
       "spn_alpha": 4.196781,
       "spn_alpha_hrp": 3.445676,
       "spn_alpha_mvo_sharpe": 4.871679,
-      "spn_alpha_mvo_minvol": 2.794132,
-      "spn_hedged": 3.225344
+      "spn_hedged": 3.402355
     },
     {
       "date": "2023-11-16",
@@ -3814,8 +3468,7 @@
       "spn_alpha": 4.288194,
       "spn_alpha_hrp": 3.522386,
       "spn_alpha_mvo_sharpe": 4.974906,
-      "spn_alpha_mvo_minvol": 2.825539,
-      "spn_hedged": 3.295597
+      "spn_hedged": 3.476464
     },
     {
       "date": "2023-11-24",
@@ -3825,8 +3478,7 @@
       "spn_alpha": 4.334062,
       "spn_alpha_hrp": 3.566406,
       "spn_alpha_mvo_sharpe": 5.044434,
-      "spn_alpha_mvo_minvol": 2.852415,
-      "spn_hedged": 3.330848
+      "spn_hedged": 3.51365
     },
     {
       "date": "2023-12-01",
@@ -3836,8 +3488,7 @@
       "spn_alpha": 4.369828,
       "spn_alpha_hrp": 3.58292,
       "spn_alpha_mvo_sharpe": 4.970885,
-      "spn_alpha_mvo_minvol": 2.85592,
-      "spn_hedged": 3.358335
+      "spn_hedged": 3.542645
     },
     {
       "date": "2023-12-08",
@@ -3847,8 +3498,7 @@
       "spn_alpha": 4.374429,
       "spn_alpha_hrp": 3.561032,
       "spn_alpha_mvo_sharpe": 4.982172,
-      "spn_alpha_mvo_minvol": 2.813777,
-      "spn_hedged": 3.361872
+      "spn_hedged": 3.546376
     },
     {
       "date": "2023-12-15",
@@ -3858,8 +3508,7 @@
       "spn_alpha": 4.450321,
       "spn_alpha_hrp": 3.613449,
       "spn_alpha_mvo_sharpe": 5.124479,
-      "spn_alpha_mvo_minvol": 2.822967,
-      "spn_hedged": 3.420196
+      "spn_hedged": 3.607901
     },
     {
       "date": "2023-12-22",
@@ -3869,8 +3518,7 @@
       "spn_alpha": 4.495975,
       "spn_alpha_hrp": 3.634969,
       "spn_alpha_mvo_sharpe": 5.12777,
-      "spn_alpha_mvo_minvol": 2.838345,
-      "spn_hedged": 3.455283
+      "spn_hedged": 3.644914
     },
     {
       "date": "2024-01-02",
@@ -3880,8 +3528,7 @@
       "spn_alpha": 4.528035,
       "spn_alpha_hrp": 3.673235,
       "spn_alpha_mvo_sharpe": 5.166145,
-      "spn_alpha_mvo_minvol": 2.889521,
-      "spn_hedged": 3.479922
+      "spn_hedged": 3.670905
     },
     {
       "date": "2024-01-09",
@@ -3891,8 +3538,7 @@
       "spn_alpha": 4.58014,
       "spn_alpha_hrp": 3.707959,
       "spn_alpha_mvo_sharpe": 5.240978,
-      "spn_alpha_mvo_minvol": 2.906044,
-      "spn_hedged": 3.519966
+      "spn_hedged": 3.713147
     },
     {
       "date": "2024-01-17",
@@ -3902,8 +3548,7 @@
       "spn_alpha": 4.536021,
       "spn_alpha_hrp": 3.708431,
       "spn_alpha_mvo_sharpe": 5.24001,
-      "spn_alpha_mvo_minvol": 2.888593,
-      "spn_hedged": 3.486059
+      "spn_hedged": 3.677379
     },
     {
       "date": "2024-01-24",
@@ -3913,8 +3558,7 @@
       "spn_alpha": 4.594171,
       "spn_alpha_hrp": 3.766095,
       "spn_alpha_mvo_sharpe": 5.425561,
-      "spn_alpha_mvo_minvol": 2.928224,
-      "spn_hedged": 3.530749
+      "spn_hedged": 3.724521
     },
     {
       "date": "2024-01-31",
@@ -3924,8 +3568,7 @@
       "spn_alpha": 4.56311,
       "spn_alpha_hrp": 3.798078,
       "spn_alpha_mvo_sharpe": 5.430247,
-      "spn_alpha_mvo_minvol": 2.969127,
-      "spn_hedged": 3.506878
+      "spn_hedged": 3.699341
     },
     {
       "date": "2024-02-07",
@@ -3935,8 +3578,7 @@
       "spn_alpha": 4.742101,
       "spn_alpha_hrp": 3.908945,
       "spn_alpha_mvo_sharpe": 5.709103,
-      "spn_alpha_mvo_minvol": 3.042014,
-      "spn_hedged": 3.644437
+      "spn_hedged": 3.844449
     },
     {
       "date": "2024-02-14",
@@ -3946,8 +3588,7 @@
       "spn_alpha": 4.759043,
       "spn_alpha_hrp": 3.893924,
       "spn_alpha_mvo_sharpe": 5.789682,
-      "spn_alpha_mvo_minvol": 3.029197,
-      "spn_hedged": 3.657458
+      "spn_hedged": 3.858184
     },
     {
       "date": "2024-02-22",
@@ -3957,8 +3598,7 @@
       "spn_alpha": 4.92213,
       "spn_alpha_hrp": 4.008419,
       "spn_alpha_mvo_sharpe": 5.977693,
-      "spn_alpha_mvo_minvol": 3.129325,
-      "spn_hedged": 3.782795
+      "spn_hedged": 3.9904
     },
     {
       "date": "2024-02-29",
@@ -3968,8 +3608,7 @@
       "spn_alpha": 4.897386,
       "spn_alpha_hrp": 3.986965,
       "spn_alpha_mvo_sharpe": 5.921917,
-      "spn_alpha_mvo_minvol": 3.097687,
-      "spn_hedged": 3.763779
+      "spn_hedged": 3.97034
     },
     {
       "date": "2024-03-07",
@@ -3979,8 +3618,7 @@
       "spn_alpha": 5.021491,
       "spn_alpha_hrp": 3.9891,
       "spn_alpha_mvo_sharpe": 6.180029,
-      "spn_alpha_mvo_minvol": 3.106752,
-      "spn_hedged": 3.859157
+      "spn_hedged": 4.070953
     },
     {
       "date": "2024-03-14",
@@ -3990,8 +3628,7 @@
       "spn_alpha": 5.000135,
       "spn_alpha_hrp": 3.993376,
       "spn_alpha_mvo_sharpe": 6.000292,
-      "spn_alpha_mvo_minvol": 3.135056,
-      "spn_hedged": 3.842744
+      "spn_hedged": 4.053639
     },
     {
       "date": "2024-03-21",
@@ -4001,8 +3638,7 @@
       "spn_alpha": 5.057876,
       "spn_alpha_hrp": 4.052751,
       "spn_alpha_mvo_sharpe": 6.162276,
-      "spn_alpha_mvo_minvol": 3.160511,
-      "spn_hedged": 3.88712
+      "spn_hedged": 4.10045
     },
     {
       "date": "2024-03-28",
@@ -4012,8 +3648,7 @@
       "spn_alpha": 5.057487,
       "spn_alpha_hrp": 4.051015,
       "spn_alpha_mvo_sharpe": 6.144728,
-      "spn_alpha_mvo_minvol": 3.172919,
-      "spn_hedged": 3.886821
+      "spn_hedged": 4.100135
     },
     {
       "date": "2024-04-05",
@@ -4023,8 +3658,7 @@
       "spn_alpha": 4.951888,
       "spn_alpha_hrp": 3.974413,
       "spn_alpha_mvo_sharpe": 6.131536,
-      "spn_alpha_mvo_minvol": 3.116626,
-      "spn_hedged": 3.805665
+      "spn_hedged": 4.014525
     },
     {
       "date": "2024-04-12",
@@ -4034,8 +3668,7 @@
       "spn_alpha": 4.87375,
       "spn_alpha_hrp": 3.920379,
       "spn_alpha_mvo_sharpe": 6.09154,
-      "spn_alpha_mvo_minvol": 3.0629,
-      "spn_hedged": 3.745613
+      "spn_hedged": 3.951178
     },
     {
       "date": "2024-04-19",
@@ -4045,8 +3678,7 @@
       "spn_alpha": 4.799227,
       "spn_alpha_hrp": 3.899014,
       "spn_alpha_mvo_sharpe": 5.797183,
-      "spn_alpha_mvo_minvol": 3.085664,
-      "spn_hedged": 3.688341
+      "spn_hedged": 3.890762
     },
     {
       "date": "2024-04-26",
@@ -4056,8 +3688,7 @@
       "spn_alpha": 4.907474,
       "spn_alpha_hrp": 3.959171,
       "spn_alpha_mvo_sharpe": 6.055649,
-      "spn_alpha_mvo_minvol": 3.10345,
-      "spn_hedged": 3.771531
+      "spn_hedged": 3.978518
     },
     {
       "date": "2024-05-03",
@@ -4067,8 +3698,7 @@
       "spn_alpha": 4.968262,
       "spn_alpha_hrp": 3.979314,
       "spn_alpha_mvo_sharpe": 6.04225,
-      "spn_alpha_mvo_minvol": 3.115761,
-      "spn_hedged": 3.818248
+      "spn_hedged": 4.027799
     },
     {
       "date": "2024-05-10",
@@ -4078,8 +3708,7 @@
       "spn_alpha": 5.084086,
       "spn_alpha_hrp": 4.07265,
       "spn_alpha_mvo_sharpe": 6.218888,
-      "spn_alpha_mvo_minvol": 3.178147,
-      "spn_hedged": 3.907262
+      "spn_hedged": 4.121699
     },
     {
       "date": "2024-05-17",
@@ -4089,8 +3718,7 @@
       "spn_alpha": 5.229318,
       "spn_alpha_hrp": 4.158564,
       "spn_alpha_mvo_sharpe": 6.360677,
-      "spn_alpha_mvo_minvol": 3.260027,
-      "spn_hedged": 4.018878
+      "spn_hedged": 4.239439
     },
     {
       "date": "2024-05-24",
@@ -4100,8 +3728,7 @@
       "spn_alpha": 5.228536,
       "spn_alpha_hrp": 4.101073,
       "spn_alpha_mvo_sharpe": 6.501613,
-      "spn_alpha_mvo_minvol": 3.208281,
-      "spn_hedged": 4.018276
+      "spn_hedged": 4.238805
     },
     {
       "date": "2024-06-03",
@@ -4111,8 +3738,7 @@
       "spn_alpha": 5.218272,
       "spn_alpha_hrp": 4.109109,
       "spn_alpha_mvo_sharpe": 6.558702,
-      "spn_alpha_mvo_minvol": 3.220276,
-      "spn_hedged": 4.010388
+      "spn_hedged": 4.230484
     },
     {
       "date": "2024-06-10",
@@ -4122,8 +3748,7 @@
       "spn_alpha": 5.318336,
       "spn_alpha_hrp": 4.158604,
       "spn_alpha_mvo_sharpe": 6.795973,
-      "spn_alpha_mvo_minvol": 3.243532,
-      "spn_hedged": 4.087291
+      "spn_hedged": 4.311607
     },
     {
       "date": "2024-06-17",
@@ -4133,8 +3758,7 @@
       "spn_alpha": 5.374582,
       "spn_alpha_hrp": 4.216502,
       "spn_alpha_mvo_sharpe": 7.141312,
-      "spn_alpha_mvo_minvol": 3.245733,
-      "spn_hedged": 4.130517
+      "spn_hedged": 4.357205
     },
     {
       "date": "2024-06-25",
@@ -4144,8 +3768,7 @@
       "spn_alpha": 5.394725,
       "spn_alpha_hrp": 4.212625,
       "spn_alpha_mvo_sharpe": 7.034744,
-      "spn_alpha_mvo_minvol": 3.267732,
-      "spn_hedged": 4.145997
+      "spn_hedged": 4.373535
     },
     {
       "date": "2024-07-02",
@@ -4155,8 +3778,7 @@
       "spn_alpha": 5.443516,
       "spn_alpha_hrp": 4.242094,
       "spn_alpha_mvo_sharpe": 7.091201,
-      "spn_alpha_mvo_minvol": 3.277,
-      "spn_hedged": 4.183495
+      "spn_hedged": 4.413091
     },
     {
       "date": "2024-07-10",
@@ -4166,8 +3788,7 @@
       "spn_alpha": 5.535577,
       "spn_alpha_hrp": 4.321863,
       "spn_alpha_mvo_sharpe": 7.352859,
-      "spn_alpha_mvo_minvol": 3.338074,
-      "spn_hedged": 4.254246
+      "spn_hedged": 4.487725
     },
     {
       "date": "2024-07-17",
@@ -4177,8 +3798,7 @@
       "spn_alpha": 5.573091,
       "spn_alpha_hrp": 4.416013,
       "spn_alpha_mvo_sharpe": 7.086257,
-      "spn_alpha_mvo_minvol": 3.453486,
-      "spn_hedged": 4.283077
+      "spn_hedged": 4.518138
     },
     {
       "date": "2024-07-24",
@@ -4188,8 +3808,7 @@
       "spn_alpha": 5.381418,
       "spn_alpha_hrp": 4.292481,
       "spn_alpha_mvo_sharpe": 6.891004,
-      "spn_alpha_mvo_minvol": 3.3863,
-      "spn_hedged": 4.135771
+      "spn_hedged": 4.362747
     },
     {
       "date": "2024-07-31",
@@ -4199,8 +3818,7 @@
       "spn_alpha": 5.46146,
       "spn_alpha_hrp": 4.331958,
       "spn_alpha_mvo_sharpe": 6.941056,
-      "spn_alpha_mvo_minvol": 3.384513,
-      "spn_hedged": 4.197285
+      "spn_hedged": 4.427638
     },
     {
       "date": "2024-08-07",
@@ -4210,8 +3828,7 @@
       "spn_alpha": 5.21433,
       "spn_alpha_hrp": 4.207245,
       "spn_alpha_mvo_sharpe": 6.471304,
-      "spn_alpha_mvo_minvol": 3.334365,
-      "spn_hedged": 4.007359
+      "spn_hedged": 4.227288
     },
     {
       "date": "2024-08-14",
@@ -4221,8 +3838,7 @@
       "spn_alpha": 5.436467,
       "spn_alpha_hrp": 4.364215,
       "spn_alpha_mvo_sharpe": 7.114677,
-      "spn_alpha_mvo_minvol": 3.442328,
-      "spn_hedged": 4.110527
+      "spn_hedged": 4.350313
     },
     {
       "date": "2024-08-21",
@@ -4232,8 +3848,7 @@
       "spn_alpha": 5.549557,
       "spn_alpha_hrp": 4.458427,
       "spn_alpha_mvo_sharpe": 7.389362,
-      "spn_alpha_mvo_minvol": 3.524675,
-      "spn_hedged": 4.16299
+      "spn_hedged": 4.412817
     },
     {
       "date": "2024-08-28",
@@ -4243,8 +3858,7 @@
       "spn_alpha": 5.575066,
       "spn_alpha_hrp": 4.488369,
       "spn_alpha_mvo_sharpe": 7.354432,
-      "spn_alpha_mvo_minvol": 3.567085,
-      "spn_hedged": 4.175796
+      "spn_hedged": 4.427736
     },
     {
       "date": "2024-09-05",
@@ -4254,8 +3868,7 @@
       "spn_alpha": 5.569686,
       "spn_alpha_hrp": 4.496539,
       "spn_alpha_mvo_sharpe": 7.108848,
-      "spn_alpha_mvo_minvol": 3.578586,
-      "spn_hedged": 4.174788
+      "spn_hedged": 4.426039
     },
     {
       "date": "2024-09-12",
@@ -4265,8 +3878,7 @@
       "spn_alpha": 5.623425,
       "spn_alpha_hrp": 4.539966,
       "spn_alpha_mvo_sharpe": 7.25437,
-      "spn_alpha_mvo_minvol": 3.581216,
-      "spn_hedged": 4.223412
+      "spn_hedged": 4.487554
     },
     {
       "date": "2024-09-19",
@@ -4276,8 +3888,7 @@
       "spn_alpha": 5.662694,
       "spn_alpha_hrp": 4.569415,
       "spn_alpha_mvo_sharpe": 7.289207,
-      "spn_alpha_mvo_minvol": 3.594538,
-      "spn_hedged": 4.248984
+      "spn_hedged": 4.518891
     },
     {
       "date": "2024-09-26",
@@ -4287,8 +3898,7 @@
       "spn_alpha": 5.658627,
       "spn_alpha_hrp": 4.559426,
       "spn_alpha_mvo_sharpe": 7.355718,
-      "spn_alpha_mvo_minvol": 3.584598,
-      "spn_hedged": 4.246905
+      "spn_hedged": 4.515646
     },
     {
       "date": "2024-10-03",
@@ -4298,8 +3908,7 @@
       "spn_alpha": 5.685477,
       "spn_alpha_hrp": 4.579026,
       "spn_alpha_mvo_sharpe": 7.385879,
-      "spn_alpha_mvo_minvol": 3.61062,
-      "spn_hedged": 4.264538
+      "spn_hedged": 4.537072
     },
     {
       "date": "2024-10-10",
@@ -4309,8 +3918,7 @@
       "spn_alpha": 5.754549,
       "spn_alpha_hrp": 4.611684,
       "spn_alpha_mvo_sharpe": 7.597097,
-      "spn_alpha_mvo_minvol": 3.624069,
-      "spn_hedged": 4.309114
+      "spn_hedged": 4.592193
     },
     {
       "date": "2024-10-17",
@@ -4320,8 +3928,7 @@
       "spn_alpha": 5.779209,
       "spn_alpha_hrp": 4.653268,
       "spn_alpha_mvo_sharpe": 7.559548,
-      "spn_alpha_mvo_minvol": 3.646983,
-      "spn_hedged": 4.325381
+      "spn_hedged": 4.611871
     },
     {
       "date": "2024-10-24",
@@ -4331,8 +3938,7 @@
       "spn_alpha": 5.7257,
       "spn_alpha_hrp": 4.633373,
       "spn_alpha_mvo_sharpe": 7.509159,
-      "spn_alpha_mvo_minvol": 3.63566,
-      "spn_hedged": 4.291837
+      "spn_hedged": 4.569171
     },
     {
       "date": "2024-10-31",
@@ -4342,8 +3948,7 @@
       "spn_alpha": 5.613394,
       "spn_alpha_hrp": 4.550458,
       "spn_alpha_mvo_sharpe": 7.318687,
-      "spn_alpha_mvo_minvol": 3.565739,
-      "spn_hedged": 4.220731
+      "spn_hedged": 4.479549
     },
     {
       "date": "2024-11-07",
@@ -4353,8 +3958,7 @@
       "spn_alpha": 5.777515,
       "spn_alpha_hrp": 4.686539,
       "spn_alpha_mvo_sharpe": 7.635153,
-      "spn_alpha_mvo_minvol": 3.638645,
-      "spn_hedged": 4.326013
+      "spn_hedged": 4.61052
     },
     {
       "date": "2024-11-14",
@@ -4364,8 +3968,7 @@
       "spn_alpha": 5.764805,
       "spn_alpha_hrp": 4.695298,
       "spn_alpha_mvo_sharpe": 7.549554,
-      "spn_alpha_mvo_minvol": 3.638071,
-      "spn_hedged": 4.318487
+      "spn_hedged": 4.600376
     },
     {
       "date": "2024-11-21",
@@ -4375,8 +3978,7 @@
       "spn_alpha": 5.805286,
       "spn_alpha_hrp": 4.740819,
       "spn_alpha_mvo_sharpe": 7.535549,
-      "spn_alpha_mvo_minvol": 3.696797,
-      "spn_hedged": 4.344799
+      "spn_hedged": 4.632681
     },
     {
       "date": "2024-11-29",
@@ -4386,8 +3988,7 @@
       "spn_alpha": 5.899485,
       "spn_alpha_hrp": 4.854706,
       "spn_alpha_mvo_sharpe": 7.587732,
-      "spn_alpha_mvo_minvol": 3.772746,
-      "spn_hedged": 4.405191
+      "spn_hedged": 4.707852
     },
     {
       "date": "2024-12-06",
@@ -4397,8 +3998,7 @@
       "spn_alpha": 5.847922,
       "spn_alpha_hrp": 4.830628,
       "spn_alpha_mvo_sharpe": 7.782251,
-      "spn_alpha_mvo_minvol": 3.714821,
-      "spn_hedged": 4.371783
+      "spn_hedged": 4.666705
     },
     {
       "date": "2024-12-13",
@@ -4408,8 +4008,7 @@
       "spn_alpha": 5.752319,
       "spn_alpha_hrp": 4.78937,
       "spn_alpha_mvo_sharpe": 7.891232,
-      "spn_alpha_mvo_minvol": 3.653112,
-      "spn_hedged": 4.307776
+      "spn_hedged": 4.590413
     },
     {
       "date": "2024-12-20",
@@ -4419,8 +4018,7 @@
       "spn_alpha": 5.636507,
       "spn_alpha_hrp": 4.690087,
       "spn_alpha_mvo_sharpe": 7.734426,
-      "spn_alpha_mvo_minvol": 3.574099,
-      "spn_hedged": 4.230038
+      "spn_hedged": 4.497994
     },
     {
       "date": "2024-12-30",
@@ -4430,8 +4028,7 @@
       "spn_alpha": 5.63048,
       "spn_alpha_hrp": 4.670331,
       "spn_alpha_mvo_sharpe": 7.798451,
-      "spn_alpha_mvo_minvol": 3.56206,
-      "spn_hedged": 4.226355
+      "spn_hedged": 4.493183
     },
     {
       "date": "2025-01-07",
@@ -4441,8 +4038,7 @@
       "spn_alpha": 5.645781,
       "spn_alpha_hrp": 4.671285,
       "spn_alpha_mvo_sharpe": 7.805258,
-      "spn_alpha_mvo_minvol": 3.570395,
-      "spn_hedged": 4.23704
+      "spn_hedged": 4.505394
     },
     {
       "date": "2025-01-15",
@@ -4452,8 +4048,7 @@
       "spn_alpha": 5.699094,
       "spn_alpha_hrp": 4.720598,
       "spn_alpha_mvo_sharpe": 7.800917,
-      "spn_alpha_mvo_minvol": 3.600442,
-      "spn_hedged": 4.273407
+      "spn_hedged": 4.547938
     },
     {
       "date": "2025-01-23",
@@ -4463,8 +4058,7 @@
       "spn_alpha": 5.808781,
       "spn_alpha_hrp": 4.796115,
       "spn_alpha_mvo_sharpe": 8.031778,
-      "spn_alpha_mvo_minvol": 3.652141,
-      "spn_hedged": 4.347741
+      "spn_hedged": 4.63547
     },
     {
       "date": "2025-01-30",
@@ -4474,8 +4068,7 @@
       "spn_alpha": 5.88761,
       "spn_alpha_hrp": 4.920322,
       "spn_alpha_mvo_sharpe": 7.931187,
-      "spn_alpha_mvo_minvol": 3.748915,
-      "spn_hedged": 4.401183
+      "spn_hedged": 4.698377
     },
     {
       "date": "2025-02-06",
@@ -4485,8 +4078,7 @@
       "spn_alpha": 5.976738,
       "spn_alpha_hrp": 4.983946,
       "spn_alpha_mvo_sharpe": 8.177367,
-      "spn_alpha_mvo_minvol": 3.789477,
-      "spn_hedged": 4.461486
+      "spn_hedged": 4.769502
     },
     {
       "date": "2025-02-13",
@@ -4496,8 +4088,7 @@
       "spn_alpha": 6.033658,
       "spn_alpha_hrp": 5.037551,
       "spn_alpha_mvo_sharpe": 8.295109,
-      "spn_alpha_mvo_minvol": 3.835193,
-      "spn_hedged": 4.487973
+      "spn_hedged": 4.797622
     },
     {
       "date": "2025-02-21",
@@ -4507,8 +4098,7 @@
       "spn_alpha": 5.8756,
       "spn_alpha_hrp": 4.889743,
       "spn_alpha_mvo_sharpe": 7.988336,
-      "spn_alpha_mvo_minvol": 3.747479,
-      "spn_hedged": 4.400512
+      "spn_hedged": 4.697681
     },
     {
       "date": "2025-02-28",
@@ -4518,8 +4108,7 @@
       "spn_alpha": 5.953401,
       "spn_alpha_hrp": 4.975046,
       "spn_alpha_mvo_sharpe": 7.957059,
-      "spn_alpha_mvo_minvol": 3.836854,
-      "spn_hedged": 4.445165
+      "spn_hedged": 4.748263
     },
     {
       "date": "2025-03-07",
@@ -4529,8 +4118,7 @@
       "spn_alpha": 5.783053,
       "spn_alpha_hrp": 4.822823,
       "spn_alpha_mvo_sharpe": 7.526273,
-      "spn_alpha_mvo_minvol": 3.752185,
-      "spn_hedged": 4.350436
+      "spn_hedged": 4.640128
     },
     {
       "date": "2025-03-14",
@@ -4540,8 +4128,7 @@
       "spn_alpha": 5.602457,
       "spn_alpha_hrp": 4.665271,
       "spn_alpha_mvo_sharpe": 7.364028,
-      "spn_alpha_mvo_minvol": 3.666736,
-      "spn_hedged": 4.252299
+      "spn_hedged": 4.52741
     },
     {
       "date": "2025-03-21",
@@ -4551,8 +4138,7 @@
       "spn_alpha": 5.668356,
       "spn_alpha_hrp": 4.720178,
       "spn_alpha_mvo_sharpe": 7.424238,
-      "spn_alpha_mvo_minvol": 3.719006,
-      "spn_hedged": 4.283683
+      "spn_hedged": 4.564798
     },
     {
       "date": "2025-03-28",
@@ -4562,8 +4148,7 @@
       "spn_alpha": 5.644289,
       "spn_alpha_hrp": 4.71454,
       "spn_alpha_mvo_sharpe": 7.234212,
-      "spn_alpha_mvo_minvol": 3.723044,
-      "spn_hedged": 4.274233
+      "spn_hedged": 4.55288
     },
     {
       "date": "2025-04-04",
@@ -4573,8 +4158,7 @@
       "spn_alpha": 5.294052,
       "spn_alpha_hrp": 4.418744,
       "spn_alpha_mvo_sharpe": 6.517855,
-      "spn_alpha_mvo_minvol": 3.510948,
-      "spn_hedged": 4.116116
+      "spn_hedged": 4.3616
     },
     {
       "date": "2025-04-11",
@@ -4584,8 +4168,7 @@
       "spn_alpha": 5.604944,
       "spn_alpha_hrp": 4.658483,
       "spn_alpha_mvo_sharpe": 7.186056,
-      "spn_alpha_mvo_minvol": 3.689569,
-      "spn_hedged": 4.262085
+      "spn_hedged": 4.53689
     },
     {
       "date": "2025-04-21",
@@ -4595,8 +4178,7 @@
       "spn_alpha": 5.424613,
       "spn_alpha_hrp": 4.519687,
       "spn_alpha_mvo_sharpe": 6.973405,
-      "spn_alpha_mvo_minvol": 3.56228,
-      "spn_hedged": 4.208231
+      "spn_hedged": 4.458629
     },
     {
       "date": "2025-04-28",
@@ -4606,8 +4188,7 @@
       "spn_alpha": 5.627349,
       "spn_alpha_hrp": 4.676694,
       "spn_alpha_mvo_sharpe": 7.530774,
-      "spn_alpha_mvo_minvol": 3.649714,
-      "spn_hedged": 4.273594
+      "spn_hedged": 4.550711
     },
     {
       "date": "2025-05-05",
@@ -4617,8 +4198,7 @@
       "spn_alpha": 5.648951,
       "spn_alpha_hrp": 4.682469,
       "spn_alpha_mvo_sharpe": 7.647678,
-      "spn_alpha_mvo_minvol": 3.609942,
-      "spn_hedged": 4.28235
+      "spn_hedged": 4.561988
     },
     {
       "date": "2025-05-12",
@@ -4628,8 +4208,7 @@
       "spn_alpha": 5.731157,
       "spn_alpha_hrp": 4.743941,
       "spn_alpha_mvo_sharpe": 7.808626,
-      "spn_alpha_mvo_minvol": 3.609112,
-      "spn_hedged": 4.31851
+      "spn_hedged": 4.611058
     },
     {
       "date": "2025-05-19",
@@ -4639,8 +4218,7 @@
       "spn_alpha": 5.722644,
       "spn_alpha_hrp": 4.747013,
       "spn_alpha_mvo_sharpe": 8.032551,
-      "spn_alpha_mvo_minvol": 3.566108,
-      "spn_hedged": 4.317209
+      "spn_hedged": 4.607956
     },
     {
       "date": "2025-05-27",
@@ -4650,8 +4228,7 @@
       "spn_alpha": 5.679535,
       "spn_alpha_hrp": 4.707264,
       "spn_alpha_mvo_sharpe": 7.975614,
-      "spn_alpha_mvo_minvol": 3.52754,
-      "spn_hedged": 4.302382
+      "spn_hedged": 4.585978
     },
     {
       "date": "2025-06-03",
@@ -4661,8 +4238,7 @@
       "spn_alpha": 5.724151,
       "spn_alpha_hrp": 4.748951,
       "spn_alpha_mvo_sharpe": 8.2289,
-      "spn_alpha_mvo_minvol": 3.557104,
-      "spn_hedged": 4.321339
+      "spn_hedged": 4.611375
     },
     {
       "date": "2025-06-10",
@@ -4672,8 +4248,7 @@
       "spn_alpha": 5.768409,
       "spn_alpha_hrp": 4.781428,
       "spn_alpha_mvo_sharpe": 8.242871,
-      "spn_alpha_mvo_minvol": 3.568635,
-      "spn_hedged": 4.3402
+      "spn_hedged": 4.636619
     },
     {
       "date": "2025-06-17",
@@ -4683,8 +4258,7 @@
       "spn_alpha": 5.687038,
       "spn_alpha_hrp": 4.709949,
       "spn_alpha_mvo_sharpe": 8.153058,
-      "spn_alpha_mvo_minvol": 3.534843,
-      "spn_hedged": 4.303433
+      "spn_hedged": 4.585001
     },
     {
       "date": "2025-06-25",
@@ -4694,8 +4268,7 @@
       "spn_alpha": 5.712899,
       "spn_alpha_hrp": 4.723928,
       "spn_alpha_mvo_sharpe": 8.409587,
-      "spn_alpha_mvo_minvol": 3.534589,
-      "spn_hedged": 4.316931
+      "spn_hedged": 4.602449
     },
     {
       "date": "2025-07-02",
@@ -4705,8 +4278,7 @@
       "spn_alpha": 5.806216,
       "spn_alpha_hrp": 4.796293,
       "spn_alpha_mvo_sharpe": 8.489488,
-      "spn_alpha_mvo_minvol": 3.578541,
-      "spn_hedged": 4.36192
+      "spn_hedged": 4.663249
     },
     {
       "date": "2025-07-10",
@@ -4716,8 +4288,7 @@
       "spn_alpha": 5.81061,
       "spn_alpha_hrp": 4.797485,
       "spn_alpha_mvo_sharpe": 8.52867,
-      "spn_alpha_mvo_minvol": 3.572399,
-      "spn_hedged": 4.365312
+      "spn_hedged": 4.666839
     },
     {
       "date": "2025-07-17",
@@ -4727,8 +4298,7 @@
       "spn_alpha": 5.771239,
       "spn_alpha_hrp": 4.773814,
       "spn_alpha_mvo_sharpe": 8.580908,
-      "spn_alpha_mvo_minvol": 3.547075,
-      "spn_hedged": 4.34609
+      "spn_hedged": 4.642335
     },
     {
       "date": "2025-07-24",
@@ -4738,8 +4308,7 @@
       "spn_alpha": 5.873703,
       "spn_alpha_hrp": 4.859887,
       "spn_alpha_mvo_sharpe": 8.744616,
-      "spn_alpha_mvo_minvol": 3.597742,
-      "spn_hedged": 4.404753
+      "spn_hedged": 4.708946
     },
     {
       "date": "2025-07-31",
@@ -4749,8 +4318,7 @@
       "spn_alpha": 5.746763,
       "spn_alpha_hrp": 4.777516,
       "spn_alpha_mvo_sharpe": 8.749059,
-      "spn_alpha_mvo_minvol": 3.516068,
-      "spn_hedged": 4.334093
+      "spn_hedged": 4.628154
     },
     {
       "date": "2025-08-07",
@@ -4760,8 +4328,7 @@
       "spn_alpha": 5.734381,
       "spn_alpha_hrp": 4.784021,
       "spn_alpha_mvo_sharpe": 8.648549,
-      "spn_alpha_mvo_minvol": 3.514457,
-      "spn_hedged": 4.328045
+      "spn_hedged": 4.621
     },
     {
       "date": "2025-08-14",
@@ -4771,8 +4338,7 @@
       "spn_alpha": 5.867205,
       "spn_alpha_hrp": 4.895816,
       "spn_alpha_mvo_sharpe": 8.806251,
-      "spn_alpha_mvo_minvol": 3.589212,
-      "spn_hedged": 4.403922
+      "spn_hedged": 4.707208
     },
     {
       "date": "2025-08-21",
@@ -4782,8 +4348,7 @@
       "spn_alpha": 5.909016,
       "spn_alpha_hrp": 4.926267,
       "spn_alpha_mvo_sharpe": 8.60874,
-      "spn_alpha_mvo_minvol": 3.650014,
-      "spn_hedged": 4.428333
+      "spn_hedged": 4.734792
     },
     {
       "date": "2025-08-28",
@@ -4793,8 +4358,7 @@
       "spn_alpha": 5.967264,
       "spn_alpha_hrp": 4.971328,
       "spn_alpha_mvo_sharpe": 8.802035,
-      "spn_alpha_mvo_minvol": 3.66717,
-      "spn_hedged": 4.461961
+      "spn_hedged": 4.772891
     },
     {
       "date": "2025-09-05",
@@ -4804,8 +4368,7 @@
       "spn_alpha": 6.035591,
       "spn_alpha_hrp": 5.036149,
       "spn_alpha_mvo_sharpe": 8.86742,
-      "spn_alpha_mvo_minvol": 3.714527,
-      "spn_hedged": 4.501166
+      "spn_hedged": 4.817373
     },
     {
       "date": "2025-09-12",
@@ -4815,8 +4378,7 @@
       "spn_alpha": 6.097731,
       "spn_alpha_hrp": 5.110529,
       "spn_alpha_mvo_sharpe": 9.207383,
-      "spn_alpha_mvo_minvol": 3.791177,
-      "spn_hedged": 4.545189
+      "spn_hedged": 4.864986
     },
     {
       "date": "2025-09-19",
@@ -4826,8 +4388,7 @@
       "spn_alpha": 6.044373,
       "spn_alpha_hrp": 5.113714,
       "spn_alpha_mvo_sharpe": 9.176727,
-      "spn_alpha_mvo_minvol": 3.772456,
-      "spn_hedged": 4.505417
+      "spn_hedged": 4.822416
     },
     {
       "date": "2025-09-26",
@@ -4837,8 +4398,7 @@
       "spn_alpha": 6.044584,
       "spn_alpha_hrp": 5.094243,
       "spn_alpha_mvo_sharpe": 9.129475,
-      "spn_alpha_mvo_minvol": 3.789809,
-      "spn_hedged": 4.505574
+      "spn_hedged": 4.822584
     },
     {
       "date": "2025-10-03",
@@ -4848,8 +4408,7 @@
       "spn_alpha": 6.128814,
       "spn_alpha_hrp": 5.151859,
       "spn_alpha_mvo_sharpe": 9.33686,
-      "spn_alpha_mvo_minvol": 3.829687,
-      "spn_hedged": 4.568358
+      "spn_hedged": 4.889786
     },
     {
       "date": "2025-10-10",
@@ -4859,8 +4418,7 @@
       "spn_alpha": 6.040555,
       "spn_alpha_hrp": 5.073612,
       "spn_alpha_mvo_sharpe": 9.201672,
-      "spn_alpha_mvo_minvol": 3.785334,
-      "spn_hedged": 4.502571
+      "spn_hedged": 4.819369
     },
     {
       "date": "2025-10-17",
@@ -4870,8 +4428,7 @@
       "spn_alpha": 6.094466,
       "spn_alpha_hrp": 5.142488,
       "spn_alpha_mvo_sharpe": 9.371776,
-      "spn_alpha_mvo_minvol": 3.853183,
-      "spn_hedged": 4.542756
+      "spn_hedged": 4.862382
     },
     {
       "date": "2025-10-24",
@@ -4881,8 +4438,7 @@
       "spn_alpha": 6.167224,
       "spn_alpha_hrp": 5.19568,
       "spn_alpha_mvo_sharpe": 9.445846,
-      "spn_alpha_mvo_minvol": 3.881065,
-      "spn_hedged": 4.596988
+      "spn_hedged": 4.92043
     },
     {
       "date": "2025-10-31",
@@ -4892,8 +4448,7 @@
       "spn_alpha": 6.160051,
       "spn_alpha_hrp": 5.164607,
       "spn_alpha_mvo_sharpe": 9.532354,
-      "spn_alpha_mvo_minvol": 3.823639,
-      "spn_hedged": 4.591642
+      "spn_hedged": 4.914708
     },
     {
       "date": "2025-11-07",
@@ -4903,8 +4458,7 @@
       "spn_alpha": 6.110806,
       "spn_alpha_hrp": 5.14037,
       "spn_alpha_mvo_sharpe": 9.401523,
-      "spn_alpha_mvo_minvol": 3.819463,
-      "spn_hedged": 4.554935
+      "spn_hedged": 4.875419
     },
     {
       "date": "2025-11-14",
@@ -4914,8 +4468,7 @@
       "spn_alpha": 6.196072,
       "spn_alpha_hrp": 5.181116,
       "spn_alpha_mvo_sharpe": 9.46091,
-      "spn_alpha_mvo_minvol": 3.882281,
-      "spn_hedged": 4.618492
+      "spn_hedged": 4.943447
     },
     {
       "date": "2025-11-21",
@@ -4925,8 +4478,7 @@
       "spn_alpha": 6.182672,
       "spn_alpha_hrp": 5.15841,
       "spn_alpha_mvo_sharpe": 9.41245,
-      "spn_alpha_mvo_minvol": 3.894159,
-      "spn_hedged": 4.608503
+      "spn_hedged": 4.932756
     },
     {
       "date": "2025-12-01",
@@ -4936,8 +4488,7 @@
       "spn_alpha": 6.269975,
       "spn_alpha_hrp": 5.261325,
       "spn_alpha_mvo_sharpe": 9.839043,
-      "spn_alpha_mvo_minvol": 3.955022,
-      "spn_hedged": 4.673578
+      "spn_hedged": 5.002409
     },
     {
       "date": "2025-12-08",
@@ -4947,8 +4498,7 @@
       "spn_alpha": 6.205729,
       "spn_alpha_hrp": 5.182608,
       "spn_alpha_mvo_sharpe": 9.956787,
-      "spn_alpha_mvo_minvol": 3.898058,
-      "spn_hedged": 4.62569
+      "spn_hedged": 4.951151
     },
     {
       "date": "2025-12-15",
@@ -4958,8 +4508,7 @@
       "spn_alpha": 6.369384,
       "spn_alpha_hrp": 5.295953,
       "spn_alpha_mvo_sharpe": 9.852066,
-      "spn_alpha_mvo_minvol": 3.990901,
-      "spn_hedged": 4.747676
+      "spn_hedged": 5.081721
     },
     {
       "date": "2025-12-22",
@@ -4969,8 +4518,7 @@
       "spn_alpha": 6.319325,
       "spn_alpha_hrp": 5.255737,
       "spn_alpha_mvo_sharpe": 9.866961,
-      "spn_alpha_mvo_minvol": 3.942386,
-      "spn_hedged": 4.710363
+      "spn_hedged": 5.041782
     },
     {
       "date": "2025-12-30",
@@ -4980,8 +4528,7 @@
       "spn_alpha": 6.365734,
       "spn_alpha_hrp": 5.292233,
       "spn_alpha_mvo_sharpe": 9.936666,
-      "spn_alpha_mvo_minvol": 3.973633,
-      "spn_hedged": 4.744956
+      "spn_hedged": 5.078809
     },
     {
       "date": "2026-01-07",
@@ -4991,8 +4538,7 @@
       "spn_alpha": 6.360738,
       "spn_alpha_hrp": 5.287841,
       "spn_alpha_mvo_sharpe": 9.942931,
-      "spn_alpha_mvo_minvol": 3.947221,
-      "spn_hedged": 4.741232
+      "spn_hedged": 5.074823
     },
     {
       "date": "2026-01-14",
@@ -5002,8 +4548,7 @@
       "spn_alpha": 6.544306,
       "spn_alpha_hrp": 5.374381,
       "spn_alpha_mvo_sharpe": 9.982569,
-      "spn_alpha_mvo_minvol": 4.074456,
-      "spn_hedged": 4.878062
+      "spn_hedged": 5.22128
     },
     {
       "date": "2026-01-22",
@@ -5013,8 +4558,7 @@
       "spn_alpha": 6.573038,
       "spn_alpha_hrp": 5.389407,
       "spn_alpha_mvo_sharpe": 9.978649,
-      "spn_alpha_mvo_minvol": 4.098868,
-      "spn_hedged": 4.899478
+      "spn_hedged": 5.244203
     },
     {
       "date": "2026-01-29",
@@ -5024,8 +4568,7 @@
       "spn_alpha": 6.588294,
       "spn_alpha_hrp": 5.422808,
       "spn_alpha_mvo_sharpe": 10.157961,
-      "spn_alpha_mvo_minvol": 4.092341,
-      "spn_hedged": 4.91085
+      "spn_hedged": 5.256375
     },
     {
       "date": "2026-02-05",
@@ -5035,8 +4578,7 @@
       "spn_alpha": 6.647738,
       "spn_alpha_hrp": 5.496311,
       "spn_alpha_mvo_sharpe": 10.081023,
-      "spn_alpha_mvo_minvol": 4.17243,
-      "spn_hedged": 4.955159
+      "spn_hedged": 5.303802
     },
     {
       "date": "2026-02-12",
@@ -5046,8 +4588,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-20",
@@ -5057,8 +4598,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-27",
@@ -5068,8 +4608,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-03-06",
@@ -5079,8 +4618,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     }
   ],
   "recent_daily": [
@@ -5092,8 +4630,7 @@
       "spn_alpha": 5.809905,
       "spn_alpha_hrp": 4.854924,
       "spn_alpha_mvo_sharpe": 7.547855,
-      "spn_alpha_mvo_minvol": 3.763683,
-      "spn_hedged": 4.365398
+      "spn_hedged": 4.657202
     },
     {
       "date": "2025-03-07",
@@ -5103,8 +4640,7 @@
       "spn_alpha": 5.783053,
       "spn_alpha_hrp": 4.822823,
       "spn_alpha_mvo_sharpe": 7.526273,
-      "spn_alpha_mvo_minvol": 3.752185,
-      "spn_hedged": 4.350436
+      "spn_hedged": 4.640128
     },
     {
       "date": "2025-03-10",
@@ -5114,8 +4650,7 @@
       "spn_alpha": 5.669413,
       "spn_alpha_hrp": 4.727787,
       "spn_alpha_mvo_sharpe": 7.255283,
-      "spn_alpha_mvo_minvol": 3.705879,
-      "spn_hedged": 4.286489
+      "spn_hedged": 4.567328
     },
     {
       "date": "2025-03-11",
@@ -5125,8 +4660,7 @@
       "spn_alpha": 5.62608,
       "spn_alpha_hrp": 4.689017,
       "spn_alpha_mvo_sharpe": 7.249078,
-      "spn_alpha_mvo_minvol": 3.673625,
-      "spn_hedged": 4.262084
+      "spn_hedged": 4.539542
     },
     {
       "date": "2025-03-12",
@@ -5136,8 +4670,7 @@
       "spn_alpha": 5.584856,
       "spn_alpha_hrp": 4.653853,
       "spn_alpha_mvo_sharpe": 7.301978,
-      "spn_alpha_mvo_minvol": 3.637191,
-      "spn_hedged": 4.243612
+      "spn_hedged": 4.51715
     },
     {
       "date": "2025-03-13",
@@ -5147,8 +4680,7 @@
       "spn_alpha": 5.529196,
       "spn_alpha_hrp": 4.604869,
       "spn_alpha_mvo_sharpe": 7.192358,
-      "spn_alpha_mvo_minvol": 3.621545,
-      "spn_hedged": 4.2185
+      "spn_hedged": 4.486762
     },
     {
       "date": "2025-03-14",
@@ -5158,8 +4690,7 @@
       "spn_alpha": 5.602457,
       "spn_alpha_hrp": 4.665271,
       "spn_alpha_mvo_sharpe": 7.364028,
-      "spn_alpha_mvo_minvol": 3.666736,
-      "spn_hedged": 4.252299
+      "spn_hedged": 4.52741
     },
     {
       "date": "2025-03-17",
@@ -5169,8 +4700,7 @@
       "spn_alpha": 5.651756,
       "spn_alpha_hrp": 4.705074,
       "spn_alpha_mvo_sharpe": 7.402925,
-      "spn_alpha_mvo_minvol": 3.710067,
-      "spn_hedged": 4.275015
+      "spn_hedged": 4.554727
     },
     {
       "date": "2025-03-18",
@@ -5180,8 +4710,7 @@
       "spn_alpha": 5.609591,
       "spn_alpha_hrp": 4.672888,
       "spn_alpha_mvo_sharpe": 7.293641,
-      "spn_alpha_mvo_minvol": 3.689555,
-      "spn_hedged": 4.256145
+      "spn_hedged": 4.531847
     },
     {
       "date": "2025-03-19",
@@ -5191,8 +4720,7 @@
       "spn_alpha": 5.65987,
       "spn_alpha_hrp": 4.712427,
       "spn_alpha_mvo_sharpe": 7.413777,
-      "spn_alpha_mvo_minvol": 3.715279,
-      "spn_hedged": 4.279299
+      "spn_hedged": 4.559694
     },
     {
       "date": "2025-03-20",
@@ -5202,8 +4730,7 @@
       "spn_alpha": 5.655643,
       "spn_alpha_hrp": 4.710507,
       "spn_alpha_mvo_sharpe": 7.404584,
-      "spn_alpha_mvo_minvol": 3.718959,
-      "spn_hedged": 4.277648
+      "spn_hedged": 4.557605
     },
     {
       "date": "2025-03-21",
@@ -5213,8 +4740,7 @@
       "spn_alpha": 5.668356,
       "spn_alpha_hrp": 4.720178,
       "spn_alpha_mvo_sharpe": 7.424238,
-      "spn_alpha_mvo_minvol": 3.719006,
-      "spn_hedged": 4.283683
+      "spn_hedged": 4.564798
     },
     {
       "date": "2025-03-24",
@@ -5224,8 +4750,7 @@
       "spn_alpha": 5.732719,
       "spn_alpha_hrp": 4.779353,
       "spn_alpha_mvo_sharpe": 7.588176,
-      "spn_alpha_mvo_minvol": 3.75241,
-      "spn_hedged": 4.313134
+      "spn_hedged": 4.600272
     },
     {
       "date": "2025-03-25",
@@ -5235,8 +4760,7 @@
       "spn_alpha": 5.695426,
       "spn_alpha_hrp": 4.75266,
       "spn_alpha_mvo_sharpe": 7.545266,
-      "spn_alpha_mvo_minvol": 3.721638,
-      "spn_hedged": 4.296568
+      "spn_hedged": 4.580151
     },
     {
       "date": "2025-03-26",
@@ -5246,8 +4770,7 @@
       "spn_alpha": 5.694027,
       "spn_alpha_hrp": 4.753024,
       "spn_alpha_mvo_sharpe": 7.408119,
-      "spn_alpha_mvo_minvol": 3.73713,
-      "spn_hedged": 4.296202
+      "spn_hedged": 4.579614
     },
     {
       "date": "2025-03-27",
@@ -5257,8 +4780,7 @@
       "spn_alpha": 5.701441,
       "spn_alpha_hrp": 4.765164,
       "spn_alpha_mvo_sharpe": 7.342065,
-      "spn_alpha_mvo_minvol": 3.74888,
-      "spn_hedged": 4.299826
+      "spn_hedged": 4.583897
     },
     {
       "date": "2025-03-28",
@@ -5268,8 +4790,7 @@
       "spn_alpha": 5.644289,
       "spn_alpha_hrp": 4.71454,
       "spn_alpha_mvo_sharpe": 7.234212,
-      "spn_alpha_mvo_minvol": 3.723044,
-      "spn_hedged": 4.274233
+      "spn_hedged": 4.55288
     },
     {
       "date": "2025-03-31",
@@ -5279,8 +4800,7 @@
       "spn_alpha": 5.714787,
       "spn_alpha_hrp": 4.774644,
       "spn_alpha_mvo_sharpe": 7.284787,
-      "spn_alpha_mvo_minvol": 3.775694,
-      "spn_hedged": 4.30653
+      "spn_hedged": 4.591776
     },
     {
       "date": "2025-04-01",
@@ -5290,8 +4810,7 @@
       "spn_alpha": 5.664547,
       "spn_alpha_hrp": 4.7274,
       "spn_alpha_mvo_sharpe": 7.288192,
-      "spn_alpha_mvo_minvol": 3.737668,
-      "spn_hedged": 4.284082
+      "spn_hedged": 4.564554
     },
     {
       "date": "2025-04-02",
@@ -5301,8 +4820,7 @@
       "spn_alpha": 5.702612,
       "spn_alpha_hrp": 4.759376,
       "spn_alpha_mvo_sharpe": 7.352739,
-      "spn_alpha_mvo_minvol": 3.758451,
-      "spn_hedged": 4.301622
+      "spn_hedged": 4.58564
     },
     {
       "date": "2025-04-03",
@@ -5312,8 +4830,7 @@
       "spn_alpha": 5.583468,
       "spn_alpha_hrp": 4.664244,
       "spn_alpha_mvo_sharpe": 6.943792,
-      "spn_alpha_mvo_minvol": 3.711019,
-      "spn_hedged": 4.247966
+      "spn_hedged": 4.520719
     },
     {
       "date": "2025-04-04",
@@ -5323,8 +4840,7 @@
       "spn_alpha": 5.294052,
       "spn_alpha_hrp": 4.418744,
       "spn_alpha_mvo_sharpe": 6.517855,
-      "spn_alpha_mvo_minvol": 3.510948,
-      "spn_hedged": 4.116116
+      "spn_hedged": 4.3616
     },
     {
       "date": "2025-04-07",
@@ -5334,8 +4850,7 @@
       "spn_alpha": 5.267236,
       "spn_alpha_hrp": 4.389454,
       "spn_alpha_mvo_sharpe": 6.590854,
-      "spn_alpha_mvo_minvol": 3.48312,
-      "spn_hedged": 4.103863
+      "spn_hedged": 4.346795
     },
     {
       "date": "2025-04-08",
@@ -5345,8 +4860,7 @@
       "spn_alpha": 5.240099,
       "spn_alpha_hrp": 4.362605,
       "spn_alpha_mvo_sharpe": 6.552731,
-      "spn_alpha_mvo_minvol": 3.464328,
-      "spn_hedged": 4.091432
+      "spn_hedged": 4.331782
     },
     {
       "date": "2025-04-09",
@@ -5356,8 +4870,7 @@
       "spn_alpha": 5.594039,
       "spn_alpha_hrp": 4.647173,
       "spn_alpha_mvo_sharpe": 7.243801,
-      "spn_alpha_mvo_minvol": 3.660269,
-      "spn_hedged": 4.257499
+      "spn_hedged": 4.530958
     },
     {
       "date": "2025-04-10",
@@ -5367,8 +4880,7 @@
       "spn_alpha": 5.486193,
       "spn_alpha_hrp": 4.565078,
       "spn_alpha_mvo_sharpe": 6.981141,
-      "spn_alpha_mvo_minvol": 3.616401,
-      "spn_hedged": 4.224573
+      "spn_hedged": 4.48359
     },
     {
       "date": "2025-04-11",
@@ -5378,8 +4890,7 @@
       "spn_alpha": 5.604944,
       "spn_alpha_hrp": 4.658483,
       "spn_alpha_mvo_sharpe": 7.186056,
-      "spn_alpha_mvo_minvol": 3.689569,
-      "spn_hedged": 4.262085
+      "spn_hedged": 4.53689
     },
     {
       "date": "2025-04-14",
@@ -5389,8 +4900,7 @@
       "spn_alpha": 5.64026,
       "spn_alpha_hrp": 4.692554,
       "spn_alpha_mvo_sharpe": 7.218256,
-      "spn_alpha_mvo_minvol": 3.721199,
-      "spn_hedged": 4.27338
+      "spn_hedged": 4.552817
     },
     {
       "date": "2025-04-15",
@@ -5400,8 +4910,7 @@
       "spn_alpha": 5.620282,
       "spn_alpha_hrp": 4.675564,
       "spn_alpha_mvo_sharpe": 7.215973,
-      "spn_alpha_mvo_minvol": 3.706553,
-      "spn_hedged": 4.267631
+      "spn_hedged": 4.544335
     },
     {
       "date": "2025-04-16",
@@ -5411,8 +4920,7 @@
       "spn_alpha": 5.539553,
       "spn_alpha_hrp": 4.60824,
       "spn_alpha_mvo_sharpe": 7.010307,
-      "spn_alpha_mvo_minvol": 3.659505,
-      "spn_hedged": 4.243141
+      "spn_hedged": 4.50902
     },
     {
       "date": "2025-04-17",
@@ -5422,8 +4930,7 @@
       "spn_alpha": 5.550984,
       "spn_alpha_hrp": 4.625725,
       "spn_alpha_mvo_sharpe": 7.147591,
-      "spn_alpha_mvo_minvol": 3.644826,
-      "spn_hedged": 4.247088
+      "spn_hedged": 4.514418
     },
     {
       "date": "2025-04-21",
@@ -5433,8 +4940,7 @@
       "spn_alpha": 5.424613,
       "spn_alpha_hrp": 4.519687,
       "spn_alpha_mvo_sharpe": 6.973405,
-      "spn_alpha_mvo_minvol": 3.56228,
-      "spn_hedged": 4.208231
+      "spn_hedged": 4.458629
     },
     {
       "date": "2025-04-22",
@@ -5444,8 +4950,7 @@
       "spn_alpha": 5.53216,
       "spn_alpha_hrp": 4.610576,
       "spn_alpha_mvo_sharpe": 7.132487,
-      "spn_alpha_mvo_minvol": 3.628107,
-      "spn_hedged": 4.242488
+      "spn_hedged": 4.507203
     },
     {
       "date": "2025-04-23",
@@ -5455,8 +4960,7 @@
       "spn_alpha": 5.558339,
       "spn_alpha_hrp": 4.629694,
       "spn_alpha_mvo_sharpe": 7.263053,
-      "spn_alpha_mvo_minvol": 3.628931,
-      "spn_hedged": 4.25103
+      "spn_hedged": 4.519166
     },
     {
       "date": "2025-04-24",
@@ -5466,8 +4970,7 @@
       "spn_alpha": 5.594938,
       "spn_alpha_hrp": 4.652817,
       "spn_alpha_mvo_sharpe": 7.456684,
-      "spn_alpha_mvo_minvol": 3.636441,
-      "spn_hedged": 4.262786
+      "spn_hedged": 4.535731
     },
     {
       "date": "2025-04-25",
@@ -5477,8 +4980,7 @@
       "spn_alpha": 5.619518,
       "spn_alpha_hrp": 4.670308,
       "spn_alpha_mvo_sharpe": 7.56044,
-      "spn_alpha_mvo_minvol": 3.644093,
-      "spn_hedged": 4.270783
+      "spn_hedged": 4.54693
     },
     {
       "date": "2025-04-28",
@@ -5488,8 +4990,7 @@
       "spn_alpha": 5.627349,
       "spn_alpha_hrp": 4.676694,
       "spn_alpha_mvo_sharpe": 7.530774,
-      "spn_alpha_mvo_minvol": 3.649714,
-      "spn_hedged": 4.273594
+      "spn_hedged": 4.550711
     },
     {
       "date": "2025-04-29",
@@ -5499,8 +5000,7 @@
       "spn_alpha": 5.641299,
       "spn_alpha_hrp": 4.690683,
       "spn_alpha_mvo_sharpe": 7.560266,
-      "spn_alpha_mvo_minvol": 3.653985,
-      "spn_hedged": 4.27829
+      "spn_hedged": 4.557191
     },
     {
       "date": "2025-04-30",
@@ -5510,8 +5010,7 @@
       "spn_alpha": 5.648617,
       "spn_alpha_hrp": 4.699144,
       "spn_alpha_mvo_sharpe": 7.584711,
-      "spn_alpha_mvo_minvol": 3.65649,
-      "spn_hedged": 4.280938
+      "spn_hedged": 4.560741
     },
     {
       "date": "2025-05-01",
@@ -5521,8 +5020,7 @@
       "spn_alpha": 5.624821,
       "spn_alpha_hrp": 4.663185,
       "spn_alpha_mvo_sharpe": 7.530265,
-      "spn_alpha_mvo_minvol": 3.61092,
-      "spn_hedged": 4.274013
+      "spn_hedged": 4.550574
     },
     {
       "date": "2025-05-02",
@@ -5532,8 +5030,7 @@
       "spn_alpha": 5.694741,
       "spn_alpha_hrp": 4.719541,
       "spn_alpha_mvo_sharpe": 7.700958,
-      "spn_alpha_mvo_minvol": 3.651148,
-      "spn_hedged": 4.295975
+      "spn_hedged": 4.581778
     },
     {
       "date": "2025-05-05",
@@ -5543,8 +5040,7 @@
       "spn_alpha": 5.648951,
       "spn_alpha_hrp": 4.682469,
       "spn_alpha_mvo_sharpe": 7.647678,
-      "spn_alpha_mvo_minvol": 3.609942,
-      "spn_hedged": 4.28235
+      "spn_hedged": 4.561988
     },
     {
       "date": "2025-05-06",
@@ -5554,8 +5050,7 @@
       "spn_alpha": 5.613818,
       "spn_alpha_hrp": 4.64954,
       "spn_alpha_mvo_sharpe": 7.5492,
-      "spn_alpha_mvo_minvol": 3.585143,
-      "spn_hedged": 4.271934
+      "spn_hedged": 4.546821
     },
     {
       "date": "2025-05-07",
@@ -5565,8 +5060,7 @@
       "spn_alpha": 5.642479,
       "spn_alpha_hrp": 4.672179,
       "spn_alpha_mvo_sharpe": 7.620027,
-      "spn_alpha_mvo_minvol": 3.599831,
-      "spn_hedged": 4.281183
+      "spn_hedged": 4.559815
     },
     {
       "date": "2025-05-08",
@@ -5576,8 +5070,7 @@
       "spn_alpha": 5.638476,
       "spn_alpha_hrp": 4.664859,
       "spn_alpha_mvo_sharpe": 7.613049,
-      "spn_alpha_mvo_minvol": 3.578106,
-      "spn_hedged": 4.280346
+      "spn_hedged": 4.558371
     },
     {
       "date": "2025-05-09",
@@ -5587,8 +5080,7 @@
       "spn_alpha": 5.621926,
       "spn_alpha_hrp": 4.648979,
       "spn_alpha_mvo_sharpe": 7.581137,
-      "spn_alpha_mvo_minvol": 3.563824,
-      "spn_hedged": 4.275642
+      "spn_hedged": 4.551389
     },
     {
       "date": "2025-05-12",
@@ -5598,8 +5090,7 @@
       "spn_alpha": 5.731157,
       "spn_alpha_hrp": 4.743941,
       "spn_alpha_mvo_sharpe": 7.808626,
-      "spn_alpha_mvo_minvol": 3.609112,
-      "spn_hedged": 4.31851
+      "spn_hedged": 4.611058
     },
     {
       "date": "2025-05-13",
@@ -5609,8 +5100,7 @@
       "spn_alpha": 5.616797,
       "spn_alpha_hrp": 4.664231,
       "spn_alpha_mvo_sharpe": 7.881474,
-      "spn_alpha_mvo_minvol": 3.504571,
-      "spn_hedged": 4.274707
+      "spn_hedged": 4.549452
     },
     {
       "date": "2025-05-14",
@@ -5620,8 +5110,7 @@
       "spn_alpha": 5.599576,
       "spn_alpha_hrp": 4.644206,
       "spn_alpha_mvo_sharpe": 7.898867,
-      "spn_alpha_mvo_minvol": 3.482179,
-      "spn_hedged": 4.26832
+      "spn_hedged": 4.540308
     },
     {
       "date": "2025-05-15",
@@ -5631,8 +5120,7 @@
       "spn_alpha": 5.605956,
       "spn_alpha_hrp": 4.661723,
       "spn_alpha_mvo_sharpe": 7.943763,
-      "spn_alpha_mvo_minvol": 3.474149,
-      "spn_hedged": 4.271135
+      "spn_hedged": 4.544018
     },
     {
       "date": "2025-05-16",
@@ -5642,8 +5130,7 @@
       "spn_alpha": 5.678569,
       "spn_alpha_hrp": 4.716723,
       "spn_alpha_mvo_sharpe": 8.024887,
-      "spn_alpha_mvo_minvol": 3.531294,
-      "spn_hedged": 4.299791
+      "spn_hedged": 4.583809
     },
     {
       "date": "2025-05-19",
@@ -5653,8 +5140,7 @@
       "spn_alpha": 5.722644,
       "spn_alpha_hrp": 4.747013,
       "spn_alpha_mvo_sharpe": 8.032551,
-      "spn_alpha_mvo_minvol": 3.566108,
-      "spn_hedged": 4.317209
+      "spn_hedged": 4.607956
     },
     {
       "date": "2025-05-20",
@@ -5664,8 +5150,7 @@
       "spn_alpha": 5.715873,
       "spn_alpha_hrp": 4.740322,
       "spn_alpha_mvo_sharpe": 8.011718,
-      "spn_alpha_mvo_minvol": 3.566026,
-      "spn_hedged": 4.314921
+      "spn_hedged": 4.604527
     },
     {
       "date": "2025-05-21",
@@ -5675,8 +5160,7 @@
       "spn_alpha": 5.640195,
       "spn_alpha_hrp": 4.674758,
       "spn_alpha_mvo_sharpe": 7.878589,
-      "spn_alpha_mvo_minvol": 3.511479,
-      "spn_hedged": 4.285991
+      "spn_hedged": 4.563786
     },
     {
       "date": "2025-05-22",
@@ -5686,8 +5170,7 @@
       "spn_alpha": 5.618824,
       "spn_alpha_hrp": 4.656681,
       "spn_alpha_mvo_sharpe": 7.859713,
-      "spn_alpha_mvo_minvol": 3.489815,
-      "spn_hedged": 4.278
+      "spn_hedged": 4.552397
     },
     {
       "date": "2025-05-23",
@@ -5697,8 +5180,7 @@
       "spn_alpha": 5.597883,
       "spn_alpha_hrp": 4.637583,
       "spn_alpha_mvo_sharpe": 7.821725,
-      "spn_alpha_mvo_minvol": 3.487147,
-      "spn_hedged": 4.27016
+      "spn_hedged": 4.541225
     },
     {
       "date": "2025-05-27",
@@ -5708,8 +5190,7 @@
       "spn_alpha": 5.679535,
       "spn_alpha_hrp": 4.707264,
       "spn_alpha_mvo_sharpe": 7.975614,
-      "spn_alpha_mvo_minvol": 3.52754,
-      "spn_hedged": 4.302382
+      "spn_hedged": 4.585978
     },
     {
       "date": "2025-05-28",
@@ -5719,8 +5200,7 @@
       "spn_alpha": 5.659055,
       "spn_alpha_hrp": 4.689071,
       "spn_alpha_mvo_sharpe": 7.95396,
-      "spn_alpha_mvo_minvol": 3.513266,
-      "spn_hedged": 4.294764
+      "spn_hedged": 4.575097
     },
     {
       "date": "2025-05-29",
@@ -5730,8 +5210,7 @@
       "spn_alpha": 5.680074,
       "spn_alpha_hrp": 4.70736,
       "spn_alpha_mvo_sharpe": 8.010367,
-      "spn_alpha_mvo_minvol": 3.528575,
-      "spn_hedged": 4.303259
+      "spn_hedged": 4.586752
     },
     {
       "date": "2025-05-30",
@@ -5741,8 +5220,7 @@
       "spn_alpha": 5.719077,
       "spn_alpha_hrp": 4.73979,
       "spn_alpha_mvo_sharpe": 8.053408,
-      "spn_alpha_mvo_minvol": 3.552914,
-      "spn_hedged": 4.318719
+      "spn_hedged": 4.608155
     },
     {
       "date": "2025-06-02",
@@ -5752,8 +5230,7 @@
       "spn_alpha": 5.72995,
       "spn_alpha_hrp": 4.75009,
       "spn_alpha_mvo_sharpe": 8.149717,
-      "spn_alpha_mvo_minvol": 3.563495,
-      "spn_hedged": 4.323251
+      "spn_hedged": 4.614279
     },
     {
       "date": "2025-06-03",
@@ -5763,8 +5240,7 @@
       "spn_alpha": 5.724151,
       "spn_alpha_hrp": 4.748951,
       "spn_alpha_mvo_sharpe": 8.2289,
-      "spn_alpha_mvo_minvol": 3.557104,
-      "spn_hedged": 4.321339
+      "spn_hedged": 4.611375
     },
     {
       "date": "2025-06-04",
@@ -5774,8 +5250,7 @@
       "spn_alpha": 5.711034,
       "spn_alpha_hrp": 4.73887,
       "spn_alpha_mvo_sharpe": 8.253734,
-      "spn_alpha_mvo_minvol": 3.539995,
-      "spn_hedged": 4.316596
+      "spn_hedged": 4.604508
     },
     {
       "date": "2025-06-05",
@@ -5785,8 +5260,7 @@
       "spn_alpha": 5.663241,
       "spn_alpha_hrp": 4.700375,
       "spn_alpha_mvo_sharpe": 8.147214,
-      "spn_alpha_mvo_minvol": 3.5067,
-      "spn_hedged": 4.298424
+      "spn_hedged": 4.578845
     },
     {
       "date": "2025-06-06",
@@ -5796,8 +5270,7 @@
       "spn_alpha": 5.724044,
       "spn_alpha_hrp": 4.746886,
       "spn_alpha_mvo_sharpe": 8.155281,
-      "spn_alpha_mvo_minvol": 3.542738,
-      "spn_hedged": 4.322385
+      "spn_hedged": 4.61212
     },
     {
       "date": "2025-06-09",
@@ -5807,8 +5280,7 @@
       "spn_alpha": 5.72354,
       "spn_alpha_hrp": 4.743976,
       "spn_alpha_mvo_sharpe": 8.156263,
-      "spn_alpha_mvo_minvol": 3.542089,
-      "spn_hedged": 4.322518
+      "spn_hedged": 4.612082
     },
     {
       "date": "2025-06-10",
@@ -5818,8 +5290,7 @@
       "spn_alpha": 5.768409,
       "spn_alpha_hrp": 4.781428,
       "spn_alpha_mvo_sharpe": 8.242871,
-      "spn_alpha_mvo_minvol": 3.568635,
-      "spn_hedged": 4.3402
+      "spn_hedged": 4.636619
     },
     {
       "date": "2025-06-11",
@@ -5829,8 +5300,7 @@
       "spn_alpha": 5.752432,
       "spn_alpha_hrp": 4.766853,
       "spn_alpha_mvo_sharpe": 8.224144,
-      "spn_alpha_mvo_minvol": 3.565313,
-      "spn_hedged": 4.33299
+      "spn_hedged": 4.62649
     },
     {
       "date": "2025-06-12",
@@ -5840,8 +5310,7 @@
       "spn_alpha": 5.773843,
       "spn_alpha_hrp": 4.785027,
       "spn_alpha_mvo_sharpe": 8.255126,
-      "spn_alpha_mvo_minvol": 3.581657,
-      "spn_hedged": 4.343262
+      "spn_hedged": 4.64041
     },
     {
       "date": "2025-06-13",
@@ -5851,8 +5320,7 @@
       "spn_alpha": 5.716256,
       "spn_alpha_hrp": 4.73324,
       "spn_alpha_mvo_sharpe": 8.166003,
-      "spn_alpha_mvo_minvol": 3.559584,
-      "spn_hedged": 4.316613
+      "spn_hedged": 4.603528
     },
     {
       "date": "2025-06-16",
@@ -5862,8 +5330,7 @@
       "spn_alpha": 5.728495,
       "spn_alpha_hrp": 4.743099,
       "spn_alpha_mvo_sharpe": 8.213793,
-      "spn_alpha_mvo_minvol": 3.557572,
-      "spn_hedged": 4.322608
+      "spn_hedged": 4.611557
     },
     {
       "date": "2025-06-17",
@@ -5873,8 +5340,7 @@
       "spn_alpha": 5.687038,
       "spn_alpha_hrp": 4.709949,
       "spn_alpha_mvo_sharpe": 8.153058,
-      "spn_alpha_mvo_minvol": 3.534843,
-      "spn_hedged": 4.303433
+      "spn_hedged": 4.585001
     },
     {
       "date": "2025-06-18",
@@ -5884,8 +5350,7 @@
       "spn_alpha": 5.650979,
       "spn_alpha_hrp": 4.674355,
       "spn_alpha_mvo_sharpe": 8.177861,
-      "spn_alpha_mvo_minvol": 3.519116,
-      "spn_hedged": 4.28674
+      "spn_hedged": 4.561887
     },
     {
       "date": "2025-06-20",
@@ -5895,8 +5360,7 @@
       "spn_alpha": 5.64534,
       "spn_alpha_hrp": 4.663633,
       "spn_alpha_mvo_sharpe": 8.14131,
-      "spn_alpha_mvo_minvol": 3.517934,
-      "spn_hedged": 4.284336
+      "spn_hedged": 4.558387
     },
     {
       "date": "2025-06-23",
@@ -5906,8 +5370,7 @@
       "spn_alpha": 5.698059,
       "spn_alpha_hrp": 4.709718,
       "spn_alpha_mvo_sharpe": 8.251132,
-      "spn_alpha_mvo_minvol": 3.542933,
-      "spn_hedged": 4.309438
+      "spn_hedged": 4.592584
     },
     {
       "date": "2025-06-24",
@@ -5917,8 +5380,7 @@
       "spn_alpha": 5.727677,
       "spn_alpha_hrp": 4.738528,
       "spn_alpha_mvo_sharpe": 8.35115,
-      "spn_alpha_mvo_minvol": 3.551454,
-      "spn_hedged": 4.323605
+      "spn_hedged": 4.611825
     },
     {
       "date": "2025-06-25",
@@ -5928,8 +5390,7 @@
       "spn_alpha": 5.712899,
       "spn_alpha_hrp": 4.723928,
       "spn_alpha_mvo_sharpe": 8.409587,
-      "spn_alpha_mvo_minvol": 3.534589,
-      "spn_hedged": 4.316931
+      "spn_hedged": 4.602449
     },
     {
       "date": "2025-06-26",
@@ -5939,8 +5400,7 @@
       "spn_alpha": 5.725683,
       "spn_alpha_hrp": 4.734707,
       "spn_alpha_mvo_sharpe": 8.450083,
-      "spn_alpha_mvo_minvol": 3.536678,
-      "spn_hedged": 4.323186
+      "spn_hedged": 4.610832
     },
     {
       "date": "2025-06-27",
@@ -5950,8 +5410,7 @@
       "spn_alpha": 5.754266,
       "spn_alpha_hrp": 4.761045,
       "spn_alpha_mvo_sharpe": 8.462584,
-      "spn_alpha_mvo_minvol": 3.555312,
-      "spn_hedged": 4.336845
+      "spn_hedged": 4.629389
     },
     {
       "date": "2025-06-30",
@@ -5961,8 +5420,7 @@
       "spn_alpha": 5.771185,
       "spn_alpha_hrp": 4.773138,
       "spn_alpha_mvo_sharpe": 8.517442,
-      "spn_alpha_mvo_minvol": 3.559422,
-      "spn_hedged": 4.345021
+      "spn_hedged": 4.640422
     },
     {
       "date": "2025-07-01",
@@ -5972,8 +5430,7 @@
       "spn_alpha": 5.810033,
       "spn_alpha_hrp": 4.807632,
       "spn_alpha_mvo_sharpe": 8.442043,
-      "spn_alpha_mvo_minvol": 3.598057,
-      "spn_hedged": 4.363443
+      "spn_hedged": 4.665556
     },
     {
       "date": "2025-07-02",
@@ -5983,8 +5440,7 @@
       "spn_alpha": 5.806216,
       "spn_alpha_hrp": 4.796293,
       "spn_alpha_mvo_sharpe": 8.489488,
-      "spn_alpha_mvo_minvol": 3.578541,
-      "spn_hedged": 4.36192
+      "spn_hedged": 4.663249
     },
     {
       "date": "2025-07-03",
@@ -5994,8 +5450,7 @@
       "spn_alpha": 5.845694,
       "spn_alpha_hrp": 4.82923,
       "spn_alpha_mvo_sharpe": 8.574087,
-      "spn_alpha_mvo_minvol": 3.598896,
-      "spn_hedged": 4.380597
+      "spn_hedged": 4.68876
     },
     {
       "date": "2025-07-07",
@@ -6005,8 +5460,7 @@
       "spn_alpha": 5.811058,
       "spn_alpha_hrp": 4.800269,
       "spn_alpha_mvo_sharpe": 8.535585,
-      "spn_alpha_mvo_minvol": 3.578412,
-      "spn_hedged": 4.364735
+      "spn_hedged": 4.666681
     },
     {
       "date": "2025-07-08",
@@ -6016,8 +5470,7 @@
       "spn_alpha": 5.787872,
       "spn_alpha_hrp": 4.779663,
       "spn_alpha_mvo_sharpe": 8.474307,
-      "spn_alpha_mvo_minvol": 3.572633,
-      "spn_hedged": 4.354176
+      "spn_hedged": 4.65193
     },
     {
       "date": "2025-07-09",
@@ -6027,8 +5480,7 @@
       "spn_alpha": 5.806078,
       "spn_alpha_hrp": 4.794179,
       "spn_alpha_mvo_sharpe": 8.534431,
-      "spn_alpha_mvo_minvol": 3.573695,
-      "spn_hedged": 4.362939
+      "spn_hedged": 4.663781
     },
     {
       "date": "2025-07-10",
@@ -6038,8 +5490,7 @@
       "spn_alpha": 5.81061,
       "spn_alpha_hrp": 4.797485,
       "spn_alpha_mvo_sharpe": 8.52867,
-      "spn_alpha_mvo_minvol": 3.572399,
-      "spn_hedged": 4.365312
+      "spn_hedged": 4.666839
     },
     {
       "date": "2025-07-11",
@@ -6049,8 +5500,7 @@
       "spn_alpha": 5.790417,
       "spn_alpha_hrp": 4.780898,
       "spn_alpha_mvo_sharpe": 8.518061,
-      "spn_alpha_mvo_minvol": 3.563984,
-      "spn_hedged": 4.356147
+      "spn_hedged": 4.654009
     },
     {
       "date": "2025-07-14",
@@ -6060,8 +5510,7 @@
       "spn_alpha": 5.783141,
       "spn_alpha_hrp": 4.777361,
       "spn_alpha_mvo_sharpe": 8.552174,
-      "spn_alpha_mvo_minvol": 3.554305,
-      "spn_hedged": 4.352211
+      "spn_hedged": 4.649476
     },
     {
       "date": "2025-07-15",
@@ -6071,8 +5520,7 @@
       "spn_alpha": 5.721391,
       "spn_alpha_hrp": 4.73229,
       "spn_alpha_mvo_sharpe": 8.546349,
-      "spn_alpha_mvo_minvol": 3.516831,
-      "spn_hedged": 4.317527
+      "spn_hedged": 4.609904
     },
     {
       "date": "2025-07-16",
@@ -6082,8 +5530,7 @@
       "spn_alpha": 5.780194,
       "spn_alpha_hrp": 4.775059,
       "spn_alpha_mvo_sharpe": 8.573989,
-      "spn_alpha_mvo_minvol": 3.555411,
-      "spn_hedged": 4.350976
+      "spn_hedged": 4.647951
     },
     {
       "date": "2025-07-17",
@@ -6093,8 +5540,7 @@
       "spn_alpha": 5.771239,
       "spn_alpha_hrp": 4.773814,
       "spn_alpha_mvo_sharpe": 8.580908,
-      "spn_alpha_mvo_minvol": 3.547075,
-      "spn_hedged": 4.34609
+      "spn_hedged": 4.642335
     },
     {
       "date": "2025-07-18",
@@ -6104,8 +5550,7 @@
       "spn_alpha": 5.766076,
       "spn_alpha_hrp": 4.769146,
       "spn_alpha_mvo_sharpe": 8.577126,
-      "spn_alpha_mvo_minvol": 3.531569,
-      "spn_hedged": 4.343343
+      "spn_hedged": 4.639157
     },
     {
       "date": "2025-07-21",
@@ -6115,8 +5560,7 @@
       "spn_alpha": 5.78089,
       "spn_alpha_hrp": 4.784791,
       "spn_alpha_mvo_sharpe": 8.597222,
-      "spn_alpha_mvo_minvol": 3.539404,
-      "spn_hedged": 4.351881
+      "spn_hedged": 4.648837
     },
     {
       "date": "2025-07-22",
@@ -6126,8 +5570,7 @@
       "spn_alpha": 5.830668,
       "spn_alpha_hrp": 4.8216,
       "spn_alpha_mvo_sharpe": 8.552538,
-      "spn_alpha_mvo_minvol": 3.572525,
-      "spn_hedged": 4.380155
+      "spn_hedged": 4.681006
     },
     {
       "date": "2025-07-23",
@@ -6137,8 +5580,7 @@
       "spn_alpha": 5.881655,
       "spn_alpha_hrp": 4.859294,
       "spn_alpha_mvo_sharpe": 8.682077,
-      "spn_alpha_mvo_minvol": 3.602455,
-      "spn_hedged": 4.409053
+      "spn_hedged": 4.713899
     },
     {
       "date": "2025-07-24",
@@ -6148,8 +5590,7 @@
       "spn_alpha": 5.873703,
       "spn_alpha_hrp": 4.859887,
       "spn_alpha_mvo_sharpe": 8.744616,
-      "spn_alpha_mvo_minvol": 3.597742,
-      "spn_hedged": 4.404753
+      "spn_hedged": 4.708946
     },
     {
       "date": "2025-07-25",
@@ -6159,8 +5600,7 @@
       "spn_alpha": 5.890507,
       "spn_alpha_hrp": 4.872551,
       "spn_alpha_mvo_sharpe": 8.785375,
-      "spn_alpha_mvo_minvol": 3.605856,
-      "spn_hedged": 4.414376
+      "spn_hedged": 4.71987
     },
     {
       "date": "2025-07-28",
@@ -6170,8 +5610,7 @@
       "spn_alpha": 5.881868,
       "spn_alpha_hrp": 4.865899,
       "spn_alpha_mvo_sharpe": 8.830882,
-      "spn_alpha_mvo_minvol": 3.600797,
-      "spn_hedged": 4.409692
+      "spn_hedged": 4.71448
     },
     {
       "date": "2025-07-29",
@@ -6181,8 +5620,7 @@
       "spn_alpha": 5.831032,
       "spn_alpha_hrp": 4.837494,
       "spn_alpha_mvo_sharpe": 8.744863,
-      "spn_alpha_mvo_minvol": 3.574581,
-      "spn_hedged": 4.381279
+      "spn_hedged": 4.682029
     },
     {
       "date": "2025-07-30",
@@ -6192,8 +5630,7 @@
       "spn_alpha": 5.80371,
       "spn_alpha_hrp": 4.813056,
       "spn_alpha_mvo_sharpe": 8.77967,
-      "spn_alpha_mvo_minvol": 3.55573,
-      "spn_hedged": 4.366053
+      "spn_hedged": 4.664624
     },
     {
       "date": "2025-07-31",
@@ -6203,8 +5640,7 @@
       "spn_alpha": 5.746763,
       "spn_alpha_hrp": 4.777516,
       "spn_alpha_mvo_sharpe": 8.749059,
-      "spn_alpha_mvo_minvol": 3.516068,
-      "spn_hedged": 4.334093
+      "spn_hedged": 4.628154
     },
     {
       "date": "2025-08-01",
@@ -6214,8 +5650,7 @@
       "spn_alpha": 5.711078,
       "spn_alpha_hrp": 4.74486,
       "spn_alpha_mvo_sharpe": 8.668757,
-      "spn_alpha_mvo_minvol": 3.498203,
-      "spn_hedged": 4.314077
+      "spn_hedged": 4.605307
     },
     {
       "date": "2025-08-04",
@@ -6225,8 +5660,7 @@
       "spn_alpha": 5.754351,
       "spn_alpha_hrp": 4.784692,
       "spn_alpha_mvo_sharpe": 8.829495,
-      "spn_alpha_mvo_minvol": 3.512959,
-      "spn_hedged": 4.338761
+      "spn_hedged": 4.633366
     },
     {
       "date": "2025-08-05",
@@ -6236,8 +5670,7 @@
       "spn_alpha": 5.756335,
       "spn_alpha_hrp": 4.779876,
       "spn_alpha_mvo_sharpe": 8.763585,
-      "spn_alpha_mvo_minvol": 3.519295,
-      "spn_hedged": 4.340051
+      "spn_hedged": 4.634788
     },
     {
       "date": "2025-08-06",
@@ -6247,8 +5680,7 @@
       "spn_alpha": 5.800389,
       "spn_alpha_hrp": 4.824803,
       "spn_alpha_mvo_sharpe": 8.851223,
-      "spn_alpha_mvo_minvol": 3.545839,
-      "spn_hedged": 4.365132
+      "spn_hedged": 4.663309
     },
     {
       "date": "2025-08-07",
@@ -6258,8 +5690,7 @@
       "spn_alpha": 5.734381,
       "spn_alpha_hrp": 4.784021,
       "spn_alpha_mvo_sharpe": 8.648549,
-      "spn_alpha_mvo_minvol": 3.514457,
-      "spn_hedged": 4.328045
+      "spn_hedged": 4.621
     },
     {
       "date": "2025-08-08",
@@ -6269,8 +5700,7 @@
       "spn_alpha": 5.776592,
       "spn_alpha_hrp": 4.820771,
       "spn_alpha_mvo_sharpe": 8.677765,
-      "spn_alpha_mvo_minvol": 3.541745,
-      "spn_hedged": 4.352108
+      "spn_hedged": 4.648356
     },
     {
       "date": "2025-08-11",
@@ -6280,8 +5710,7 @@
       "spn_alpha": 5.791852,
       "spn_alpha_hrp": 4.83056,
       "spn_alpha_mvo_sharpe": 8.690909,
-      "spn_alpha_mvo_minvol": 3.549053,
-      "spn_hedged": 4.3609
+      "spn_hedged": 4.658324
     },
     {
       "date": "2025-08-12",
@@ -6291,8 +5720,7 @@
       "spn_alpha": 5.826713,
       "spn_alpha_hrp": 4.860332,
       "spn_alpha_mvo_sharpe": 8.790875,
-      "spn_alpha_mvo_minvol": 3.569419,
-      "spn_hedged": 4.380756
+      "spn_hedged": 4.6809
     },
     {
       "date": "2025-08-13",
@@ -6302,8 +5730,7 @@
       "spn_alpha": 5.855427,
       "spn_alpha_hrp": 4.885239,
       "spn_alpha_mvo_sharpe": 8.748004,
-      "spn_alpha_mvo_minvol": 3.587903,
-      "spn_hedged": 4.397117
+      "spn_hedged": 4.699499
     },
     {
       "date": "2025-08-14",
@@ -6313,8 +5740,7 @@
       "spn_alpha": 5.867205,
       "spn_alpha_hrp": 4.895816,
       "spn_alpha_mvo_sharpe": 8.806251,
-      "spn_alpha_mvo_minvol": 3.589212,
-      "spn_hedged": 4.403922
+      "spn_hedged": 4.707208
     },
     {
       "date": "2025-08-15",
@@ -6324,8 +5750,7 @@
       "spn_alpha": 5.895873,
       "spn_alpha_hrp": 4.924995,
       "spn_alpha_mvo_sharpe": 8.789561,
-      "spn_alpha_mvo_minvol": 3.630412,
-      "spn_hedged": 4.420232
+      "spn_hedged": 4.725754
     },
     {
       "date": "2025-08-18",
@@ -6335,8 +5760,7 @@
       "spn_alpha": 5.907577,
       "spn_alpha_hrp": 4.933818,
       "spn_alpha_mvo_sharpe": 8.786434,
-      "spn_alpha_mvo_minvol": 3.643044,
-      "spn_hedged": 4.426985
+      "spn_hedged": 4.733406
     },
     {
       "date": "2025-08-19",
@@ -6346,8 +5770,7 @@
       "spn_alpha": 5.929562,
       "spn_alpha_hrp": 4.95028,
       "spn_alpha_mvo_sharpe": 8.689013,
-      "spn_alpha_mvo_minvol": 3.659319,
-      "spn_hedged": 4.439514
+      "spn_hedged": 4.747646
     },
     {
       "date": "2025-08-20",
@@ -6357,8 +5780,7 @@
       "spn_alpha": 5.944015,
       "spn_alpha_hrp": 4.958842,
       "spn_alpha_mvo_sharpe": 8.691794,
-      "spn_alpha_mvo_minvol": 3.674425,
-      "spn_hedged": 4.447802
+      "spn_hedged": 4.757051
     },
     {
       "date": "2025-08-21",
@@ -6368,8 +5790,7 @@
       "spn_alpha": 5.909016,
       "spn_alpha_hrp": 4.926267,
       "spn_alpha_mvo_sharpe": 8.60874,
-      "spn_alpha_mvo_minvol": 3.650014,
-      "spn_hedged": 4.428333
+      "spn_hedged": 4.734792
     },
     {
       "date": "2025-08-22",
@@ -6379,8 +5800,7 @@
       "spn_alpha": 5.961413,
       "spn_alpha_hrp": 4.970696,
       "spn_alpha_mvo_sharpe": 8.700922,
-      "spn_alpha_mvo_minvol": 3.669816,
-      "spn_hedged": 4.457956
+      "spn_hedged": 4.768527
     },
     {
       "date": "2025-08-25",
@@ -6390,8 +5810,7 @@
       "spn_alpha": 5.922401,
       "spn_alpha_hrp": 4.936763,
       "spn_alpha_mvo_sharpe": 8.672798,
-      "spn_alpha_mvo_minvol": 3.64591,
-      "spn_hedged": 4.436249
+      "spn_hedged": 4.743711
     },
     {
       "date": "2025-08-26",
@@ -6401,8 +5820,7 @@
       "spn_alpha": 5.940443,
       "spn_alpha_hrp": 4.951382,
       "spn_alpha_mvo_sharpe": 8.762014,
-      "spn_alpha_mvo_minvol": 3.651232,
-      "spn_hedged": 4.446558
+      "spn_hedged": 4.755419
     },
     {
       "date": "2025-08-27",
@@ -6412,8 +5830,7 @@
       "spn_alpha": 5.964792,
       "spn_alpha_hrp": 4.970349,
       "spn_alpha_mvo_sharpe": 8.76846,
-      "spn_alpha_mvo_minvol": 3.669628,
-      "spn_hedged": 4.4604
+      "spn_hedged": 4.771161
     },
     {
       "date": "2025-08-28",
@@ -6423,8 +5840,7 @@
       "spn_alpha": 5.967264,
       "spn_alpha_hrp": 4.971328,
       "spn_alpha_mvo_sharpe": 8.802035,
-      "spn_alpha_mvo_minvol": 3.66717,
-      "spn_hedged": 4.461961
+      "spn_hedged": 4.772891
     },
     {
       "date": "2025-08-29",
@@ -6434,8 +5850,7 @@
       "spn_alpha": 5.990823,
       "spn_alpha_hrp": 4.990447,
       "spn_alpha_mvo_sharpe": 8.716156,
-      "spn_alpha_mvo_minvol": 3.691788,
-      "spn_hedged": 4.475346
+      "spn_hedged": 4.788115
     },
     {
       "date": "2025-09-02",
@@ -6445,8 +5860,7 @@
       "spn_alpha": 5.987507,
       "spn_alpha_hrp": 4.987482,
       "spn_alpha_mvo_sharpe": 8.693639,
-      "spn_alpha_mvo_minvol": 3.698442,
-      "spn_hedged": 4.473662
+      "spn_hedged": 4.786144
     },
     {
       "date": "2025-09-03",
@@ -6456,8 +5870,7 @@
       "spn_alpha": 6.017795,
       "spn_alpha_hrp": 5.016776,
       "spn_alpha_mvo_sharpe": 8.747602,
-      "spn_alpha_mvo_minvol": 3.703814,
-      "spn_hedged": 4.490809
+      "spn_hedged": 4.805661
     },
     {
       "date": "2025-09-04",
@@ -6467,8 +5880,7 @@
       "spn_alpha": 6.072699,
       "spn_alpha_hrp": 5.063387,
       "spn_alpha_mvo_sharpe": 8.845114,
-      "spn_alpha_mvo_minvol": 3.734269,
-      "spn_hedged": 4.521713
+      "spn_hedged": 4.840887
     },
     {
       "date": "2025-09-05",
@@ -6478,8 +5890,7 @@
       "spn_alpha": 6.035591,
       "spn_alpha_hrp": 5.036149,
       "spn_alpha_mvo_sharpe": 8.86742,
-      "spn_alpha_mvo_minvol": 3.714527,
-      "spn_hedged": 4.501166
+      "spn_hedged": 4.817373
     },
     {
       "date": "2025-09-08",
@@ -6489,8 +5900,7 @@
       "spn_alpha": 6.049075,
       "spn_alpha_hrp": 5.051731,
       "spn_alpha_mvo_sharpe": 8.947079,
-      "spn_alpha_mvo_minvol": 3.728859,
-      "spn_hedged": 4.508883
+      "spn_hedged": 4.826133
     },
     {
       "date": "2025-09-09",
@@ -6500,8 +5910,7 @@
       "spn_alpha": 6.086131,
       "spn_alpha_hrp": 5.084025,
       "spn_alpha_mvo_sharpe": 8.993216,
-      "spn_alpha_mvo_minvol": 3.762422,
-      "spn_hedged": 4.529775
+      "spn_hedged": 4.849935
     },
     {
       "date": "2025-09-10",
@@ -6511,8 +5920,7 @@
       "spn_alpha": 6.050914,
       "spn_alpha_hrp": 5.049217,
       "spn_alpha_mvo_sharpe": 9.128301,
-      "spn_alpha_mvo_minvol": 3.746192,
-      "spn_hedged": 4.510292
+      "spn_hedged": 4.827634
     },
     {
       "date": "2025-09-11",
@@ -6522,8 +5930,7 @@
       "spn_alpha": 6.097888,
       "spn_alpha_hrp": 5.10649,
       "spn_alpha_mvo_sharpe": 9.178453,
-      "spn_alpha_mvo_minvol": 3.788262,
-      "spn_hedged": 4.545306
+      "spn_hedged": 4.865112
     },
     {
       "date": "2025-09-12",
@@ -6533,8 +5940,7 @@
       "spn_alpha": 6.097731,
       "spn_alpha_hrp": 5.110529,
       "spn_alpha_mvo_sharpe": 9.207383,
-      "spn_alpha_mvo_minvol": 3.791177,
-      "spn_hedged": 4.545189
+      "spn_hedged": 4.864986
     },
     {
       "date": "2025-09-15",
@@ -6544,8 +5950,7 @@
       "spn_alpha": 6.10349,
       "spn_alpha_hrp": 5.119107,
       "spn_alpha_mvo_sharpe": 9.237879,
-      "spn_alpha_mvo_minvol": 3.789367,
-      "spn_hedged": 4.549482
+      "spn_hedged": 4.869582
     },
     {
       "date": "2025-09-16",
@@ -6555,8 +5960,7 @@
       "spn_alpha": 6.100141,
       "spn_alpha_hrp": 5.127411,
       "spn_alpha_mvo_sharpe": 9.223466,
-      "spn_alpha_mvo_minvol": 3.793906,
-      "spn_hedged": 4.546985
+      "spn_hedged": 4.866909
     },
     {
       "date": "2025-09-17",
@@ -6566,8 +5970,7 @@
       "spn_alpha": 6.109012,
       "spn_alpha_hrp": 5.152558,
       "spn_alpha_mvo_sharpe": 9.160319,
-      "spn_alpha_mvo_minvol": 3.81449,
-      "spn_hedged": 4.553598
+      "spn_hedged": 4.873987
     },
     {
       "date": "2025-09-18",
@@ -6577,8 +5980,7 @@
       "spn_alpha": 6.041404,
       "spn_alpha_hrp": 5.105997,
       "spn_alpha_mvo_sharpe": 9.178233,
-      "spn_alpha_mvo_minvol": 3.774407,
-      "spn_hedged": 4.503204
+      "spn_hedged": 4.820047
     },
     {
       "date": "2025-09-19",
@@ -6588,8 +5990,7 @@
       "spn_alpha": 6.044373,
       "spn_alpha_hrp": 5.113714,
       "spn_alpha_mvo_sharpe": 9.176727,
-      "spn_alpha_mvo_minvol": 3.772456,
-      "spn_hedged": 4.505417
+      "spn_hedged": 4.822416
     },
     {
       "date": "2025-09-22",
@@ -6599,8 +6000,7 @@
       "spn_alpha": 6.018534,
       "spn_alpha_hrp": 5.096602,
       "spn_alpha_mvo_sharpe": 9.188025,
-      "spn_alpha_mvo_minvol": 3.759006,
-      "spn_hedged": 4.486157
+      "spn_hedged": 4.801801
     },
     {
       "date": "2025-09-23",
@@ -6610,8 +6010,7 @@
       "spn_alpha": 6.031585,
       "spn_alpha_hrp": 5.086251,
       "spn_alpha_mvo_sharpe": 9.139061,
-      "spn_alpha_mvo_minvol": 3.768376,
-      "spn_hedged": 4.495885
+      "spn_hedged": 4.812213
     },
     {
       "date": "2025-09-24",
@@ -6621,8 +6020,7 @@
       "spn_alpha": 6.044514,
       "spn_alpha_hrp": 5.089111,
       "spn_alpha_mvo_sharpe": 9.136821,
-      "spn_alpha_mvo_minvol": 3.777569,
-      "spn_hedged": 4.505521
+      "spn_hedged": 4.822528
     },
     {
       "date": "2025-09-25",
@@ -6632,8 +6030,7 @@
       "spn_alpha": 6.021998,
       "spn_alpha_hrp": 5.073934,
       "spn_alpha_mvo_sharpe": 9.093939,
-      "spn_alpha_mvo_minvol": 3.769646,
-      "spn_hedged": 4.488739
+      "spn_hedged": 4.804564
     },
     {
       "date": "2025-09-26",
@@ -6643,8 +6040,7 @@
       "spn_alpha": 6.044584,
       "spn_alpha_hrp": 5.094243,
       "spn_alpha_mvo_sharpe": 9.129475,
-      "spn_alpha_mvo_minvol": 3.789809,
-      "spn_hedged": 4.505574
+      "spn_hedged": 4.822584
     },
     {
       "date": "2025-09-29",
@@ -6654,8 +6050,7 @@
       "spn_alpha": 6.035508,
       "spn_alpha_hrp": 5.099254,
       "spn_alpha_mvo_sharpe": 9.141371,
-      "spn_alpha_mvo_minvol": 3.788469,
-      "spn_hedged": 4.498809
+      "spn_hedged": 4.815343
     },
     {
       "date": "2025-09-30",
@@ -6665,8 +6060,7 @@
       "spn_alpha": 6.060346,
       "spn_alpha_hrp": 5.12287,
       "spn_alpha_mvo_sharpe": 9.242407,
-      "spn_alpha_mvo_minvol": 3.806228,
-      "spn_hedged": 4.517323
+      "spn_hedged": 4.83516
     },
     {
       "date": "2025-10-01",
@@ -6676,8 +6070,7 @@
       "spn_alpha": 6.079202,
       "spn_alpha_hrp": 5.132852,
       "spn_alpha_mvo_sharpe": 9.290088,
-      "spn_alpha_mvo_minvol": 3.808215,
-      "spn_hedged": 4.531378
+      "spn_hedged": 4.850204
     },
     {
       "date": "2025-10-02",
@@ -6687,8 +6080,7 @@
       "spn_alpha": 6.081787,
       "spn_alpha_hrp": 5.121068,
       "spn_alpha_mvo_sharpe": 9.301417,
-      "spn_alpha_mvo_minvol": 3.799262,
-      "spn_hedged": 4.533305
+      "spn_hedged": 4.852266
     },
     {
       "date": "2025-10-03",
@@ -6698,8 +6090,7 @@
       "spn_alpha": 6.128814,
       "spn_alpha_hrp": 5.151859,
       "spn_alpha_mvo_sharpe": 9.33686,
-      "spn_alpha_mvo_minvol": 3.829687,
-      "spn_hedged": 4.568358
+      "spn_hedged": 4.889786
     },
     {
       "date": "2025-10-06",
@@ -6709,8 +6100,7 @@
       "spn_alpha": 6.122848,
       "spn_alpha_hrp": 5.155359,
       "spn_alpha_mvo_sharpe": 9.333743,
-      "spn_alpha_mvo_minvol": 3.834947,
-      "spn_hedged": 4.563911
+      "spn_hedged": 4.885025
     },
     {
       "date": "2025-10-07",
@@ -6720,8 +6110,7 @@
       "spn_alpha": 6.149915,
       "spn_alpha_hrp": 5.167807,
       "spn_alpha_mvo_sharpe": 9.332848,
-      "spn_alpha_mvo_minvol": 3.850687,
-      "spn_hedged": 4.584087
+      "spn_hedged": 4.906621
     },
     {
       "date": "2025-10-08",
@@ -6731,8 +6120,7 @@
       "spn_alpha": 6.170428,
       "spn_alpha_hrp": 5.163714,
       "spn_alpha_mvo_sharpe": 9.391935,
-      "spn_alpha_mvo_minvol": 3.848951,
-      "spn_hedged": 4.599377
+      "spn_hedged": 4.922987
     },
     {
       "date": "2025-10-09",
@@ -6742,8 +6130,7 @@
       "spn_alpha": 6.156291,
       "spn_alpha_hrp": 5.15588,
       "spn_alpha_mvo_sharpe": 9.430837,
-      "spn_alpha_mvo_minvol": 3.839829,
-      "spn_hedged": 4.588839
+      "spn_hedged": 4.911708
     },
     {
       "date": "2025-10-10",
@@ -6753,8 +6140,7 @@
       "spn_alpha": 6.040555,
       "spn_alpha_hrp": 5.073612,
       "spn_alpha_mvo_sharpe": 9.201672,
-      "spn_alpha_mvo_minvol": 3.785334,
-      "spn_hedged": 4.502571
+      "spn_hedged": 4.819369
     },
     {
       "date": "2025-10-13",
@@ -6764,8 +6150,7 @@
       "spn_alpha": 6.086491,
       "spn_alpha_hrp": 5.103362,
       "spn_alpha_mvo_sharpe": 9.38899,
-      "spn_alpha_mvo_minvol": 3.804242,
-      "spn_hedged": 4.536811
+      "spn_hedged": 4.856019
     },
     {
       "date": "2025-10-14",
@@ -6775,8 +6160,7 @@
       "spn_alpha": 6.085919,
       "spn_alpha_hrp": 5.132978,
       "spn_alpha_mvo_sharpe": 9.325564,
-      "spn_alpha_mvo_minvol": 3.838851,
-      "spn_hedged": 4.536385
+      "spn_hedged": 4.855563
     },
     {
       "date": "2025-10-15",
@@ -6786,8 +6170,7 @@
       "spn_alpha": 6.09988,
       "spn_alpha_hrp": 5.142177,
       "spn_alpha_mvo_sharpe": 9.412554,
-      "spn_alpha_mvo_minvol": 3.847533,
-      "spn_hedged": 4.546791
+      "spn_hedged": 4.866701
     },
     {
       "date": "2025-10-16",
@@ -6797,8 +6180,7 @@
       "spn_alpha": 6.061726,
       "spn_alpha_hrp": 5.101921,
       "spn_alpha_mvo_sharpe": 9.351917,
-      "spn_alpha_mvo_minvol": 3.822242,
-      "spn_hedged": 4.518351
+      "spn_hedged": 4.83626
     },
     {
       "date": "2025-10-17",
@@ -6808,8 +6190,7 @@
       "spn_alpha": 6.094466,
       "spn_alpha_hrp": 5.142488,
       "spn_alpha_mvo_sharpe": 9.371776,
-      "spn_alpha_mvo_minvol": 3.853183,
-      "spn_hedged": 4.542756
+      "spn_hedged": 4.862382
     },
     {
       "date": "2025-10-20",
@@ -6819,8 +6200,7 @@
       "spn_alpha": 6.142159,
       "spn_alpha_hrp": 5.175873,
       "spn_alpha_mvo_sharpe": 9.418669,
-      "spn_alpha_mvo_minvol": 3.871066,
-      "spn_hedged": 4.578306
+      "spn_hedged": 4.900433
     },
     {
       "date": "2025-10-21",
@@ -6830,8 +6210,7 @@
       "spn_alpha": 6.11597,
       "spn_alpha_hrp": 5.166555,
       "spn_alpha_mvo_sharpe": 9.332232,
-      "spn_alpha_mvo_minvol": 3.855501,
-      "spn_hedged": 4.558784
+      "spn_hedged": 4.879538
     },
     {
       "date": "2025-10-22",
@@ -6841,8 +6220,7 @@
       "spn_alpha": 6.122389,
       "spn_alpha_hrp": 5.173596,
       "spn_alpha_mvo_sharpe": 9.334584,
-      "spn_alpha_mvo_minvol": 3.874618,
-      "spn_hedged": 4.563569
+      "spn_hedged": 4.88466
     },
     {
       "date": "2025-10-23",
@@ -6852,8 +6230,7 @@
       "spn_alpha": 6.136537,
       "spn_alpha_hrp": 5.18078,
       "spn_alpha_mvo_sharpe": 9.369112,
-      "spn_alpha_mvo_minvol": 3.879774,
-      "spn_hedged": 4.574115
+      "spn_hedged": 4.895947
     },
     {
       "date": "2025-10-24",
@@ -6863,8 +6240,7 @@
       "spn_alpha": 6.167224,
       "spn_alpha_hrp": 5.19568,
       "spn_alpha_mvo_sharpe": 9.445846,
-      "spn_alpha_mvo_minvol": 3.881065,
-      "spn_hedged": 4.596988
+      "spn_hedged": 4.92043
     },
     {
       "date": "2025-10-27",
@@ -6874,8 +6250,7 @@
       "spn_alpha": 6.1995,
       "spn_alpha_hrp": 5.211298,
       "spn_alpha_mvo_sharpe": 9.527714,
-      "spn_alpha_mvo_minvol": 3.883461,
-      "spn_hedged": 4.621047
+      "spn_hedged": 4.946181
     },
     {
       "date": "2025-10-28",
@@ -6885,8 +6260,7 @@
       "spn_alpha": 6.198933,
       "spn_alpha_hrp": 5.196039,
       "spn_alpha_mvo_sharpe": 9.587822,
-      "spn_alpha_mvo_minvol": 3.86211,
-      "spn_hedged": 4.620624
+      "spn_hedged": 4.945729
     },
     {
       "date": "2025-10-29",
@@ -6896,8 +6270,7 @@
       "spn_alpha": 6.163145,
       "spn_alpha_hrp": 5.161963,
       "spn_alpha_mvo_sharpe": 9.641257,
-      "spn_alpha_mvo_minvol": 3.840013,
-      "spn_hedged": 4.593948
+      "spn_hedged": 4.917176
     },
     {
       "date": "2025-10-30",
@@ -6907,8 +6280,7 @@
       "spn_alpha": 6.150145,
       "spn_alpha_hrp": 5.154345,
       "spn_alpha_mvo_sharpe": 9.557649,
-      "spn_alpha_mvo_minvol": 3.830185,
-      "spn_hedged": 4.584258
+      "spn_hedged": 4.906804
     },
     {
       "date": "2025-10-31",
@@ -6918,8 +6290,7 @@
       "spn_alpha": 6.160051,
       "spn_alpha_hrp": 5.164607,
       "spn_alpha_mvo_sharpe": 9.532354,
-      "spn_alpha_mvo_minvol": 3.823639,
-      "spn_hedged": 4.591642
+      "spn_hedged": 4.914708
     },
     {
       "date": "2025-11-03",
@@ -6929,8 +6300,7 @@
       "spn_alpha": 6.138965,
       "spn_alpha_hrp": 5.152591,
       "spn_alpha_mvo_sharpe": 9.541062,
-      "spn_alpha_mvo_minvol": 3.8071,
-      "spn_hedged": 4.575924
+      "spn_hedged": 4.897884
     },
     {
       "date": "2025-11-04",
@@ -6940,8 +6310,7 @@
       "spn_alpha": 6.126221,
       "spn_alpha_hrp": 5.16081,
       "spn_alpha_mvo_sharpe": 9.462137,
-      "spn_alpha_mvo_minvol": 3.814149,
-      "spn_hedged": 4.566425
+      "spn_hedged": 4.887717
     },
     {
       "date": "2025-11-05",
@@ -6951,8 +6320,7 @@
       "spn_alpha": 6.111041,
       "spn_alpha_hrp": 5.145546,
       "spn_alpha_mvo_sharpe": 9.478384,
-      "spn_alpha_mvo_minvol": 3.801018,
-      "spn_hedged": 4.55511
+      "spn_hedged": 4.875606
     },
     {
       "date": "2025-11-06",
@@ -6962,8 +6330,7 @@
       "spn_alpha": 6.089755,
       "spn_alpha_hrp": 5.127013,
       "spn_alpha_mvo_sharpe": 9.413988,
-      "spn_alpha_mvo_minvol": 3.798624,
-      "spn_hedged": 4.539244
+      "spn_hedged": 4.858623
     },
     {
       "date": "2025-11-07",
@@ -6973,8 +6340,7 @@
       "spn_alpha": 6.110806,
       "spn_alpha_hrp": 5.14037,
       "spn_alpha_mvo_sharpe": 9.401523,
-      "spn_alpha_mvo_minvol": 3.819463,
-      "spn_hedged": 4.554935
+      "spn_hedged": 4.875419
     },
     {
       "date": "2025-11-10",
@@ -6984,8 +6350,7 @@
       "spn_alpha": 6.173554,
       "spn_alpha_hrp": 5.168996,
       "spn_alpha_mvo_sharpe": 9.588147,
-      "spn_alpha_mvo_minvol": 3.837233,
-      "spn_hedged": 4.601707
+      "spn_hedged": 4.925481
     },
     {
       "date": "2025-11-11",
@@ -6995,8 +6360,7 @@
       "spn_alpha": 6.236816,
       "spn_alpha_hrp": 5.228126,
       "spn_alpha_mvo_sharpe": 9.589182,
-      "spn_alpha_mvo_minvol": 3.885492,
-      "spn_hedged": 4.648862
+      "spn_hedged": 4.975954
     },
     {
       "date": "2025-11-12",
@@ -7006,8 +6370,7 @@
       "spn_alpha": 6.258983,
       "spn_alpha_hrp": 5.231492,
       "spn_alpha_mvo_sharpe": 9.597789,
-      "spn_alpha_mvo_minvol": 3.893371,
-      "spn_hedged": 4.665385
+      "spn_hedged": 4.993639
     },
     {
       "date": "2025-11-13",
@@ -7017,8 +6380,7 @@
       "spn_alpha": 6.206971,
       "spn_alpha_hrp": 5.201986,
       "spn_alpha_mvo_sharpe": 9.451126,
-      "spn_alpha_mvo_minvol": 3.886351,
-      "spn_hedged": 4.626616
+      "spn_hedged": 4.952142
     },
     {
       "date": "2025-11-14",
@@ -7028,8 +6390,7 @@
       "spn_alpha": 6.196072,
       "spn_alpha_hrp": 5.181116,
       "spn_alpha_mvo_sharpe": 9.46091,
-      "spn_alpha_mvo_minvol": 3.882281,
-      "spn_hedged": 4.618492
+      "spn_hedged": 4.943447
     },
     {
       "date": "2025-11-17",
@@ -7039,8 +6400,7 @@
       "spn_alpha": 6.1648,
       "spn_alpha_hrp": 5.153226,
       "spn_alpha_mvo_sharpe": 9.427017,
-      "spn_alpha_mvo_minvol": 3.870059,
-      "spn_hedged": 4.595182
+      "spn_hedged": 4.918496
     },
     {
       "date": "2025-11-18",
@@ -7050,8 +6410,7 @@
       "spn_alpha": 6.114251,
       "spn_alpha_hrp": 5.101538,
       "spn_alpha_mvo_sharpe": 9.334859,
-      "spn_alpha_mvo_minvol": 3.852993,
-      "spn_hedged": 4.557503
+      "spn_hedged": 4.878167
     },
     {
       "date": "2025-11-19",
@@ -7061,8 +6420,7 @@
       "spn_alpha": 6.129564,
       "spn_alpha_hrp": 5.107486,
       "spn_alpha_mvo_sharpe": 9.428006,
-      "spn_alpha_mvo_minvol": 3.847092,
-      "spn_hedged": 4.568917
+      "spn_hedged": 4.890384
     },
     {
       "date": "2025-11-20",
@@ -7072,8 +6430,7 @@
       "spn_alpha": 6.137296,
       "spn_alpha_hrp": 5.111396,
       "spn_alpha_mvo_sharpe": 9.426186,
-      "spn_alpha_mvo_minvol": 3.872823,
-      "spn_hedged": 4.574681
+      "spn_hedged": 4.896553
     },
     {
       "date": "2025-11-21",
@@ -7083,8 +6440,7 @@
       "spn_alpha": 6.182672,
       "spn_alpha_hrp": 5.15841,
       "spn_alpha_mvo_sharpe": 9.41245,
-      "spn_alpha_mvo_minvol": 3.894159,
-      "spn_hedged": 4.608503
+      "spn_hedged": 4.932756
     },
     {
       "date": "2025-11-24",
@@ -7094,8 +6450,7 @@
       "spn_alpha": 6.190396,
       "spn_alpha_hrp": 5.162422,
       "spn_alpha_mvo_sharpe": 9.610201,
-      "spn_alpha_mvo_minvol": 3.892003,
-      "spn_hedged": 4.614261
+      "spn_hedged": 4.938918
     },
     {
       "date": "2025-11-25",
@@ -7105,8 +6460,7 @@
       "spn_alpha": 6.246276,
       "spn_alpha_hrp": 5.233208,
       "spn_alpha_mvo_sharpe": 9.755577,
-      "spn_alpha_mvo_minvol": 3.931312,
-      "spn_hedged": 4.655913
+      "spn_hedged": 4.983501
     },
     {
       "date": "2025-11-26",
@@ -7116,8 +6470,7 @@
       "spn_alpha": 6.286451,
       "spn_alpha_hrp": 5.263611,
       "spn_alpha_mvo_sharpe": 9.857141,
-      "spn_alpha_mvo_minvol": 3.957417,
-      "spn_hedged": 4.68586
+      "spn_hedged": 5.015555
     },
     {
       "date": "2025-11-28",
@@ -7127,8 +6480,7 @@
       "spn_alpha": 6.291391,
       "spn_alpha_hrp": 5.287811,
       "spn_alpha_mvo_sharpe": 9.902933,
-      "spn_alpha_mvo_minvol": 3.973561,
-      "spn_hedged": 4.689541
+      "spn_hedged": 5.019495
     },
     {
       "date": "2025-12-01",
@@ -7138,8 +6490,7 @@
       "spn_alpha": 6.269975,
       "spn_alpha_hrp": 5.261325,
       "spn_alpha_mvo_sharpe": 9.839043,
-      "spn_alpha_mvo_minvol": 3.955022,
-      "spn_hedged": 4.673578
+      "spn_hedged": 5.002409
     },
     {
       "date": "2025-12-02",
@@ -7149,8 +6500,7 @@
       "spn_alpha": 6.26399,
       "spn_alpha_hrp": 5.255145,
       "spn_alpha_mvo_sharpe": 9.855299,
-      "spn_alpha_mvo_minvol": 3.949289,
-      "spn_hedged": 4.669117
+      "spn_hedged": 4.997634
     },
     {
       "date": "2025-12-03",
@@ -7160,8 +6510,7 @@
       "spn_alpha": 6.317967,
       "spn_alpha_hrp": 5.279556,
       "spn_alpha_mvo_sharpe": 9.86339,
-      "spn_alpha_mvo_minvol": 3.977038,
-      "spn_hedged": 4.709351
+      "spn_hedged": 5.040699
     },
     {
       "date": "2025-12-04",
@@ -7171,8 +6520,7 @@
       "spn_alpha": 6.283219,
       "spn_alpha_hrp": 5.240779,
       "spn_alpha_mvo_sharpe": 9.923956,
-      "spn_alpha_mvo_minvol": 3.950667,
-      "spn_hedged": 4.68345
+      "spn_hedged": 5.012975
     },
     {
       "date": "2025-12-05",
@@ -7182,8 +6530,7 @@
       "spn_alpha": 6.263784,
       "spn_alpha_hrp": 5.238553,
       "spn_alpha_mvo_sharpe": 9.963227,
-      "spn_alpha_mvo_minvol": 3.942278,
-      "spn_hedged": 4.668964
+      "spn_hedged": 4.99747
     },
     {
       "date": "2025-12-08",
@@ -7193,8 +6540,7 @@
       "spn_alpha": 6.205729,
       "spn_alpha_hrp": 5.182608,
       "spn_alpha_mvo_sharpe": 9.956787,
-      "spn_alpha_mvo_minvol": 3.898058,
-      "spn_hedged": 4.62569
+      "spn_hedged": 4.951151
     },
     {
       "date": "2025-12-09",
@@ -7204,8 +6550,7 @@
       "spn_alpha": 6.211527,
       "spn_alpha_hrp": 5.17299,
       "spn_alpha_mvo_sharpe": 9.893494,
-      "spn_alpha_mvo_minvol": 3.907609,
-      "spn_hedged": 4.630011
+      "spn_hedged": 4.955777
     },
     {
       "date": "2025-12-10",
@@ -7215,8 +6560,7 @@
       "spn_alpha": 6.250144,
       "spn_alpha_hrp": 5.198996,
       "spn_alpha_mvo_sharpe": 9.958986,
-      "spn_alpha_mvo_minvol": 3.923402,
-      "spn_hedged": 4.658796
+      "spn_hedged": 4.986587
     },
     {
       "date": "2025-12-11",
@@ -7226,8 +6570,7 @@
       "spn_alpha": 6.341296,
       "spn_alpha_hrp": 5.280523,
       "spn_alpha_mvo_sharpe": 10.022121,
-      "spn_alpha_mvo_minvol": 3.965681,
-      "spn_hedged": 4.72674
+      "spn_hedged": 5.059311
     },
     {
       "date": "2025-12-12",
@@ -7237,8 +6580,7 @@
       "spn_alpha": 6.367226,
       "spn_alpha_hrp": 5.29867,
       "spn_alpha_mvo_sharpe": 9.859275,
-      "spn_alpha_mvo_minvol": 3.980353,
-      "spn_hedged": 4.746068
+      "spn_hedged": 5.079999
     },
     {
       "date": "2025-12-15",
@@ -7248,8 +6590,7 @@
       "spn_alpha": 6.369384,
       "spn_alpha_hrp": 5.295953,
       "spn_alpha_mvo_sharpe": 9.852066,
-      "spn_alpha_mvo_minvol": 3.990901,
-      "spn_hedged": 4.747676
+      "spn_hedged": 5.081721
     },
     {
       "date": "2025-12-16",
@@ -7259,8 +6600,7 @@
       "spn_alpha": 6.31691,
       "spn_alpha_hrp": 5.250497,
       "spn_alpha_mvo_sharpe": 9.813089,
-      "spn_alpha_mvo_minvol": 3.948514,
-      "spn_hedged": 4.708563
+      "spn_hedged": 5.039855
     },
     {
       "date": "2025-12-17",
@@ -7270,8 +6610,7 @@
       "spn_alpha": 6.339584,
       "spn_alpha_hrp": 5.260101,
       "spn_alpha_mvo_sharpe": 9.679826,
-      "spn_alpha_mvo_minvol": 3.968161,
-      "spn_hedged": 4.725464
+      "spn_hedged": 5.057945
     },
     {
       "date": "2025-12-18",
@@ -7281,8 +6620,7 @@
       "spn_alpha": 6.325551,
       "spn_alpha_hrp": 5.253313,
       "spn_alpha_mvo_sharpe": 9.736461,
-      "spn_alpha_mvo_minvol": 3.954676,
-      "spn_hedged": 4.715004
+      "spn_hedged": 5.046749
     },
     {
       "date": "2025-12-19",
@@ -7292,8 +6630,7 @@
       "spn_alpha": 6.308,
       "spn_alpha_hrp": 5.247135,
       "spn_alpha_mvo_sharpe": 9.826693,
-      "spn_alpha_mvo_minvol": 3.940816,
-      "spn_hedged": 4.701921
+      "spn_hedged": 5.032746
     },
     {
       "date": "2025-12-22",
@@ -7303,8 +6640,7 @@
       "spn_alpha": 6.319325,
       "spn_alpha_hrp": 5.255737,
       "spn_alpha_mvo_sharpe": 9.866961,
-      "spn_alpha_mvo_minvol": 3.942386,
-      "spn_hedged": 4.710363
+      "spn_hedged": 5.041782
     },
     {
       "date": "2025-12-23",
@@ -7314,8 +6650,7 @@
       "spn_alpha": 6.332499,
       "spn_alpha_hrp": 5.265617,
       "spn_alpha_mvo_sharpe": 9.923525,
-      "spn_alpha_mvo_minvol": 3.946712,
-      "spn_hedged": 4.720183
+      "spn_hedged": 5.052293
     },
     {
       "date": "2025-12-24",
@@ -7325,8 +6660,7 @@
       "spn_alpha": 6.379579,
       "spn_alpha_hrp": 5.299503,
       "spn_alpha_mvo_sharpe": 9.969373,
-      "spn_alpha_mvo_minvol": 3.96923,
-      "spn_hedged": 4.755276
+      "spn_hedged": 5.089855
     },
     {
       "date": "2025-12-26",
@@ -7336,8 +6670,7 @@
       "spn_alpha": 6.385155,
       "spn_alpha_hrp": 5.30245,
       "spn_alpha_mvo_sharpe": 9.981433,
-      "spn_alpha_mvo_minvol": 3.97004,
-      "spn_hedged": 4.759432
+      "spn_hedged": 5.094303
     },
     {
       "date": "2025-12-29",
@@ -7347,8 +6680,7 @@
       "spn_alpha": 6.372471,
       "spn_alpha_hrp": 5.295625,
       "spn_alpha_mvo_sharpe": 9.94067,
-      "spn_alpha_mvo_minvol": 3.973487,
-      "spn_hedged": 4.749978
+      "spn_hedged": 5.084184
     },
     {
       "date": "2025-12-30",
@@ -7358,8 +6690,7 @@
       "spn_alpha": 6.365734,
       "spn_alpha_hrp": 5.292233,
       "spn_alpha_mvo_sharpe": 9.936666,
-      "spn_alpha_mvo_minvol": 3.973633,
-      "spn_hedged": 4.744956
+      "spn_hedged": 5.078809
     },
     {
       "date": "2025-12-31",
@@ -7369,8 +6700,7 @@
       "spn_alpha": 6.333924,
       "spn_alpha_hrp": 5.264669,
       "spn_alpha_mvo_sharpe": 9.882432,
-      "spn_alpha_mvo_minvol": 3.95622,
-      "spn_hedged": 4.721245
+      "spn_hedged": 5.05343
     },
     {
       "date": "2026-01-02",
@@ -7380,8 +6710,7 @@
       "spn_alpha": 6.326967,
       "spn_alpha_hrp": 5.260122,
       "spn_alpha_mvo_sharpe": 9.916079,
-      "spn_alpha_mvo_minvol": 3.955205,
-      "spn_hedged": 4.71606
+      "spn_hedged": 5.04788
     },
     {
       "date": "2026-01-05",
@@ -7391,8 +6720,7 @@
       "spn_alpha": 6.345671,
       "spn_alpha_hrp": 5.28503,
       "spn_alpha_mvo_sharpe": 9.892921,
-      "spn_alpha_mvo_minvol": 3.963709,
-      "spn_hedged": 4.730002
+      "spn_hedged": 5.062802
     },
     {
       "date": "2026-01-06",
@@ -7402,8 +6730,7 @@
       "spn_alpha": 6.376446,
       "spn_alpha_hrp": 5.310401,
       "spn_alpha_mvo_sharpe": 9.940658,
-      "spn_alpha_mvo_minvol": 3.965879,
-      "spn_hedged": 4.75294
+      "spn_hedged": 5.087355
     },
     {
       "date": "2026-01-07",
@@ -7413,8 +6740,7 @@
       "spn_alpha": 6.360738,
       "spn_alpha_hrp": 5.287841,
       "spn_alpha_mvo_sharpe": 9.942931,
-      "spn_alpha_mvo_minvol": 3.947221,
-      "spn_hedged": 4.741232
+      "spn_hedged": 5.074823
     },
     {
       "date": "2026-01-08",
@@ -7424,8 +6750,7 @@
       "spn_alpha": 6.442517,
       "spn_alpha_hrp": 5.338767,
       "spn_alpha_mvo_sharpe": 9.863312,
-      "spn_alpha_mvo_minvol": 3.989111,
-      "spn_hedged": 4.802189
+      "spn_hedged": 5.140069
     },
     {
       "date": "2026-01-09",
@@ -7435,8 +6760,7 @@
       "spn_alpha": 6.485011,
       "spn_alpha_hrp": 5.365455,
       "spn_alpha_mvo_sharpe": 9.923316,
-      "spn_alpha_mvo_minvol": 4.003843,
-      "spn_hedged": 4.833864
+      "spn_hedged": 5.173972
     },
     {
       "date": "2026-01-12",
@@ -7446,8 +6770,7 @@
       "spn_alpha": 6.522354,
       "spn_alpha_hrp": 5.38469,
       "spn_alpha_mvo_sharpe": 10.01333,
-      "spn_alpha_mvo_minvol": 4.035858,
-      "spn_hedged": 4.861699
+      "spn_hedged": 5.203766
     },
     {
       "date": "2026-01-13",
@@ -7457,8 +6780,7 @@
       "spn_alpha": 6.52354,
       "spn_alpha_hrp": 5.362529,
       "spn_alpha_mvo_sharpe": 10.023289,
-      "spn_alpha_mvo_minvol": 4.051755,
-      "spn_hedged": 4.862583
+      "spn_hedged": 5.204712
     },
     {
       "date": "2026-01-14",
@@ -7468,8 +6790,7 @@
       "spn_alpha": 6.544306,
       "spn_alpha_hrp": 5.374381,
       "spn_alpha_mvo_sharpe": 9.982569,
-      "spn_alpha_mvo_minvol": 4.074456,
-      "spn_hedged": 4.878062
+      "spn_hedged": 5.22128
     },
     {
       "date": "2026-01-15",
@@ -7479,8 +6800,7 @@
       "spn_alpha": 6.497904,
       "spn_alpha_hrp": 5.359783,
       "spn_alpha_mvo_sharpe": 9.976299,
-      "spn_alpha_mvo_minvol": 4.0616,
-      "spn_hedged": 4.843475
+      "spn_hedged": 5.184259
     },
     {
       "date": "2026-01-16",
@@ -7490,8 +6810,7 @@
       "spn_alpha": 6.507283,
       "spn_alpha_hrp": 5.36061,
       "spn_alpha_mvo_sharpe": 9.984311,
-      "spn_alpha_mvo_minvol": 4.062836,
-      "spn_hedged": 4.850465
+      "spn_hedged": 5.191742
     },
     {
       "date": "2026-01-20",
@@ -7501,8 +6820,7 @@
       "spn_alpha": 6.473094,
       "spn_alpha_hrp": 5.31926,
       "spn_alpha_mvo_sharpe": 9.793627,
-      "spn_alpha_mvo_minvol": 4.049794,
-      "spn_hedged": 4.824981
+      "spn_hedged": 5.164465
     },
     {
       "date": "2026-01-21",
@@ -7512,8 +6830,7 @@
       "spn_alpha": 6.511977,
       "spn_alpha_hrp": 5.34177,
       "spn_alpha_mvo_sharpe": 9.912822,
-      "spn_alpha_mvo_minvol": 4.06987,
-      "spn_hedged": 4.853964
+      "spn_hedged": 5.195487
     },
     {
       "date": "2026-01-22",
@@ -7523,8 +6840,7 @@
       "spn_alpha": 6.573038,
       "spn_alpha_hrp": 5.389407,
       "spn_alpha_mvo_sharpe": 9.978649,
-      "spn_alpha_mvo_minvol": 4.098868,
-      "spn_hedged": 4.899478
+      "spn_hedged": 5.244203
     },
     {
       "date": "2026-01-23",
@@ -7534,8 +6850,7 @@
       "spn_alpha": 6.598589,
       "spn_alpha_hrp": 5.406431,
       "spn_alpha_mvo_sharpe": 9.972549,
-      "spn_alpha_mvo_minvol": 4.121306,
-      "spn_hedged": 4.918524
+      "spn_hedged": 5.264589
     },
     {
       "date": "2026-01-26",
@@ -7545,8 +6860,7 @@
       "spn_alpha": 6.621841,
       "spn_alpha_hrp": 5.429584,
       "spn_alpha_mvo_sharpe": 10.021072,
-      "spn_alpha_mvo_minvol": 4.129454,
-      "spn_hedged": 4.935856
+      "spn_hedged": 5.28314
     },
     {
       "date": "2026-01-27",
@@ -7556,8 +6870,7 @@
       "spn_alpha": 6.607411,
       "spn_alpha_hrp": 5.389347,
       "spn_alpha_mvo_sharpe": 10.017425,
-      "spn_alpha_mvo_minvol": 4.087713,
-      "spn_hedged": 4.9251
+      "spn_hedged": 5.271627
     },
     {
       "date": "2026-01-28",
@@ -7567,8 +6880,7 @@
       "spn_alpha": 6.609809,
       "spn_alpha_hrp": 5.394611,
       "spn_alpha_mvo_sharpe": 10.046974,
-      "spn_alpha_mvo_minvol": 4.100437,
-      "spn_hedged": 4.926887
+      "spn_hedged": 5.273541
     },
     {
       "date": "2026-01-29",
@@ -7578,8 +6890,7 @@
       "spn_alpha": 6.588294,
       "spn_alpha_hrp": 5.422808,
       "spn_alpha_mvo_sharpe": 10.157961,
-      "spn_alpha_mvo_minvol": 4.092341,
-      "spn_hedged": 4.91085
+      "spn_hedged": 5.256375
     },
     {
       "date": "2026-01-30",
@@ -7589,8 +6900,7 @@
       "spn_alpha": 6.602291,
       "spn_alpha_hrp": 5.41714,
       "spn_alpha_mvo_sharpe": 10.156949,
-      "spn_alpha_mvo_minvol": 4.102263,
-      "spn_hedged": 4.921284
+      "spn_hedged": 5.267543
     },
     {
       "date": "2026-02-02",
@@ -7600,8 +6910,7 @@
       "spn_alpha": 6.63672,
       "spn_alpha_hrp": 5.480172,
       "spn_alpha_mvo_sharpe": 10.235872,
-      "spn_alpha_mvo_minvol": 4.133404,
-      "spn_hedged": 4.946946
+      "spn_hedged": 5.295011
     },
     {
       "date": "2026-02-03",
@@ -7611,8 +6920,7 @@
       "spn_alpha": 6.638035,
       "spn_alpha_hrp": 5.494663,
       "spn_alpha_mvo_sharpe": 10.198014,
-      "spn_alpha_mvo_minvol": 4.168185,
-      "spn_hedged": 4.947927
+      "spn_hedged": 5.296061
     },
     {
       "date": "2026-02-04",
@@ -7622,8 +6930,7 @@
       "spn_alpha": 6.754523,
       "spn_alpha_hrp": 5.538321,
       "spn_alpha_mvo_sharpe": 10.214468,
-      "spn_alpha_mvo_minvol": 4.202127,
-      "spn_hedged": 5.034755
+      "spn_hedged": 5.388998
     },
     {
       "date": "2026-02-05",
@@ -7633,8 +6940,7 @@
       "spn_alpha": 6.647738,
       "spn_alpha_hrp": 5.496311,
       "spn_alpha_mvo_sharpe": 10.081023,
-      "spn_alpha_mvo_minvol": 4.17243,
-      "spn_hedged": 4.955159
+      "spn_hedged": 5.303802
     },
     {
       "date": "2026-02-06",
@@ -7644,8 +6950,7 @@
       "spn_alpha": 6.741947,
       "spn_alpha_hrp": 5.555132,
       "spn_alpha_mvo_sharpe": 10.342586,
-      "spn_alpha_mvo_minvol": 4.234,
-      "spn_hedged": 5.025382
+      "spn_hedged": 5.378965
     },
     {
       "date": "2026-02-09",
@@ -7655,8 +6960,7 @@
       "spn_alpha": 6.739391,
       "spn_alpha_hrp": 5.528671,
       "spn_alpha_mvo_sharpe": 10.362745,
-      "spn_alpha_mvo_minvol": 4.225858,
-      "spn_hedged": 5.023476
+      "spn_hedged": 5.376925
     },
     {
       "date": "2026-02-10",
@@ -7666,8 +6970,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-11",
@@ -7677,8 +6980,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-12",
@@ -7688,8 +6990,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-13",
@@ -7699,8 +7000,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-17",
@@ -7710,8 +7010,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-18",
@@ -7721,8 +7020,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-19",
@@ -7732,8 +7030,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-20",
@@ -7743,8 +7040,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-23",
@@ -7754,8 +7050,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-24",
@@ -7765,8 +7060,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-25",
@@ -7776,8 +7070,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-26",
@@ -7787,8 +7080,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-02-27",
@@ -7798,8 +7090,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-03-02",
@@ -7809,8 +7100,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-03-03",
@@ -7820,8 +7110,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-03-04",
@@ -7831,8 +7120,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-03-05",
@@ -7842,8 +7130,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     },
     {
       "date": "2026-03-06",
@@ -7853,8 +7140,7 @@
       "spn_alpha": 6.726621,
       "spn_alpha_hrp": 5.528006,
       "spn_alpha_mvo_sharpe": 10.259302,
-      "spn_alpha_mvo_minvol": 4.217237,
-      "spn_hedged": 5.013958
+      "spn_hedged": 5.366738
     }
   ],
   "n_total_days": 2306,
@@ -7867,7 +7153,6 @@
     "spn_alpha",
     "spn_alpha_hrp",
     "spn_alpha_mvo_sharpe",
-    "spn_alpha_mvo_minvol",
     "spn_hedged"
   ]
 }

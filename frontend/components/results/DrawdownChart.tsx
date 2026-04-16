@@ -33,7 +33,6 @@ type SeriesKey =
   | "spnAlpha"
   | "spnAlphaHrp"
   | "spnAlphaMvoSharpe"
-  | "spnAlphaMvoMinvol"
   | "spnHedged";
 
 interface SeriesConfig {
@@ -51,7 +50,6 @@ const SERIES_CONFIG: SeriesConfig[] = [
   { key: "spnAlpha",          label: CHART_LABELS.spnAlpha,          color: CHART_COLORS.spnAlpha,          gradientId: "ddAlpha",       defaultVisible: true },
   { key: "spnAlphaHrp",       label: CHART_LABELS.spnAlphaHrp,       color: CHART_COLORS.spnAlphaHrp,       gradientId: "ddAlphaHrp",    defaultVisible: false },
   { key: "spnAlphaMvoSharpe", label: CHART_LABELS.spnAlphaMvoSharpe, color: CHART_COLORS.spnAlphaMvoSharpe, gradientId: "ddAlphaSharpe", defaultVisible: false },
-  { key: "spnAlphaMvoMinvol", label: CHART_LABELS.spnAlphaMvoMinvol, color: CHART_COLORS.spnAlphaMvoMinvol, gradientId: "ddAlphaMinvol", defaultVisible: false },
   { key: "spnHedged",         label: CHART_LABELS.spnHedged,         color: CHART_COLORS.spnHedged,         gradientId: "ddHedged",      defaultVisible: true },
 ];
 

@@ -94,8 +94,6 @@ export interface PerformanceNavPoint {
   spnAlphaHrp?: number;
   /** SP-N Alpha MVO max-Sharpe variant */
   spnAlphaMvoSharpe?: number;
-  /** SP-N Alpha MVO min-vol variant */
-  spnAlphaMvoMinvol?: number;
   /** SP-N Hedged (dynamic beta + cash) normalised NAV */
   spnHedged?: number;
 }
@@ -147,7 +145,6 @@ export interface AllPerformanceMetrics {
   spnAlpha?: PerformanceMetrics;
   spnAlphaHrp?: PerformanceMetrics;
   spnAlphaMvoSharpe?: PerformanceMetrics;
-  spnAlphaMvoMinvol?: PerformanceMetrics;
   spnHedged?: PerformanceMetrics;
 }
 
@@ -200,8 +197,6 @@ export interface DrawdownPoint {
   spnAlphaHrp?: number;
   /** SP-N Alpha MVO max-Sharpe variant drawdown */
   spnAlphaMvoSharpe?: number;
-  /** SP-N Alpha MVO min-vol variant drawdown */
-  spnAlphaMvoMinvol?: number;
   /** SP-N Hedged drawdown from peak (optional) */
   spnHedged?: number;
 }

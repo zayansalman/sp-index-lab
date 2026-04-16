@@ -166,7 +166,6 @@ const STRATEGY_LABELS: Record<string, string> = {
   sp20Equal: "SP-20 Equal",
   spn_alpha_hrp: "SP-N Alpha (HRP)",
   spn_alpha_mvo_sharpe: "SP-N Alpha (MVO Sharpe)",
-  spn_alpha_mvo_minvol: "SP-N Alpha (MVO Min-Vol)",
   spn_alpha_ml_ensemble: "SP-N Alpha (ML Ensemble)",
   spn_hedged: "SP-N Hedged",
 };
@@ -184,7 +183,6 @@ const HoldingsSelector: React.FC<HoldingsSelectorProps> = ({ holdings }) => {
         "spn_alpha_ml_ensemble",
         "spn_alpha_hrp",
         "spn_alpha_mvo_sharpe",
-        "spn_alpha_mvo_minvol",
         "spn_hedged",
       ];
       for (const key of order) {
@@ -405,11 +403,6 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                           SP-N α (Sharpe)
                         </th>
                       )}
-                      {data.performanceMetrics.spnAlphaMvoMinvol && (
-                        <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                          SP-N α (Min-Vol)
-                        </th>
-                      )}
                       {data.performanceMetrics.spnHedged && (
                         <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
                           SP-N Hedged
@@ -425,14 +418,12 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                       const alphaVal = data.performanceMetrics.spnAlpha?.[row.key];
                       const alphaHrpVal = data.performanceMetrics.spnAlphaHrp?.[row.key];
                       const alphaSharpeVal = data.performanceMetrics.spnAlphaMvoSharpe?.[row.key];
-                      const alphaMinvolVal = data.performanceMetrics.spnAlphaMvoMinvol?.[row.key];
                       const hedgedVal = data.performanceMetrics.spnHedged?.[row.key];
 
                       const values: number[] = [sp500Val, mirrorVal, equalVal];
                       if (alphaVal !== undefined) values.push(alphaVal);
                       if (alphaHrpVal !== undefined) values.push(alphaHrpVal);
                       if (alphaSharpeVal !== undefined) values.push(alphaSharpeVal);
-                      if (alphaMinvolVal !== undefined) values.push(alphaMinvolVal);
                       if (hedgedVal !== undefined) values.push(hedgedVal);
 
                       const bestIdx = getBestIndex(values, row.higherIsBetter);

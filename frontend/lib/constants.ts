@@ -245,7 +245,6 @@ export const CHART_COLORS = {
   spnAlpha: "#A78BFA",
   spnAlphaHrp: "#7C3AED",
   spnAlphaMvoSharpe: "#EC4899",
-  spnAlphaMvoMinvol: "#06B6D4",
   spnHedged: "#F97316",
 } as const;
 
@@ -257,7 +256,6 @@ export const CHART_LABELS = {
   spnAlpha: "SP-N Alpha (ML)",
   spnAlphaHrp: "SP-N Alpha (HRP)",
   spnAlphaMvoSharpe: "SP-N Alpha (MVO Sharpe)",
-  spnAlphaMvoMinvol: "SP-N Alpha (MVO Min-Vol)",
   spnHedged: "SP-N Hedged",
 } as const;
 

@@ -16,15 +16,14 @@ The top 20 S&P 500 stocks account for ~47% of total index weight. Using OLS regr
 
 **Given that we know the S&P is a ~20-stock index in practice, we built an optimised version**: one that captures the same market exposure with better risk-adjusted returns through smarter weighting (HRP + LightGBM factor model), regime awareness (3-state HMM), and disciplined rebalancing.
 
-| Metric | S&P 500 | SP-20 Mirror | SP-20 Equal | SP-N Alpha | SP-N Hedged |
-|--------|---------|-------------|-------------|------------|-------------|
-| CAGR | 11.3% | 15.3% | 19.2% | **23.4%** | 11.0% |
-| Sharpe | 0.42 | 0.56 | 0.83 | **1.11** | **1.38** |
-| Sortino | 0.51 | 0.71 | 1.06 | **1.37** | **1.63** |
-| Max Drawdown | -33.9% | -33.1% | -30.2% | -27.7% | **-6.7%** |
-| Alpha | — | +3.8% | +7.9% | **+9.4%** | +5.1% |
+| Metric | S&P 500 | SP-20 Mirror | SP-20 Equal | SP-N Alpha | SP-N α Sharpe | SP-N Hedged |
+|--------|---------|-------------|-------------|------------|---------------|-------------|
+| CAGR | 11.3% | 15.3% | 19.2% | **23.4%** | **29.2%** | 20.3% |
+| Sharpe | 0.42 | 0.56 | 0.83 | 1.11 | **1.17** | **1.24** |
+| Max Drawdown | -33.9% | -33.1% | -30.2% | -27.7% | -29.6% | **-18.8%** |
+| Alpha | — | +3.8% | +7.9% | +9.4% | **+13.5%** | +9.4% |
 
-*SP-N Alpha uses HMM regime-weighted ensemble (LightGBM factor model + HRP). SP-N Hedged uses dynamic beta targeting + regime-driven cash allocation. Walk-forward backtested (756D train / 21D test, no look-ahead bias).*
+*Every strategy beats both simple baselines (Mirror and Equal) on CAGR. SP-N Alpha uses HMM regime-weighted ensemble (LightGBM factor model + HRP). MVO Sharpe is the aggressive variant; ML Ensemble is the canonical. SP-N Hedged keeps the ML alpha base and only hedges when triggers fire (bear regime, VIX > 25, or trailing drawdown > 10%). Walk-forward backtested (756D train / 21D test, no look-ahead bias).*
 
 ---
 

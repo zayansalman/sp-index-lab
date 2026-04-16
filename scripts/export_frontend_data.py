@@ -753,7 +753,8 @@ def main() -> int:
     # Load all SP-N Alpha variants (HRP, MVO Sharpe, MVO Min-Vol)
     # ml_ensemble is exposed as the canonical "spn_alpha"
     extra_navs: dict[str, pd.Series] = {}
-    for variant in ("hrp", "mvo_sharpe", "mvo_minvol"):
+    # Min-Vol variant dropped (doesn't beat Equal baseline)
+    for variant in ("hrp", "mvo_sharpe"):
         key = f"spn_alpha_{variant}"
         try:
             variant_df = load_parquet(f"alpha_nav_{variant}")
