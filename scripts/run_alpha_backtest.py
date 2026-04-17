@@ -189,7 +189,6 @@ def main() -> int:
     # ------------------------------------------------------------------
     # Save all alpha NAVs individually for the frontend
     # ------------------------------------------------------------------
-    reference_idx = alpha_navs["ml_ensemble"].index
     for opt_name, nav in alpha_navs.items():
         nav_df = pd.DataFrame({
             "date": nav.index,

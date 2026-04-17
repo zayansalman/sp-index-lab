@@ -130,7 +130,8 @@ def backfill(skip_supabase: bool = False) -> None:
     # ── Summary ───────────────────────────────────────
     logger.info("=" * 60)
     logger.info("BACKFILL COMPLETE")
-    logger.info("  Stocks:     %d tickers, %d trading days", len(prices_wide.columns), len(prices_wide))
+    n_tickers = len(prices_wide.columns)
+    logger.info("  Stocks:     %d tickers, %d trading days", n_tickers, len(prices_wide))
     logger.info("  Benchmark:  %d trading days", len(benchmark_df))
     logger.info("  Indicators: %d trading days", len(indicators))
     logger.info("  Parquet:    data/daily_prices.parquet")
