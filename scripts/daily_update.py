@@ -18,7 +18,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.config import BENCHMARK_TICKER, TOP_50_TICKERS
+from src.config import TOP_50_TICKERS
 from src.data.fetcher import (
     fetch_benchmark,
     fetch_incremental,

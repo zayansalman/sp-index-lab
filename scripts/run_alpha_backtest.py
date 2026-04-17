@@ -23,7 +23,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.backtest.engine import walk_forward_backtest
 from src.backtest.metrics import compute_performance_metrics
-from src.config import TRAIN_WINDOW_DAYS, TEST_WINDOW_DAYS
+from src.config import TEST_WINDOW_DAYS, TRAIN_WINDOW_DAYS
 from src.data.storage import load_parquet, save_parquet
 from src.proof.concentration import build_mirror_index
 from src.strategies.alpha import make_alpha_weights_fn, make_ml_alpha_weights_fn

@@ -9,7 +9,6 @@ import time
 from datetime import date, datetime, timedelta
 from typing import Any
 
-import numpy as np
 import pandas as pd
 import yfinance as yf
 
@@ -18,7 +17,6 @@ from src.config import (
     INCEPTION_DATE,
     RISK_FREE_TICKER,
     TOP_50_TICKERS,
-    TRADING_DAYS_PER_YEAR,
     TREASURY_10Y_TICKER,
     VIX_TICKER,
 )

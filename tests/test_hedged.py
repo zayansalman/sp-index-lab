@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 from src.features.beta import compute_portfolio_beta, compute_stock_betas
-from src.strategies.hedged import _apply_defensive_tilt
+from src.strategies.hedged import _compute_cash_allocation
 from src.utils.helpers import add_cash_column
 
 # ---------------------------------------------------------------------------
@@ -93,25 +93,26 @@ class TestCashColumn:
 
 
 # ---------------------------------------------------------------------------
-# Defensive tilt
+# Cash allocation logic
 # ---------------------------------------------------------------------------
 
-class TestDefensiveTilt:
-    def test_no_tilt_in_bull(self) -> None:
-        weights = pd.Series(0.1, index=["A", "B", "C", "D", "E"])
-        betas = pd.Series([1.5, 1.2, 0.8, 0.5, 1.0], index=["A", "B", "C", "D", "E"])
-        tilted = _apply_defensive_tilt(weights, betas, regime=0)
-        assert (tilted == weights).all()
+class TestCashAllocation:
+    def test_no_cash_in_bull(self) -> None:
+        """Bull regime + low VIX + no drawdown → zero cash."""
+        cash = _compute_cash_allocation(regime=0, current_vix=15.0, recent_drawdown=0.02)
+        assert cash == 0.0
 
-    def test_bear_tilts_toward_low_beta(self) -> None:
-        weights = pd.Series(0.2, index=["HIGH", "LOW"])
-        betas = pd.Series([2.0, 0.5], index=["HIGH", "LOW"])
-        tilted = _apply_defensive_tilt(weights, betas, regime=2, tilt_strength=0.5)
-        # Low-beta stock should get higher weight after tilt
-        assert tilted["LOW"] > tilted["HIGH"]
+    def test_bear_triggers_cash(self) -> None:
+        """Bear regime alone should trigger 20% cash."""
+        cash = _compute_cash_allocation(regime=2, current_vix=18.0, recent_drawdown=0.0)
+        assert cash == 0.20
 
-    def test_tilted_weights_sum_to_one(self) -> None:
-        weights = pd.Series([0.3, 0.2, 0.3, 0.2], index=["A", "B", "C", "D"])
-        betas = pd.Series([1.5, 0.5, 1.2, 0.8], index=["A", "B", "C", "D"])
-        tilted = _apply_defensive_tilt(weights, betas, regime=2)
-        assert abs(tilted.sum() - 1.0) < 1e-6
+    def test_vix_spike_adds_cash(self) -> None:
+        """VIX > 25 should add cash on top of regime."""
+        cash = _compute_cash_allocation(regime=0, current_vix=30.0, recent_drawdown=0.0)
+        assert cash == 0.12  # Only VIX trigger, no regime
+
+    def test_combined_triggers_capped(self) -> None:
+        """Bear regime + VIX panic + drawdown → capped at MAX_CASH_WEIGHT."""
+        cash = _compute_cash_allocation(regime=2, current_vix=40.0, recent_drawdown=0.20)
+        assert cash <= 0.60  # Capped

@@ -60,8 +60,9 @@ const RSquaredCounter: React.FC<{
 
   useEffect(() => {
     if (!isActive) {
-      setValue(0);
-      return;
+      // Reset via rAF to avoid synchronous setState in the effect body
+      rafRef.current = requestAnimationFrame(() => setValue(0));
+      return () => cancelAnimationFrame(rafRef.current);
     }
 
     startTimeRef.current = performance.now();

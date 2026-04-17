@@ -10,7 +10,6 @@ Usage:
 import json
 import logging
 import math
-import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -30,7 +29,6 @@ from src.data.storage import load_parquet
 from src.proof.concentration import (
     build_mirror_index,
     compute_performance_metrics,
-    compute_tracking_error,
     concentration_curve,
     variance_decomposition,
 )

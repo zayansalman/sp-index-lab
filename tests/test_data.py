@@ -3,15 +3,12 @@
 import pandas as pd
 import pytest
 
-from src.config import INCEPTION_DATE, TOP_50_TICKERS, DATA_DIR
 from src.data.fetcher import (
     DataQualityError,
     _validate_prices,
     fetch_daily_prices,
     prices_to_long_format,
 )
-from src.data.storage import load_parquet, save_parquet
-
 
 # ──────────────────────────────────────────────
 # Validation tests (unit — no network)

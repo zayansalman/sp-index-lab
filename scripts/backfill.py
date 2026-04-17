@@ -18,7 +18,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.config import (
-    BENCHMARK_TICKER,
     INCEPTION_DATE,
     TOP_50_TICKERS,
 )
@@ -30,7 +29,6 @@ from src.data.fetcher import (
 )
 from src.data.storage import (
     df_to_rows,
-    load_parquet,
     save_parquet,
     upsert_rows,
 )
