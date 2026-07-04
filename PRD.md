@@ -21,7 +21,7 @@ The frontend is static at runtime. All financial analytics are precomputed befor
 
 | Goal | Metric | Status |
 |------|--------|--------|
-| Prove concentration thesis | Top 20 R² > 90% | Achieved: 95.1% on current local data |
+| Prove concentration thesis | Top 20 R² > 90% | Achieved: 95.6% rolling-window mean (point-in-time) |
 | Build simple concentrated baselines | SP-20 Mirror and Equal NAVs exported | Achieved |
 | Keep only strategies that matter | Mirror, Equal, and one SP-N Alpha exported | Achieved |
 | Interactive visualization | `/` landing and `/lab` machine/results flow | Built |
@@ -32,24 +32,24 @@ The frontend is static at runtime. All financial analytics are precomputed befor
 
 ### Index 1: SP-20 Mirror
 
-- **What**: Configured top 20 S&P 500 names from `TOP_50_TICKERS`.
-- **Weighting**: Daily price-proportional weights as an approximation of cap weighting.
+- **What**: Point-in-time top 20 S&P 500 names (membership snapshots + anchored cap proxy).
+- **Weighting**: Cap-proxy proportional, rebalanced monthly, net of transaction costs.
 - **Purpose**: Show how closely a concentrated top-constituent basket tracks the benchmark.
-- **Current result**: CAGR 19.2%, Sharpe 0.86, R² 95.1% at 20 stocks.
+- **Current result**: CAGR 18.4% net, Sharpe 0.70, vs S&P 500 TR 13.9%.
 
 ### Index 2: SP-20 Equal
 
-- **What**: Same configured top 20 names.
-- **Weighting**: Equal weighted.
+- **What**: Same point-in-time top 20 names.
+- **Weighting**: Equal weighted, rebalanced monthly, net of costs.
 - **Purpose**: Test whether reducing mega-cap concentration improves risk-adjusted returns.
-- **Current result**: CAGR 25.4%, Sharpe 1.16.
+- **Current result**: CAGR 16.9% net, Sharpe 0.71.
 
 ### Index 3: SP-N Alpha
 
-- **What**: Walk-forward max-Sharpe optimizer on the configured top-20 universe.
+- **What**: Walk-forward max-Sharpe optimizer on the point-in-time top-20 universe.
 - **Optimization**: Mean-variance optimization with covariance shrinkage and position-size constraints.
-- **Purpose**: One retained optimized strategy that beats the Equal baseline on both CAGR and Sharpe.
-- **Current result**: CAGR 29.2%, Sharpe 1.17.
+- **Purpose**: One retained optimized strategy that beats both baselines net of costs.
+- **Current result**: CAGR 20.9% net out-of-sample, Sharpe 0.81, Jensen alpha +5.2%.
 
 ## Proof Layer
 

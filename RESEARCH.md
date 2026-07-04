@@ -12,20 +12,22 @@ This isn't a recent phenomenon. It's accelerating. In 1990, the top 10 stocks we
 
 ## Our Results
 
-Using OLS regression of S&P 500 daily returns against top-N stock portfolios over 3,062 trading days (2014-01-02 to 2026-03-06):
+Using OLS regressions of S&P 500 daily returns on point-in-time top-N portfolios over rolling one-year windows (2014-01-02 onward, refreshed daily). All strategy returns are **net of transaction costs** against the **S&P 500 total-return index** (snapshot below; the export is the source of truth):
 
 | Metric | Value |
 |--------|-------|
-| R² at N=20 | **95.1%** |
-| SP-20 Mirror CAGR | **19.2%** |
-| SP-20 Equal CAGR | **25.4%** |
-| SP-N Alpha CAGR | **29.2%** |
-| S&P 500 CAGR | **11.3%** |
-| SP-N Alpha Jensen Alpha | **+13.9%** |
-| SP-N Alpha Sharpe | **1.17** |
-| S&P 500 Sharpe | **0.42** |
+| R² at N=20 (mean across rolling windows) | **95.6%** |
+| SP-20 Mirror CAGR (net) | **18.4%** |
+| SP-20 Equal CAGR (net) | **16.9%** |
+| SP-N Alpha CAGR (net, out-of-sample) | **20.9%** |
+| S&P 500 TR CAGR | **13.9%** |
+| SP-N Alpha Jensen Alpha | **+5.2%** |
+| SP-N Alpha Sharpe | **0.81** |
+| S&P 500 TR Sharpe | **0.57** |
 
-The concentration curve shows a clear elbow at N ≈ 20. Marginal R² drops below 0.5% after 20 stocks, meaning stocks 21-500 collectively add less than 5% of explanatory power.
+The concentration curve shows a clear elbow at N ≈ 20: marginal R² collapses after 20 stocks, meaning stocks 21–500 collectively add only a few points of explanatory power.
+
+> **Why these numbers are smaller than earlier drafts.** Previous versions of this project selected *today's* top-20 and applied it back to 2014 (survivorship bias), charged no transaction costs, and benchmarked dividend-earning portfolios against the price-only ^GSPC. Fixing all three cut the Equal CAGR from 25.4% to 16.9% and the Alpha CAGR from 29.2% to 20.9% — and the thesis still holds. The concentration finding barely moved (95.1% → 95.6% under the honest rolling-window definition) because concentration is contemporaneous: whoever the top-20 are at the time, they explain the index.
 
 ## Why 20? The Research
 
@@ -55,27 +57,37 @@ The Invesco S&P 500 Top 50 ETF (XLG) manages $11.6B tracking just the 50 largest
 
 ## Methodology
 
-### Variance Decomposition
-For each N from 1 to 50:
-1. Select the top N stocks by average weight (proxy for market cap)
-2. Compute daily returns for each stock
-3. Run OLS regression: `S&P 500 returns ~ Top-N stock returns`
-4. Record R² (coefficient of determination)
-5. Compute marginal R² (gain from adding the Nth stock)
+### Point-in-Time Universe (no survivorship)
+Universe selection at any date uses only information available at that date:
+1. **Membership**: vendored historical S&P 500 constituent snapshots (`data/reference/sp500_membership.csv`, from the MIT-licensed fja05680/sp500 dataset), so a stock is only selectable while it was actually in the index.
+2. **Ranking**: an anchored market-cap proxy — today's effective shares outstanding (market cap ÷ price, which handles multi-class structures like BRK-B/GOOGL) × the trailing 63-day mean adjusted close as of the selection date.
+3. **Validation**: the proxy's top-20 overlaps hand-collected historical top-20 lists by 75–90% at 2014/2017/2020/2023 reference dates (tested in `tests/test_universe.py`).
 
-Implementation: `src/proof/concentration.py::variance_decomposition()`
+Implementation: `src/data/universe.py` (`get_top_n_at`, `make_universe_fn`). A mutate-the-future test asserts selection cannot be changed by any data after the selection date.
+
+### Rolling Concentration (the headline R²)
+For each rolling 252-trading-day window (stepped 21 days):
+1. Rank stocks by the cap proxy **as of the window start**
+2. Run OLS regression: `S&P 500 TR returns ~ top-N stock returns` within the window
+3. Record R² per N; the published "R² at 20" is the mean across windows
+
+Implementation: `src/proof/concentration.py::rolling_concentration()`
 
 ### Mirror Index Construction
-1. Select top 20 stocks by market cap
-2. Compute price-proportional weights daily (approximation of cap-weighting)
-3. Daily portfolio return = sum(weight_i × return_i)
-4. NAV normalized to 1.0 at inception (2014-01-02)
-5. Equal-weighted variant: fixed 1/20 = 5% per stock
+1. At each month-end, select the point-in-time top-20 and set cap-proxy-proportional weights (equal-weighted variant: 1/20 each)
+2. Trade at the next day's close, charging 7 bps per unit of one-way traded notional on actual turnover
+3. Drift buy-and-hold between rebalances (which is what cap-weighting does — so Mirror turnover is only rank churn, ~0.8x/yr)
+4. NAV normalized to 1.0 at inception (2014-01-02); net-of-cost NAV is canonical, gross is exported alongside
 
-Implementation: `src/proof/concentration.py::build_mirror_index()`
+Implementation: `src/proof/concentration.py::build_mirror_index()` + `src/backtest/costs.py`
+
+### Walk-Forward Alpha
+SP-N Alpha re-selects the point-in-time top-20 and re-optimizes max-Sharpe weights at each 21-day step using the trailing 756-day training window only; weights apply to the *following* out-of-sample window. The first training window consumes 2013–2015, so the out-of-sample record runs 2016→present (~10.4 years). Annualized turnover ≈ 3.6x → ~26 bps/yr cost drag.
+
+Implementation: `src/backtest/engine.py::walk_forward_backtest()` (returns net + gross NAV, turnover, and costs)
 
 ### Performance Metrics
-All annualized using 252 trading days. Risk-free rate = 0 (conservative).
+All annualized using 252 trading days against the S&P 500 **total-return** index (stock prices are dividend-adjusted, so a price-only benchmark would manufacture ~1.5%/yr of fake alpha). Relative metrics (alpha, excess return, tracking error) are computed on overlapping dates only, so the walk-forward strategy is never flattered by window mismatches.
 
 | Metric | Formula |
 |--------|---------|
@@ -108,9 +120,9 @@ An intelligent optimization layer can exploit all three: reduce momentum overwei
 
 | Index | Selection | Weighting | Rebalancing | Purpose |
 |-------|-----------|-----------|-------------|---------|
-| SP-20 Mirror | Top 20 by market cap | S&P 500 proportional | Daily | Prove concentration tracks the index |
-| SP-20 Equal | Top 20 by market cap | Equal (5% each) | Daily | Test if removing cap-bias helps |
-| SP-N Alpha | Top 20 by market cap | Walk-forward max-Sharpe | Monthly test windows | Retained optimizer that beats Equal on CAGR and Sharpe |
+| SP-20 Mirror | PIT top 20 by cap proxy | Cap-proxy proportional | Monthly, net of costs | Prove concentration tracks the index |
+| SP-20 Equal | PIT top 20 by cap proxy | Equal (5% each) | Monthly, net of costs | Test if removing cap-bias helps |
+| SP-N Alpha | PIT top 20 by cap proxy | Walk-forward max-Sharpe | Monthly test windows, net of costs | Retained optimizer that beats the baselines |
 
 The comparison tells a clean story:
 - **Mirror vs S&P 500**: "20 stocks is enough"
@@ -118,10 +130,10 @@ The comparison tells a clean story:
 - **SP-N Alpha vs Equal**: "Only keep the optimizer if it clears the naive baseline"
 
 ## Known Limitations
-1. **Survivorship bias**: We use the current top 50 stocks throughout the backtest. Stocks that were in the top 50 in 2014 but have since dropped out are excluded. This slightly inflates historical returns.
-2. **Transaction costs**: The mirror index assumes daily rebalancing with no friction. Real implementation would use quarterly rebalancing with 5 bps transaction costs.
-3. **Market cap approximation**: We use price levels as a proxy for market cap (no shares outstanding data from free sources). This captures relative ranking but not exact S&P 500 weights.
-4. **Short history**: 12 years covers one full market cycle but may not capture extreme tail events.
+1. **Anchored shares proxy**: Free sources have no historical shares outstanding, so the cap proxy anchors *today's* effective share counts (market cap ÷ price) to historical adjusted closes. Buyback-heavy names (AAPL, ORCL) are slightly under-ranked in early years; issuers slightly over-ranked. Validated at 75–90% overlap with real historical top-20 lists.
+2. **Delisted exclusions**: Five former constituents that yfinance cannot serve (AGN, CELG, DWDP, MON, TWX) are excluded from the candidate pool — none was ever top-20, so SP-20 products are unaffected; top-50 coverage dips slightly in 2015–2019 windows.
+3. **Cost model simplicity**: 7 bps per one-way traded notional is a flat assumption; real large-cap costs vary with size and regime but are of this order for liquid mega-caps.
+4. **Short history**: 12 years covers one full market cycle but may not capture extreme tail events, and the whole window is a broadly rising, concentration-increasing market.
 
 ## Sources
 - Goldman Sachs Portfolio Strategy Research, October 2024
@@ -140,11 +152,11 @@ The comparison tells a clean story:
 
 ### SP-N Alpha — The Retained Optimizer
 
-The public Alpha slot is deliberately narrow. The retained strategy is a walk-forward max-Sharpe optimizer over the configured top-20 universe because it is the only optimized variant that currently clears SP-20 Equal on both CAGR and Sharpe.
+The public Alpha slot is deliberately narrow. The retained strategy is a walk-forward max-Sharpe optimizer over the point-in-time top-20 universe because it is the only optimized variant that clears both baselines net of costs.
 
-1. **It beats the simple bar**: SP-N Alpha reaches 29.2% CAGR and 1.17 Sharpe, compared with 25.4% CAGR and 1.16 Sharpe for SP-20 Equal.
+1. **It beats the simple bar**: SP-N Alpha reaches 20.9% CAGR and 0.81 Sharpe net of costs out-of-sample, compared with 18.4%/0.70 for SP-20 Mirror and 16.9%/0.71 for SP-20 Equal.
 
-2. **It remains interpretable**: The universe is the same configured top-20 set, so the product can show whether weighting alone improves the concentrated basket.
+2. **It remains interpretable**: The universe is the same point-in-time top-20 set, so the product can show whether weighting alone improves the concentrated basket.
 
 3. **It keeps the public surface honest**: Experimental ML ensemble and hedged variants stay out of the frontend export until they outperform this retained strategy and the Equal baseline.
 

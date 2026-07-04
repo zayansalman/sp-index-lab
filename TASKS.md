@@ -24,7 +24,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 
 ## Phase 2: Proof Layer ✅
 - [x] **T2.1**: Build src/proof/concentration.py — variance_decomposition(), concentration_curve()
-- [x] **T2.2**: R² analysis at N = 1 through 50 (current result: R² = 95.1% at N=20)
+- [x] **T2.2**: R² analysis at N = 1 through 50 (current: 95.6% rolling-window mean at N=20, point-in-time)
 - [x] **T2.3**: Mirror index construction — build_mirror_index()
 - [x] **T2.4**: Performance metrics — compute_performance_metrics() (15+ metrics)
 - [ ] **T2.5**: Write tests for proof layer
@@ -56,7 +56,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 ## Phase 5: Frontend — Landing Page ✅
 - [x] **T5.1**: Root layout (Space Grotesk + Geist fonts, metadata, OpenGraph, dark theme)
 - [x] **T5.2**: Hero component with Framer Motion staggered entrance
-- [x] **T5.3**: StatsPreview with 3 animated cards (R² 95.1%, SP-N Alpha CAGR 29.2%, Alpha +13.9%)
+- [x] **T5.3**: StatsPreview with 3 animated cards (data-driven from meta.json headline)
 - [x] **T5.4**: EnterButton with animated glow border → /lab navigation
 
 ---
@@ -144,7 +144,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 - [x] **T14.1**: Build src/backtest/metrics.py (15+ portfolio metrics as standalone functions)
 - [x] **T14.2**: Build src/backtest/engine.py (walk-forward: 756-day train / 21-day test)
 - [x] **T14.3**: Build scripts/run_alpha_backtest.py (retained SP-N Alpha orchestrator + comparison table)
-- [x] **T14.4**: Walk-forward retained result: SP-N Alpha CAGR 29.2%, Sharpe 1.17, Alpha +13.9%
+- [x] **T14.4**: Walk-forward retained result (PIT universe, net of costs): SP-N Alpha CAGR 20.9%, Sharpe 0.81, Alpha +5.2%
 - [x] **T14.5**: Write backtest tests (synthetic data, no look-ahead bias verification)
 
 ---

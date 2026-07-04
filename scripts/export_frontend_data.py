@@ -379,8 +379,11 @@ def _compute_extra_metrics(
 ) -> dict:
     """Compute additional daily-return metrics not in compute_performance_metrics.
 
-    Returns dict with keys: beta, alpha, information_ratio, best_day,
-    worst_day, win_rate, avg_daily_return.
+    Returns dict with keys: information_ratio, best_day, worst_day,
+    win_rate, avg_daily_return. Deliberately does NOT return "alpha" or
+    "beta" — compute_performance_metrics already provides Jensen's alpha
+    and regression beta, and overriding alpha with annualised mean excess
+    (as this function once did) silently changed its definition.
     """
     daily_returns = nav.pct_change().dropna()
 
@@ -389,8 +392,6 @@ def _compute_extra_metrics(
     win_rate = float((daily_returns > 0).mean()) if len(daily_returns) > 0 else 0.0
     avg_daily_return = float(daily_returns.mean()) if len(daily_returns) > 0 else 0.0
 
-    beta = 1.0
-    alpha = 0.0
     information_ratio = 0.0
 
     if benchmark_nav is not None:
@@ -398,21 +399,13 @@ def _compute_extra_metrics(
         # Align on common index
         common = daily_returns.index.intersection(bench_returns.index)
         if len(common) > 10:
-            dr = daily_returns.loc[common]
-            br = bench_returns.loc[common]
-            bench_var = br.var()
-            if bench_var > 0:
-                beta = float(dr.cov(br) / bench_var)
-            excess = dr - br
+            excess = daily_returns.loc[common] - bench_returns.loc[common]
             excess_mean = float(excess.mean())
             excess_std = float(excess.std())
-            alpha = excess_mean * 252  # annualised
             if excess_std > 0:
                 information_ratio = (excess_mean / excess_std) * (252 ** 0.5)
 
     return {
-        "beta": round(beta, 6),
-        "alpha": round(alpha, 6),
         "information_ratio": round(information_ratio, 6),
         "best_day": round(best_day, 6),
         "worst_day": round(worst_day, 6),

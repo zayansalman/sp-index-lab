@@ -46,14 +46,6 @@ CANDIDATE_POOL_TICKERS: list[str] = sorted(
     }
 )
 
-# Index identifiers used across the project.
-INDEX_NAMES: list[str] = [
-    "sp500",
-    "sp20_mirror",
-    "sp20_equal",
-    "spn_alpha",
-]
-
 # ──────────────────────────────────────────────
 # Market data tickers
 # ──────────────────────────────────────────────

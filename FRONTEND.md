@@ -67,9 +67,10 @@ frontend/
 - Hero: "S&P INDEX LAB" — Space Grotesk, uppercase, tracking-widest
 - Tagline: "The S&P 500 is a 20-stock index. Here's the machine that proves it."
 - 3 stat cards with staggered Framer Motion entrance:
-  - R² = 95.1% (green)
-  - SP-N Alpha CAGR = 29.2% (gold)
-  - SP-N Alpha Jensen alpha = +13.9% (indigo)
+  - Avg R² at 20 stocks (green)
+  - SP-N Alpha CAGR, net of costs (gold)
+  - SP-N Alpha Jensen alpha, net (indigo)
+  - Values load from `meta.json` `headline` — never hardcoded
 - CTA: "Enter the Lab →" with animated glow border
 - Footer: "Built by Zayan Khan"
 
@@ -142,7 +143,7 @@ Content sourced from `lib/tooltips.ts`. Positioned via HTML overlay `<div>` abov
 ## Results Panel
 Appears after machine `complete` stage. Framer Motion entrance animations:
 
-1. **4 Hero Metric Cards** — R² (95.1%), SP-N Alpha CAGR (29.2%), Sharpe (1.17), Jensen alpha (+13.9%)
+1. **4 Hero Metric Cards** — R², SP-N Alpha CAGR, Sharpe, Jensen alpha (all data-driven from the export)
    - `AnimatedCounter` counts from 0 to target value
 2. **Concentration Curve** (Recharts LineChart) — R² vs # stocks, annotations at N=20 and 95%
 3. **Growth of $1** (Recharts LineChart) — S&P 500 (gray) vs Mirror (green) vs Equal (gold) vs SP-N Alpha (pink)

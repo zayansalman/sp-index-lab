@@ -74,7 +74,7 @@
 │   ├── Exports frontend/public/data/*.json                        │
 │   └── Triggers Vercel redeploy on push                           │
 │                                                                  │
-│   Supabase (PostgreSQL) ── Source of truth                      │
+│   Supabase (PostgreSQL) ── Write-only backup of price data      │
 │   ├── daily_prices, index_values, portfolio_weights             │
 │   ├── rebalance_log, backtest_results, proof_stats              │
 │   └── 500MB free tier                                           │

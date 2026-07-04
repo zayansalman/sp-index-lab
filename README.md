@@ -1,6 +1,6 @@
 # SP Index Lab
 
-**20 stocks. 95.1% of the S&P 500. Optimized to beat it.**
+**20 stocks. ~96% of the S&P 500's variance. Selected point-in-time, measured net of costs.**
 
 SP Index Lab is a research and portfolio analytics project proving that the S&P 500 is largely explained by its largest constituents. A Python backend computes the proof, walk-forward strategy backtests, and static JSON exports; a Next.js frontend presents the results as an interactive lab experience.
 
@@ -10,16 +10,25 @@ SP Index Lab is a research and portfolio analytics project proving that the S&P 
 
 ## Current Results
 
-The top 20 configured S&P 500 names explain **95.1%** of benchmark return variance across the current local dataset, which spans **2014-01-02 to 2026-03-06**.
+The point-in-time top-20 S&P 500 names explain **95.6%** of benchmark daily-return variance on average across rolling one-year windows (2014-01-02 onward; data refreshes daily). All strategy returns below are **net of transaction costs** (7 bps per one-way traded notional) against the **S&P 500 total-return index**.
 
-| Metric | S&P 500 | SP-20 Mirror | SP-20 Equal | SP-N Alpha |
-|--------|---------|--------------|-------------|------------|
-| CAGR | 11.3% | 19.2% | 25.4% | **29.2%** |
-| Sharpe | 0.42 | 0.86 | 1.16 | **1.17** |
-| Max Drawdown | -33.9% | -29.7% | -30.3% | **-29.6%** |
-| Alpha | - | +6.8% | +12.1% | **+13.9%** |
+| Metric | S&P 500 (TR) | SP-20 Mirror | SP-20 Equal | SP-N Alpha* |
+|--------|--------------|--------------|-------------|-------------|
+| CAGR (net) | 13.9% | 18.4% | 16.9% | **20.9%** |
+| Sharpe | 0.57 | 0.70 | 0.71 | **0.81** |
+| Max Drawdown | -33.8% | -33.2% | -33.6% | **-31.0%** |
+| Jensen Alpha | – | +3.3% | +2.8% | **+5.2%** |
 
-Metrics are generated from `frontend/public/data/performance_metrics.json` by `scripts/export_frontend_data.py`. The public site keeps only the two simple baselines and the one optimized strategy that clears SP-20 Equal on both CAGR and Sharpe.
+\* SP-N Alpha is out-of-sample walk-forward (first 3 years feed the initial training window, so its column spans 2016→present); relative metrics are computed on overlapping dates only.
+
+Metrics are generated into `frontend/public/data/performance_metrics.json` by `scripts/export_frontend_data.py` and refresh with the daily pipeline — the table above is a snapshot and the site always shows the current values. The public site keeps only the two simple baselines and the one optimized strategy that clears them.
+
+### Methodology (what makes these numbers defensible)
+
+- **Point-in-time universe** — at each monthly rebalance, the top-20 is selected from the stocks that were actually in the S&P 500 *and* largest at that moment (vendored membership snapshots + an anchored market-cap proxy). No survivorship bias: NVDA is not in the 2014 portfolio.
+- **Transaction costs** — every rebalance is charged 7 bps per unit of one-way traded notional on actual turnover; portfolios drift buy-and-hold between rebalances.
+- **Total-return benchmark** — stock prices are dividend-adjusted, so the benchmark is ^SP500TR, not the price-only ^GSPC.
+- **Known limitations** — the cap proxy anchors today's share counts (buyback drift under-ranks repurchasers in early years; historical top-20 overlap is 75–90% at reference dates); five delisted ex-constituents are excluded (none was ever top-20). See [RESEARCH.md](RESEARCH.md).
 
 ---
 
@@ -27,9 +36,9 @@ Metrics are generated from `frontend/public/data/performance_metrics.json` by `s
 
 | Portfolio | Strategy | Status |
 |-----------|----------|--------|
-| SP-20 Mirror | Configured top-20 universe, price-proportional daily weights | Built |
-| SP-20 Equal | Same top-20 universe, equal weighted | Built |
-| SP-N Alpha | Walk-forward max-Sharpe optimizer on the configured top-20 universe | Built |
+| SP-20 Mirror | Point-in-time top-20, cap-proxy weights, monthly rebalance, net of costs | Built |
+| SP-20 Equal | Same point-in-time top-20, equal weighted | Built |
+| SP-N Alpha | Walk-forward max-Sharpe optimizer over the point-in-time top-20 | Built |
 
 Deferred fund infrastructure such as broker execution, live paper trading, private fund dashboards, risk operations, and reporting remains roadmap work rather than implemented repo surface area.
 
