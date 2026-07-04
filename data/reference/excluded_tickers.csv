@@ -1,0 +1,6 @@
+ticker,reason,last_date
+AGN,Acquired by AbbVie; no surviving yfinance symbol,2020-05-08
+CELG,Acquired by Bristol-Myers Squibb; delisted,2019-11-20
+DWDP,DowDuPont split into DOW/DD/CTVA; ticker not served,2019-06-03
+MON,Acquired by Bayer; delisted,2018-06-07
+TWX,Acquired by AT&T; delisted,2018-06-15
