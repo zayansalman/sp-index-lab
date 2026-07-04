@@ -20,7 +20,6 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from src.config import TOP_20_TICKERS
 from src.features.regime import BEAR, detect_regime
 from src.optimizer.mvo import mvo_max_sharpe_weights
 
@@ -115,14 +114,14 @@ def make_hedged_weights_fn(
         market_indicators: Full market indicators DataFrame (``vix``,
             ``risk_free``, ``treasury_10y``, ``date``).
         benchmark_prices: Kept for API compatibility; unused in the new design.
-        universe: Tickers to include.  Defaults to :data:`TOP_20_TICKERS`.
+        universe: Optional explicit ticker list. Defaults to every column
+            passed in (excluding CASH) — the engine's ``universe_fn``
+            owns selection.
 
     Returns:
         A callable ``(train_prices, train_bench) -> pd.Series`` of weights
         including a ``CASH`` allocation.
     """
-    tickers = list(universe or TOP_20_TICKERS)
-
     # Pre-process market indicators
     mi = market_indicators.copy()
     if "date" in mi.columns:
@@ -134,7 +133,12 @@ def make_hedged_weights_fn(
         train_bench: pd.Series | None,
     ) -> pd.Series:
         # Filter to equity tickers (exclude CASH from optimization)
-        equity_tickers = [t for t in tickers if t in train_prices.columns and t != "CASH"]
+        candidates = (
+            [t for t in universe if t in train_prices.columns]
+            if universe is not None
+            else list(train_prices.columns)
+        )
+        equity_tickers = [t for t in candidates if t != "CASH"]
         if len(equity_tickers) < 2:
             raise ValueError(
                 f"Need ≥2 equity tickers; only found {equity_tickers}."

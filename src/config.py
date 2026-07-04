@@ -87,7 +87,7 @@ SLIPPAGE_BPS = 2                    # 2 basis points slippage assumption
 # ──────────────────────────────────────────────
 UNIVERSE_LOOKBACK_DAYS = 63         # Trailing smoothing window for cap-proxy ranking
 UNIVERSE_MIN_OBS = 20               # Min non-NaN days required to rank a ticker
-MIRROR_REBALANCE_FREQ = "ME"        # Mirror/Equal rebalance at month-end
+MIRROR_REBALANCE_FREQ = "M"         # Mirror/Equal rebalance at month-end (period freq)
 
 # ──────────────────────────────────────────────
 # Backtesting

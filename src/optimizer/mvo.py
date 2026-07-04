@@ -38,6 +38,14 @@ def _run_mvo(
     """
     tickers = train_prices.columns.tolist()
 
+    # Names without enough history in the window (recent IPOs / new index
+    # members) would NaN-poison the covariance and silently trigger the
+    # equal-weight fallback for the whole window — drop them instead.
+    coverage = train_prices.notna().mean()
+    usable = coverage[coverage >= 0.6].index.tolist()
+    if len(usable) >= 2:
+        train_prices = train_prices[usable].dropna()
+
     try:
         mu = expected_returns.mean_historical_return(train_prices)
         cov = risk_models.CovarianceShrinkage(train_prices).ledoit_wolf()

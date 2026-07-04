@@ -15,7 +15,6 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from src.config import TOP_20_TICKERS
 from src.features.factors import predict_forward_returns
 from src.features.regime import detect_regime
 from src.optimizer.ensemble import ensemble_weights
@@ -42,7 +41,9 @@ def make_alpha_weights_fn(
 
     Args:
         optimizer: One of ``"hrp"``, ``"mvo_sharpe"``, ``"mvo_minvol"``.
-        universe: Tickers to include.  Defaults to :data:`TOP_20_TICKERS`.
+        universe: Optional explicit ticker list. Defaults to every column
+            passed in — the engine's ``universe_fn`` owns selection
+            (point-in-time top-N).
 
     Returns:
         A callable ``(train_prices, train_bench) -> pd.Series`` of weights.
@@ -56,14 +57,16 @@ def make_alpha_weights_fn(
         )
 
     opt_fn = _OPTIMIZERS[optimizer]
-    tickers = list(universe or TOP_20_TICKERS)
 
     def weights_fn(
         train_prices: pd.DataFrame,
         train_bench: pd.Series | None,
     ) -> pd.Series:
-        # Filter to our universe — ignore tickers not in the price data
-        available = [t for t in tickers if t in train_prices.columns]
+        available = (
+            [t for t in universe if t in train_prices.columns]
+            if universe is not None
+            else list(train_prices.columns)
+        )
         if len(available) < 2:
             raise ValueError(
                 f"Need ≥2 tickers in universe; only found {available} in price data."
@@ -90,14 +93,13 @@ def make_ml_alpha_weights_fn(
         market_indicators: Full market indicators DataFrame (``vix``,
             ``risk_free``, ``treasury_10y``, ``date``).  Will be sliced
             to the training window inside the closure.
-        universe: Tickers to include.  Defaults to :data:`TOP_20_TICKERS`.
+        universe: Optional explicit ticker list. Defaults to every column
+            passed in — the engine's ``universe_fn`` owns selection.
         forward_days: LightGBM prediction horizon in trading days.
 
     Returns:
         A callable ``(train_prices, train_bench) -> pd.Series`` of weights.
     """
-    tickers = list(universe or TOP_20_TICKERS)
-
     # Pre-process market indicators once
     mi = market_indicators.copy()
     if "date" in mi.columns:
@@ -108,7 +110,11 @@ def make_ml_alpha_weights_fn(
         train_prices: pd.DataFrame,
         train_bench: pd.Series | None,
     ) -> pd.Series:
-        available = [t for t in tickers if t in train_prices.columns]
+        available = (
+            [t for t in universe if t in train_prices.columns]
+            if universe is not None
+            else list(train_prices.columns)
+        )
         if len(available) < 2:
             raise ValueError(
                 f"Need ≥2 tickers in universe; only found {available} in price data."

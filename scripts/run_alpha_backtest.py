@@ -23,8 +23,15 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.backtest.engine import walk_forward_backtest
 from src.backtest.metrics import compute_performance_metrics
-from src.config import TEST_WINDOW_DAYS, TRAIN_WINDOW_DAYS
+from src.config import (
+    BENCHMARK_TICKER,
+    INCEPTION_DATE,
+    TEST_WINDOW_DAYS,
+    TRADING_DAYS_PER_YEAR,
+    TRAIN_WINDOW_DAYS,
+)
 from src.data.storage import load_parquet, save_parquet
+from src.data.universe import make_universe_fn
 from src.proof.concentration import build_mirror_index
 from src.strategies.alpha import make_alpha_weights_fn
 
@@ -56,6 +63,8 @@ def _load_data() -> tuple[pd.DataFrame, pd.Series]:
     else:
         stock_prices = prices_df.set_index("date")
 
+    if "symbol" in benchmark_df.columns:
+        benchmark_df = benchmark_df[benchmark_df["symbol"] == BENCHMARK_TICKER]
     benchmark_df["date"] = pd.to_datetime(benchmark_df["date"])
     benchmark = benchmark_df.set_index("date")["close"]
     benchmark.name = "sp500"
@@ -70,14 +79,29 @@ def main() -> int:
     logger.info("=" * 70)
 
     stock_prices, benchmark = _load_data()
-    benchmark_nav = benchmark / benchmark.iloc[0]
+
+    # Data before INCEPTION_DATE is ranking lookback only; NAVs and the
+    # benchmark comparison start at inception.
+    inception = pd.Timestamp(INCEPTION_DATE)
+    benchmark_display = benchmark[benchmark.index >= inception]
+    benchmark_nav = benchmark_display / benchmark_display.iloc[0]
+
+    # Point-in-time top-20 universe (membership + anchored cap proxy).
+    universe_fn = make_universe_fn(20, prices=stock_prices)
 
     # ------------------------------------------------------------------
-    # Baseline indices (Mirror + Equal)
+    # Baseline indices (Mirror + Equal) — PIT universe, monthly rebalance,
+    # net of transaction costs.
     # ------------------------------------------------------------------
     logger.info("Building baseline indices...")
-    sp20_mirror_df = build_mirror_index(stock_prices, top_n=20, weighting="cap")
-    sp20_equal_df = build_mirror_index(stock_prices, top_n=20, weighting="equal")
+    sp20_mirror_df = build_mirror_index(
+        stock_prices, top_n=20, weighting="cap",
+        universe_fn=universe_fn, start=inception,
+    )
+    sp20_equal_df = build_mirror_index(
+        stock_prices, top_n=20, weighting="equal",
+        universe_fn=universe_fn, start=inception,
+    )
 
     mirror_nav = pd.Series(
         sp20_mirror_df["nav"].values,
@@ -97,14 +121,23 @@ def main() -> int:
     # ------------------------------------------------------------------
     logger.info("Running walk-forward backtest: SP-N Alpha (mvo_sharpe) ...")
     weights_fn = make_alpha_weights_fn(optimizer="mvo_sharpe")
-    alpha_nav = walk_forward_backtest(
+    result = walk_forward_backtest(
         stock_prices,
         benchmark_prices=benchmark,
         weights_fn=weights_fn,
         train_days=TRAIN_WINDOW_DAYS,
         test_days=TEST_WINDOW_DAYS,
+        universe_fn=universe_fn,
     )
-    logger.info("  SP-N Alpha backtest complete — %d out-of-sample days.", len(alpha_nav))
+    alpha_nav = result.nav
+    ann_turnover = result.turnover.sum() / (len(alpha_nav) / TRADING_DAYS_PER_YEAR)
+    logger.info(
+        "  SP-N Alpha backtest complete — %d out-of-sample days, "
+        "annualised turnover %.2fx, total cost drag %.0f bps.",
+        len(alpha_nav),
+        ann_turnover,
+        result.costs.sum() * 1e4,
+    )
 
     # ------------------------------------------------------------------
     # Compute metrics for all
@@ -144,15 +177,16 @@ def main() -> int:
     alpha_nav_df = pd.DataFrame({
         "date": alpha_nav.index,
         "nav": alpha_nav.values,
+        "nav_gross": result.nav_gross.values,
     })
     save_parquet(alpha_nav_df, "alpha_nav")
-    save_parquet(alpha_nav_df, "alpha_nav_mvo_sharpe")
 
     # ------------------------------------------------------------------
-    # Save final weights (holdings) for the public alpha strategy.
+    # Save final weights (holdings) for the public alpha strategy,
+    # restricted to the point-in-time universe at the latest date.
     # ------------------------------------------------------------------
-    # Use the most recent training window to compute final weights for each strategy
-    final_train = stock_prices.iloc[-TRAIN_WINDOW_DAYS:]
+    final_universe = universe_fn(stock_prices.index[-1])
+    final_train = stock_prices[final_universe].iloc[-TRAIN_WINDOW_DAYS:]
     final_bench = benchmark.iloc[-TRAIN_WINDOW_DAYS:]
 
     holdings_records: list[dict] = []
