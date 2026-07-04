@@ -8,6 +8,34 @@
    Source: /data/meta.json
    ────────────────────────────────────────────────────────────── */
 
+/**
+ * Headline stats exported by the pipeline — the single source of truth
+ * for every number displayed outside the charts. Components must read
+ * these instead of hardcoding values that drift when data refreshes.
+ */
+export interface HeadlineStats {
+  /** Mean R² of benchmark on PIT top-20 across rolling 1y windows */
+  rSquaredAt20: number;
+  /** S&P 500 (total return) CAGR over the display window */
+  sp500Cagr: number;
+  /** SP-20 Mirror CAGR, net of costs */
+  mirrorCagr: number;
+  /** SP-20 Mirror Jensen alpha, net of costs */
+  mirrorAlpha: number;
+  /** SP-20 Equal CAGR, net of costs */
+  equalCagr: number;
+  /** SP-20 Equal Jensen alpha, net of costs */
+  equalAlpha: number;
+  /** SP-N Alpha CAGR, net of costs (out-of-sample) */
+  alphaCagr?: number;
+  /** SP-N Alpha Sharpe ratio, net of costs */
+  alphaSharpe?: number;
+  /** SP-N Alpha Jensen alpha, net of costs */
+  alphaJensen?: number;
+  /** SP-N Alpha max drawdown */
+  alphaMaxDrawdown?: number;
+}
+
 export interface MetaData {
   /** ISO date of the last pipeline run */
   lastUpdated: string;
@@ -23,6 +51,8 @@ export interface MetaData {
   topN: number;
   /** S&P 500 benchmark ticker */
   benchmark: string;
+  /** Headline stats (data-driven numbers for the UI) */
+  headline?: HeadlineStats;
   /** Pipeline version identifier */
   version?: string;
 }
@@ -140,6 +170,10 @@ export interface PerformanceMetrics {
   winRate: number;
   /** Average daily return */
   avgDailyReturn: number;
+  /** First date of this strategy's window (ISO) */
+  windowStart?: string;
+  /** Window length in years (walk-forward strategies are shorter) */
+  windowYears?: number;
 }
 
 export interface AllPerformanceMetrics {

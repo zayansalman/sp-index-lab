@@ -44,10 +44,12 @@ export const metadata: Metadata = {
     "market concentration",
   ],
   authors: [{ name: "S&P Index Lab" }],
+  // Metadata is static at build time — keep descriptions qualitative so
+  // they can't contradict the daily-refreshed data.
   openGraph: {
     title: "S&P Index Lab",
     description:
-      "20 stocks explain 95.1% of S&P 500 variance. Explore the concentration thesis with Mirror, Equal, and SP-N Alpha portfolios.",
+      "A handful of stocks explain the vast majority of S&P 500 variance. Explore the concentration thesis with point-in-time Mirror, Equal, and SP-N Alpha portfolios.",
     siteName: "S&P Index Lab",
     type: "website",
     locale: "en_US",
@@ -56,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "S&P Index Lab",
     description:
-      "20 stocks explain 95.1% of S&P 500 variance. Explore the concentration thesis with interactive analytics.",
+      "A handful of stocks explain the vast majority of S&P 500 variance. Explore the concentration thesis with interactive analytics.",
   },
   robots: {
     index: true,

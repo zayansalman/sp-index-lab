@@ -14,7 +14,7 @@ import {
   formatPercent,
   formatRatio,
 } from "@/lib/formatters";
-import type { PerformanceMetrics } from "@/lib/types";
+import type { LabData, PerformanceMetrics } from "@/lib/types";
 import GlowText from "@/components/ui/GlowText";
 import MetricCard from "./MetricCard";
 import ConcentrationChart from "./ConcentrationChart";
@@ -36,9 +36,18 @@ interface ResultsPanelProps {
    Performance Metrics Table Row Definition
    ────────────────────────────────────────────────────────────── */
 
+/** Keys of PerformanceMetrics whose values are plain numbers (table-safe). */
+type NumericMetricKey = NonNullable<
+  {
+    [K in keyof PerformanceMetrics]-?: PerformanceMetrics[K] extends number
+      ? K
+      : never;
+  }[keyof PerformanceMetrics]
+>;
+
 interface MetricRowDef {
   label: string;
-  key: keyof PerformanceMetrics;
+  key: NumericMetricKey;
   format: (v: number) => string;
   /** Higher is better (true) or lower is better (false, e.g., drawdown) */
   higherIsBetter: boolean;
@@ -90,6 +99,58 @@ function getBestIndex(
     }
   }
   return bestIdx;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Helper: data-driven "The Thinking" sections
+   Every number comes from the exported data so the prose can never
+   contradict the charts after a data refresh.
+   ────────────────────────────────────────────────────────────── */
+
+function buildThinkingSections(
+  data: LabData,
+): { title: string; content: string }[] {
+  const pct = (v: number | undefined, signed = false): string => {
+    if (v === undefined || v === null) return "—";
+    const s = (v * 100).toFixed(1);
+    return signed && v >= 0 ? `+${s}%` : `${s}%`;
+  };
+  const h = data.meta.headline;
+  const m = data.performanceMetrics;
+
+  return [
+    {
+      title: "Why 20 Stocks?",
+      content:
+        "The S&P 500 is marketed as diversification across 500 companies, but regressing the index's " +
+        `daily returns on its 20 largest constituents explains ${pct(h?.rSquaredAt20)} of daily variance ` +
+        "on average across rolling one-year windows. The selection is point-in-time: each window uses the " +
+        "stocks that were actually the largest at that moment, not today's winners projected backwards. " +
+        "The concentration curve shows a clear 'elbow' around 18-20 stocks, where each additional stock " +
+        "stops adding meaningful explanatory power.",
+    },
+    {
+      title: "Why The Baselines Stay",
+      content:
+        "The SP-20 Mirror and SP-20 Equal portfolios are the two honest baselines, both net of transaction " +
+        "costs and benchmarked against the S&P 500 total-return index " +
+        `(${pct(m.sp500.cagr)} CAGR). Mirror holds the point-in-time top-20 at cap weights, rebalanced ` +
+        `monthly, and reaches ${pct(m.sp20Mirror.cagr)} CAGR (${pct(m.sp20Mirror.alpha, true)} Jensen ` +
+        `alpha). Equal gives each name an equal allocation and reaches ${pct(m.sp20Equal.cagr)} CAGR. ` +
+        "They stay because they make the concentration thesis testable without hiding behind optimizer " +
+        "complexity.",
+    },
+    {
+      title: "Why One Alpha",
+      content:
+        "The public Alpha slot belongs to the single strategy that earns it in walk-forward testing: " +
+        "max-Sharpe optimization over the point-in-time top-20 universe, with weights chosen using only " +
+        `data available at each rebalance. Net of costs it reaches ${pct(m.spnAlpha?.cagr)} CAGR, ` +
+        `${m.spnAlpha ? m.spnAlpha.sharpe.toFixed(2) : "—"} Sharpe, and ${pct(m.spnAlpha?.alpha, true)} ` +
+        "Jensen alpha out-of-sample. Experimental ML and hedged variants stay out of the product surface " +
+        "until they beat the retained strategy and the Equal baseline on the metrics that matter.",
+    },
+  ];
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -387,7 +448,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                       </th>
                       {data.performanceMetrics.spnAlpha && (
                         <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                          SP-N Alpha
+                          SP-N Alpha*
                         </th>
                       )}
                     </tr>
@@ -431,6 +492,25 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                     })}
                   </tbody>
                 </table>
+
+                <p className="mt-3 text-[11px] leading-relaxed text-text-muted">
+                  All strategy returns are net of transaction costs (7 bps per
+                  one-way traded notional) on a point-in-time top-20 universe,
+                  benchmarked against the S&amp;P 500 total-return index.
+                  {data.performanceMetrics.spnAlpha?.windowStart && (
+                    <>
+                      {" "}
+                      *SP-N Alpha is out-of-sample walk-forward from{" "}
+                      {data.performanceMetrics.spnAlpha.windowStart} (
+                      {data.performanceMetrics.spnAlpha.windowYears?.toFixed(1)}{" "}
+                      years); baseline columns start at{" "}
+                      {data.performanceMetrics.sp500.windowStart ??
+                        data.meta.startDate}
+                      , so CAGRs span different windows — relative metrics
+                      (alpha, tracking error) are computed on overlapping dates.
+                    </>
+                  )}
+                </p>
               </motion.div>
 
               {/* ── Drawdown Chart ───────────────────────────── */}
@@ -462,7 +542,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               {/* ── Thinking Panel ──────────────────────────── */}
               <SectionHeader>The Thinking</SectionHeader>
 
-              <ThinkingPanel />
+              <ThinkingPanel sections={buildThinkingSections(data)} />
 
               {/* ── Footer ──────────────────────────────────── */}
               <motion.div

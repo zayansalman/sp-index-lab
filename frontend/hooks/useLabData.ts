@@ -83,7 +83,8 @@ async function fetchJSON(url: string): Promise<any> {
    ────────────────────────────────────────────────────────────── */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformMeta(raw: any): MetaData {
+export function transformMeta(raw: any): MetaData {
+  const h = raw.headline;
   return {
     lastUpdated: raw.last_updated ?? "",
     tradingDays: raw.n_trading_days ?? 0,
@@ -91,7 +92,21 @@ function transformMeta(raw: any): MetaData {
     endDate: raw.date_range?.end ?? "",
     totalStocks: raw.top_50_tickers?.length ?? 50,
     topN: raw.top_20_tickers?.length ?? 20,
-    benchmark: "^GSPC",
+    benchmark: raw.benchmark ?? "^SP500TR",
+    headline: h
+      ? {
+          rSquaredAt20: h.r_squared_at_20 ?? 0,
+          sp500Cagr: h.sp500_cagr ?? 0,
+          mirrorCagr: h.mirror_cagr ?? 0,
+          mirrorAlpha: h.mirror_alpha ?? 0,
+          equalCagr: h.equal_cagr ?? 0,
+          equalAlpha: h.equal_alpha ?? 0,
+          alphaCagr: h.alpha_cagr,
+          alphaSharpe: h.alpha_sharpe,
+          alphaJensen: h.alpha_jensen,
+          alphaMaxDrawdown: h.alpha_max_drawdown,
+        }
+      : undefined,
   };
 }
 
@@ -177,6 +192,8 @@ function transformSingleMetrics(m: any): PerformanceMetrics {
     worstDay: m.worst_day ?? m.worstDay ?? 0,
     winRate: m.win_rate ?? m.winRate ?? 0,
     avgDailyReturn: m.avg_daily_return ?? m.avgDailyReturn ?? 0,
+    windowStart: m.window?.start,
+    windowYears: m.window?.n_years,
   };
 }
 

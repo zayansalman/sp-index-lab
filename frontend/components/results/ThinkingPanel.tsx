@@ -26,33 +26,39 @@ interface ThinkingPanelProps {
    Default content
    ────────────────────────────────────────────────────────────── */
 
+/*
+  Qualitative fallback only — every specific number lives in the exported
+  data. ResultsPanel passes data-driven sections; these render only if it
+  doesn't.
+*/
 const DEFAULT_SECTIONS: ThinkingSection[] = [
   {
     title: "Why 20 Stocks?",
     content:
-      "The S&P 500 is marketed as diversification across 500 companies, but our OLS regression analysis reveals " +
-      "that just 20 stocks explain 95.1% of the index's daily variance. The concentration curve shows a clear " +
-      "'elbow' at around 18-20 stocks, where the marginal R-squared contribution of each additional stock drops " +
-      "below 0.5%. Beyond that point, you're adding complexity without meaningful diversification. The remaining " +
-      "480 stocks collectively contribute less than 5% of the index's movement -- they're effectively noise. " +
-      "This isn't a temporary phenomenon; it's a structural feature of cap-weighted indices where the largest " +
-      "companies dominate by design.",
+      "The S&P 500 is marketed as diversification across 500 companies, but regressing the index's daily " +
+      "returns on its largest constituents shows that roughly 20 stocks explain the overwhelming majority " +
+      "of its variance. The concentration curve shows a clear 'elbow' around 18-20 stocks, where each " +
+      "additional stock stops adding meaningful explanatory power. The selection is point-in-time: each " +
+      "rolling window uses the stocks that were actually the largest at that moment, not today's winners " +
+      "projected backwards.",
   },
   {
     title: "Why The Baselines Stay",
     content:
-      "The SP-20 Mirror and SP-20 Equal portfolios are the two honest baselines. Mirror keeps the cap-weighted " +
-      "shape of the index driver set and reaches a 19.2% CAGR vs the S&P 500's 11.3%. Equal gives each of the " +
-      "20 names a 5% allocation and reaches a 25.4% CAGR with a 1.16 Sharpe. They stay because they make the " +
-      "concentration thesis testable without hiding behind optimizer complexity.",
+      "The SP-20 Mirror and SP-20 Equal portfolios are the two honest baselines. Mirror holds the " +
+      "point-in-time top-20 at cap weights, rebalanced monthly; Equal gives each of the 20 names an equal " +
+      "allocation. Both are net of transaction costs and benchmarked against the S&P 500 total-return " +
+      "index. They stay because they make the concentration thesis testable without hiding behind " +
+      "optimizer complexity.",
   },
   {
     title: "Why One Alpha",
     content:
-      "The public Alpha slot now belongs to the single strategy that earns it in walk-forward testing: max-Sharpe " +
-      "optimization over the configured top-20 universe. It reaches a 29.2% CAGR, 1.17 Sharpe, and +13.9% Jensen " +
-      "alpha. The weaker ML and hedged variants are deliberately excluded from the app and data export until they " +
-      "can beat the retained strategy and the Equal baseline on the metrics that matter.",
+      "The public Alpha slot belongs to the single strategy that earns it in walk-forward testing: " +
+      "max-Sharpe optimization over the point-in-time top-20 universe, net of costs, with weights chosen " +
+      "using only data available at each rebalance. Experimental ML and hedged variants stay out of the " +
+      "product surface until they beat the retained strategy and the Equal baseline on the metrics that " +
+      "matter.",
   },
 ];
 
