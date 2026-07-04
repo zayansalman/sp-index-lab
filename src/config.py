@@ -69,6 +69,9 @@ TREASURY_10Y_TICKER = "^TNX"        # 10-year Treasury yield
 # Dates
 # ──────────────────────────────────────────────
 INCEPTION_DATE = date(2014, 1, 2)   # First trading day of 2014; NAV normalised to 1.0 here
+# Fetch history starts one year earlier so point-in-time dollar-volume
+# ranking (252-day lookback) has a full window at inception.
+DATA_START_DATE = date(2013, 1, 2)
 
 # ──────────────────────────────────────────────
 # Portfolio constraints
@@ -82,8 +85,8 @@ SLIPPAGE_BPS = 2                    # 2 basis points slippage assumption
 # ──────────────────────────────────────────────
 # Point-in-time universe
 # ──────────────────────────────────────────────
-UNIVERSE_LOOKBACK_DAYS = 252        # Trailing window for dollar-volume ranking
-UNIVERSE_MIN_OBS = 126              # Min non-NaN days required to rank a ticker
+UNIVERSE_LOOKBACK_DAYS = 63         # Trailing smoothing window for cap-proxy ranking
+UNIVERSE_MIN_OBS = 20               # Min non-NaN days required to rank a ticker
 MIRROR_REBALANCE_FREQ = "ME"        # Mirror/Equal rebalance at month-end
 
 # ──────────────────────────────────────────────

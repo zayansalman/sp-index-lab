@@ -15,7 +15,7 @@ from src.data.universe import (
     get_members_at,
     get_top_n_at,
     load_membership,
-    rank_by_dollar_volume,
+    rank_by_cap_proxy,
 )
 
 # ──────────────────────────────────────────────
@@ -38,15 +38,9 @@ def prices() -> pd.DataFrame:
 
 
 @pytest.fixture
-def volumes() -> pd.DataFrame:
-    return pd.DataFrame(
-        {
-            "AAA": np.full(len(IDX), 1_000.0),      # $100k/day
-            "BBB": np.full(len(IDX), 10_000.0),     # $500k/day
-            "CCC": np.full(len(IDX), 2_000.0),      # $20k/day
-        },
-        index=IDX,
-    )
+def shares() -> pd.Series:
+    # Caps: AAA $100k, BBB $500k, CCC $20k
+    return pd.Series({"AAA": 1_000.0, "BBB": 10_000.0, "CCC": 2_000.0})
 
 
 @pytest.fixture
@@ -55,7 +49,7 @@ def membership(tmp_path: Path) -> pd.DataFrame:
     csv.write_text(
         "date,tickers\n"
         '2019-01-01,"AAA,BBB"\n'
-        '2021-01-04,"AAA,BBB,CCC"\n'
+        '2020-06-01,"AAA,BBB,CCC"\n'
     )
     return load_membership(csv, aliases_path=tmp_path / "x", exclusions_path=tmp_path / "y")
 
@@ -67,7 +61,7 @@ def membership(tmp_path: Path) -> pd.DataFrame:
 
 def test_membership_snapshot_selection(membership: pd.DataFrame) -> None:
     assert get_members_at(pd.Timestamp("2020-01-15"), membership) == {"AAA", "BBB"}
-    assert get_members_at(pd.Timestamp("2021-01-15"), membership) == {"AAA", "BBB", "CCC"}
+    assert get_members_at(pd.Timestamp("2020-07-01"), membership) == {"AAA", "BBB", "CCC"}
 
 
 def test_membership_before_first_snapshot_raises(membership: pd.DataFrame) -> None:
@@ -97,24 +91,31 @@ def test_membership_normalisation(tmp_path: Path) -> None:
 # ──────────────────────────────────────────────
 
 
-def test_ranking_follows_dollar_volume(prices: pd.DataFrame, volumes: pd.DataFrame) -> None:
-    ranked = rank_by_dollar_volume(prices, volumes, as_of=IDX[-1])
+def test_ranking_follows_cap_proxy(prices: pd.DataFrame, shares: pd.Series) -> None:
+    ranked = rank_by_cap_proxy(prices, shares, as_of=IDX[-1])
     assert list(ranked.index) == ["BBB", "AAA", "CCC"]
 
 
-def test_ranking_requires_min_observations(prices: pd.DataFrame, volumes: pd.DataFrame) -> None:
+def test_ranking_requires_min_observations(prices: pd.DataFrame, shares: pd.Series) -> None:
     prices = prices.copy()
     prices.loc[prices.index[:-10], "CCC"] = np.nan  # only 10 valid days
-    ranked = rank_by_dollar_volume(prices, volumes, as_of=IDX[-1], min_obs=126)
+    ranked = rank_by_cap_proxy(prices, shares, as_of=IDX[-1], min_obs=20)
+    assert "CCC" not in ranked.index
+
+
+def test_ranking_ignores_tickers_without_shares_anchor(
+    prices: pd.DataFrame, shares: pd.Series
+) -> None:
+    ranked = rank_by_cap_proxy(prices, shares.drop("CCC"), as_of=IDX[-1])
     assert "CCC" not in ranked.index
 
 
 def test_top_n_respects_membership(
-    prices: pd.DataFrame, volumes: pd.DataFrame, membership: pd.DataFrame
+    prices: pd.DataFrame, shares: pd.Series, membership: pd.DataFrame
 ) -> None:
-    # Before 2021-01-04, CCC is not a member even though it has data.
+    # Before 2020-06-01, CCC is not a member even though it has data.
     top = get_top_n_at(
-        pd.Timestamp("2020-12-01"), 3, prices=prices, volumes=volumes, membership=membership
+        pd.Timestamp("2020-03-02"), 3, prices=prices, shares=shares, membership=membership
     )
     assert top == ["BBB", "AAA"]
 
@@ -125,35 +126,33 @@ def test_top_n_respects_membership(
 
 
 def test_no_lookahead_future_data_cannot_change_selection(
-    prices: pd.DataFrame, volumes: pd.DataFrame, membership: pd.DataFrame
+    prices: pd.DataFrame, shares: pd.Series, membership: pd.DataFrame
 ) -> None:
     as_of = IDX[150]
-    before = get_top_n_at(as_of, 2, prices=prices, volumes=volumes, membership=membership)
+    before = get_top_n_at(as_of, 2, prices=prices, shares=shares, membership=membership)
 
     # Mutate everything strictly after as_of by 100x — selection must not move.
-    mutated_p = prices.copy()
-    mutated_v = volumes.copy()
-    mutated_p.loc[mutated_p.index > as_of] *= 100.0
-    mutated_v.loc[mutated_v.index > as_of] *= 100.0
+    mutated = prices.copy()
+    mutated.loc[mutated.index > as_of] *= 100.0
 
-    after = get_top_n_at(as_of, 2, prices=mutated_p, volumes=mutated_v, membership=membership)
+    after = get_top_n_at(as_of, 2, prices=mutated, shares=shares, membership=membership)
     assert before == after
 
 
 def test_universe_schedule_shape_and_no_lookahead(
-    prices: pd.DataFrame, volumes: pd.DataFrame, membership: pd.DataFrame
+    prices: pd.DataFrame, shares: pd.Series, membership: pd.DataFrame
 ) -> None:
     rebalance_dates = pd.DatetimeIndex([IDX[150], IDX[250]])
     schedule = build_universe_schedule(
-        rebalance_dates, 2, prices=prices, volumes=volumes, membership=membership
+        rebalance_dates, 2, prices=prices, shares=shares, membership=membership
     )
-    assert set(schedule.columns) == {"rebalance_date", "rank", "ticker", "avg_dollar_volume"}
+    assert set(schedule.columns) == {"rebalance_date", "rank", "ticker", "cap_proxy"}
     assert len(schedule) == 4  # 2 dates × top-2
 
-    mutated_p = prices.copy()
-    mutated_p.loc[mutated_p.index > IDX[250]] *= 100.0
+    mutated = prices.copy()
+    mutated.loc[mutated.index > IDX[250]] *= 100.0
     schedule2 = build_universe_schedule(
-        rebalance_dates, 2, prices=mutated_p, volumes=volumes, membership=membership
+        rebalance_dates, 2, prices=mutated, shares=shares, membership=membership
     )
     pd.testing.assert_frame_equal(schedule, schedule2)
 
@@ -174,24 +173,21 @@ def test_vendored_membership_sanity() -> None:
 
 
 @pytest.mark.slow
-def test_dollar_volume_proxy_matches_historical_top20() -> None:
-    """Proxy ranking should broadly agree with known historical top-20 lists."""
+def test_cap_proxy_matches_historical_top20() -> None:
+    """Anchored cap ranking should broadly agree with known historical top-20 lists."""
     prices_df = load_parquet("daily_prices")
-    volumes_df = load_parquet("daily_volumes")
-    if prices_df.empty or volumes_df.empty:
-        pytest.skip("requires backfilled daily_prices/daily_volumes parquet")
+    if prices_df.empty:
+        pytest.skip("requires backfilled daily_prices parquet")
 
     prices = prices_df.set_index("date")
     prices.index = pd.to_datetime(prices.index)
-    volumes = volumes_df.set_index("date")
-    volumes.index = pd.to_datetime(volumes.index)
 
     snapshots = pd.read_csv(MEMBERSHIP_CSV.parent / "topn_snapshots.csv", parse_dates=["as_of"])
     for row in snapshots.itertuples():
         expected = set(row.tickers.split(","))
-        actual = set(get_top_n_at(row.as_of, 20, prices=prices, volumes=volumes))
+        actual = set(get_top_n_at(row.as_of, 20, prices=prices))
         overlap = len(expected & actual) / 20
-        assert overlap >= 0.6, (
+        assert overlap >= 0.7, (
             f"{row.as_of.date()}: only {overlap:.0%} overlap with historical top-20; "
             f"proxy-only: {sorted(actual - expected)}, missing: {sorted(expected - actual)}"
         )

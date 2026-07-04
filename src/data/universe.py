@@ -2,13 +2,18 @@
 
 Historical universe selection must use only information available at the
 time. Membership comes from vendored constituent snapshots
-(``data/reference/sp500_membership.csv``); ranking uses trailing average
-dollar volume (close × volume) as a market-cap proxy, since free sources do
-not provide historical shares outstanding.
+(``data/reference/sp500_membership.csv``). Ranking uses an anchored
+market-cap proxy: today's effective shares outstanding
+(``data/reference/shares_outstanding.csv``, = market_cap / price, which
+captures multi-class structures like BRK-B and GOOGL) multiplied by
+historical adjusted closes. Known bias: buybacks/issuance drift shares over
+time (~1-3%/yr), so buyback-heavy names are slightly under-ranked in early
+years — bounded and disclosed, unlike the turnover bias of dollar-volume
+ranking, which mis-ranks the 2014 top-20 badly.
 
 Every function that ranks or selects takes an ``as_of`` date and never reads
-data after it — the no-look-ahead invariant is enforced by slicing before
-computing and is covered by tests (``tests/test_universe.py``).
+price data after it — the no-look-ahead invariant is enforced by slicing
+before computing and is covered by tests (``tests/test_universe.py``).
 """
 
 from __future__ import annotations
@@ -26,8 +31,10 @@ logger = logging.getLogger(__name__)
 MEMBERSHIP_CSV = REFERENCE_DIR / "sp500_membership.csv"
 ALIASES_CSV = REFERENCE_DIR / "ticker_aliases.csv"
 EXCLUSIONS_CSV = REFERENCE_DIR / "excluded_tickers.csv"
+SHARES_CSV = REFERENCE_DIR / "shares_outstanding.csv"
 
 _membership_cache: dict[Path, pd.DataFrame] = {}
+_shares_cache: dict[Path, pd.Series] = {}
 
 
 def _load_aliases(path: Path = ALIASES_CSV) -> dict[str, str]:
@@ -43,6 +50,16 @@ def _load_exclusions(path: Path = EXCLUSIONS_CSV) -> set[str]:
     if not path.exists():
         return set()
     return set(pd.read_csv(path)["ticker"])
+
+
+def load_shares_outstanding(path: Path = SHARES_CSV) -> pd.Series:
+    """Load effective shares outstanding (ticker → shares), cached."""
+    if path not in _shares_cache:
+        df = pd.read_csv(path)
+        _shares_cache[path] = pd.Series(
+            df["effective_shares"].values, index=df["ticker"], name="effective_shares"
+        ).astype(float)
+    return _shares_cache[path]
 
 
 def load_membership(
@@ -112,42 +129,41 @@ def get_members_at(
     return set(membership.loc[membership["date"] == snapshot, "ticker"])
 
 
-def rank_by_dollar_volume(
+def rank_by_cap_proxy(
     prices: pd.DataFrame,
-    volumes: pd.DataFrame,
+    shares: pd.Series,
     as_of: pd.Timestamp,
     lookback: int = UNIVERSE_LOOKBACK_DAYS,
     min_obs: int = UNIVERSE_MIN_OBS,
 ) -> pd.Series:
-    """Rank tickers by trailing average dollar volume using data ≤ as_of.
+    """Rank tickers by estimated market cap using price data ≤ as_of.
 
-    Dollar volume (close × volume) is the market-cap proxy: it is computable
-    from the data we already fetch, works identically for live and delisted
-    names, and is monotone-ish in cap for mega-caps. Known distortion:
-    over-ranks high-turnover names, under-ranks low-turnover giants (BRK-B).
+    Cap estimate = trailing mean adjusted close × current effective shares
+    outstanding. The shares anchor is time-invariant, so relative rankings
+    move only with prices; the trailing mean smooths daily noise.
 
     Args:
         prices: Wide close-price DataFrame (DatetimeIndex × tickers).
-        volumes: Wide share-volume DataFrame, same shape.
-        as_of: Ranking date; no data after this date is used.
-        lookback: Trailing window length in trading days.
+        shares: Effective shares outstanding per ticker.
+        as_of: Ranking date; no price data after this date is used.
+        lookback: Trailing smoothing window in trading days.
         min_obs: Minimum non-NaN days required to rank a ticker.
 
     Returns:
-        Average dollar volume per ticker, descending; tickers with
-        insufficient history are omitted.
+        Estimated market cap per ticker, descending; tickers without a
+        shares anchor or with insufficient history are omitted.
     """
     as_of = pd.Timestamp(as_of)
     # Slice FIRST so nothing after as_of can influence the ranking.
     price_window = prices.loc[prices.index <= as_of].tail(lookback)
-    volume_window = volumes.loc[volumes.index <= as_of].tail(lookback)
 
-    common = price_window.columns.intersection(volume_window.columns)
-    dollar = price_window[common] * volume_window[common]
+    common = price_window.columns.intersection(shares.index)
+    window = price_window[common]
 
-    counts = dollar.notna().sum()
-    avg = dollar.mean().where(counts >= min_obs)
-    return avg.dropna().sort_values(ascending=False)
+    counts = window.notna().sum()
+    avg_price = window.mean().where(counts >= min_obs)
+    cap = avg_price * shares.loc[common]
+    return cap.dropna().sort_values(ascending=False)
 
 
 def get_top_n_at(
@@ -155,19 +171,20 @@ def get_top_n_at(
     n: int,
     *,
     prices: pd.DataFrame,
-    volumes: pd.DataFrame,
+    shares: pd.Series | None = None,
     membership: pd.DataFrame | None = None,
     lookback: int = UNIVERSE_LOOKBACK_DAYS,
 ) -> list[str]:
     """Return the point-in-time top-N tickers as of a date.
 
     Intersects the fetched candidate columns with the S&P membership at
-    ``as_of``, ranks by trailing dollar volume, and returns the first N.
+    ``as_of``, ranks by the anchored cap proxy, and returns the first N.
     If fewer than N members have sufficient data (e.g. an unservable
     delisted name), the next-ranked names fill in and a warning is logged.
     """
+    shares = shares if shares is not None else load_shares_outstanding()
     members = get_members_at(as_of, membership)
-    ranked = rank_by_dollar_volume(prices, volumes, as_of, lookback=lookback)
+    ranked = rank_by_cap_proxy(prices, shares, as_of, lookback=lookback)
     top = [t for t in ranked.index if t in members][:n]
 
     if len(top) < n:
@@ -186,7 +203,7 @@ def build_universe_schedule(
     n: int,
     *,
     prices: pd.DataFrame,
-    volumes: pd.DataFrame,
+    shares: pd.Series | None = None,
     membership: pd.DataFrame | None = None,
     lookback: int = UNIVERSE_LOOKBACK_DAYS,
 ) -> pd.DataFrame:
@@ -194,22 +211,23 @@ def build_universe_schedule(
 
     Returns:
         Long DataFrame with columns
-        ``rebalance_date, rank, ticker, avg_dollar_volume`` — an auditable
-        record of which names were selectable when.
+        ``rebalance_date, rank, ticker, cap_proxy`` — an auditable record
+        of which names were selectable when.
     """
+    shares = shares if shares is not None else load_shares_outstanding()
     membership = membership if membership is not None else _default_membership()
     records: list[dict[str, object]] = []
 
     for rebalance_date in rebalance_dates:
         members = get_members_at(rebalance_date, membership)
-        ranked = rank_by_dollar_volume(prices, volumes, rebalance_date, lookback=lookback)
+        ranked = rank_by_cap_proxy(prices, shares, rebalance_date, lookback=lookback)
         member_ranked = ranked[ranked.index.isin(members)].head(n)
-        for rank, (ticker, adv) in enumerate(member_ranked.items(), start=1):
+        for rank, (ticker, cap) in enumerate(member_ranked.items(), start=1):
             records.append({
                 "rebalance_date": rebalance_date,
                 "rank": rank,
                 "ticker": ticker,
-                "avg_dollar_volume": float(adv),
+                "cap_proxy": float(cap),
             })
 
     return pd.DataFrame(records)
@@ -219,11 +237,12 @@ def make_universe_fn(
     n: int,
     *,
     prices: pd.DataFrame,
-    volumes: pd.DataFrame,
+    shares: pd.Series | None = None,
     membership: pd.DataFrame | None = None,
     lookback: int = UNIVERSE_LOOKBACK_DAYS,
 ) -> Callable[[pd.Timestamp], list[str]]:
     """Return a memoised ``as_of → top-N tickers`` callable for backtests."""
+    shares = shares if shares is not None else load_shares_outstanding()
     membership = membership if membership is not None else _default_membership()
     cache: dict[pd.Timestamp, list[str]] = {}
 
@@ -234,7 +253,7 @@ def make_universe_fn(
                 as_of,
                 n,
                 prices=prices,
-                volumes=volumes,
+                shares=shares,
                 membership=membership,
                 lookback=lookback,
             )
