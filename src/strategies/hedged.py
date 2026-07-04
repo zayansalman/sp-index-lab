@@ -1,13 +1,8 @@
-"""SP-N Hedged strategy — beat the market decisively with reduced drawdown.
+"""Archived hedged strategy prototype.
 
-Philosophy: use the highest-return base strategy (MVO max-Sharpe, 29.2%
-raw CAGR) and shed 20-30% of that upside in exchange for much better
-drawdown protection.  Hedging only activates when signals confirm real
-danger — routine volatility is not hedged.
-
-Why MVO Sharpe as base (not the regime-aware ensemble):
-  Ensemble base → 23.4% raw → ~20% after hedge drag → too close to Equal
-  MVO Sharpe base → 29.2% raw → ~24-26% after hedge drag → clear victory
+This module is kept for research experiments and unit coverage around cash
+allocation logic. It is not part of the retained public strategy set and is
+not exported to the frontend.
 
 Defense triggers:
 1. **Bear regime**: HMM detects bear → 20% cash.
@@ -81,10 +76,9 @@ def _compute_cash_allocation(
 ) -> float:
     """Compute total cash allocation based on defense triggers.
 
-    Tuned to clearly beat the SP-20 Equal baseline (19.2% CAGR) while
-    keeping drawdown materially below the index.  Transition-regime cash
-    is removed (let alpha work) and VIX-elevated threshold is raised so
-    we only hedge when markets are genuinely stressed.
+    Archived experiment tuned to keep drawdown materially below the index.
+    Transition-regime cash is removed (let alpha work) and VIX-elevated
+    threshold is raised so we only hedge when markets are genuinely stressed.
     """
     cash = 0.0
 

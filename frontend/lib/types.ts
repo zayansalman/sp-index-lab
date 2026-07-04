@@ -88,12 +88,8 @@ export interface PerformanceNavPoint {
   sp20Mirror: number;
   /** SP-20 Equal-weighted normalised NAV */
   sp20Equal: number;
-  /** SP-N Alpha (canonical — ML ensemble) normalised NAV */
+  /** SP-N Alpha (retained max-Sharpe optimizer) normalised NAV */
   spnAlpha?: number;
-  /** SP-N Alpha MVO max-Sharpe variant */
-  spnAlphaMvoSharpe?: number;
-  /** SP-N Hedged (dynamic beta + cash) normalised NAV */
-  spnHedged?: number;
 }
 
 export type PerformanceNavData = PerformanceNavPoint[];
@@ -151,8 +147,6 @@ export interface AllPerformanceMetrics {
   sp20Mirror: PerformanceMetrics;
   sp20Equal: PerformanceMetrics;
   spnAlpha?: PerformanceMetrics;
-  spnAlphaMvoSharpe?: PerformanceMetrics;
-  spnHedged?: PerformanceMetrics;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -200,10 +194,6 @@ export interface DrawdownPoint {
   sp20Equal?: number;
   /** SP-N Alpha (canonical) drawdown from peak */
   spnAlpha?: number;
-  /** SP-N Alpha MVO max-Sharpe variant drawdown */
-  spnAlphaMvoSharpe?: number;
-  /** SP-N Hedged drawdown from peak (optional) */
-  spnHedged?: number;
 }
 
 export type DrawdownData = DrawdownPoint[];

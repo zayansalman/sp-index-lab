@@ -30,9 +30,7 @@ type SeriesKey =
   | "sp500"
   | "sp20Mirror"
   | "sp20Equal"
-  | "spnAlpha"
-  | "spnAlphaMvoSharpe"
-  | "spnHedged";
+  | "spnAlpha";
 
 interface SeriesConfig {
   key: SeriesKey;
@@ -45,10 +43,8 @@ interface SeriesConfig {
 const SERIES_CONFIG: SeriesConfig[] = [
   { key: "sp500",             label: CHART_LABELS.sp500,             color: CHART_COLORS.sp500,             gradientId: "ddSp500",       defaultVisible: true },
   { key: "sp20Mirror",        label: CHART_LABELS.sp20Mirror,        color: "#EF4444",                      gradientId: "ddMirror",      defaultVisible: true },
-  { key: "sp20Equal",         label: CHART_LABELS.sp20Equal,         color: CHART_COLORS.sp20Equal,         gradientId: "ddEqual",       defaultVisible: false },
+  { key: "sp20Equal",         label: CHART_LABELS.sp20Equal,         color: CHART_COLORS.sp20Equal,         gradientId: "ddEqual",       defaultVisible: true },
   { key: "spnAlpha",          label: CHART_LABELS.spnAlpha,          color: CHART_COLORS.spnAlpha,          gradientId: "ddAlpha",       defaultVisible: true },
-  { key: "spnAlphaMvoSharpe", label: CHART_LABELS.spnAlphaMvoSharpe, color: CHART_COLORS.spnAlphaMvoSharpe, gradientId: "ddAlphaSharpe", defaultVisible: false },
-  { key: "spnHedged",         label: CHART_LABELS.spnHedged,         color: CHART_COLORS.spnHedged,         gradientId: "ddHedged",      defaultVisible: true },
 ];
 
 /* ──────────────────────────────────────────────────────────────

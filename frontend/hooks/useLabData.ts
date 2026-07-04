@@ -141,8 +141,6 @@ function navPointFromRaw(p: any): PerformanceNavPoint {
     sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
     sp20Equal: p.sp20_equal ?? p.sp20Equal ?? 0,
     spnAlpha: p.spn_alpha ?? p.spnAlpha,
-    spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
-    spnHedged: p.spn_hedged ?? p.spnHedged,
   };
 }
 
@@ -191,12 +189,6 @@ function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
   };
   const alphaRaw = raw.spn_alpha ?? raw.spnAlpha;
   if (alphaRaw) result.spnAlpha = transformSingleMetrics(alphaRaw);
-
-  const mvoSharpeRaw = raw.spn_alpha_mvo_sharpe ?? raw.spnAlphaMvoSharpe;
-  if (mvoSharpeRaw) result.spnAlphaMvoSharpe = transformSingleMetrics(mvoSharpeRaw);
-
-  const hedgedRaw = raw.spn_hedged ?? raw.spnHedged;
-  if (hedgedRaw) result.spnHedged = transformSingleMetrics(hedgedRaw);
   return result;
 }
 
@@ -262,8 +254,6 @@ function transformDrawdown(raw: any): DrawdownData {
       sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
       sp20Equal: p.sp20_equal ?? p.sp20Equal,
       spnAlpha: p.spn_alpha ?? p.spnAlpha,
-      spnAlphaMvoSharpe: p.spn_alpha_mvo_sharpe ?? p.spnAlphaMvoSharpe,
-      spnHedged: p.spn_hedged ?? p.spnHedged,
     }),
   );
 }

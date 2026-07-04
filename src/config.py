@@ -35,9 +35,7 @@ INDEX_NAMES: list[str] = [
     "sp500",
     "sp20_mirror",
     "sp20_equal",
-    "sp20_alpha",
     "spn_alpha",
-    "spn_hedged",
 ]
 
 # ──────────────────────────────────────────────
@@ -96,20 +94,6 @@ ENSEMBLE_REGIME_BLENDS: dict[int, tuple[float, float]] = {
     0: (0.7, 0.3),   # Bull
     1: (0.5, 0.5),   # Transition
     2: (0.2, 0.8),   # Bear
-}
-
-# ──────────────────────────────────────────────
-# Hedged portfolio
-# ──────────────────────────────────────────────
-HEDGED_TARGET_BETA: dict[int, float] = {
-    0: 0.5,    # Bull
-    1: 0.25,   # Transition
-    2: 0.05,   # Bear
-}
-HEDGED_EQUITY_ALLOCATION: dict[int, float] = {
-    0: 0.90,   # Bull
-    1: 0.60,   # Transition
-    2: 0.30,   # Bear
 }
 
 # ──────────────────────────────────────────────

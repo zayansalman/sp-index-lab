@@ -12,8 +12,7 @@ def add_cash_column(
     """Add a synthetic CASH column that earns the daily risk-free rate.
 
     This allows the walk-forward engine (which normalises weights to sum
-    to 1.0) to handle partial equity allocation: the hedged strategy
-    assigns weight to CASH, and the engine treats it like any ticker.
+    to 1.0) to handle partial equity allocation in research strategies.
 
     Args:
         prices: Wide price DataFrame (DatetimeIndex × tickers).

@@ -1,10 +1,11 @@
-"""SP-N Alpha strategy — AI/ML-optimised portfolio weights.
+"""SP-N Alpha strategy factories.
 
 This module provides factory functions that return ``WeightsFn`` callables
 compatible with :func:`src.backtest.engine.walk_forward_backtest`.
 
-Phase 1 (classical): HRP, MVO max-Sharpe, MVO min-vol.
-Phase 2 (ML): Ensemble with LightGBM factor model + HMM regime detection.
+The public SP-N Alpha export uses ``make_alpha_weights_fn("mvo_sharpe")``.
+The ML ensemble factory remains available for research runs, but it is not
+part of the retained frontend strategy set.
 """
 
 from __future__ import annotations
@@ -80,7 +81,7 @@ def make_ml_alpha_weights_fn(
     universe: list[str] | None = None,
     forward_days: int = 21,
 ) -> WeightsFn:
-    """Factory returning a ML-ensemble weights_fn for walk-forward backtesting.
+    """Factory returning a research-only ML-ensemble weights_fn.
 
     Uses HMM regime detection + LightGBM factor model + regime-weighted
     ensemble of HRP and factor-MVO.

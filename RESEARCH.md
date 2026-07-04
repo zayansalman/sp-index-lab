@@ -16,13 +16,14 @@ Using OLS regression of S&P 500 daily returns against top-N stock portfolios ove
 
 | Metric | Value |
 |--------|-------|
-| R² at N=20 | **94.9%** |
-| SP-20 Mirror CAGR | **15.3%** |
+| R² at N=20 | **95.1%** |
+| SP-20 Mirror CAGR | **19.2%** |
+| SP-20 Equal CAGR | **25.4%** |
+| SP-N Alpha CAGR | **29.2%** |
 | S&P 500 CAGR | **11.3%** |
-| Annualized Alpha | **+4.0%** |
-| SP-20 Mirror Sharpe | **0.68** |
-| S&P 500 Sharpe | **0.54** |
-| Tracking Error | **9.41%** |
+| SP-N Alpha Jensen Alpha | **+13.9%** |
+| SP-N Alpha Sharpe | **1.17** |
+| S&P 500 Sharpe | **0.42** |
 
 The concentration curve shows a clear elbow at N ≈ 20. Marginal R² drops below 0.5% after 20 stocks, meaning stocks 21-500 collectively add less than 5% of explanatory power.
 
@@ -103,20 +104,18 @@ The passive thesis says: "you can't beat the index, so just buy it." But the S&P
 
 An intelligent optimization layer can exploit all three: reduce momentum overweight via factor-based tilting, anticipate rebalance flows, and rebalance dynamically based on drift rather than calendar dates.
 
-## The Four Indices: A Progression of Intelligence
+## The Retained Public Indices
 
 | Index | Selection | Weighting | Rebalancing | Purpose |
 |-------|-----------|-----------|-------------|---------|
 | SP-20 Mirror | Top 20 by market cap | S&P 500 proportional | Daily | Prove concentration tracks the index |
 | SP-20 Equal | Top 20 by market cap | Equal (5% each) | Daily | Test if removing cap-bias helps |
-| SP-20 Alpha | Top 20 by market cap | AI-optimized | Dynamic | Show intelligent weighting adds alpha |
-| SP-N Alpha | AI selects 10-30 stocks | AI-optimized | Dynamic | Fully autonomous — the flagship |
+| SP-N Alpha | Top 20 by market cap | Walk-forward max-Sharpe | Monthly test windows | Retained optimizer that beats Equal on CAGR and Sharpe |
 
-Each index adds one layer of intelligence. The comparison between them tells a story:
+The comparison tells a clean story:
 - **Mirror vs S&P 500**: "20 stocks is enough"
 - **Equal vs Mirror**: "Cap-weighting is suboptimal"
-- **Alpha vs Equal**: "AI weighting beats naive weighting"
-- **SP-N vs SP-20**: "Stock selection matters too"
+- **SP-N Alpha vs Equal**: "Only keep the optimizer if it clears the naive baseline"
 
 ## Known Limitations
 1. **Survivorship bias**: We use the current top 50 stocks throughout the backtest. Stocks that were in the top 50 in 2014 but have since dropped out are excluded. This slightly inflates historical returns.
@@ -135,21 +134,21 @@ Each index adds one layer of intelligence. The comparison between them tells a s
 
 ---
 
-## Active Strategy Rationale
+## Retained Strategy Rationale
 
-*Why three strategy pods, and why these specific strategies?*
+*Why one optimized strategy, and why this one?*
 
-### Passive Core (SP-N Alpha) — The Foundation
+### SP-N Alpha — The Retained Optimizer
 
-HRP + LightGBM factor model + 3-state HMM regime detection is the right combination for a concentrated equity portfolio because:
+The public Alpha slot is deliberately narrow. The retained strategy is a walk-forward max-Sharpe optimizer over the configured top-20 universe because it is the only optimized variant that currently clears SP-20 Equal on both CAGR and Sharpe.
 
-1. **HRP over MVO as the base**: Mean-variance optimisation requires estimating expected returns, which are notoriously unstable. HRP uses only the covariance structure (more stable), producing more diversified portfolios that hold up better out-of-sample.
+1. **It beats the simple bar**: SP-N Alpha reaches 29.2% CAGR and 1.17 Sharpe, compared with 25.4% CAGR and 1.16 Sharpe for SP-20 Equal.
 
-2. **LightGBM factor model over raw returns**: Forward return prediction from momentum, vol, and mean-reversion signals captures systematic patterns that pure price-based optimisers miss. Walk-forward retrained quarterly to avoid decay.
+2. **It remains interpretable**: The universe is the same configured top-20 set, so the product can show whether weighting alone improves the concentrated basket.
 
-3. **HMM regime detection**: The blend ratio between HRP and factor-MVO shifts based on regime. In bear markets, HRP's defensive properties are weighted higher. In bull markets, the factor model is given more weight to capture momentum. This alone accounts for 30–50 bps of additional risk-adjusted return in backtests.
+3. **It keeps the public surface honest**: Experimental ML ensemble and hedged variants stay out of the frontend export until they outperform this retained strategy and the Equal baseline.
 
-4. **Why ensemble, not just one optimizer**: No single optimizer dominates in all regimes. The ensemble is the out-of-sample robust choice.
+Archived research modules for HRP, factor modeling, regime detection, sentiment, and hedging remain useful for future experiments, but they are not part of the current public strategy set.
 
 ### Vol Overlay — Income Layer
 

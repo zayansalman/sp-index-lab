@@ -24,7 +24,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 
 ## Phase 2: Proof Layer ✅
 - [x] **T2.1**: Build src/proof/concentration.py — variance_decomposition(), concentration_curve()
-- [x] **T2.2**: R² analysis at N = 1 through 50 (result: R² = 94.9% at N=20)
+- [x] **T2.2**: R² analysis at N = 1 through 50 (current result: R² = 95.1% at N=20)
 - [x] **T2.3**: Mirror index construction — build_mirror_index()
 - [x] **T2.4**: Performance metrics — compute_performance_metrics() (15+ metrics)
 - [ ] **T2.5**: Write tests for proof layer
@@ -56,13 +56,13 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 ## Phase 5: Frontend — Landing Page ✅
 - [x] **T5.1**: Root layout (Space Grotesk + Geist fonts, metadata, OpenGraph, dark theme)
 - [x] **T5.2**: Hero component with Framer Motion staggered entrance
-- [x] **T5.3**: StatsPreview with 3 animated cards (R² 94.9%, CAGR 15.3%, Alpha +4.0%)
+- [x] **T5.3**: StatsPreview with 3 animated cards (R² 95.1%, SP-N Alpha CAGR 29.2%, Alpha +13.9%)
 - [x] **T5.4**: EnterButton with animated glow border → /lab navigation
 
 ---
 
 ## Phase 6: Frontend — Machine Visualization ✅
-- [x] **T6.1**: MachineCanvas.tsx with SVG viewBox (0 0 800 600)
+- [x] **T6.1**: MachineCanvas.tsx with SVG viewBox (0 0 800 780)
 - [x] **T6.2**: ComponentNode.tsx base (rounded rect, icon, label, LightBulb)
 - [x] **T6.3**: 5 machine components (DataPipeline, ConcentrationAnalyzer, MirrorIndexBuilder, AlphaOptimizer, PerformanceMonitor)
 - [x] **T6.4**: Wire.tsx + WireSystem.tsx with animated electricity flow (CSS keyframes)
@@ -84,7 +84,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 - [x] **T8.2**: MetricCard.tsx + AnimatedCounter.tsx (counting from 0 to target)
 - [x] **T8.3**: ConcentrationChart.tsx (Recharts LineChart, R² vs N, reference lines at 20 & 95%)
 - [x] **T8.4**: PerformanceChart.tsx (Growth of $1, 3 series, custom tooltip)
-- [x] **T8.5**: Performance comparison table (11 metrics × 3 indices: S&P 500, Mirror, Equal)
+- [x] **T8.5**: Performance comparison table (11 metrics × retained indices: S&P 500, Mirror, Equal, SP-N Alpha)
 - [x] **T8.6**: DrawdownChart.tsx (Recharts AreaChart, overlaid series)
 - [x] **T8.7**: HoldingsTable.tsx (20 rows: rank, ticker, name, sector, weight with proportional bars)
 - [x] **T8.8**: ThinkingPanel.tsx (3 collapsible methodology sections)
@@ -135,7 +135,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 - [x] **T13.3**: Build src/features/regime.py (3-state Gaussian HMM: bull/bear/transition)
 - [x] **T13.4**: Build src/optimizer/ensemble.py (regime-weighted HRP + factor-MVO blend)
 - [x] **T13.5**: Build src/features/sentiment.py (FinBERT via HuggingFace + backtest proxy)
-- [x] **T13.6**: Build src/strategies/alpha.py (SP-N Alpha factory) + src/strategies/hedged.py (SP-N Hedged)
+- [x] **T13.6**: Build src/strategies/alpha.py plus archived hedged research prototype
 - [x] **T13.7**: Write optimizer tests (56 tests: constraints, regime detection, ensemble, hedging)
 
 ---
@@ -143,8 +143,8 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 ## Phase 14: Backtesting Engine ✅
 - [x] **T14.1**: Build src/backtest/metrics.py (15+ portfolio metrics as standalone functions)
 - [x] **T14.2**: Build src/backtest/engine.py (walk-forward: 756-day train / 21-day test)
-- [x] **T14.3**: Build scripts/run_alpha_backtest.py (orchestrator for all strategies + comparison table)
-- [x] **T14.4**: Walk-forward results: SP-N Alpha CAGR 23.4% Sharpe 1.11, SP-N Hedged Sharpe 1.38 MaxDD -6.7%
+- [x] **T14.3**: Build scripts/run_alpha_backtest.py (retained SP-N Alpha orchestrator + comparison table)
+- [x] **T14.4**: Walk-forward retained result: SP-N Alpha CAGR 29.2%, Sharpe 1.17, Alpha +13.9%
 - [x] **T14.5**: Write backtest tests (synthetic data, no look-ahead bias verification)
 
 ---
@@ -168,7 +168,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 - [x] **S1.1**: Extract `compute_performance_metrics()` → `src/backtest/metrics.py` shared utility
 - [x] **S1.2**: Build walk-forward backtest engine (756D train / 21D test)
 - [x] **S1.3**: Build classical optimizers: HRP + MVO (max-Sharpe, min-vol) via PyPortfolioOpt
-- [x] **S1.4**: Extend `src/config.py` with fund constants (HMM, LightGBM, ensemble, hedged params)
+- [x] **S1.4**: Extend `src/config.py` with fund research constants (HMM, LightGBM, ensemble)
 
 ---
 

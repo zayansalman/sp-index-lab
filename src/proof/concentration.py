@@ -19,8 +19,24 @@ from src.backtest.metrics import (
 from src.backtest.metrics import (
     compute_tracking_error as _compute_tracking_error,
 )
+from src.config import TOP_50_TICKERS
 
 logger = logging.getLogger(__name__)
+
+
+def _rank_tickers_by_market_cap(columns: pd.Index | list[str]) -> list[str]:
+    """Return available tickers in the configured market-cap order."""
+    available = list(columns)
+    ranked = [ticker for ticker in TOP_50_TICKERS if ticker in available]
+    extras = [ticker for ticker in available if ticker not in TOP_50_TICKERS]
+
+    if extras:
+        logger.warning(
+            "Found %d tickers outside TOP_50_TICKERS; appending after configured ranking.",
+            len(extras),
+        )
+
+    return ranked + extras
 
 
 def compute_market_cap_weights(prices: pd.DataFrame) -> pd.DataFrame:
@@ -62,14 +78,11 @@ def variance_decomposition(
     if top_n_values is None:
         top_n_values = [5, 10, 15, 20, 25, 30, 40, 50]
 
-    # Rank stocks by average return magnitude as proxy for importance
-    avg_abs_return = stock_returns.abs().mean().sort_values(ascending=False)
-    ranked_tickers = avg_abs_return.index.tolist()
-
     # Align data
     common_idx = stock_returns.index.intersection(benchmark_returns.index)
     X_all = stock_returns.loc[common_idx]
     y = benchmark_returns.loc[common_idx].values
+    ranked_tickers = _rank_tickers_by_market_cap(X_all.columns)
 
     results = []
     for n in top_n_values:
@@ -113,9 +126,7 @@ def concentration_curve(
     y = benchmark_returns.loc[common_idx].values
     mask = ~np.isnan(y)
 
-    # Rank by correlation with benchmark
-    correlations = X_all.corrwith(benchmark_returns.loc[common_idx]).abs()
-    ranked = correlations.sort_values(ascending=False).index.tolist()
+    ranked = _rank_tickers_by_market_cap(X_all.columns)
 
     results = []
     prev_r2 = 0.0
@@ -163,9 +174,7 @@ def build_mirror_index(
     """
     returns = stock_prices.pct_change(fill_method=None).dropna(how="all")
 
-    # Rank by average price level (proxy for market cap)
-    avg_price = stock_prices.mean()
-    top_tickers = avg_price.nlargest(top_n).index.tolist()
+    top_tickers = _rank_tickers_by_market_cap(stock_prices.columns)[:top_n]
     top_returns = returns[top_tickers]
 
     if weighting == "equal":
@@ -222,5 +231,4 @@ def compute_performance_metrics(
         benchmark_nav=benchmark_nav,
         risk_free_rate=risk_free_rate,
     )
-
 

@@ -9,9 +9,9 @@ import { motion, type Variants } from "framer-motion";
    ================================================================ */
 
 const stats = [
-  { value: "94.9%", label: "R-squared at 20 stocks" },
-  { value: "15.3%", label: "Mirror Index CAGR" },
-  { value: "+4.0%", label: "Alpha vs S&P 500" },
+  { value: "95.1%", label: "R-squared at 20 stocks" },
+  { value: "29.2%", label: "SP-N Alpha CAGR" },
+  { value: "+13.9%", label: "SP-N Alpha Jensen alpha" },
 ] as const;
 
 const containerVariants: Variants = {

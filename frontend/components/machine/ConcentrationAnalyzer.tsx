@@ -55,7 +55,7 @@ const RSquaredCounter: React.FC<{
   const [value, setValue] = useState(0);
   const rafRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
-  const TARGET = 94.9;
+  const TARGET = 95.1;
   const DURATION = 1200; // ms
 
   useEffect(() => {

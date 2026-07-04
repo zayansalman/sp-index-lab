@@ -68,16 +68,14 @@ function getBestIndex(
 ): number {
   if (values.length === 0) return -1;
 
-  // For "lower is better" metrics like drawdown (negative values),
-  // we need to consider absolute magnitude
   if (!higherIsBetter) {
-    // For metrics where lower is better, the "best" is the one
-    // closest to zero (least negative for drawdowns) or simply smallest
+    const allValuesAreNonPositive = values.every((v) => v <= 0);
     let bestIdx = 0;
-    // For drawdowns (negative values), less negative is better
-    // For volatility/tracking error (positive values), lower is better
     for (let i = 1; i < values.length; i++) {
-      if (values[i] > values[bestIdx]) {
+      const isBetter = allValuesAreNonPositive
+        ? values[i] > values[bestIdx]
+        : values[i] < values[bestIdx];
+      if (isBetter) {
         bestIdx = i;
       }
     }
@@ -164,9 +162,7 @@ interface HoldingsSelectorProps {
 const STRATEGY_LABELS: Record<string, string> = {
   sp20Mirror: "SP-20 Mirror",
   sp20Equal: "SP-20 Equal",
-  spn_alpha_mvo_sharpe: "SP-N Alpha (Aggressive)",
-  spn_alpha_ml_ensemble: "SP-N Alpha (ML Ensemble)",
-  spn_hedged: "SP-N Hedged",
+  spn_alpha: "SP-N Alpha",
 };
 
 const HoldingsSelector: React.FC<HoldingsSelectorProps> = ({ holdings }) => {
@@ -177,20 +173,13 @@ const HoldingsSelector: React.FC<HoldingsSelectorProps> = ({ holdings }) => {
       { key: "sp20Equal", label: STRATEGY_LABELS.sp20Equal, data: holdings.sp20Equal },
     ];
     if (holdings.strategies) {
-      // Show alpha variants in a predictable order
-      const order = [
-        "spn_alpha_ml_ensemble",
-        "spn_alpha_mvo_sharpe",
-        "spn_hedged",
-      ];
-      for (const key of order) {
-        if (holdings.strategies[key]) {
-          opts.push({
-            key,
-            label: STRATEGY_LABELS[key] ?? key,
-            data: holdings.strategies[key],
-          });
-        }
+      const key = "spn_alpha";
+      if (holdings.strategies[key]) {
+        opts.push({
+          key,
+          label: STRATEGY_LABELS[key],
+          data: holdings.strategies[key],
+        });
       }
     }
     return opts;
@@ -297,7 +286,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               </motion.div>
 
               {/* ── Key Metrics ─────────────────────────────── */}
-              <SectionHeader>The Proof</SectionHeader>
+              <SectionHeader>Retained Result</SectionHeader>
 
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                 <MetricCard
@@ -308,11 +297,15 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                 />
                 <MetricCard
                   label="CAGR"
-                  value={data.performanceMetrics.sp20Mirror.cagr}
+                  value={
+                    data.performanceMetrics.spnAlpha?.cagr ??
+                    data.performanceMetrics.sp20Equal.cagr
+                  }
                   format={(n) => formatPercent(n, 1)}
-                  subtitle="SP-20 Mirror"
+                  subtitle="SP-N Alpha"
                   delta={
-                    data.performanceMetrics.sp20Mirror.cagr -
+                    (data.performanceMetrics.spnAlpha?.cagr ??
+                      data.performanceMetrics.sp20Equal.cagr) -
                     data.performanceMetrics.sp500.cagr
                   }
                   deltaFormat={(d) =>
@@ -320,16 +313,22 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                   }
                 />
                 <MetricCard
-                  label="Excess Return"
-                  value={data.performanceMetrics.sp20Mirror.alpha}
-                  format={(n) => formatPercent(n, 1)}
-                  subtitle="Jensen's Alpha"
+                  label="Sharpe Ratio"
+                  value={
+                    data.performanceMetrics.spnAlpha?.sharpe ??
+                    data.performanceMetrics.sp20Equal.sharpe
+                  }
+                  format={(n) => formatRatio(n)}
+                  subtitle="SP-N Alpha"
                 />
                 <MetricCard
-                  label="Tracking Error"
-                  value={data.performanceMetrics.sp20Mirror.trackingError}
-                  format={(n) => formatPercent(n, 2)}
-                  subtitle="vs S&P 500"
+                  label="Alpha"
+                  value={
+                    data.performanceMetrics.spnAlpha?.alpha ??
+                    data.performanceMetrics.sp20Equal.alpha
+                  }
+                  format={(n) => formatPercent(n, 1)}
+                  subtitle="Jensen's Alpha"
                 />
               </div>
 
@@ -388,17 +387,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                       </th>
                       {data.performanceMetrics.spnAlpha && (
                         <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                          SP-N α (ML)
-                        </th>
-                      )}
-                      {data.performanceMetrics.spnAlphaMvoSharpe && (
-                        <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                          SP-N α (Aggressive)
-                        </th>
-                      )}
-                      {data.performanceMetrics.spnHedged && (
-                        <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                          SP-N Hedged
+                          SP-N Alpha
                         </th>
                       )}
                     </tr>
@@ -409,13 +398,9 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                       const mirrorVal = data.performanceMetrics.sp20Mirror[row.key];
                       const equalVal = data.performanceMetrics.sp20Equal[row.key];
                       const alphaVal = data.performanceMetrics.spnAlpha?.[row.key];
-                      const alphaSharpeVal = data.performanceMetrics.spnAlphaMvoSharpe?.[row.key];
-                      const hedgedVal = data.performanceMetrics.spnHedged?.[row.key];
 
                       const values: number[] = [sp500Val, mirrorVal, equalVal];
                       if (alphaVal !== undefined) values.push(alphaVal);
-                      if (alphaSharpeVal !== undefined) values.push(alphaSharpeVal);
-                      if (hedgedVal !== undefined) values.push(hedgedVal);
 
                       const bestIdx = getBestIndex(values, row.higherIsBetter);
 

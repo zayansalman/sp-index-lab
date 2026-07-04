@@ -87,9 +87,7 @@ type SeriesKey =
   | "sp500"
   | "sp20Mirror"
   | "sp20Equal"
-  | "spnAlpha"
-  | "spnAlphaMvoSharpe"
-  | "spnHedged";
+  | "spnAlpha";
 
 interface SeriesConfig {
   key: SeriesKey;
@@ -106,8 +104,6 @@ const SERIES_CONFIG: SeriesConfig[] = [
   { key: "sp20Mirror",        label: CHART_LABELS.sp20Mirror,        color: CHART_COLORS.sp20Mirror,        strokeWidth: 1.5, defaultVisible: true },
   { key: "sp20Equal",         label: CHART_LABELS.sp20Equal,         color: CHART_COLORS.sp20Equal,         strokeWidth: 1.5, defaultVisible: true },
   { key: "spnAlpha",          label: CHART_LABELS.spnAlpha,          color: CHART_COLORS.spnAlpha,          strokeWidth: 2.5, defaultVisible: true },
-  { key: "spnAlphaMvoSharpe", label: CHART_LABELS.spnAlphaMvoSharpe, color: CHART_COLORS.spnAlphaMvoSharpe, strokeWidth: 2.5, defaultVisible: true },
-  { key: "spnHedged",         label: CHART_LABELS.spnHedged,         color: CHART_COLORS.spnHedged,         strokeWidth: 2.5, defaultVisible: true },
 ];
 
 /* ──────────────────────────────────────────────────────────────
@@ -237,7 +233,7 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ bundle }) => {
     <div className="w-full">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h3 className="text-sm font-semibold tracking-wide text-text-secondary">
-          Growth of $1: All Portfolios
+          Growth of $1: Core Portfolios
         </h3>
         <TimeRangeSelector value={range} onChange={setRange} />
       </div>

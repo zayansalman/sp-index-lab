@@ -1,4 +1,4 @@
-"""Tests for Phase 4: beta calculator, cash utility, hedged strategy."""
+"""Tests for beta utilities and archived hedged cash allocation logic."""
 
 from __future__ import annotations
 

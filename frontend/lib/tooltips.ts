@@ -45,11 +45,11 @@ export const tooltips: Record<string, ComponentTooltip> = {
     thinking:
       "If the S&P 500 were truly diversified, removing any 20 stocks should " +
       "leave ~96% of variance unexplained. But we found the opposite \u2014 " +
-      "20 stocks explain 94.9%. The concentration curve shows an 'elbow' " +
+      "20 stocks explain 95.1%. The concentration curve shows an 'elbow' " +
       "around 18\u201320 stocks where marginal R-squared drops below 0.5%, " +
       "proving the rest are effectively noise.",
     keyInsight:
-      "20 stocks explain 94.9% of S&P 500 variance \u2014 the other 480 are noise",
+      "20 stocks explain 95.1% of S&P 500 variance \u2014 the other 480 are noise",
   },
 
   /* ── 3. Mirror Index Builder ──────────────────────────────── */
@@ -67,26 +67,25 @@ export const tooltips: Record<string, ComponentTooltip> = {
       "for today's returns (avoiding look-ahead bias). Daily rebalancing is " +
       "expensive in practice but establishes the theoretical upper bound.",
     keyInsight:
-      "The SP-20 Mirror achieved 15.3% CAGR vs 11.3% for the full S&P 500",
+      "The SP-20 Mirror achieved 19.2% CAGR vs 11.3% for the full S&P 500",
   },
 
   /* ── 4. Alpha Optimizer ───────────────────────────────────── */
   "alpha-optimizer": {
     id: "alpha-optimizer",
     title: "Alpha Optimizer",
-    subtitle: "AI-driven dynamic portfolio optimization",
+    subtitle: "Walk-forward max-Sharpe portfolio optimization",
     description:
-      "Future home of the Hierarchical Risk Parity (HRP) optimizer, LightGBM " +
-      "factor model, and Hidden Markov Model regime detector. Will dynamically " +
-      "select 10\u201330 stocks based on market conditions.",
+      "Runs the retained SP-N Alpha strategy: a walk-forward max-Sharpe " +
+      "optimizer on the configured top-20 universe. It is exported only after " +
+      "beating the Equal baseline on both CAGR and Sharpe.",
     thinking:
-      "The mirror index proves the thesis but uses static weights. Real alpha " +
-      "comes from dynamic selection \u2014 knowing WHEN to concentrate more " +
-      "(low VIX, trending markets) and when to diversify (regime shifts, high " +
-      "volatility). HRP avoids the pitfalls of mean-variance optimization by " +
-      "using hierarchical clustering.",
+      "The mirror and equal portfolios are the clean benchmarks. The public " +
+      "Alpha slot is reserved for the one optimizer that adds clear value in " +
+      "walk-forward testing; experimental ML and hedged variants stay out of " +
+      "the product surface until they earn their place.",
     keyInsight:
-      "Dynamic N: 10\u201330 stocks adapting to market regime for maximum risk-adjusted alpha",
+      "SP-N Alpha: 29.2% CAGR, Sharpe 1.17, Jensen alpha +13.9%",
   },
 
   /* ── 5. Performance Monitor ───────────────────────────────── */
@@ -104,7 +103,7 @@ export const tooltips: Record<string, ComponentTooltip> = {
       "penalizes only downside volatility. Tracking error shows how closely " +
       "we mirror the benchmark. Together, they paint the complete picture.",
     keyInsight:
-      "Sharpe 0.68 (vs 0.54), Max Drawdown similar, Alpha +4.0% \u2014 genuine risk-adjusted outperformance",
+      "SP-N Alpha leads the retained set: 29.2% CAGR, Sharpe 1.17, max drawdown -29.6%",
   },
 } as const;
 

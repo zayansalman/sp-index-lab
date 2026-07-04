@@ -1,6 +1,6 @@
-"""Run walk-forward backtest for SP-N Alpha strategies.
+"""Run walk-forward backtest for the public SP-N Alpha strategy.
 
-Compares HRP, MVO max-Sharpe, and MVO min-vol against SP-20 Mirror,
+Compares the retained MVO max-Sharpe strategy against SP-20 Mirror,
 SP-20 Equal, and the S&P 500 benchmark.
 
 Usage:
@@ -26,9 +26,7 @@ from src.backtest.metrics import compute_performance_metrics
 from src.config import TEST_WINDOW_DAYS, TRAIN_WINDOW_DAYS
 from src.data.storage import load_parquet, save_parquet
 from src.proof.concentration import build_mirror_index
-from src.strategies.alpha import make_alpha_weights_fn, make_ml_alpha_weights_fn
-from src.strategies.hedged import make_hedged_weights_fn
-from src.utils.helpers import add_cash_column
+from src.strategies.alpha import make_alpha_weights_fn
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -66,7 +64,7 @@ def _load_data() -> tuple[pd.DataFrame, pd.Series]:
 
 
 def main() -> int:
-    """Run all alpha backtests and print comparison."""
+    """Run the retained alpha backtest and print comparison."""
     logger.info("=" * 70)
     logger.info("SP-N Alpha Walk-Forward Backtest")
     logger.info("=" * 70)
@@ -93,62 +91,20 @@ def main() -> int:
     )
 
     # ------------------------------------------------------------------
-    # Walk-forward backtests for classical optimizers.
-    # NOTE: MVO Min-Vol and HRP dropped — both fail to clearly beat the
-    # SP-20 Equal baseline on CAGR, so the complexity isn't earning its
-    # keep relative to simple equal-weighting.
+    # Walk-forward backtest for the one public optimized strategy.
+    # Archived research variants are intentionally not exported because
+    # they do not beat the SP-20 Equal baseline cleanly enough.
     # ------------------------------------------------------------------
-    optimizers = ["mvo_sharpe"]
-    alpha_navs: dict[str, pd.Series] = {}
-
-    for opt_name in optimizers:
-        logger.info("Running walk-forward backtest: %s ...", opt_name)
-        weights_fn = make_alpha_weights_fn(optimizer=opt_name)
-
-        nav = walk_forward_backtest(
-            stock_prices,
-            benchmark_prices=benchmark,
-            weights_fn=weights_fn,
-            train_days=TRAIN_WINDOW_DAYS,
-            test_days=TEST_WINDOW_DAYS,
-        )
-        alpha_navs[opt_name] = nav
-        logger.info("  %s backtest complete — %d out-of-sample days.", opt_name, len(nav))
-
-    # ------------------------------------------------------------------
-    # Walk-forward backtest for ML ensemble (LightGBM + HMM)
-    # ------------------------------------------------------------------
-    logger.info("Running walk-forward backtest: ml_ensemble ...")
-    market_indicators = load_parquet("market_indicators")
-    ml_weights_fn = make_ml_alpha_weights_fn(market_indicators)
-
-    ml_nav = walk_forward_backtest(
+    logger.info("Running walk-forward backtest: SP-N Alpha (mvo_sharpe) ...")
+    weights_fn = make_alpha_weights_fn(optimizer="mvo_sharpe")
+    alpha_nav = walk_forward_backtest(
         stock_prices,
         benchmark_prices=benchmark,
-        weights_fn=ml_weights_fn,
+        weights_fn=weights_fn,
         train_days=TRAIN_WINDOW_DAYS,
         test_days=TEST_WINDOW_DAYS,
     )
-    alpha_navs["ml_ensemble"] = ml_nav
-    logger.info("  ml_ensemble backtest complete — %d out-of-sample days.", len(ml_nav))
-
-    # ------------------------------------------------------------------
-    # Walk-forward backtest for SP-N Hedged
-    # ------------------------------------------------------------------
-    logger.info("Running walk-forward backtest: hedged ...")
-    prices_with_cash = add_cash_column(stock_prices)
-    hedged_weights_fn = make_hedged_weights_fn(
-        market_indicators, benchmark_prices=benchmark,
-    )
-
-    hedged_nav = walk_forward_backtest(
-        prices_with_cash,
-        benchmark_prices=benchmark,
-        weights_fn=hedged_weights_fn,
-        train_days=TRAIN_WINDOW_DAYS,
-        test_days=TEST_WINDOW_DAYS,
-    )
-    logger.info("  hedged backtest complete — %d out-of-sample days.", len(hedged_nav))
+    logger.info("  SP-N Alpha backtest complete — %d out-of-sample days.", len(alpha_nav))
 
     # ------------------------------------------------------------------
     # Compute metrics for all
@@ -158,11 +114,7 @@ def main() -> int:
     all_metrics["SP-20 Mirror"] = compute_performance_metrics(mirror_nav, benchmark_nav)
     all_metrics["SP-20 Equal"] = compute_performance_metrics(equal_nav, benchmark_nav)
 
-    for opt_name, nav in alpha_navs.items():
-        label = f"SP-N Alpha ({opt_name})"
-        all_metrics[label] = compute_performance_metrics(nav, benchmark_nav)
-
-    all_metrics["SP-N Hedged"] = compute_performance_metrics(hedged_nav, benchmark_nav)
+    all_metrics["SP-N Alpha"] = compute_performance_metrics(alpha_nav, benchmark_nav)
 
     # ------------------------------------------------------------------
     # Print comparison table
@@ -187,24 +139,17 @@ def main() -> int:
     logger.info("=" * 70)
 
     # ------------------------------------------------------------------
-    # Save all alpha NAVs individually for the frontend
+    # Save canonical alpha NAV for the frontend.
     # ------------------------------------------------------------------
-    for opt_name, nav in alpha_navs.items():
-        nav_df = pd.DataFrame({
-            "date": nav.index,
-            "nav": nav.values,
-        })
-        save_parquet(nav_df, f"alpha_nav_{opt_name}")
-
-    # Canonical "SP-N Alpha" is the ML ensemble (matches the docs)
-    ml_nav_df = pd.DataFrame({
-        "date": alpha_navs["ml_ensemble"].index,
-        "nav": alpha_navs["ml_ensemble"].values,
+    alpha_nav_df = pd.DataFrame({
+        "date": alpha_nav.index,
+        "nav": alpha_nav.values,
     })
-    save_parquet(ml_nav_df, "alpha_nav")
+    save_parquet(alpha_nav_df, "alpha_nav")
+    save_parquet(alpha_nav_df, "alpha_nav_mvo_sharpe")
 
     # ------------------------------------------------------------------
-    # Save final weights (holdings) for each strategy variant
+    # Save final weights (holdings) for the public alpha strategy.
     # ------------------------------------------------------------------
     # Use the most recent training window to compute final weights for each strategy
     final_train = stock_prices.iloc[-TRAIN_WINDOW_DAYS:]
@@ -212,37 +157,11 @@ def main() -> int:
 
     holdings_records: list[dict] = []
 
-    # Classical variants (HRP and Min-Vol dropped — both fail to beat Equal)
-    for opt_name in ["mvo_sharpe"]:
-        fn = make_alpha_weights_fn(optimizer=opt_name)
-        w = fn(final_train, final_bench)
-        for ticker, weight in w.items():
-            if weight > 0:
-                holdings_records.append({
-                    "strategy": f"spn_alpha_{opt_name}",
-                    "ticker": ticker,
-                    "weight": float(weight),
-                })
-
-    # ML ensemble variant
-    ml_fn = make_ml_alpha_weights_fn(market_indicators)
-    ml_w = ml_fn(final_train, final_bench)
-    for ticker, weight in ml_w.items():
+    final_weights = weights_fn(final_train, final_bench)
+    for ticker, weight in final_weights.items():
         if weight > 0:
             holdings_records.append({
-                "strategy": "spn_alpha_ml_ensemble",
-                "ticker": ticker,
-                "weight": float(weight),
-            })
-
-    # Hedged variant (uses cash column)
-    hedged_fn = make_hedged_weights_fn(market_indicators, benchmark_prices=benchmark)
-    final_train_with_cash = add_cash_column(final_train)
-    hedged_w = hedged_fn(final_train_with_cash, final_bench)
-    for ticker, weight in hedged_w.items():
-        if weight > 0:
-            holdings_records.append({
-                "strategy": "spn_hedged",
+                "strategy": "spn_alpha",
                 "ticker": ticker,
                 "weight": float(weight),
             })
@@ -250,16 +169,7 @@ def main() -> int:
     holdings_df = pd.DataFrame(holdings_records)
     save_parquet(holdings_df, "strategy_holdings")
 
-    # ------------------------------------------------------------------
-    # Save hedged NAV
-    # ------------------------------------------------------------------
-    hedged_df = pd.DataFrame({
-        "date": hedged_nav.index,
-        "nav": hedged_nav.values,
-    })
-    save_parquet(hedged_df, "hedged_nav")
-
-    logger.info("Done. Saved alpha variants, hedged NAV, and strategy holdings.")
+    logger.info("Done. Saved SP-N Alpha NAV and strategy holdings.")
     return 0
 
 

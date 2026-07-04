@@ -262,8 +262,6 @@ def export_performance_nav(
     mirror_nav: pd.Series,
     equal_nav: pd.Series,
     alpha_nav: pd.Series | None = None,
-    hedged_nav: pd.Series | None = None,
-    extra_navs: dict[str, pd.Series] | None = None,
 ) -> Path:
     """Generate performance_nav.json with weekly and recent daily NAV series."""
     logger.info("Building performance NAV data...")
@@ -276,12 +274,6 @@ def export_performance_nav(
     }
     if alpha_nav is not None:
         nav_dict["spn_alpha"] = alpha_nav
-    if extra_navs:
-        for key, series in extra_navs.items():
-            if series is not None:
-                nav_dict[key] = series
-    if hedged_nav is not None:
-        nav_dict["spn_hedged"] = hedged_nav
 
     all_navs = pd.DataFrame(nav_dict).dropna(how="all")
     nav_columns = list(nav_dict.keys())
@@ -386,8 +378,6 @@ def export_performance_metrics(
     equal_nav: pd.Series,
     benchmark_nav: pd.Series,
     alpha_nav: pd.Series | None = None,
-    hedged_nav: pd.Series | None = None,
-    extra_navs: dict[str, pd.Series] | None = None,
 ) -> Path:
     """Generate performance_metrics.json for all indices."""
     logger.info("Computing performance metrics...")
@@ -416,21 +406,6 @@ def export_performance_metrics(
         alpha_extra = _compute_extra_metrics(alpha_nav, benchmark_nav)
         alpha_metrics.update(alpha_extra)
         payload["spn_alpha"] = _clean_dict(alpha_metrics)
-
-    if extra_navs:
-        for key, series in extra_navs.items():
-            if series is None or series.empty:
-                continue
-            extra_metrics = compute_performance_metrics(series, benchmark_nav)
-            extra_extra = _compute_extra_metrics(series, benchmark_nav)
-            extra_metrics.update(extra_extra)
-            payload[key] = _clean_dict(extra_metrics)
-
-    if hedged_nav is not None:
-        hedged_metrics = compute_performance_metrics(hedged_nav, benchmark_nav)
-        hedged_extra = _compute_extra_metrics(hedged_nav, benchmark_nav)
-        hedged_metrics.update(hedged_extra)
-        payload["spn_hedged"] = _clean_dict(hedged_metrics)
 
     return _write_json(payload, "performance_metrics.json")
 
@@ -497,8 +472,6 @@ def export_drawdowns(
     mirror_nav: pd.Series,
     equal_nav: pd.Series,
     alpha_nav: pd.Series | None = None,
-    hedged_nav: pd.Series | None = None,
-    extra_navs: dict[str, pd.Series] | None = None,
 ) -> Path:
     """Generate drawdowns.json with weekly-downsampled drawdown series."""
     logger.info("Computing drawdown series...")
@@ -511,12 +484,6 @@ def export_drawdowns(
     }
     if alpha_nav is not None:
         dd_dict["spn_alpha"] = alpha_nav / alpha_nav.cummax() - 1
-    if extra_navs:
-        for key, series in extra_navs.items():
-            if series is not None and not series.empty:
-                dd_dict[key] = series / series.cummax() - 1
-    if hedged_nav is not None:
-        dd_dict["spn_hedged"] = hedged_nav / hedged_nav.cummax() - 1
 
     dd_columns = list(dd_dict.keys())
 
@@ -574,11 +541,11 @@ _SECTORS: dict[str, str] = {
 
 
 def export_strategy_holdings(stock_prices: pd.DataFrame) -> Path:
-    """Generate strategy_holdings.json with per-strategy portfolio weights.
+    """Generate strategy_holdings.json with retained strategy portfolio weights.
 
-    Each strategy (SP-N Alpha variants + SP-N Hedged) gets its own holdings
-    list based on the final walk-forward training window's weights.  Falls
-    back to market-cap weights if strategy_holdings.parquet is missing.
+    The public site intentionally exposes only SP-N Alpha alongside the
+    Mirror and Equal baselines. Older parquet files may still contain
+    archived variants; those are ignored here.
     """
     logger.info("Computing strategy holdings...")
 
@@ -594,8 +561,10 @@ def export_strategy_holdings(stock_prices: pd.DataFrame) -> Path:
 
         last_prices = stock_prices.iloc[-1]
 
-        # Group by strategy
         for strategy, group in raw.groupby("strategy"):
+            if strategy != "spn_alpha":
+                continue
+
             sorted_group = group.sort_values("weight", ascending=False)
             holdings = []
             for rank, row in enumerate(sorted_group.itertuples(), start=1):
@@ -610,7 +579,7 @@ def export_strategy_holdings(stock_prices: pd.DataFrame) -> Path:
                     ),
                     "rank": rank,
                 })
-            payload["strategies"][str(strategy)] = holdings
+            payload["strategies"]["spn_alpha"] = holdings
 
         logger.info("Exported holdings for %d strategies", len(payload["strategies"]))
 
@@ -723,11 +692,15 @@ def main() -> int:
         name="sp20_equal",
     )
 
-    # Load SP-N Alpha NAV if available (pre-computed by run_alpha_backtest.py)
+    # Load SP-N Alpha NAV if available (pre-computed by run_alpha_backtest.py).
+    # The retained public Alpha is the MVO max-Sharpe strategy because it
+    # clears the SP-20 Equal baseline on both CAGR and Sharpe.
     global _ALPHA_NAV_AVAILABLE
     alpha_nav = None
     try:
-        alpha_df = load_parquet("alpha_nav")
+        alpha_df = load_parquet("alpha_nav_mvo_sharpe")
+        if alpha_df.empty:
+            alpha_df = load_parquet("alpha_nav")
         if not alpha_df.empty:
             alpha_df["date"] = pd.to_datetime(alpha_df["date"])
             alpha_nav = pd.Series(
@@ -739,40 +712,6 @@ def main() -> int:
             logger.info("Loaded SP-N Alpha NAV (%d days)", len(alpha_nav))
     except Exception:
         logger.info("No SP-N Alpha NAV found — run scripts/run_alpha_backtest.py first")
-
-    # Load SP-N Hedged NAV if available
-    hedged_nav = None
-    try:
-        hedged_df = load_parquet("hedged_nav")
-        if not hedged_df.empty:
-            hedged_df["date"] = pd.to_datetime(hedged_df["date"])
-            hedged_nav = pd.Series(
-                hedged_df["nav"].values,
-                index=hedged_df["date"],
-                name="spn_hedged",
-            )
-            logger.info("Loaded SP-N Hedged NAV (%d days)", len(hedged_nav))
-    except Exception:
-        logger.info("No SP-N Hedged NAV found — run scripts/run_alpha_backtest.py first")
-
-    # Load all SP-N Alpha variants (HRP, MVO Sharpe, MVO Min-Vol)
-    # ml_ensemble is exposed as the canonical "spn_alpha"
-    extra_navs: dict[str, pd.Series] = {}
-    # HRP and Min-Vol variants dropped (neither clearly beats Equal baseline)
-    for variant in ("mvo_sharpe",):
-        key = f"spn_alpha_{variant}"
-        try:
-            variant_df = load_parquet(f"alpha_nav_{variant}")
-            if not variant_df.empty:
-                variant_df["date"] = pd.to_datetime(variant_df["date"])
-                extra_navs[key] = pd.Series(
-                    variant_df["nav"].values,
-                    index=variant_df["date"],
-                    name=key,
-                )
-                logger.info("Loaded %s NAV (%d days)", key, len(extra_navs[key]))
-        except Exception:
-            logger.info("No %s NAV found", key)
 
     # ------------------------------------------------------------------
     # 3. Export each JSON file
@@ -791,23 +730,20 @@ def main() -> int:
             stock_prices, benchmark,
             sp20_mirror, sp20_equal,
             benchmark_nav, mirror_nav, equal_nav,
-            alpha_nav=alpha_nav, hedged_nav=hedged_nav,
-            extra_navs=extra_navs,
+            alpha_nav=alpha_nav,
         )
     )
     written_files.append(
         export_performance_metrics(
             mirror_nav, equal_nav, benchmark_nav,
-            alpha_nav=alpha_nav, hedged_nav=hedged_nav,
-            extra_navs=extra_navs,
+            alpha_nav=alpha_nav,
         )
     )
     written_files.append(export_holdings(stock_prices))
     written_files.append(
         export_drawdowns(
             benchmark_nav, mirror_nav, equal_nav,
-            alpha_nav=alpha_nav, hedged_nav=hedged_nav,
-            extra_navs=extra_navs,
+            alpha_nav=alpha_nav,
         )
     )
     written_files.append(export_strategy_holdings(stock_prices))

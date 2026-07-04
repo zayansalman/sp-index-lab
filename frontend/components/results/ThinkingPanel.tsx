@@ -31,7 +31,7 @@ const DEFAULT_SECTIONS: ThinkingSection[] = [
     title: "Why 20 Stocks?",
     content:
       "The S&P 500 is marketed as diversification across 500 companies, but our OLS regression analysis reveals " +
-      "that just 20 stocks explain 94.9% of the index's daily variance. The concentration curve shows a clear " +
+      "that just 20 stocks explain 95.1% of the index's daily variance. The concentration curve shows a clear " +
       "'elbow' at around 18-20 stocks, where the marginal R-squared contribution of each additional stock drops " +
       "below 0.5%. Beyond that point, you're adding complexity without meaningful diversification. The remaining " +
       "480 stocks collectively contribute less than 5% of the index's movement -- they're effectively noise. " +
@@ -39,26 +39,20 @@ const DEFAULT_SECTIONS: ThinkingSection[] = [
       "companies dominate by design.",
   },
   {
-    title: "Why This Beats the S&P 500",
+    title: "Why The Baselines Stay",
     content:
-      "The SP-20 Mirror achieves a 15.3% CAGR vs the S&P 500's 11.3% -- a +4.0% alpha -- with a comparable " +
-      "risk profile (Sharpe of 0.68 vs 0.54). The outperformance comes from two sources: (1) concentration " +
-      "amplifies the returns of the stocks that actually drive the index, removing the 'dead weight' of 480 " +
-      "low-impact holdings; and (2) the equal-weighted variant further reduces mega-cap concentration risk by " +
-      "giving each of the 20 stocks an equal 5% allocation, capturing more of the broader large-cap premium. " +
-      "The key insight is that you're not taking more risk -- the tracking error is modest because these 20 " +
-      "stocks ARE the index for all practical purposes.",
+      "The SP-20 Mirror and SP-20 Equal portfolios are the two honest baselines. Mirror keeps the cap-weighted " +
+      "shape of the index driver set and reaches a 19.2% CAGR vs the S&P 500's 11.3%. Equal gives each of the " +
+      "20 names a 5% allocation and reaches a 25.4% CAGR with a 1.16 Sharpe. They stay because they make the " +
+      "concentration thesis testable without hiding behind optimizer complexity.",
   },
   {
-    title: "The Path to Further Alpha",
+    title: "Why One Alpha",
     content:
-      "The static mirror index proves the thesis, but real alpha comes from dynamic adaptation. Our planned " +
-      "optimizer uses three layers: (1) Hierarchical Risk Parity (HRP) for robust weight allocation that avoids " +
-      "the instability of mean-variance optimization; (2) a LightGBM factor model that scores stocks on momentum, " +
-      "value, quality, and volatility factors to identify the optimal N stocks (10-30) for current conditions; " +
-      "and (3) a Hidden Markov Model regime detector that shifts between concentrated (trending markets) and " +
-      "diversified (volatile/uncertain markets) postures. The goal: dynamically select both WHICH stocks and " +
-      "HOW MANY to hold, adapting to market conditions in real time.",
+      "The public Alpha slot now belongs to the single strategy that earns it in walk-forward testing: max-Sharpe " +
+      "optimization over the configured top-20 universe. It reaches a 29.2% CAGR, 1.17 Sharpe, and +13.9% Jensen " +
+      "alpha. The weaker ML and hedged variants are deliberately excluded from the app and data export until they " +
+      "can beat the retained strategy and the Equal baseline on the metrics that matter.",
   },
 ];
 
