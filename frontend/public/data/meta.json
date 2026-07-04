@@ -91,9 +91,9 @@
     "equal_alpha": 0.028128,
     "net_of_costs": true,
     "alpha_cagr": 0.208695,
-    "alpha_sharpe": 0.809432,
+    "alpha_sharpe": 0.809433,
     "alpha_jensen": 0.052288,
     "alpha_max_drawdown": -0.309778
   },
-  "generated_at": "2026-07-04T03:40:10.555791+00:00"
+  "generated_at": "2026-07-04T03:46:49.380523+00:00"
 }

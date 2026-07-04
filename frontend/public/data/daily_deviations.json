@@ -75,7 +75,7 @@
     {
       "bin_start": -1.0938,
       "bin_end": -0.9921,
-      "bin_center": -1.043,
+      "bin_center": -1.0429,
       "count": 19
     },
     {
@@ -164,12 +164,12 @@
     },
     {
       "bin_start": 0.4322,
-      "bin_end": 0.5339,
+      "bin_end": 0.534,
       "bin_center": 0.4831,
       "count": 130
     },
     {
-      "bin_start": 0.5339,
+      "bin_start": 0.534,
       "bin_end": 0.6357,
       "bin_center": 0.5848,
       "count": 80
@@ -261,7 +261,7 @@
     {
       "bin_start": 2.06,
       "bin_end": 2.1617,
-      "bin_center": 2.1108,
+      "bin_center": 2.1109,
       "count": 2
     },
     {

@@ -3,8 +3,8 @@
     {
       "n_stocks": 1,
       "ticker_added": "MSFT",
-      "r_squared": 0.165075,
-      "marginal_r_squared": 0.165075
+      "r_squared": 0.165074,
+      "marginal_r_squared": 0.165074
     },
     {
       "n_stocks": 2,
@@ -22,7 +22,7 @@
       "n_stocks": 4,
       "ticker_added": "AMZN",
       "r_squared": 0.668301,
-      "marginal_r_squared": 0.087791
+      "marginal_r_squared": 0.087792
     },
     {
       "n_stocks": 5,
@@ -81,7 +81,7 @@
     {
       "n_stocks": 14,
       "ticker_added": "MA",
-      "r_squared": 0.872206,
+      "r_squared": 0.872207,
       "marginal_r_squared": 0.000553
     },
     {
@@ -111,13 +111,13 @@
     {
       "n_stocks": 19,
       "ticker_added": "PG",
-      "r_squared": 0.882594,
+      "r_squared": 0.882595,
       "marginal_r_squared": 0.006761
     },
     {
       "n_stocks": 20,
       "ticker_added": "UNH",
-      "r_squared": 0.886584,
+      "r_squared": 0.886585,
       "marginal_r_squared": 0.00399
     },
     {
@@ -207,7 +207,7 @@
     {
       "n_stocks": 35,
       "ticker_added": "MCD",
-      "r_squared": 0.930184,
+      "r_squared": 0.930185,
       "marginal_r_squared": 0.000108
     },
     {
@@ -286,7 +286,7 @@
       "n_stocks": 48,
       "ticker_added": "DIS",
       "r_squared": 0.954845,
-      "marginal_r_squared": 0.001889
+      "marginal_r_squared": 0.001888
     },
     {
       "n_stocks": 49,
@@ -302,7 +302,7 @@
     }
   ],
   "r_squared_at_20": 0.955859,
-  "r_squared_at_20_latest": 0.886584,
+  "r_squared_at_20_latest": 0.886585,
   "r_squared_windows": [
     {
       "window_start": "2014-01-03",
@@ -342,7 +342,7 @@
     {
       "window_start": "2014-08-05",
       "window_end": "2015-08-04",
-      "r_squared_at_20": 0.949594
+      "r_squared_at_20": 0.949595
     },
     {
       "window_start": "2014-09-04",
@@ -437,17 +437,17 @@
     {
       "window_start": "2016-03-07",
       "window_end": "2017-03-06",
-      "r_squared_at_20": 0.933653
+      "r_squared_at_20": 0.933654
     },
     {
       "window_start": "2016-04-06",
       "window_end": "2017-04-04",
-      "r_squared_at_20": 0.935115
+      "r_squared_at_20": 0.935116
     },
     {
       "window_start": "2016-05-05",
       "window_end": "2017-05-04",
-      "r_squared_at_20": 0.935971
+      "r_squared_at_20": 0.935972
     },
     {
       "window_start": "2016-06-06",
@@ -457,12 +457,12 @@
     {
       "window_start": "2016-07-06",
       "window_end": "2017-07-05",
-      "r_squared_at_20": 0.91513
+      "r_squared_at_20": 0.915131
     },
     {
       "window_start": "2016-08-04",
       "window_end": "2017-08-03",
-      "r_squared_at_20": 0.908991
+      "r_squared_at_20": 0.908992
     },
     {
       "window_start": "2016-09-02",
@@ -472,7 +472,7 @@
     {
       "window_start": "2016-10-04",
       "window_end": "2017-10-03",
-      "r_squared_at_20": 0.894917
+      "r_squared_at_20": 0.894918
     },
     {
       "window_start": "2016-11-02",
@@ -487,7 +487,7 @@
     {
       "window_start": "2017-01-04",
       "window_end": "2018-01-03",
-      "r_squared_at_20": 0.881466
+      "r_squared_at_20": 0.881465
     },
     {
       "window_start": "2017-02-03",
@@ -557,12 +557,12 @@
     {
       "window_start": "2018-03-07",
       "window_end": "2019-03-07",
-      "r_squared_at_20": 0.97261
+      "r_squared_at_20": 0.972611
     },
     {
       "window_start": "2018-04-06",
       "window_end": "2019-04-05",
-      "r_squared_at_20": 0.96849
+      "r_squared_at_20": 0.968491
     },
     {
       "window_start": "2018-05-07",
@@ -582,7 +582,7 @@
     {
       "window_start": "2018-08-06",
       "window_end": "2019-08-06",
-      "r_squared_at_20": 0.95952
+      "r_squared_at_20": 0.959521
     },
     {
       "window_start": "2018-09-05",
@@ -682,7 +682,7 @@
     {
       "window_start": "2020-04-07",
       "window_end": "2021-04-07",
-      "r_squared_at_20": 0.960472
+      "r_squared_at_20": 0.960473
     },
     {
       "window_start": "2020-05-07",
@@ -702,7 +702,7 @@
     {
       "window_start": "2020-08-06",
       "window_end": "2021-08-05",
-      "r_squared_at_20": 0.950931
+      "r_squared_at_20": 0.950932
     },
     {
       "window_start": "2020-09-04",
@@ -712,7 +712,7 @@
     {
       "window_start": "2020-10-06",
       "window_end": "2021-10-05",
-      "r_squared_at_20": 0.945834
+      "r_squared_at_20": 0.945835
     },
     {
       "window_start": "2020-11-04",
@@ -857,7 +857,7 @@
     {
       "window_start": "2023-03-09",
       "window_end": "2024-03-08",
-      "r_squared_at_20": 0.927842
+      "r_squared_at_20": 0.927841
     },
     {
       "window_start": "2023-04-10",
@@ -992,7 +992,7 @@
     {
       "window_start": "2025-06-12",
       "window_end": "2026-06-12",
-      "r_squared_at_20": 0.886584
+      "r_squared_at_20": 0.886585
     }
   ],
   "method": "pit_rolling_ols_252d_step21d"

@@ -4,7 +4,7 @@
       "n_stocks": 5,
       "r_squared": 0.799962,
       "r_squared_min": 0.451935,
-      "r_squared_max": 0.947217
+      "r_squared_max": 0.947218
     },
     {
       "n_stocks": 10,
@@ -21,7 +21,7 @@
     {
       "n_stocks": 20,
       "r_squared": 0.955859,
-      "r_squared_min": 0.881466,
+      "r_squared_min": 0.881465,
       "r_squared_max": 0.98863
     },
     {
