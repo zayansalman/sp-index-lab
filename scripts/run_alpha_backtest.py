@@ -21,11 +21,15 @@ import pandas as pd
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+import json
+
 from src.backtest.engine import walk_forward_backtest
 from src.backtest.metrics import compute_performance_metrics
 from src.config import (
     BENCHMARK_TICKER,
+    DATA_DIR,
     INCEPTION_DATE,
+    SPN_MAX_STOCKS,
     TEST_WINDOW_DAYS,
     TRADING_DAYS_PER_YEAR,
     TRAIN_WINDOW_DAYS,
@@ -33,7 +37,10 @@ from src.config import (
 from src.data.storage import load_parquet, save_parquet
 from src.data.universe import make_universe_fn
 from src.proof.concentration import build_mirror_index
-from src.strategies.alpha import make_alpha_weights_fn
+from src.strategies.dynamic_alpha import strategy_from_config
+from src.utils.helpers import add_cash_column
+
+RACE_RESULT_PATH = DATA_DIR / "research" / "race_result.json"
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -116,28 +123,32 @@ def main() -> int:
     )
 
     # ------------------------------------------------------------------
-    # Walk-forward backtest for the one public optimized strategy.
-    # Archived research variants are intentionally not exported because
-    # they do not beat the SP-20 Equal baseline cleanly enough.
+    # Walk-forward backtest for the retained SP-N Alpha: the self-adjusting
+    # model selected on the development window (data/research/race_result.json
+    # — equal-weight × concentration-elbow dynamic-N). It selects from the
+    # cap-ranked top-SPN_MAX pool, so it needs its own wider universe_fn.
     # ------------------------------------------------------------------
-    logger.info("Running walk-forward backtest: SP-N Alpha (mvo_sharpe) ...")
+    logger.info("Running walk-forward backtest: SP-N Alpha (self-adjusting) ...")
     market_indicators = load_parquet("market_indicators")
     if market_indicators.empty:
-        logger.warning(
-            "No market_indicators parquet — max-Sharpe will use the default "
-            "risk-free rate instead of the trailing T-bill rate."
-        )
+        logger.warning("No market_indicators parquet — regime/rf features fall back.")
         market_indicators = None
-    weights_fn = make_alpha_weights_fn(
-        optimizer="mvo_sharpe", market_indicators=market_indicators
+
+    race_config = json.loads(RACE_RESULT_PATH.read_text())
+    logger.info(
+        "  Frozen spec: %s",
+        {k: race_config[k] for k in ("engine", "n_policy", "overlay")},
     )
+    weights_fn, uses_cash = strategy_from_config(race_config, market_indicators)
+    alpha_panel = add_cash_column(stock_prices) if uses_cash else stock_prices
+    alpha_universe_fn = make_universe_fn(SPN_MAX_STOCKS)
     result = walk_forward_backtest(
-        stock_prices,
+        alpha_panel,
         benchmark_prices=benchmark,
         weights_fn=weights_fn,
         train_days=TRAIN_WINDOW_DAYS,
         test_days=TEST_WINDOW_DAYS,
-        universe_fn=universe_fn,
+        universe_fn=alpha_universe_fn,
     )
     alpha_nav = result.nav
     ann_turnover = result.turnover.sum() / (len(alpha_nav) / TRADING_DAYS_PER_YEAR)
@@ -200,11 +211,14 @@ def main() -> int:
     save_parquet(alpha_nav_df, "alpha_nav")
 
     # ------------------------------------------------------------------
-    # Save final weights (holdings) for the public alpha strategy,
-    # restricted to the point-in-time universe at the latest date.
+    # Save final weights (holdings) for the retained alpha strategy, using
+    # its own point-in-time top-SPN_MAX universe at the latest date. These
+    # are the live target weights the EMS would rebalance toward.
     # ------------------------------------------------------------------
-    final_universe = universe_fn(stock_prices.index[-1])
-    final_train = stock_prices[final_universe].iloc[-TRAIN_WINDOW_DAYS:]
+    final_universe = alpha_universe_fn(alpha_panel.index[-1])
+    final_train = alpha_panel[
+        [c for c in final_universe if c in alpha_panel.columns]
+    ].iloc[-TRAIN_WINDOW_DAYS:]
     final_bench = benchmark.iloc[-TRAIN_WINDOW_DAYS:]
 
     holdings_records: list[dict] = []
@@ -214,7 +228,7 @@ def main() -> int:
         if weight > 0:
             holdings_records.append({
                 "strategy": "spn_alpha",
-                "ticker": ticker,
+                "ticker": str(ticker),
                 "weight": float(weight),
             })
 

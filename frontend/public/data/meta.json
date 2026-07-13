@@ -56,17 +56,17 @@
     "CAT",
     "ABBV",
     "BAC",
-    "NFLX",
     "CVX",
+    "NFLX",
     "KO",
-    "PG",
     "UNH",
+    "PG",
     "GE",
     "PLTR",
     "HD",
     "MS",
-    "GS",
     "MRK",
+    "GS",
     "PM",
     "TXN",
     "RTX",
@@ -83,17 +83,66 @@
     "NEE"
   ],
   "headline": {
-    "r_squared_at_20": 0.955859,
+    "r_squared_at_20": 0.953177,
     "sp500_cagr": 0.139468,
-    "mirror_cagr": 0.183585,
-    "mirror_alpha": 0.033042,
-    "equal_cagr": 0.169486,
-    "equal_alpha": 0.028128,
+    "mirror_cagr": 0.171101,
+    "mirror_alpha": 0.023088,
+    "equal_cagr": 0.157964,
+    "equal_alpha": 0.019941,
     "net_of_costs": true,
-    "alpha_cagr": 0.208695,
-    "alpha_sharpe": 0.809433,
-    "alpha_jensen": 0.052288,
-    "alpha_max_drawdown": -0.309778
+    "alpha_cagr": 0.202737,
+    "alpha_sharpe": 0.775291,
+    "alpha_jensen": 0.040621,
+    "alpha_max_drawdown": -0.315878
   },
-  "generated_at": "2026-07-04T03:46:49.380523+00:00"
+  "research": {
+    "dev_winner_spec": {
+      "engine": "equal",
+      "n_policy": "elbow",
+      "overlay": "none"
+    },
+    "dev_trial_count": 14,
+    "dev_end": "2023-12-31",
+    "holdout": {
+      "window": [
+        "2024-01-02",
+        "2026-06-11"
+      ],
+      "passed": false,
+      "checks": {
+        "beat_sp500_cagr_and_sharpe": true,
+        "beat_equal_cagr_and_sharpe": false,
+        "max_drawdown_within_multiple": false
+      },
+      "deflated_sharpe": 0.96201,
+      "score": {
+        "name": "spn_alpha_holdout",
+        "window_start": "2024-01-02",
+        "window_end": "2026-06-11",
+        "n_days": 613,
+        "cagr": 0.321381,
+        "ann_vol": 0.215434,
+        "sharpe": 1.306115,
+        "sortino": 1.834148,
+        "max_drawdown": -0.250628,
+        "ann_turnover": 1.98555,
+        "cost_drag_bps": 33.809502,
+        "excess_cagr": {
+          "sp500": 0.104881,
+          "sp20_equal": 0.036788
+        },
+        "excess_t_stat": {
+          "sp500": 1.343601,
+          "sp20_equal": 0.709966
+        },
+        "beats": {
+          "sp500": true,
+          "sp20_equal": false
+        }
+      },
+      "index_max_drawdown": -0.187471
+    },
+    "retained_result": null
+  },
+  "generated_at": "2026-07-13T13:15:38.758444+00:00"
 }

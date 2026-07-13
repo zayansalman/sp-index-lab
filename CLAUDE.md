@@ -6,21 +6,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 S&P Index Lab proves the S&P 500 is effectively a ~20-stock index. Python backend computes analytics (OLS regression, variance decomposition, mirror index construction). React frontend displays results via an interactive machine-metaphor visualization. Static JSON bridge between the two — no Python at runtime.
 
-Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-return):
-- R² = 95.6% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window)
-- S&P 500 TR: CAGR 13.9% (2014–present)
-- SP-20 Mirror: CAGR 18.4%, Sharpe 0.70, Jensen alpha +3.3%
-- SP-20 Equal: CAGR 16.9%, Sharpe 0.71, Jensen alpha +2.8%
-- SP-N Alpha (walk-forward max-Sharpe, out-of-sample 2016→): CAGR 20.9%, Sharpe 0.81, Jensen alpha +5.2%
+Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-return;
+full out-of-sample 2016→present unless noted). No single strategy is crowned — the site
+shows all four side by side:
+- R² ≈ 95.3% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window)
+- S&P 500 TR: CAGR ~13.9%
+- SP-20 Mirror: CAGR ~17.1%, Jensen alpha ~+2.3%
+- SP-20 Equal: CAGR ~15.8%, Jensen alpha ~+2.0%
+- SP-N Alpha (self-adjusting concentration-elbow, dynamic N 10–30, equal-weighted):
+  CAGR ~20.3%, Sharpe ~0.78, Jensen alpha ~+4.1%, turnover ~1.8x
 
-Methodology guarantees (do not regress these):
-- Universe selection is point-in-time: vendored S&P membership snapshots + anchored
-  market-cap proxy (`src/data/universe.py`); never rank by full-sample statistics.
-- All backtests are net of turnover-based costs (`src/backtest/costs.py`).
-- Benchmark is ^SP500TR because stock prices are dividend-adjusted.
-- The exact current numbers live in `frontend/public/data/meta.json` (`headline` block) —
-  frontend components read them from there; never hardcode numbers in components or docs
-  without noting they drift.
+Honest-evaluation protocol (the point of the project — do not regress these):
+- **Dev/holdout split**: `DEV_END=2023-12-31`. All development, tuning, and variant
+  selection happens on the dev window via `src/research/registry.py::run_experiment`
+  (hard-truncates at DEV_END, logs every trial to `data/research/trials.jsonl`). The
+  holdout (2024+) is touched exactly once by `scripts/run_holdout.py`.
+- **Multiple-testing disclosure**: deflated Sharpe (`src/backtest/metrics.py`) reported
+  against the true trial count. SP-N Alpha's dev DSR is 0.96 across 14 trials.
+- **Pre-registered holdout** (`data/research/holdout_criteria.yaml`, committed before any
+  candidate chosen): SP-N Alpha beat the S&P 500 out-of-sample (+10.4pp CAGR, 2024–26) but
+  did NOT clear every bar vs SP-20 Equal (lost on Sharpe, breached the drawdown cap) → the
+  contract's outcome is "no single winner"; strategies are shown side by side.
+- Universe selection is point-in-time: membership snapshots + anchored market-cap proxy on
+  the **dividend-unadjusted** `daily_prices_raw` panel (`src/data/universe.py`). Returns
+  use the dividend-adjusted panel. Never rank by full-sample statistics.
+- All backtests net of turnover costs (`src/backtest/costs.py`). Benchmark is ^SP500TR.
+- Exact current numbers live in `frontend/public/data/meta.json` (`headline` + `research`
+  blocks); components read them — never hardcode numbers in components or docs.
 
 ## Commands
 
