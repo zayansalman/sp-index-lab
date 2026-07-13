@@ -26,6 +26,7 @@ from src.data.fetcher import (
     fetch_benchmark,
     fetch_daily_prices_and_volumes,
     fetch_market_indicators,
+    fetch_raw_closes,
     prices_to_long_format,
 )
 from src.data.storage import (
@@ -81,6 +82,14 @@ def backfill(skip_supabase: bool = False) -> None:
     # Save wide format for fast local analysis
     save_parquet(prices_wide.reset_index(), "daily_prices")
     save_parquet(volumes_wide.reset_index(), "daily_volumes")
+
+    # Raw (split-adjusted, dividend-UNADJUSTED) closes for cap-proxy ranking.
+    # A separate call because auto_adjust differs; ranking must not use the
+    # dividend-adjusted panel (understates high-yield names' historical caps).
+    logger.info("Fetching raw ranking panel (dividend-unadjusted closes)...")
+    raw_closes = fetch_raw_closes(tickers=CANDIDATE_POOL_TICKERS, start=DATA_START_DATE)
+    save_parquet(raw_closes.reset_index(), "daily_prices_raw")
+    logger.info("Raw ranking panel: %d rows x %d tickers", len(raw_closes), len(raw_closes.columns))
 
     # Convert to long format for database
     prices_long = prices_to_long_format(prices_wide)

@@ -86,8 +86,9 @@ def main() -> int:
     benchmark_display = benchmark[benchmark.index >= inception]
     benchmark_nav = benchmark_display / benchmark_display.iloc[0]
 
-    # Point-in-time top-20 universe (membership + anchored cap proxy).
-    universe_fn = make_universe_fn(20, prices=stock_prices)
+    # Point-in-time top-20 universe (membership + anchored cap proxy on the
+    # dividend-unadjusted ranking panel, loaded by make_universe_fn).
+    universe_fn = make_universe_fn(20)
 
     # ------------------------------------------------------------------
     # Baseline indices (Mirror + Equal) — PIT universe, monthly rebalance,
@@ -120,7 +121,16 @@ def main() -> int:
     # they do not beat the SP-20 Equal baseline cleanly enough.
     # ------------------------------------------------------------------
     logger.info("Running walk-forward backtest: SP-N Alpha (mvo_sharpe) ...")
-    weights_fn = make_alpha_weights_fn(optimizer="mvo_sharpe")
+    market_indicators = load_parquet("market_indicators")
+    if market_indicators.empty:
+        logger.warning(
+            "No market_indicators parquet — max-Sharpe will use the default "
+            "risk-free rate instead of the trailing T-bill rate."
+        )
+        market_indicators = None
+    weights_fn = make_alpha_weights_fn(
+        optimizer="mvo_sharpe", market_indicators=market_indicators
+    )
     result = walk_forward_backtest(
         stock_prices,
         benchmark_prices=benchmark,
@@ -133,11 +143,19 @@ def main() -> int:
     ann_turnover = result.turnover.sum() / (len(alpha_nav) / TRADING_DAYS_PER_YEAR)
     logger.info(
         "  SP-N Alpha backtest complete — %d out-of-sample days, "
-        "annualised turnover %.2fx, total cost drag %.0f bps.",
+        "annualised turnover %.2fx, total cost drag %.0f bps, "
+        "optimizer fallback rate %.1f%%.",
         len(alpha_nav),
         ann_turnover,
         result.costs.sum() * 1e4,
+        result.fallback_rate * 100,
     )
+    if result.fallback_rate > 0.2:
+        logger.error(
+            "Optimizer fell back to equal weights in %.0f%% of splits — "
+            "results reflect equal-weighting, not the optimizer. Investigate.",
+            result.fallback_rate * 100,
+        )
 
     # ------------------------------------------------------------------
     # Compute metrics for all

@@ -6,10 +6,16 @@ time. Membership comes from vendored constituent snapshots
 market-cap proxy: today's effective shares outstanding
 (``data/reference/shares_outstanding.csv``, = market_cap / price, which
 captures multi-class structures like BRK-B and GOOGL) multiplied by
-historical adjusted closes. Known bias: buybacks/issuance drift shares over
-time (~1-3%/yr), so buyback-heavy names are slightly under-ranked in early
-years — bounded and disclosed, unlike the turnover bias of dollar-volume
-ranking, which mis-ranks the 2014 top-20 badly.
+historical **split-adjusted, dividend-UNADJUSTED** closes (the
+``daily_prices_raw`` panel via :func:`load_ranking_prices`).
+
+Ranking must NOT use dividend-adjusted prices: those divide out each stock's
+*future* dividends, understating high-yield names' historical caps. Measured
+impact was severe — top-20 membership differed in ~76% of months vs the raw
+basis, systematically demoting PFE/T/VZ/GE/KO/etc. (see
+``scripts/check_cap_proxy_bias.py``). Residual bias: today's shares anchor
+drifts from historical shares via buybacks/issuance (~1-3%/yr), bounded and
+disclosed. Returns/weights still use the dividend-adjusted panel.
 
 Every function that ranks or selects takes an ``as_of`` date and never reads
 price data after it — the no-look-ahead invariant is enforced by slicing
@@ -50,6 +56,34 @@ def _load_exclusions(path: Path = EXCLUSIONS_CSV) -> set[str]:
     if not path.exists():
         return set()
     return set(pd.read_csv(path)["ticker"])
+
+
+def load_ranking_prices() -> pd.DataFrame:
+    """Load the split-adjusted, dividend-unadjusted close panel for ranking.
+
+    Reads ``daily_prices_raw`` and returns a wide (DatetimeIndex × ticker)
+    frame. Falls back to the dividend-adjusted ``daily_prices`` panel with a
+    warning if the raw panel is absent (e.g. before ``backfill`` has built
+    it) — ranking then carries the dividend-adjustment bias this panel
+    exists to remove, so the fallback is a safety net, not a supported mode.
+    """
+    from src.data.storage import load_parquet
+
+    df = load_parquet("daily_prices_raw")
+    if df.empty:
+        logger.warning(
+            "daily_prices_raw is empty — cap-proxy ranking falls back to the "
+            "dividend-adjusted panel (dividend payers under-ranked). Run "
+            "scripts/backfill.py to build the raw ranking panel."
+        )
+        df = load_parquet("daily_prices")
+    if df.empty:
+        raise ValueError("No price panel available for ranking.")
+
+    df["date"] = pd.to_datetime(df["date"])
+    if "symbol" in df.columns:
+        return df.pivot_table(index="date", columns="symbol", values="close")
+    return df.set_index("date")
 
 
 def load_shares_outstanding(path: Path = SHARES_CSV) -> pd.Series:
@@ -170,7 +204,7 @@ def get_top_n_at(
     as_of: pd.Timestamp,
     n: int,
     *,
-    prices: pd.DataFrame,
+    prices: pd.DataFrame | None = None,
     shares: pd.Series | None = None,
     membership: pd.DataFrame | None = None,
     lookback: int = UNIVERSE_LOOKBACK_DAYS,
@@ -181,7 +215,11 @@ def get_top_n_at(
     ``as_of``, ranks by the anchored cap proxy, and returns the first N.
     If fewer than N members have sufficient data (e.g. an unservable
     delisted name), the next-ranked names fill in and a warning is logged.
+
+    ``prices`` defaults to the dividend-unadjusted ranking panel
+    (:func:`load_ranking_prices`); pass an explicit frame only in tests.
     """
+    prices = prices if prices is not None else load_ranking_prices()
     shares = shares if shares is not None else load_shares_outstanding()
     members = get_members_at(as_of, membership)
     ranked = rank_by_cap_proxy(prices, shares, as_of, lookback=lookback)
@@ -202,18 +240,21 @@ def build_universe_schedule(
     rebalance_dates: pd.DatetimeIndex,
     n: int,
     *,
-    prices: pd.DataFrame,
+    prices: pd.DataFrame | None = None,
     shares: pd.Series | None = None,
     membership: pd.DataFrame | None = None,
     lookback: int = UNIVERSE_LOOKBACK_DAYS,
 ) -> pd.DataFrame:
     """Compute the top-N universe at each rebalance date.
 
+    ``prices`` defaults to the dividend-unadjusted ranking panel.
+
     Returns:
         Long DataFrame with columns
         ``rebalance_date, rank, ticker, cap_proxy`` — an auditable record
         of which names were selectable when.
     """
+    prices = prices if prices is not None else load_ranking_prices()
     shares = shares if shares is not None else load_shares_outstanding()
     membership = membership if membership is not None else _default_membership()
     records: list[dict[str, object]] = []
@@ -236,12 +277,16 @@ def build_universe_schedule(
 def make_universe_fn(
     n: int,
     *,
-    prices: pd.DataFrame,
+    prices: pd.DataFrame | None = None,
     shares: pd.Series | None = None,
     membership: pd.DataFrame | None = None,
     lookback: int = UNIVERSE_LOOKBACK_DAYS,
 ) -> Callable[[pd.Timestamp], list[str]]:
-    """Return a memoised ``as_of → top-N tickers`` callable for backtests."""
+    """Return a memoised ``as_of → top-N tickers`` callable for backtests.
+
+    ``prices`` defaults to the dividend-unadjusted ranking panel.
+    """
+    prices = prices if prices is not None else load_ranking_prices()
     shares = shares if shares is not None else load_shares_outstanding()
     membership = membership if membership is not None else _default_membership()
     cache: dict[pd.Timestamp, list[str]] = {}

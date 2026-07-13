@@ -128,6 +128,7 @@ SENTIMENT_CACHE_FILE = DATA_DIR / "sentiment_cache.parquet"
 # ──────────────────────────────────────────────
 PARQUET_FILES = {
     "daily_prices": DATA_DIR / "daily_prices.parquet",
+    "daily_prices_raw": DATA_DIR / "daily_prices_raw.parquet",
     "daily_volumes": DATA_DIR / "daily_volumes.parquet",
     "universe_schedule": DATA_DIR / "universe_schedule.parquet",
     "index_values": DATA_DIR / "index_values.parquet",

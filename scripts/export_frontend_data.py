@@ -31,7 +31,12 @@ from src.config import (
     TRADING_DAYS_PER_YEAR,
 )
 from src.data.storage import load_parquet
-from src.data.universe import load_shares_outstanding, make_universe_fn, rank_by_cap_proxy
+from src.data.universe import (
+    load_ranking_prices,
+    load_shares_outstanding,
+    make_universe_fn,
+    rank_by_cap_proxy,
+)
 from src.proof.concentration import (
     build_mirror_index,
     compute_performance_metrics,
@@ -87,7 +92,7 @@ def _clean_value(v: Any) -> Any:
 
 def _clean_dict(d: dict) -> dict:
     """Recursively clean a dict for JSON serialization."""
-    cleaned = {}
+    cleaned: dict[str, Any] = {}
     for k, v in d.items():
         if isinstance(v, dict):
             cleaned[k] = _clean_dict(v)
@@ -326,8 +331,12 @@ def export_performance_nav(
     all_navs = pd.DataFrame(nav_dict).dropna(how="all")
     nav_columns = list(nav_dict.keys())
 
-    # Forward-fill small gaps, then drop any remaining NaN rows
-    all_navs = all_navs.ffill().dropna()
+    # Forward-fill interior gaps only. Truncate at the last date where EVERY
+    # series still has real data — ffill past a series' end would fabricate
+    # flat returns for a stale strategy (the frontend would chart performance
+    # that never happened).
+    last_real = min(s.last_valid_index() for s in nav_dict.values())
+    all_navs = all_navs.loc[:last_real].ffill().dropna()
 
     # CRITICAL: re-normalise every series to $1 at the first common date.
     # Otherwise baselines (which start at inception 2014) appear visually
@@ -489,7 +498,7 @@ def export_holdings(stock_prices: pd.DataFrame, current_top20: list[str]) -> Pat
     logger.info("Computing current holdings...")
 
     as_of = stock_prices.index.max()
-    caps = rank_by_cap_proxy(stock_prices, load_shares_outstanding(), as_of)
+    caps = rank_by_cap_proxy(load_ranking_prices(), load_shares_outstanding(), as_of)
     weights = caps.reindex(current_top20).dropna()
     weights = weights / weights.sum()
     last_prices = stock_prices.iloc[-1]
@@ -533,8 +542,10 @@ def export_drawdowns(
 
     dd_columns = list(dd_dict.keys())
 
-    # Align on common dates
-    dd = pd.DataFrame(dd_dict).dropna(how="all").ffill().dropna()
+    # Align on common dates; interior gaps only — truncate at the last date
+    # where every series has real data (no fabricated flat tail).
+    last_real = min(s.last_valid_index() for s in dd_dict.values())
+    dd = pd.DataFrame(dd_dict).dropna(how="all").loc[:last_real].ffill().dropna()
 
     # Downsample to weekly (every 5th trading day)
     weekly_indices = list(range(0, len(dd), 5))
@@ -774,7 +785,9 @@ def main() -> int:
     # Data before INCEPTION_DATE exists only as ranking lookback.
     # ------------------------------------------------------------------
     inception = pd.Timestamp(INCEPTION_DATE)
-    universe_fn = make_universe_fn(50, prices=stock_prices)
+    # Ranking uses the dividend-unadjusted panel (loaded inside universe/
+    # mirror helpers); stock_prices stays the dividend-adjusted return basis.
+    universe_fn = make_universe_fn(50)
 
     stock_returns = stock_prices.pct_change(fill_method=None).dropna(how="all")
     benchmark_display = benchmark[benchmark.index >= inception]

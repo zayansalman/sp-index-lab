@@ -27,7 +27,11 @@ from src.backtest.metrics import (
     compute_tracking_error as _compute_tracking_error,
 )
 from src.config import MIRROR_REBALANCE_FREQ
-from src.data.universe import load_shares_outstanding, rank_by_cap_proxy
+from src.data.universe import (
+    load_ranking_prices,
+    load_shares_outstanding,
+    rank_by_cap_proxy,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -217,6 +221,7 @@ def build_mirror_index(
     *,
     universe_fn: RankingFn,
     shares: pd.Series | None = None,
+    ranking_prices: pd.DataFrame | None = None,
     start: pd.Timestamp | str | None = None,
     rebalance_freq: str = MIRROR_REBALANCE_FREQ,
 ) -> pd.DataFrame:
@@ -236,6 +241,11 @@ def build_mirror_index(
         universe_fn: ``as_of → ordered top tickers`` (point-in-time).
         shares: Effective shares outstanding for cap weights; defaults to
             the vendored anchor (``data/reference/shares_outstanding.csv``).
+        ranking_prices: Split-adjusted, dividend-unadjusted closes for
+            cap-weight computation (:func:`load_ranking_prices`). Defaults
+            to that panel; ``stock_prices`` (dividend-adjusted) stays the
+            return basis. Cap *weights* must use the raw panel for the same
+            reason universe *selection* does.
         start: First NAV date (decision dates before it are skipped except
             the one immediately prior, so the portfolio exists at start).
             Defaults to the first price date.
@@ -259,8 +269,11 @@ def build_mirror_index(
         [first_decision] + list(month_ends[month_ends >= start_ts])
     ).unique()
 
-    if weighting == "cap" and shares is None:
-        shares = load_shares_outstanding()
+    if weighting == "cap":
+        if shares is None:
+            shares = load_shares_outstanding()
+        if ranking_prices is None:
+            ranking_prices = load_ranking_prices()
 
     targets: dict[pd.Timestamp, pd.Series] = {}
     for t in decision_dates:
@@ -272,7 +285,7 @@ def build_mirror_index(
         if weighting == "equal":
             targets[t] = pd.Series(1.0 / len(universe), index=universe)
         else:
-            caps = rank_by_cap_proxy(stock_prices, shares, t)
+            caps = rank_by_cap_proxy(ranking_prices, shares, t)
             w = caps.reindex(universe).dropna()
             if w.empty:
                 logger.warning("No cap weights at %s — skipping rebalance", t.date())

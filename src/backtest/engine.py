@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Callable
 
 import pandas as pd
@@ -27,6 +27,8 @@ class WalkForwardResult:
     ``nav`` is net of transaction costs and is the canonical series;
     ``nav_gross`` is the frictionless counterpart. ``turnover`` and
     ``costs`` are indexed by trade date (each test-window start).
+    ``fallback_dates`` lists the train-window ends where the optimizer
+    fell back to equal weights (flagged via ``weights.attrs['fallback']``).
     """
 
     nav: pd.Series
@@ -34,6 +36,12 @@ class WalkForwardResult:
     turnover: pd.Series
     costs: pd.Series
     splits: list[WalkForwardSplit]
+    fallback_dates: list[pd.Timestamp] = field(default_factory=list)
+
+    @property
+    def fallback_rate(self) -> float:
+        """Fraction of splits where the optimizer fell back to equal weights."""
+        return len(self.fallback_dates) / len(self.splits) if self.splits else 0.0
 
 
 def generate_walk_forward_splits(
@@ -101,6 +109,7 @@ def walk_forward_backtest(
     test_days: int = 21,
     step_days: int | None = None,
     universe_fn: UniverseFn | None = None,
+    execution_lag_days: int = 0,
 ) -> WalkForwardResult:
     """Run a walk-forward backtest producing out-of-sample net/gross NAVs.
 
@@ -122,6 +131,9 @@ def walk_forward_backtest(
             :func:`src.data.universe.make_universe_fn`). Called with each
             split's ``train_end``; the training slice passed to
             ``weights_fn`` is restricted to those columns.
+        execution_lag_days: Extra trading days between weight decision and
+            effect (see :func:`src.backtest.costs.simulate_portfolio`) —
+            robustness check for execution latency.
 
     Returns:
         WalkForwardResult with net/gross NAV series (both normalised to 1.0
@@ -142,6 +154,7 @@ def walk_forward_backtest(
         raise ValueError("Not enough data to generate walk-forward splits.")
 
     rebalance_targets: dict[pd.Timestamp, pd.Series] = {}
+    fallback_dates: list[pd.Timestamp] = []
     for s in splits:
         train_prices = prices.loc[s.train_start : s.train_end]
 
@@ -157,6 +170,8 @@ def walk_forward_backtest(
             train_bench = None
 
         w = weights_fn(train_prices, train_bench)
+        if bool(w.attrs.get("fallback", False)):
+            fallback_dates.append(s.train_end)
         w = w[w != 0.0].dropna()
         total = float(w.sum())
         if total == 0.0:
@@ -166,7 +181,9 @@ def walk_forward_backtest(
     returns = prices.pct_change(fill_method=None)
     oos_returns = returns.loc[splits[0].test_start : splits[-1].test_end]
 
-    sim = simulate_portfolio(oos_returns, rebalance_targets)
+    sim = simulate_portfolio(
+        oos_returns, rebalance_targets, extra_lag_days=execution_lag_days
+    )
 
     nav = (1 + sim["net_return"]).cumprod()
     nav = nav / nav.iloc[0]
@@ -183,5 +200,6 @@ def walk_forward_backtest(
         turnover=sim.loc[trade_days, "turnover"],
         costs=sim.loc[trade_days, "cost"],
         splits=splits,
+        fallback_dates=fallback_dates,
     )
 

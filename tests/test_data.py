@@ -1,5 +1,7 @@
 """Tests for the data pipeline: fetcher, storage, and validation."""
 
+from pathlib import Path
+
 import pandas as pd
 import pytest
 
@@ -86,7 +88,7 @@ class TestPricesToLongFormat:
 
 
 class TestParquetStorage:
-    def test_save_and_load_roundtrip(self, tmp_path: pytest.TempPathFactory) -> None:
+    def test_save_and_load_roundtrip(self, tmp_path: Path) -> None:
         df = pd.DataFrame({"a": [1, 2, 3], "b": [4.0, 5.0, 6.0]})
         path = tmp_path / "test.parquet"
         df.to_parquet(path, index=False)

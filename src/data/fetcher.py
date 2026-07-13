@@ -62,6 +62,7 @@ def _fetch_with_retries(
     tickers: list[str],
     start: str,
     end: str,
+    auto_adjust: bool = True,
     **kwargs: Any,
 ) -> pd.DataFrame:
     """Download data from yfinance with exponential backoff retries.
@@ -70,6 +71,9 @@ def _fetch_with_retries(
         tickers: List of ticker symbols.
         start: Start date (YYYY-MM-DD).
         end: End date (YYYY-MM-DD).
+        auto_adjust: When True (default) prices are dividend-adjusted (for
+            returns/backtests). When False, prices are split-adjusted but
+            dividend-UNADJUSTED — the correct basis for market-cap ranking.
         **kwargs: Additional arguments passed to yf.download.
 
     Returns:
@@ -95,7 +99,7 @@ def _fetch_with_retries(
                 tickers=tickers,
                 start=start,
                 end=end,
-                auto_adjust=True,
+                auto_adjust=auto_adjust,
                 progress=False,
                 threads=False,  # Sequential for reliability
                 **kwargs,
@@ -302,6 +306,66 @@ def fetch_daily_prices(
     """
     prices, _ = fetch_daily_prices_and_volumes(tickers=tickers, start=start, end=end)
     return prices
+
+
+def fetch_raw_closes(
+    tickers: list[str] | None = None,
+    start: date | str | None = None,
+    end: date | str | None = None,
+) -> pd.DataFrame:
+    """Fetch split-adjusted, dividend-UNADJUSTED closes for cap ranking.
+
+    Yahoo always split-adjusts; ``auto_adjust=False`` keeps dividends in the
+    price level. This is the correct basis for the market-cap proxy: the
+    dividend-adjusted panel divides out each stock's *future* dividends,
+    which understates high-yield names' historical caps and distorts
+    point-in-time top-N selection (verified ~76% of months differ vs the
+    raw basis). Returns/weights still use the dividend-adjusted panel — only
+    universe ranking uses this one.
+
+    Args:
+        tickers: Ticker symbols. Defaults to TOP_50_TICKERS.
+        start: Start date. Defaults to INCEPTION_DATE.
+        end: End date. Defaults to today.
+
+    Returns:
+        Wide DataFrame (DatetimeIndex × tickers) of raw closes.
+    """
+    tickers = tickers or TOP_50_TICKERS
+    start_str = str(start or INCEPTION_DATE)
+    end_str = str(end or date.today())
+
+    raw = _fetch_with_retries(tickers, start_str, end_str, auto_adjust=False)
+    prices = _extract_field(raw, "Close", tickers)
+    prices = _validate_prices(prices, tickers)
+    prices.index.name = "date"
+    return prices
+
+
+def fetch_raw_closes_incremental(
+    tickers: list[str] | None = None,
+    last_date: date | str | None = None,
+) -> pd.DataFrame:
+    """Fetch only new raw (dividend-unadjusted) closes since ``last_date``.
+
+    Mirrors :func:`fetch_incremental` for the ranking panel. A cold cache
+    (``last_date=None``) refetches from ``DATA_START_DATE``.
+    """
+    tickers = tickers or TOP_50_TICKERS
+
+    if last_date is None:
+        start = DATA_START_DATE
+    elif isinstance(last_date, str):
+        start = datetime.strptime(last_date, "%Y-%m-%d").date() + timedelta(days=1)
+    else:
+        start = last_date + timedelta(days=1)
+
+    today = date.today()
+    if start > today:
+        logger.info("Raw close panel already up to date (last: %s)", last_date)
+        return pd.DataFrame()
+
+    return fetch_raw_closes(tickers=tickers, start=start, end=today)
 
 
 def fetch_benchmark(

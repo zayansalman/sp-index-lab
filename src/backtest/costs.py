@@ -26,12 +26,16 @@ def simulate_portfolio(
     returns: pd.DataFrame,
     rebalance_targets: dict[pd.Timestamp, pd.Series],
     cost_rate: float = TOTAL_COST_RATE,
+    extra_lag_days: int = 0,
 ) -> pd.DataFrame:
     """Simulate a drifting portfolio with turnover costs at rebalances.
 
     Weights decided at date *t* (using data through t's close) take effect
     on the first trading day strictly after *t*; the trade cost is charged
     against that day's return. Between rebalances the portfolio drifts.
+    ``extra_lag_days`` delays effect by additional trading days — a
+    robustness check for real-world execution latency (decide after t's
+    close, trade at t+1's close, earn from t+2 → ``extra_lag_days=1``).
 
     Args:
         returns: Wide daily returns (DatetimeIndex × tickers). NaN is
@@ -54,9 +58,13 @@ def simulate_portfolio(
     matrix = returns.fillna(0.0).to_numpy()
     dates = returns.index
 
+    if extra_lag_days < 0:
+        raise ValueError("extra_lag_days must be >= 0.")
+
     trade_by_day: dict[int, np.ndarray] = {}
     for decision_date, target in sorted(rebalance_targets.items()):
         day = int(dates.searchsorted(pd.Timestamp(decision_date), side="right"))
+        day += extra_lag_days
         if day >= len(dates):
             continue
         aligned = target.reindex(cols).fillna(0.0)
