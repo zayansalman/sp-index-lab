@@ -273,6 +273,52 @@ def make_vol_target(
 # ---------------------------------------------------------------------------
 
 
+def strategy_from_config(
+    config: dict,
+    market_indicators: pd.DataFrame | None = None,
+) -> tuple[WeightsFn, bool]:
+    """Reconstruct the frozen weights_fn from a race-winner config dict.
+
+    Single source of truth for turning ``{engine, n_policy, overlay}`` (as
+    written to ``data/research/race_result.json``) into a runnable strategy,
+    shared by the holdout evaluation and the production export so they cannot
+    drift apart.
+
+    Args:
+        config: Keys ``engine``, ``n_policy`` (static20|elbow|regime),
+            ``overlay`` (none|voltgt15|voltgt_regime).
+        market_indicators: Indicators frame for rf / regime / vol-target.
+
+    Returns:
+        ``(weights_fn, uses_cash)`` — ``uses_cash`` is True when the overlay
+        can hold CASH, so the caller knows to pass a CASH-augmented panel.
+    """
+    n_name = config["n_policy"]
+    if n_name == "static20":
+        n_policy: NPolicyFn = make_static_n(20)
+    elif n_name == "elbow":
+        n_policy = make_elbow_n()
+    elif n_name == "regime":
+        n_policy = make_regime_n(market_indicators)
+    else:
+        raise ValueError(f"Unknown n_policy {n_name!r}.")
+
+    o_name = config.get("overlay", "none")
+    if o_name == "none":
+        overlay: OverlayFn = no_overlay()
+    elif o_name == "voltgt15":
+        overlay = make_vol_target(0.15)
+    elif o_name == "voltgt_regime":
+        overlay = make_vol_target(0.15, regime_gated=True, market_indicators=market_indicators)
+    else:
+        raise ValueError(f"Unknown overlay {o_name!r}.")
+
+    weights_fn = make_dynamic_alpha_weights_fn(
+        config["engine"], n_policy, overlay=overlay, market_indicators=market_indicators
+    )
+    return weights_fn, o_name != "none"
+
+
 def make_dynamic_alpha_weights_fn(
     engine: str,
     n_policy: NPolicyFn,
