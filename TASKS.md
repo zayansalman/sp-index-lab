@@ -24,7 +24,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 
 ## Phase 2: Proof Layer ✅
 - [x] **T2.1**: Build src/proof/concentration.py — variance_decomposition(), concentration_curve()
-- [x] **T2.2**: R² analysis at N = 1 through 50 (result: R² = 94.9% at N=20)
+- [x] **T2.2**: R² analysis at N = 1 through 50 (current: 95.6% rolling-window mean at N=20, point-in-time)
 - [x] **T2.3**: Mirror index construction — build_mirror_index()
 - [x] **T2.4**: Performance metrics — compute_performance_metrics() (15+ metrics)
 - [ ] **T2.5**: Write tests for proof layer
@@ -56,13 +56,13 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 ## Phase 5: Frontend — Landing Page ✅
 - [x] **T5.1**: Root layout (Space Grotesk + Geist fonts, metadata, OpenGraph, dark theme)
 - [x] **T5.2**: Hero component with Framer Motion staggered entrance
-- [x] **T5.3**: StatsPreview with 3 animated cards (R² 94.9%, CAGR 15.3%, Alpha +4.0%)
+- [x] **T5.3**: StatsPreview with 3 animated cards (data-driven from meta.json headline)
 - [x] **T5.4**: EnterButton with animated glow border → /lab navigation
 
 ---
 
 ## Phase 6: Frontend — Machine Visualization ✅
-- [x] **T6.1**: MachineCanvas.tsx with SVG viewBox (0 0 800 600)
+- [x] **T6.1**: MachineCanvas.tsx with SVG viewBox (0 0 800 780)
 - [x] **T6.2**: ComponentNode.tsx base (rounded rect, icon, label, LightBulb)
 - [x] **T6.3**: 5 machine components (DataPipeline, ConcentrationAnalyzer, MirrorIndexBuilder, AlphaOptimizer, PerformanceMonitor)
 - [x] **T6.4**: Wire.tsx + WireSystem.tsx with animated electricity flow (CSS keyframes)
@@ -84,7 +84,7 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 - [x] **T8.2**: MetricCard.tsx + AnimatedCounter.tsx (counting from 0 to target)
 - [x] **T8.3**: ConcentrationChart.tsx (Recharts LineChart, R² vs N, reference lines at 20 & 95%)
 - [x] **T8.4**: PerformanceChart.tsx (Growth of $1, 3 series, custom tooltip)
-- [x] **T8.5**: Performance comparison table (11 metrics × 3 indices: S&P 500, Mirror, Equal)
+- [x] **T8.5**: Performance comparison table (11 metrics × retained indices: S&P 500, Mirror, Equal, SP-N Alpha)
 - [x] **T8.6**: DrawdownChart.tsx (Recharts AreaChart, overlaid series)
 - [x] **T8.7**: HoldingsTable.tsx (20 rows: rank, ticker, name, sector, weight with proportional bars)
 - [x] **T8.8**: ThinkingPanel.tsx (3 collapsible methodology sections)
@@ -129,23 +129,23 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 
 ---
 
-## Phase 13: ML Optimizer (Future) 🔲
-- [ ] **T13.1**: Build src/optimizer/classical.py (HRP, Black-Litterman, MVO)
-- [ ] **T13.2**: Build src/optimizer/factor_model.py (LightGBM scoring)
-- [ ] **T13.3**: Build src/optimizer/regime.py (3-state HMM: bull/bear/transition)
-- [ ] **T13.4**: Build src/optimizer/ensemble.py (regime-weighted combination)
-- [ ] **T13.5**: Build src/optimizer/rebalancer.py (drift, regime, quarterly triggers)
-- [ ] **T13.6**: Build src/indices/ (sp20_mirror, sp20_equal, sp20_alpha, spn_alpha classes)
-- [ ] **T13.7**: Write optimizer tests (constraints, diversification, regime detection)
+## Phase 13: ML Optimizer ✅
+- [x] **T13.1**: Build src/optimizer/hrp.py (HRP via PyPortfolioOpt) + src/optimizer/mvo.py (MVO max-Sharpe, min-vol)
+- [x] **T13.2**: Build src/features/factors.py (LightGBM cross-sectional forward return predictor)
+- [x] **T13.3**: Build src/features/regime.py (3-state Gaussian HMM: bull/bear/transition)
+- [x] **T13.4**: Build src/optimizer/ensemble.py (regime-weighted HRP + factor-MVO blend)
+- [x] **T13.5**: Build src/features/sentiment.py (FinBERT via HuggingFace + backtest proxy)
+- [x] **T13.6**: Build src/strategies/alpha.py plus archived hedged research prototype
+- [x] **T13.7**: Write optimizer tests (56 tests: constraints, regime detection, ensemble, hedging)
 
 ---
 
-## Phase 14: Backtesting Engine (Future) 🔲
-- [ ] **T14.1**: Build src/backtest/metrics.py (all portfolio metrics as standalone functions)
-- [ ] **T14.2**: Build src/backtest/engine.py (walk-forward: 756-day train / 21-day test)
-- [ ] **T14.3**: Build src/backtest/report.py (comparative analysis, attribution)
-- [ ] **T14.4**: Build scripts/full_backtest.py (orchestrator for all 4 indices)
-- [ ] **T14.5**: Write backtest tests (synthetic data, no look-ahead bias verification)
+## Phase 14: Backtesting Engine ✅
+- [x] **T14.1**: Build src/backtest/metrics.py (15+ portfolio metrics as standalone functions)
+- [x] **T14.2**: Build src/backtest/engine.py (walk-forward: 756-day train / 21-day test)
+- [x] **T14.3**: Build scripts/run_alpha_backtest.py (retained SP-N Alpha orchestrator + comparison table)
+- [x] **T14.4**: Walk-forward retained result (PIT universe, net of costs): SP-N Alpha CAGR 20.9%, Sharpe 0.81, Alpha +5.2%
+- [x] **T14.5**: Write backtest tests (synthetic data, no look-ahead bias verification)
 
 ---
 
@@ -163,22 +163,22 @@ Ordered build plan. Checked items are complete. Each phase is tested before adva
 
 ---
 
-## Phase 16: Sprint 1 — Foundation 🔲 [CRITICAL]
-*Unblocks all downstream sprints. Must complete before any new infrastructure.*
+## Phase 16: Sprint 1 — Foundation ✅
+*Unblocks all downstream sprints.*
 - [x] **S1.1**: Extract `compute_performance_metrics()` → `src/backtest/metrics.py` shared utility
-- [ ] **S1.2**: Build walk-forward backtest engine (756D train / 21D test, using existing config.py constants)
-- [ ] **S1.3**: Build classical optimizers: HRP, MVO, Black-Litterman via PyPortfolioOpt
-- [ ] **S1.4**: Extend `src/config.py` with fund constants (RUN_MODE, POD_ALLOCATIONS, risk limits, new data paths)
+- [x] **S1.2**: Build walk-forward backtest engine (756D train / 21D test)
+- [x] **S1.3**: Build classical optimizers: HRP + MVO (max-Sharpe, min-vol) via PyPortfolioOpt
+- [x] **S1.4**: Extend `src/config.py` with fund research constants (HMM, LightGBM, ensemble)
 
 ---
 
-## Phase 17: Sprint 2 — ML Signal Stack 🔲 [HIGH]
-*Core "AI alpha" capability. Required before any pod can generate signals.*
-- [ ] **S2.1**: Build `src/features/technical.py` — momentum (1M/3M/6M/12M), realized vol, RSI, MA distance
-- [ ] **S2.2**: Build `src/optimizer/regime.py` — 3-state Gaussian HMM (bull/bear/transition)
-- [ ] **S2.3**: Build `src/optimizer/factor_model.py` — LightGBM forward 21D return quintile predictor
-- [ ] **S2.4**: Build `src/optimizer/ensemble.py` — regime-weighted combination (Bull: 40% HRP + 60% MVO; Bear: 70/30)
-- [ ] **S2.5**: Build `src/optimizer/rebalancer.py` — drift-check (2%), regime-change trigger, quarterly calendar
+## Phase 17: Sprint 2 — ML Signal Stack ✅
+*Core "AI alpha" capability.*
+- [x] **S2.1**: Build `src/features/technical.py` — momentum (1M/3M/6M/12M), realized vol, RSI, MA distance
+- [x] **S2.2**: Build `src/features/regime.py` — 3-state Gaussian HMM (bull/bear/transition)
+- [x] **S2.3**: Build `src/features/factors.py` — LightGBM forward 21D return cross-sectional predictor
+- [x] **S2.4**: Build `src/optimizer/ensemble.py` — regime-weighted combination (Bull: 70% factor-MVO + 30% HRP; Bear: 20/80)
+- [x] **S2.5**: Build `src/features/sentiment.py` — FinBERT via HuggingFace + backtest sentiment proxy
 
 ---
 

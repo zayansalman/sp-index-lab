@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMachineState } from "@/hooks/useMachineState";
 import MachineCanvas from "@/components/machine/MachineCanvas";
 import ResultsPanel from "@/components/results/ResultsPanel";
@@ -12,12 +13,12 @@ export default function LabPage() {
     <main className="relative min-h-screen bg-bg-primary">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4">
-        <a
+        <Link
           href="/"
           className="font-heading text-xs uppercase tracking-widest text-text-muted transition-colors hover:text-text-secondary"
         >
           &larr; Back
-        </a>
+        </Link>
         <h1 className="font-heading text-sm uppercase tracking-widest text-text-secondary">
           S&P Index Lab
         </h1>

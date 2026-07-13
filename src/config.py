@@ -8,12 +8,13 @@ from pathlib import Path
 # ──────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
+REFERENCE_DIR = DATA_DIR / "reference"
 
 # ──────────────────────────────────────────────
 # Tickers
 # ──────────────────────────────────────────────
-# Top 50 S&P 500 stocks by market cap (candidates for SP-N Alpha).
-# Updated periodically — source of truth for the project.
+# Current top 50 S&P 500 stocks by market cap. Display/candidate use only —
+# historical universe selection is point-in-time via src/data/universe.py.
 TOP_50_TICKERS: list[str] = [
     "AAPL", "MSFT", "NVDA", "AMZN", "GOOGL",
     "META", "TSLA", "BRK-B", "AVGO", "LLY",
@@ -30,19 +31,28 @@ TOP_50_TICKERS: list[str] = [
 # Top 20 derived from TOP_50 (first 20 by current market cap ranking).
 TOP_20_TICKERS: list[str] = TOP_50_TICKERS[:20]
 
-# Index identifiers used across the project.
-INDEX_NAMES: list[str] = [
-    "sp500",
-    "sp20_mirror",
-    "sp20_equal",
-    "sp20_alpha",
-    "spn_alpha",
-]
+# Every name fetched into the price/volume panel: the current top 50 plus
+# everything that plausibly cracked the top 50 by market cap since 2014.
+# The point-in-time universe (src/data/universe.py) selects from this pool;
+# you cannot rank what you did not fetch.
+CANDIDATE_POOL_TICKERS: list[str] = sorted(
+    set(TOP_50_TICKERS)
+    | {
+        "T", "VZ", "INTC", "C", "GILD", "CMCSA", "PEP", "BA", "SLB", "MO",
+        "UNP", "MMM", "HON", "AXP", "GS", "MS", "SCHW", "BLK", "NKE", "UPS",
+        "USB", "COP", "MDT", "BMY", "CVS", "LOW", "SBUX", "TMUS", "NEE",
+        "DHR", "ADP", "AIG", "KHC", "F", "GM", "RTX", "OXY", "UBER", "PLTR",
+        "PYPL", "LMT", "CHTR", "AMT", "MU",
+    }
+)
 
 # ──────────────────────────────────────────────
 # Market data tickers
 # ──────────────────────────────────────────────
-BENCHMARK_TICKER = "^GSPC"          # S&P 500 index
+# Total-return index: stock prices are dividend-adjusted (auto_adjust=True),
+# so the benchmark must include dividends too or every strategy gets a free
+# ~1.5%/yr "alpha" from the dividend mismatch.
+BENCHMARK_TICKER = "^SP500TR"       # S&P 500 Total Return index
 RISK_FREE_TICKER = "^IRX"           # 13-week Treasury bill yield
 VIX_TICKER = "^VIX"                 # CBOE Volatility Index
 TREASURY_10Y_TICKER = "^TNX"        # 10-year Treasury yield
@@ -51,6 +61,9 @@ TREASURY_10Y_TICKER = "^TNX"        # 10-year Treasury yield
 # Dates
 # ──────────────────────────────────────────────
 INCEPTION_DATE = date(2014, 1, 2)   # First trading day of 2014; NAV normalised to 1.0 here
+# Fetch history starts one year earlier so the anchored cap-proxy ranking
+# (see UNIVERSE_LOOKBACK_DAYS below) has a full trailing window at inception.
+DATA_START_DATE = date(2013, 1, 2)
 
 # ──────────────────────────────────────────────
 # Portfolio constraints
@@ -58,8 +71,15 @@ INCEPTION_DATE = date(2014, 1, 2)   # First trading day of 2014; NAV normalised 
 REBALANCE_DRIFT_THRESHOLD = 0.02    # 2% absolute drift triggers rebalance check
 MAX_POSITION_WEIGHT = 0.15          # No single stock > 15%
 MIN_POSITION_WEIGHT = 0.01          # No stock < 1%
-TRANSACTION_COST_BPS = 5            # 5 basis points round-trip cost
+TRANSACTION_COST_BPS = 5            # 5 basis points per unit of one-way traded notional
 SLIPPAGE_BPS = 2                    # 2 basis points slippage assumption
+
+# ──────────────────────────────────────────────
+# Point-in-time universe
+# ──────────────────────────────────────────────
+UNIVERSE_LOOKBACK_DAYS = 63         # Trailing smoothing window for cap-proxy ranking
+UNIVERSE_MIN_OBS = 20               # Min non-NaN days required to rank a ticker
+MIRROR_REBALANCE_FREQ = "M"         # Mirror/Equal rebalance at month-end (period freq)
 
 # ──────────────────────────────────────────────
 # Backtesting
@@ -75,10 +95,41 @@ SPN_MIN_STOCKS = 10
 SPN_MAX_STOCKS = 30
 
 # ──────────────────────────────────────────────
+# Regime detection (HMM)
+# ──────────────────────────────────────────────
+HMM_N_STATES = 3
+
+# ──────────────────────────────────────────────
+# Factor model (LightGBM)
+# ──────────────────────────────────────────────
+LGBM_FORWARD_DAYS = 21
+LGBM_N_ESTIMATORS = 100
+LGBM_MAX_DEPTH = 5
+LGBM_LEARNING_RATE = 0.05
+
+# ──────────────────────────────────────────────
+# Ensemble optimizer — blend ratios by regime
+# {regime_id: (factor_mvo_weight, hrp_weight)}
+# ──────────────────────────────────────────────
+ENSEMBLE_REGIME_BLENDS: dict[int, tuple[float, float]] = {
+    0: (0.7, 0.3),   # Bull
+    1: (0.5, 0.5),   # Transition
+    2: (0.2, 0.8),   # Bear
+}
+
+# ──────────────────────────────────────────────
+# HuggingFace / Sentiment
+# ──────────────────────────────────────────────
+HF_MODEL_SENTIMENT = "ProsusAI/finbert"
+SENTIMENT_CACHE_FILE = DATA_DIR / "sentiment_cache.parquet"
+
+# ──────────────────────────────────────────────
 # Database / storage
 # ──────────────────────────────────────────────
 PARQUET_FILES = {
     "daily_prices": DATA_DIR / "daily_prices.parquet",
+    "daily_volumes": DATA_DIR / "daily_volumes.parquet",
+    "universe_schedule": DATA_DIR / "universe_schedule.parquet",
     "index_values": DATA_DIR / "index_values.parquet",
     "portfolio_weights": DATA_DIR / "portfolio_weights.parquet",
     "rebalance_log": DATA_DIR / "rebalance_log.parquet",

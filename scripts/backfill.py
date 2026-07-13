@@ -19,18 +19,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.config import (
     BENCHMARK_TICKER,
-    INCEPTION_DATE,
-    TOP_50_TICKERS,
+    CANDIDATE_POOL_TICKERS,
+    DATA_START_DATE,
 )
 from src.data.fetcher import (
     fetch_benchmark,
-    fetch_daily_prices,
+    fetch_daily_prices_and_volumes,
     fetch_market_indicators,
     prices_to_long_format,
 )
 from src.data.storage import (
     df_to_rows,
-    load_parquet,
     save_parquet,
     upsert_rows,
 )
@@ -47,23 +46,30 @@ def backfill(skip_supabase: bool = False) -> None:
     """Run full historical data backfill.
 
     Steps:
-        1. Fetch daily close prices for TOP_50 tickers since inception.
-        2. Fetch S&P 500 benchmark prices.
+        1. Fetch daily close prices + volumes for the candidate pool since
+           inception (volumes feed abnormal-volume sentiment features;
+           universe ranking uses the anchored cap proxy, not volume).
+        2. Fetch S&P 500 total-return benchmark prices.
         3. Fetch market indicators (VIX, risk-free, 10Y Treasury).
         4. Save everything to Parquet.
         5. Optionally upsert to Supabase.
     """
     logger.info("=" * 60)
     logger.info("BACKFILL: Starting historical data download")
-    logger.info("Inception date: %s", INCEPTION_DATE)
-    logger.info("Tickers: %d stocks + benchmark + indicators", len(TOP_50_TICKERS))
+    logger.info("Data start date: %s", DATA_START_DATE)
+    logger.info(
+        "Tickers: %d stocks + benchmark + indicators", len(CANDIDATE_POOL_TICKERS)
+    )
     logger.info("=" * 60)
 
-    # ── Step 1: Stock prices ──────────────────────────
-    logger.info("Step 1/4: Fetching daily prices for %d tickers...", len(TOP_50_TICKERS))
-    prices_wide = fetch_daily_prices(
-        tickers=TOP_50_TICKERS,
-        start=INCEPTION_DATE,
+    # ── Step 1: Stock prices + volumes ────────────────
+    logger.info(
+        "Step 1/4: Fetching daily prices/volumes for %d tickers...",
+        len(CANDIDATE_POOL_TICKERS),
+    )
+    prices_wide, volumes_wide = fetch_daily_prices_and_volumes(
+        tickers=CANDIDATE_POOL_TICKERS,
+        start=DATA_START_DATE,
     )
     logger.info(
         "Received %d rows x %d tickers (date range: %s to %s)",
@@ -75,6 +81,7 @@ def backfill(skip_supabase: bool = False) -> None:
 
     # Save wide format for fast local analysis
     save_parquet(prices_wide.reset_index(), "daily_prices")
+    save_parquet(volumes_wide.reset_index(), "daily_volumes")
 
     # Convert to long format for database
     prices_long = prices_to_long_format(prices_wide)
@@ -82,17 +89,17 @@ def backfill(skip_supabase: bool = False) -> None:
 
     # ── Step 2: Benchmark ─────────────────────────────
     logger.info("Step 2/4: Fetching S&P 500 benchmark...")
-    benchmark = fetch_benchmark(start=INCEPTION_DATE)
+    benchmark = fetch_benchmark(start=DATA_START_DATE)
     benchmark_df = benchmark.reset_index()
     benchmark_df.columns = ["date", "close"]
-    benchmark_df["symbol"] = "^GSPC"
+    benchmark_df["symbol"] = BENCHMARK_TICKER
     benchmark_df["date"] = benchmark_df["date"].dt.date
     save_parquet(benchmark_df, "benchmark_prices")
     logger.info("Benchmark: %d rows", len(benchmark_df))
 
     # ── Step 3: Market indicators ─────────────────────
     logger.info("Step 3/4: Fetching market indicators (VIX, rates)...")
-    indicators = fetch_market_indicators(start=INCEPTION_DATE)
+    indicators = fetch_market_indicators(start=DATA_START_DATE)
     save_parquet(indicators.reset_index(), "market_indicators")
     logger.info("Indicators: %d rows", len(indicators))
 
@@ -132,7 +139,8 @@ def backfill(skip_supabase: bool = False) -> None:
     # ── Summary ───────────────────────────────────────
     logger.info("=" * 60)
     logger.info("BACKFILL COMPLETE")
-    logger.info("  Stocks:     %d tickers, %d trading days", len(prices_wide.columns), len(prices_wide))
+    n_tickers = len(prices_wide.columns)
+    logger.info("  Stocks:     %d tickers, %d trading days", n_tickers, len(prices_wide))
     logger.info("  Benchmark:  %d trading days", len(benchmark_df))
     logger.info("  Indicators: %d trading days", len(indicators))
     logger.info("  Parquet:    data/daily_prices.parquet")

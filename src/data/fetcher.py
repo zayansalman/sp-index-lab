@@ -9,16 +9,15 @@ import time
 from datetime import date, datetime, timedelta
 from typing import Any
 
-import numpy as np
 import pandas as pd
 import yfinance as yf
 
 from src.config import (
     BENCHMARK_TICKER,
+    DATA_START_DATE,
     INCEPTION_DATE,
     RISK_FREE_TICKER,
     TOP_50_TICKERS,
-    TRADING_DAYS_PER_YEAR,
     TREASURY_10Y_TICKER,
     VIX_TICKER,
 )
@@ -236,6 +235,59 @@ def _validate_prices(df: pd.DataFrame, tickers: list[str]) -> pd.DataFrame:
 # ──────────────────────────────────────────────
 
 
+def _extract_field(raw: pd.DataFrame, field: str, tickers: list[str]) -> pd.DataFrame:
+    """Extract one OHLCV field from a raw yfinance response as a wide frame."""
+    # yfinance returns MultiIndex columns for multiple tickers: (field, ticker)
+    if isinstance(raw.columns, pd.MultiIndex):
+        frame = raw[field] if field in raw.columns.get_level_values(0) else raw
+    else:
+        frame = raw[[field]].rename(columns={field: tickers[0]}) if len(tickers) == 1 else raw
+
+    if isinstance(frame.columns, pd.MultiIndex):
+        frame.columns = frame.columns.get_level_values(-1)
+    return frame
+
+
+def fetch_daily_prices_and_volumes(
+    tickers: list[str] | None = None,
+    start: date | str | None = None,
+    end: date | str | None = None,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Fetch adjusted daily closes and share volumes in one API call.
+
+    Volumes feed abnormal-volume sentiment features
+    (:mod:`src.features.sentiment`), not universe ranking — the
+    point-in-time universe (:mod:`src.data.universe`) ranks on the
+    anchored cap proxy (price x shares outstanding) only. Volumes are
+    aligned to the validated price panel but not price-validated
+    themselves.
+
+    Args:
+        tickers: List of ticker symbols. Defaults to TOP_50_TICKERS.
+        start: Start date. Defaults to INCEPTION_DATE.
+        end: End date. Defaults to today.
+
+    Returns:
+        Tuple of (prices, volumes), each with DatetimeIndex and one column
+        per ticker, identically indexed.
+    """
+    tickers = tickers or TOP_50_TICKERS
+    start_str = str(start or INCEPTION_DATE)
+    end_str = str(end or date.today())
+
+    raw = _fetch_with_retries(tickers, start_str, end_str)
+
+    prices = _extract_field(raw, "Close", tickers)
+    prices = _validate_prices(prices, tickers)
+    prices.index.name = "date"
+
+    volumes = _extract_field(raw, "Volume", tickers)
+    volumes = volumes.reindex(index=prices.index, columns=prices.columns)
+    volumes.index.name = "date"
+
+    return prices, volumes
+
+
 def fetch_daily_prices(
     tickers: list[str] | None = None,
     start: date | str | None = None,
@@ -251,24 +303,7 @@ def fetch_daily_prices(
     Returns:
         DataFrame with DatetimeIndex and one column per ticker (adjusted close).
     """
-    tickers = tickers or TOP_50_TICKERS
-    start_str = str(start or INCEPTION_DATE)
-    end_str = str(end or date.today())
-
-    raw = _fetch_with_retries(tickers, start_str, end_str)
-
-    # yfinance returns MultiIndex columns for multiple tickers: (field, ticker)
-    if isinstance(raw.columns, pd.MultiIndex):
-        prices = raw["Close"] if "Close" in raw.columns.get_level_values(0) else raw
-    else:
-        prices = raw[["Close"]].rename(columns={"Close": tickers[0]}) if len(tickers) == 1 else raw
-
-    # Ensure we have a clean DataFrame: DatetimeIndex + ticker columns
-    if isinstance(prices.columns, pd.MultiIndex):
-        prices.columns = prices.columns.get_level_values(-1)
-
-    prices = _validate_prices(prices, tickers)
-    prices.index.name = "date"
+    prices, _ = fetch_daily_prices_and_volumes(tickers=tickers, start=start, end=end)
     return prices
 
 
@@ -326,7 +361,7 @@ def fetch_market_indicators(
 def fetch_incremental(
     tickers: list[str] | None = None,
     last_date: date | str | None = None,
-) -> pd.DataFrame:
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Fetch only new data since last_date.
 
     Used by the daily update pipeline to avoid re-downloading history.
@@ -336,12 +371,15 @@ def fetch_incremental(
         last_date: Last date already in the database. Fetches from the next day.
 
     Returns:
-        DataFrame of new rows only (may be empty if already up to date).
+        Tuple of (prices, volumes) with new rows only (both empty if
+        already up to date).
     """
     tickers = tickers or TOP_50_TICKERS
 
     if last_date is None:
-        start = INCEPTION_DATE
+        # Cold cache: refetch full history including the pre-inception
+        # buffer needed by point-in-time universe ranking.
+        start = DATA_START_DATE
     elif isinstance(last_date, str):
         start = datetime.strptime(last_date, "%Y-%m-%d").date() + timedelta(days=1)
     else:
@@ -350,9 +388,26 @@ def fetch_incremental(
     today = date.today()
     if start > today:
         logger.info("Data is already up to date (last: %s, today: %s)", last_date, today)
-        return pd.DataFrame()
+        return pd.DataFrame(), pd.DataFrame()
 
-    return fetch_daily_prices(tickers=tickers, start=start, end=today)
+    try:
+        return fetch_daily_prices_and_volumes(tickers=tickers, start=start, end=today)
+    except RuntimeError as e:
+        # The T-1 fetch window is self-correcting day to day, except on the
+        # trading day immediately after a weekday market holiday: the window
+        # [start, today) then spans only the holiday date, yfinance returns
+        # zero rows for every ticker, and _fetch_with_retries raises after
+        # exhausting retries. That is a calendar gap, not a fetch failure —
+        # treat it as "no new data" so one holiday doesn't crash the cron.
+        if "empty DataFrame" in str(e):
+            logger.info(
+                "No trading days between %s and %s (holiday/weekend gap); "
+                "treating as no new data.",
+                start,
+                today,
+            )
+            return pd.DataFrame(), pd.DataFrame()
+        raise
 
 
 def prices_to_long_format(prices_wide: pd.DataFrame) -> pd.DataFrame:

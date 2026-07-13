@@ -55,6 +55,7 @@ const DATA_FILES = {
   holdings: "/data/holdings.json",
   drawdown: "/data/drawdowns.json",
   deviation: "/data/daily_deviations.json",
+  strategyHoldings: "/data/strategy_holdings.json",
 } as const;
 
 type DataKey = keyof typeof DATA_FILES;
@@ -82,7 +83,8 @@ async function fetchJSON(url: string): Promise<any> {
    ────────────────────────────────────────────────────────────── */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformMeta(raw: any): MetaData {
+export function transformMeta(raw: any): MetaData {
+  const h = raw.headline;
   return {
     lastUpdated: raw.last_updated ?? "",
     tradingDays: raw.n_trading_days ?? 0,
@@ -90,20 +92,55 @@ function transformMeta(raw: any): MetaData {
     endDate: raw.date_range?.end ?? "",
     totalStocks: raw.top_50_tickers?.length ?? 50,
     topN: raw.top_20_tickers?.length ?? 20,
-    benchmark: "^GSPC",
+    benchmark: raw.benchmark ?? "^SP500TR",
+    headline: h
+      ? {
+          rSquaredAt20: h.r_squared_at_20 ?? 0,
+          sp500Cagr: h.sp500_cagr ?? 0,
+          mirrorCagr: h.mirror_cagr ?? 0,
+          mirrorAlpha: h.mirror_alpha ?? 0,
+          equalCagr: h.equal_cagr ?? 0,
+          equalAlpha: h.equal_alpha ?? 0,
+          alphaCagr: h.alpha_cagr,
+          alphaSharpe: h.alpha_sharpe,
+          alphaJensen: h.alpha_jensen,
+          alphaMaxDrawdown: h.alpha_max_drawdown,
+        }
+      : undefined,
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformConcentrationCurve(raw: any): ConcentrationCurveData {
-  const curve: ConcentrationPoint[] = (raw.curve || []).map(
+function transformConcentrationCurve(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  raw: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rawVarianceDecomp: any,
+): ConcentrationCurveData {
+  // The plotted curve must use the same point-in-time rolling-mean R² by N
+  // (variance_decomposition.json) that r_squared_at_20 (the "95.6%" stat
+  // card and the 95%/N=20 reference lines) is computed from — the mean OLS
+  // R² of the top-N at each rebalance across every rolling one-year window.
+  // concentration_curve.json's own `curve` field is only the single latest
+  // window's greedy-selection curve, which can diverge sharply from that
+  // mean (e.g. ~88.7% vs ~95.6% at N=20 in one observed run) because it's
+  // one arbitrary year's snapshot, not the robustness figure the rest of
+  // the page reports. Plotting it under a "95%" reference line falsely
+  // implies the two are the same measurement.
+  const decomposition = rawVarianceDecomp?.decomposition || [];
+  let prevRSquared = 0;
+  const curve: ConcentrationPoint[] = decomposition.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (p: any) => ({
-      n: p.n_stocks ?? p.n ?? 0,
-      rSquared: p.r_squared ?? p.rSquared ?? 0,
-      marginalRSquared: p.marginal_r_squared ?? p.marginalRSquared ?? 0,
-      tickers: p.ticker_added ? [p.ticker_added] : p.tickers ?? [],
-    }),
+    (d: any) => {
+      const rSquared = d.r_squared ?? 0;
+      const marginalRSquared = rSquared - prevRSquared;
+      prevRSquared = rSquared;
+      return {
+        n: d.n_stocks ?? 0,
+        rSquared,
+        marginalRSquared,
+        tickers: [] as string[],
+      };
+    },
   );
 
   return {
@@ -133,20 +170,29 @@ function transformVarianceDecomposition(raw: any): VarianceDecompositionPoint[] 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformPerformanceNav(raw: any): PerformanceNavData {
-  // JSON has { weekly: [...], recent_daily: [...] }
-  // Use weekly for the main growth chart (smaller payload, full history)
-  const source = raw.weekly || raw.recent_daily || [];
+function navPointFromRaw(p: any): PerformanceNavPoint {
+  return {
+    date: p.date ?? "",
+    sp500: p.sp500 ?? 0,
+    sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
+    sp20Equal: p.sp20_equal ?? p.sp20Equal ?? 0,
+    spnAlpha: p.spn_alpha ?? p.spnAlpha,
+  };
+}
 
-  return source.map(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (p: any): PerformanceNavPoint => ({
-      date: p.date ?? "",
-      sp500: p.sp500 ?? 0,
-      sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
-      sp20Equal: p.sp20_equal ?? p.sp20Equal ?? 0,
-    }),
-  );
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformPerformanceNav(raw: any): PerformanceNavData {
+  // Weekly series covers the full backtest with manageable payload size
+  const source = raw.weekly || raw.recent_daily || [];
+  return source.map(navPointFromRaw);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformPerformanceNavBundle(raw: any) {
+  return {
+    weekly: (raw.weekly || []).map(navPointFromRaw),
+    daily: (raw.recent_daily || []).map(navPointFromRaw),
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -167,20 +213,25 @@ function transformSingleMetrics(m: any): PerformanceMetrics {
     worstDay: m.worst_day ?? m.worstDay ?? 0,
     winRate: m.win_rate ?? m.winRate ?? 0,
     avgDailyReturn: m.avg_daily_return ?? m.avgDailyReturn ?? 0,
+    windowStart: m.window?.start,
+    windowYears: m.window?.n_years,
   };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
-  return {
+  const result: AllPerformanceMetrics = {
     sp500: transformSingleMetrics(raw.sp500 || {}),
     sp20Mirror: transformSingleMetrics(raw.sp20_mirror || raw.sp20Mirror || {}),
     sp20Equal: transformSingleMetrics(raw.sp20_equal || raw.sp20Equal || {}),
   };
+  const alphaRaw = raw.spn_alpha ?? raw.spnAlpha;
+  if (alphaRaw) result.spnAlpha = transformSingleMetrics(alphaRaw);
+  return result;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformHoldings(raw: any): HoldingsData {
+function transformHoldings(raw: any, strategyRaw: any = null): HoldingsData {
   // JSON: { as_of, n_holdings, holdings: [{ ticker, weight, last_price, name?, sector? }] }
   const rawHoldings = raw.holdings || [];
   const nHoldings = rawHoldings.length || 1;
@@ -203,9 +254,28 @@ function transformHoldings(raw: any): HoldingsData {
     weight: 1 / nHoldings,
   }));
 
+  // Strategy-specific holdings from strategy_holdings.json
+  const strategies: Record<string, Holding[]> = {};
+  if (strategyRaw && strategyRaw.strategies) {
+    for (const [key, arr] of Object.entries(strategyRaw.strategies)) {
+      if (!Array.isArray(arr)) continue;
+      strategies[key] = arr.map(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (h: any, i: number) => ({
+          ticker: h.ticker ?? "",
+          name: h.name ?? h.ticker ?? "",
+          weight: h.weight ?? 0,
+          sector: h.sector ?? "",
+          rank: h.rank ?? i + 1,
+        }),
+      );
+    }
+  }
+
   return {
     sp20Mirror: mirrorHoldings,
     sp20Equal: equalHoldings,
+    strategies,
   };
 }
 
@@ -221,6 +291,7 @@ function transformDrawdown(raw: any): DrawdownData {
       sp500: p.sp500 ?? 0,
       sp20Mirror: p.sp20_mirror ?? p.sp20Mirror ?? 0,
       sp20Equal: p.sp20_equal ?? p.sp20Equal,
+      spnAlpha: p.spn_alpha ?? p.spnAlpha,
     }),
   );
 }
@@ -273,6 +344,7 @@ export function useLabData(): UseLabDataReturn {
         rawHoldings,
         rawDrawdown,
         rawDeviation,
+        rawStrategyHoldings,
       ] = await Promise.all([
         fetchJSON(DATA_FILES.meta),
         fetchJSON(DATA_FILES.concentrationCurve),
@@ -282,16 +354,21 @@ export function useLabData(): UseLabDataReturn {
         fetchJSON(DATA_FILES.holdings),
         fetchJSON(DATA_FILES.drawdown),
         fetchJSON(DATA_FILES.deviation),
+        fetchJSON(DATA_FILES.strategyHoldings).catch(() => null),
       ]);
 
       // Transform snake_case JSON → camelCase TypeScript types
       setData({
         meta: transformMeta(rawMeta),
-        concentrationCurve: transformConcentrationCurve(rawConcentration),
+        concentrationCurve: transformConcentrationCurve(
+          rawConcentration,
+          rawVarianceDecomp,
+        ),
         varianceDecomposition: transformVarianceDecomposition(rawVarianceDecomp),
         performanceNav: transformPerformanceNav(rawPerformanceNav),
+        performanceNavBundle: transformPerformanceNavBundle(rawPerformanceNav),
         performanceMetrics: transformPerformanceMetrics(rawPerformanceMetrics),
-        holdings: transformHoldings(rawHoldings),
+        holdings: transformHoldings(rawHoldings, rawStrategyHoldings),
         drawdown: transformDrawdown(rawDrawdown),
         deviation: transformDeviation(rawDeviation),
       });

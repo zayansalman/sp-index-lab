@@ -26,39 +26,39 @@ interface ThinkingPanelProps {
    Default content
    ────────────────────────────────────────────────────────────── */
 
+/*
+  Qualitative fallback only — every specific number lives in the exported
+  data. ResultsPanel passes data-driven sections; these render only if it
+  doesn't.
+*/
 const DEFAULT_SECTIONS: ThinkingSection[] = [
   {
     title: "Why 20 Stocks?",
     content:
-      "The S&P 500 is marketed as diversification across 500 companies, but our OLS regression analysis reveals " +
-      "that just 20 stocks explain 94.9% of the index's daily variance. The concentration curve shows a clear " +
-      "'elbow' at around 18-20 stocks, where the marginal R-squared contribution of each additional stock drops " +
-      "below 0.5%. Beyond that point, you're adding complexity without meaningful diversification. The remaining " +
-      "480 stocks collectively contribute less than 5% of the index's movement -- they're effectively noise. " +
-      "This isn't a temporary phenomenon; it's a structural feature of cap-weighted indices where the largest " +
-      "companies dominate by design.",
+      "The S&P 500 is marketed as diversification across 500 companies, but regressing the index's daily " +
+      "returns on its largest constituents shows that roughly 20 stocks explain the overwhelming majority " +
+      "of its variance. The concentration curve shows a clear 'elbow' around 18-20 stocks, where each " +
+      "additional stock stops adding meaningful explanatory power. The selection is point-in-time: each " +
+      "rolling window uses the stocks that were actually the largest at that moment, not today's winners " +
+      "projected backwards.",
   },
   {
-    title: "Why This Beats the S&P 500",
+    title: "Why The Baselines Stay",
     content:
-      "The SP-20 Mirror achieves a 15.3% CAGR vs the S&P 500's 11.3% -- a +4.0% alpha -- with a comparable " +
-      "risk profile (Sharpe of 0.68 vs 0.54). The outperformance comes from two sources: (1) concentration " +
-      "amplifies the returns of the stocks that actually drive the index, removing the 'dead weight' of 480 " +
-      "low-impact holdings; and (2) the equal-weighted variant further reduces mega-cap concentration risk by " +
-      "giving each of the 20 stocks an equal 5% allocation, capturing more of the broader large-cap premium. " +
-      "The key insight is that you're not taking more risk -- the tracking error is modest because these 20 " +
-      "stocks ARE the index for all practical purposes.",
+      "The SP-20 Mirror and SP-20 Equal portfolios are the two honest baselines. Mirror holds the " +
+      "point-in-time top-20 at cap weights, rebalanced monthly; Equal gives each of the 20 names an equal " +
+      "allocation. Both are net of transaction costs and benchmarked against the S&P 500 total-return " +
+      "index. They stay because they make the concentration thesis testable without hiding behind " +
+      "optimizer complexity.",
   },
   {
-    title: "The Path to Further Alpha",
+    title: "Why One Alpha",
     content:
-      "The static mirror index proves the thesis, but real alpha comes from dynamic adaptation. Our planned " +
-      "optimizer uses three layers: (1) Hierarchical Risk Parity (HRP) for robust weight allocation that avoids " +
-      "the instability of mean-variance optimization; (2) a LightGBM factor model that scores stocks on momentum, " +
-      "value, quality, and volatility factors to identify the optimal N stocks (10-30) for current conditions; " +
-      "and (3) a Hidden Markov Model regime detector that shifts between concentrated (trending markets) and " +
-      "diversified (volatile/uncertain markets) postures. The goal: dynamically select both WHICH stocks and " +
-      "HOW MANY to hold, adapting to market conditions in real time.",
+      "The public Alpha slot belongs to the single strategy that earns it in walk-forward testing: " +
+      "max-Sharpe optimization over the point-in-time top-20 universe, net of costs, with weights chosen " +
+      "using only data available at each rebalance. Experimental ML and hedged variants stay out of the " +
+      "product surface until they beat the retained strategy and the Equal baseline on the metrics that " +
+      "matter.",
   },
 ];
 

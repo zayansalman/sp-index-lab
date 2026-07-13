@@ -3,6 +3,11 @@
    Rich contextual information for each machine component.
    Every tooltip includes what it does, WHY we built it that way,
    and a single standout insight.
+
+   Keep these QUALITATIVE: specific performance numbers live in the
+   exported data (meta.json headline, performance_metrics.json) and
+   are rendered by data-driven components. Numbers written here go
+   stale the moment the daily pipeline refreshes.
    ================================================================ */
 
 import type { ComponentTooltip } from "./types";
@@ -19,17 +24,19 @@ export const tooltips: Record<string, ComponentTooltip> = {
     title: "Data Pipeline",
     subtitle: "Market data ingestion and validation engine",
     description:
-      "Ingests 12+ years of daily prices for 50 S&P 500 stocks via yfinance. " +
-      "Includes exponential backoff retries, rate limiting, and comprehensive " +
-      "data validation (NaN detection, extreme return filtering, forward-fill).",
+      "Ingests 13+ years of daily prices and volumes for ~90 current and " +
+      "former S&P 500 large-caps via yfinance, plus the S&P 500 total-return " +
+      "benchmark. Includes exponential backoff retries, rate limiting, and " +
+      "comprehensive data validation (NaN detection, extreme return " +
+      "filtering, forward-fill).",
     thinking:
-      "Raw market data is the foundation. We chose 50 stocks (not all 500) " +
-      "because we're testing whether a small subset explains the index \u2014 " +
-      "starting with the top 50 by market cap gives us the most likely " +
-      "candidates. Data quality matters: one bad data point can cascade " +
-      "through all analytics.",
+      "Raw market data is the foundation. The candidate pool covers every " +
+      "name that plausibly cracked the top 50 by market cap since 2014 — " +
+      "you cannot rank what you did not fetch, and ranking only today's " +
+      "winners would bake survivorship bias into every result downstream.",
     keyInsight:
-      "3,062 trading days of clean, validated data from 2014 to present",
+      "Point-in-time universe: at each date, only the stocks that were " +
+      "actually the largest at that moment are selectable",
   },
 
   /* ── 2. Concentration Analyzer ────────────────────────────── */
@@ -38,18 +45,19 @@ export const tooltips: Record<string, ComponentTooltip> = {
     title: "Concentration Analyzer",
     subtitle: "OLS regression-based variance decomposition",
     description:
-      "Runs OLS regression of S&P 500 daily returns against top-N stock " +
-      "returns, measuring how much variance each subset explains. Stocks " +
-      "are ranked by absolute correlation with the benchmark and added " +
-      "one-by-one.",
+      "Runs OLS regressions of S&P 500 daily returns against top-N stock " +
+      "returns over rolling one-year windows. Stocks are ranked by market " +
+      "cap as of each window's start, so the selection never peeks at the " +
+      "future.",
     thinking:
-      "If the S&P 500 were truly diversified, removing any 20 stocks should " +
-      "leave ~96% of variance unexplained. But we found the opposite \u2014 " +
-      "20 stocks explain 94.9%. The concentration curve shows an 'elbow' " +
-      "around 18\u201320 stocks where marginal R-squared drops below 0.5%, " +
-      "proving the rest are effectively noise.",
+      "If the S&P 500 were truly diversified, 20 stocks should explain only " +
+      "a sliver of its variance. Instead, the top-20 at each point in time " +
+      "explain the overwhelming majority. The concentration curve shows an " +
+      "'elbow' around 18–20 stocks where marginal R-squared collapses " +
+      "— the rest of the index is effectively noise.",
     keyInsight:
-      "20 stocks explain 94.9% of S&P 500 variance \u2014 the other 480 are noise",
+      "The animated counter shows the rolling-window average R² at 20 " +
+      "stocks, computed fresh from the latest data",
   },
 
   /* ── 3. Mirror Index Builder ──────────────────────────────── */
@@ -58,35 +66,38 @@ export const tooltips: Record<string, ComponentTooltip> = {
     title: "Mirror Index Builder",
     subtitle: "Cap-weighted and equal-weighted SP-20 construction",
     description:
-      "Constructs a cap-weighted portfolio of the top-20 stocks, rebalanced " +
-      "daily using price-proportional weights. NAV is normalized to 1.0 at " +
-      "inception for direct comparison with the S&P 500.",
+      "Constructs cap-weighted and equal-weighted portfolios of the " +
+      "point-in-time top-20, rebalanced monthly with turnover-based " +
+      "transaction costs. NAV is normalized to 1.0 at inception for direct " +
+      "comparison with the S&P 500 total-return index.",
     thinking:
-      "If 20 stocks explain the index, can we build a simpler version that " +
-      "matches or beats it? The cap-weighted mirror uses yesterday's weights " +
-      "for today's returns (avoiding look-ahead bias). Daily rebalancing is " +
-      "expensive in practice but establishes the theoretical upper bound.",
+      "If 20 stocks explain the index, a portfolio of just those 20 should " +
+      "track it closely. Between rebalances the portfolio drifts buy-and-hold " +
+      "— which is exactly what cap-weighting does — so turnover is " +
+      "only rank churn, and the cost drag stays small and honest.",
     keyInsight:
-      "The SP-20 Mirror achieved 15.3% CAGR vs 11.3% for the full S&P 500",
+      "Both baselines are net of costs and point-in-time — no " +
+      "survivorship, no free daily rebalancing",
   },
 
   /* ── 4. Alpha Optimizer ───────────────────────────────────── */
   "alpha-optimizer": {
     id: "alpha-optimizer",
     title: "Alpha Optimizer",
-    subtitle: "AI-driven dynamic portfolio optimization",
+    subtitle: "Walk-forward max-Sharpe portfolio optimization",
     description:
-      "Future home of the Hierarchical Risk Parity (HRP) optimizer, LightGBM " +
-      "factor model, and Hidden Markov Model regime detector. Will dynamically " +
-      "select 10\u201330 stocks based on market conditions.",
+      "Runs the retained SP-N Alpha strategy: a walk-forward max-Sharpe " +
+      "optimizer over the point-in-time top-20 universe, net of transaction " +
+      "costs. Weights are computed on trailing training data only and applied " +
+      "to the following out-of-sample month.",
     thinking:
-      "The mirror index proves the thesis but uses static weights. Real alpha " +
-      "comes from dynamic selection \u2014 knowing WHEN to concentrate more " +
-      "(low VIX, trending markets) and when to diversify (regime shifts, high " +
-      "volatility). HRP avoids the pitfalls of mean-variance optimization by " +
-      "using hierarchical clustering.",
+      "The mirror and equal portfolios are the clean benchmarks. The public " +
+      "Alpha slot is reserved for the one optimizer that adds clear value in " +
+      "walk-forward testing; experimental ML and hedged variants stay out of " +
+      "the product surface until they earn their place.",
     keyInsight:
-      "Dynamic N: 10\u201330 stocks adapting to market regime for maximum risk-adjusted alpha",
+      "Every number shown for SP-N Alpha is out-of-sample and net of costs " +
+      "— see the results panel for current figures",
   },
 
   /* ── 5. Performance Monitor ───────────────────────────────── */
@@ -97,14 +108,16 @@ export const tooltips: Record<string, ComponentTooltip> = {
     description:
       "Computes 15+ metrics including CAGR, Sharpe, Sortino, Maximum Drawdown, " +
       "Calmar, Beta, Alpha (Jensen's), Tracking Error, and Information Ratio. " +
-      "All annualized using 252 trading days.",
+      "All annualized using 252 trading days, against the total-return " +
+      "benchmark.",
     thinking:
       "A single metric tells one story. Sharpe captures risk-adjusted return, " +
       "but ignores the path (drawdowns matter for real portfolios). Sortino " +
       "penalizes only downside volatility. Tracking error shows how closely " +
       "we mirror the benchmark. Together, they paint the complete picture.",
     keyInsight:
-      "Sharpe 0.68 (vs 0.54), Max Drawdown similar, Alpha +4.0% \u2014 genuine risk-adjusted outperformance",
+      "Relative metrics are computed on overlapping dates only, so " +
+      "walk-forward strategies are never flattered by window mismatches",
   },
 } as const;
 

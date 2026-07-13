@@ -7,7 +7,7 @@ from Parquet for speed; the daily update writes to both Supabase and Parquet.
 import logging
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import pandas as pd
 from dotenv import load_dotenv
@@ -164,7 +164,7 @@ def df_to_rows(df: pd.DataFrame) -> list[dict[str, Any]]:
     """
     # Replace NaN with None for JSON compatibility
     df = df.where(pd.notnull(df), None)
-    rows = df.to_dict(orient="records")
+    rows = cast(list[dict[str, Any]], df.to_dict(orient="records"))
     # Convert date/datetime objects to ISO strings
     for row in rows:
         for k, v in row.items():

@@ -76,17 +76,39 @@ def compute_performance_metrics(
         bench_returns = benchmark_nav.pct_change().dropna()
         common = returns.index.intersection(bench_returns.index)
 
-        bench_total = (benchmark_nav.iloc[-1] / benchmark_nav.iloc[0]) - 1
-        bench_cagr = (1 + bench_total) ** (1 / n_years) - 1 if n_years > 0 else 0.0
+        if len(common) > 0:
+            strategy_common_returns = returns.loc[common]
+            bench_common_returns = bench_returns.loc[common]
+            relative_n_years = len(common) / TRADING_DAYS_PER_YEAR
 
-        excess_return = cagr - bench_cagr
-        te = compute_tracking_error(returns.loc[common], bench_returns.loc[common])
+            strategy_total = (1 + strategy_common_returns).prod() - 1
+            bench_total = (1 + bench_common_returns).prod() - 1
+            strategy_cagr = (
+                (1 + strategy_total) ** (1 / relative_n_years) - 1
+                if relative_n_years > 0
+                else 0.0
+            )
+            bench_cagr = (
+                (1 + bench_total) ** (1 / relative_n_years) - 1
+                if relative_n_years > 0
+                else 0.0
+            )
+        else:
+            strategy_common_returns = pd.Series(dtype=float)
+            bench_common_returns = pd.Series(dtype=float)
+            strategy_cagr = cagr
+            bench_cagr = 0.0
+
+        excess_return = strategy_cagr - bench_cagr
+        te = compute_tracking_error(strategy_common_returns, bench_common_returns)
         info_ratio = excess_return / te if te > 0 else 0.0
 
         if len(common) > 1:
-            cov = np.cov(returns.loc[common].values, bench_returns.loc[common].values)
+            cov = np.cov(strategy_common_returns.values, bench_common_returns.values)
             beta = cov[0, 1] / cov[1, 1] if cov[1, 1] > 0 else 1.0
-            alpha = cagr - (risk_free_rate + beta * (bench_cagr - risk_free_rate))
+            alpha = strategy_cagr - (
+                risk_free_rate + beta * (bench_cagr - risk_free_rate)
+            )
         else:
             beta = 1.0
             alpha = 0.0

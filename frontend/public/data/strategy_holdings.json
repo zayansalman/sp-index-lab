@@ -1,0 +1,167 @@
+{
+  "as_of": "2026-07-02",
+  "strategies": {
+    "spn_alpha": [
+      {
+        "ticker": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "weight": 0.15,
+        "sector": "Financials",
+        "last_price": 334.470001,
+        "rank": 1
+      },
+      {
+        "ticker": "JNJ",
+        "name": "Johnson & Johnson",
+        "weight": 0.15,
+        "sector": "Health Care",
+        "last_price": 263.040009,
+        "rank": 2
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart Inc.",
+        "weight": 0.15,
+        "sector": "Consumer Staples",
+        "last_price": 111.839996,
+        "rank": 3
+      },
+      {
+        "ticker": "MU",
+        "name": "Micron Technology Inc.",
+        "weight": 0.15,
+        "sector": "Technology",
+        "last_price": 975.559998,
+        "rank": 4
+      },
+      {
+        "ticker": "GOOGL",
+        "name": "Alphabet Inc.",
+        "weight": 0.10376,
+        "sector": "Communication Services",
+        "last_price": 359.910004,
+        "rank": 5
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly and Co.",
+        "weight": 0.08671,
+        "sector": "Health Care",
+        "last_price": 1213.910034,
+        "rank": 6
+      },
+      {
+        "ticker": "XOM",
+        "name": "Exxon Mobil Corp.",
+        "weight": 0.07553,
+        "sector": "Energy",
+        "last_price": 137.089996,
+        "rank": 7
+      },
+      {
+        "ticker": "NVDA",
+        "name": "NVIDIA Corp.",
+        "weight": 0.014,
+        "sector": "Technology",
+        "last_price": 194.830002,
+        "rank": 8
+      },
+      {
+        "ticker": "MSFT",
+        "name": "Microsoft Corp.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 390.48999,
+        "rank": 9
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 308.630005,
+        "rank": 10
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 0.01,
+        "sector": "Consumer Discretionary",
+        "last_price": 393.450012,
+        "rank": 11
+      },
+      {
+        "ticker": "AMZN",
+        "name": "Amazon.com Inc.",
+        "weight": 0.01,
+        "sector": "Consumer Discretionary",
+        "last_price": 242.669998,
+        "rank": 12
+      },
+      {
+        "ticker": "BRK-B",
+        "name": "Berkshire Hathaway Inc.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 507.779999,
+        "rank": 13
+      },
+      {
+        "ticker": "AVGO",
+        "name": "Broadcom Inc.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 360.450012,
+        "rank": 14
+      },
+      {
+        "ticker": "META",
+        "name": "Meta Platforms Inc.",
+        "weight": 0.01,
+        "sector": "Communication Services",
+        "last_price": 582.900024,
+        "rank": 15
+      },
+      {
+        "ticker": "AMD",
+        "name": "Advanced Micro Devices Inc.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 517.820007,
+        "rank": 16
+      },
+      {
+        "ticker": "V",
+        "name": "Visa Inc.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 362.130005,
+        "rank": 17
+      },
+      {
+        "ticker": "ORCL",
+        "name": "Oracle Corp.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 140.270004,
+        "rank": 18
+      },
+      {
+        "ticker": "INTC",
+        "name": "Intel Corp.",
+        "weight": 0.01,
+        "sector": "Technology",
+        "last_price": 120.349998,
+        "rank": 19
+      },
+      {
+        "ticker": "MA",
+        "name": "Mastercard Inc.",
+        "weight": 0.01,
+        "sector": "Financials",
+        "last_price": 539.390015,
+        "rank": 20
+      }
+    ]
+  }
+}

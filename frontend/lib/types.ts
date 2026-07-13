@@ -8,6 +8,34 @@
    Source: /data/meta.json
    ────────────────────────────────────────────────────────────── */
 
+/**
+ * Headline stats exported by the pipeline — the single source of truth
+ * for every number displayed outside the charts. Components must read
+ * these instead of hardcoding values that drift when data refreshes.
+ */
+export interface HeadlineStats {
+  /** Mean R² of benchmark on PIT top-20 across rolling 1y windows */
+  rSquaredAt20: number;
+  /** S&P 500 (total return) CAGR over the display window */
+  sp500Cagr: number;
+  /** SP-20 Mirror CAGR, net of costs */
+  mirrorCagr: number;
+  /** SP-20 Mirror Jensen alpha, net of costs */
+  mirrorAlpha: number;
+  /** SP-20 Equal CAGR, net of costs */
+  equalCagr: number;
+  /** SP-20 Equal Jensen alpha, net of costs */
+  equalAlpha: number;
+  /** SP-N Alpha CAGR, net of costs (out-of-sample) */
+  alphaCagr?: number;
+  /** SP-N Alpha Sharpe ratio, net of costs */
+  alphaSharpe?: number;
+  /** SP-N Alpha Jensen alpha, net of costs */
+  alphaJensen?: number;
+  /** SP-N Alpha max drawdown */
+  alphaMaxDrawdown?: number;
+}
+
 export interface MetaData {
   /** ISO date of the last pipeline run */
   lastUpdated: string;
@@ -23,6 +51,8 @@ export interface MetaData {
   topN: number;
   /** S&P 500 benchmark ticker */
   benchmark: string;
+  /** Headline stats (data-driven numbers for the UI) */
+  headline?: HeadlineStats;
   /** Pipeline version identifier */
   version?: string;
 }
@@ -88,9 +118,21 @@ export interface PerformanceNavPoint {
   sp20Mirror: number;
   /** SP-20 Equal-weighted normalised NAV */
   sp20Equal: number;
+  /** SP-N Alpha (retained max-Sharpe optimizer) normalised NAV */
+  spnAlpha?: number;
 }
 
 export type PerformanceNavData = PerformanceNavPoint[];
+
+/**
+ * NAV series at both granularities for interactive time-range switching.
+ * `weekly` covers the full backtest; `daily` is the trailing ~1 year at
+ * daily resolution.
+ */
+export interface PerformanceNavBundle {
+  weekly: PerformanceNavData;
+  daily: PerformanceNavData;
+}
 
 /* ──────────────────────────────────────────────────────────────
    Performance -- Metrics
@@ -128,12 +170,17 @@ export interface PerformanceMetrics {
   winRate: number;
   /** Average daily return */
   avgDailyReturn: number;
+  /** First date of this strategy's window (ISO) */
+  windowStart?: string;
+  /** Window length in years (walk-forward strategies are shorter) */
+  windowYears?: number;
 }
 
 export interface AllPerformanceMetrics {
   sp500: PerformanceMetrics;
   sp20Mirror: PerformanceMetrics;
   sp20Equal: PerformanceMetrics;
+  spnAlpha?: PerformanceMetrics;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -161,6 +208,8 @@ export interface HoldingsData {
   sp20Mirror: Holding[];
   /** Equal-weighted holdings */
   sp20Equal: Holding[];
+  /** Strategy-specific holdings keyed by strategy identifier */
+  strategies?: Record<string, Holding[]>;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -177,6 +226,8 @@ export interface DrawdownPoint {
   sp20Mirror: number;
   /** SP-20 Equal drawdown from peak (optional) */
   sp20Equal?: number;
+  /** SP-N Alpha (canonical) drawdown from peak */
+  spnAlpha?: number;
 }
 
 export type DrawdownData = DrawdownPoint[];
@@ -264,7 +315,10 @@ export interface LabData {
   meta: MetaData;
   concentrationCurve: ConcentrationCurveData;
   varianceDecomposition: VarianceDecompositionPoint[];
+  /** Backward-compat weekly series (default chart data) */
   performanceNav: PerformanceNavData;
+  /** Both granularities for time-range switching */
+  performanceNavBundle: PerformanceNavBundle;
   performanceMetrics: AllPerformanceMetrics;
   holdings: HoldingsData;
   drawdown: DrawdownData;

@@ -33,7 +33,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "S&P Index Lab",
   description:
-    "Proving the S&P 500 is driven by ~20 stocks. An interactive analytics platform that deconstructs index concentration, builds mirror indices, and optimizes alpha with machine learning.",
+    "Proving the S&P 500 is driven by ~20 stocks. An interactive analytics platform that deconstructs index concentration, builds mirror indices, and compares the retained SP-N Alpha optimizer.",
   keywords: [
     "S&P 500",
     "index concentration",
@@ -44,10 +44,12 @@ export const metadata: Metadata = {
     "market concentration",
   ],
   authors: [{ name: "S&P Index Lab" }],
+  // Metadata is static at build time — keep descriptions qualitative so
+  // they can't contradict the daily-refreshed data.
   openGraph: {
     title: "S&P Index Lab",
     description:
-      "20 stocks explain 94.9% of S&P 500 variance. Explore the concentration thesis with interactive analytics and AI-optimized indices.",
+      "A handful of stocks explain the vast majority of S&P 500 variance. Explore the concentration thesis with point-in-time Mirror, Equal, and SP-N Alpha portfolios.",
     siteName: "S&P Index Lab",
     type: "website",
     locale: "en_US",
@@ -56,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "S&P Index Lab",
     description:
-      "20 stocks explain 94.9% of S&P 500 variance. Explore the concentration thesis with interactive analytics.",
+      "A handful of stocks explain the vast majority of S&P 500 variance. Explore the concentration thesis with interactive analytics.",
   },
   robots: {
     index: true,

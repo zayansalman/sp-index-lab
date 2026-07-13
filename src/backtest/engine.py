@@ -1,4 +1,4 @@
-"""Walk-forward backtesting engine (no look-ahead)."""
+"""Walk-forward backtesting engine (no look-ahead, net of costs)."""
 
 from __future__ import annotations
 
@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from typing import Callable
 
 import pandas as pd
+
+from src.backtest.costs import simulate_portfolio
 
 
 @dataclass(frozen=True)
@@ -16,6 +18,22 @@ class WalkForwardSplit:
     train_end: pd.Timestamp
     test_start: pd.Timestamp
     test_end: pd.Timestamp
+
+
+@dataclass(frozen=True)
+class WalkForwardResult:
+    """Output of a walk-forward backtest.
+
+    ``nav`` is net of transaction costs and is the canonical series;
+    ``nav_gross`` is the frictionless counterpart. ``turnover`` and
+    ``costs`` are indexed by trade date (each test-window start).
+    """
+
+    nav: pd.Series
+    nav_gross: pd.Series
+    turnover: pd.Series
+    costs: pd.Series
+    splits: list[WalkForwardSplit]
 
 
 def generate_walk_forward_splits(
@@ -71,6 +89,7 @@ def generate_walk_forward_splits(
 
 
 WeightsFn = Callable[[pd.DataFrame, pd.Series | None], pd.Series]
+UniverseFn = Callable[[pd.Timestamp], "list[str]"]
 
 
 def walk_forward_backtest(
@@ -81,11 +100,15 @@ def walk_forward_backtest(
     train_days: int = 756,
     test_days: int = 21,
     step_days: int | None = None,
-) -> pd.Series:
-    """Run a walk-forward backtest producing an out-of-sample NAV series.
+    universe_fn: UniverseFn | None = None,
+) -> WalkForwardResult:
+    """Run a walk-forward backtest producing out-of-sample net/gross NAVs.
 
-    This engine enforces no look-ahead by computing weights on *training* data
-    only, then applying them to the subsequent *test* window returns.
+    No look-ahead by construction: the tradable universe is evaluated at
+    each training window's end, weights are computed on training data only,
+    and both apply to the subsequent test window. Between rebalances the
+    portfolio drifts buy-and-hold; each rebalance is charged turnover-based
+    transaction costs (see :mod:`src.backtest.costs`).
 
     Args:
         prices: Wide price DataFrame indexed by date (DatetimeIndex).
@@ -95,9 +118,15 @@ def walk_forward_backtest(
         train_days: Training window length in trading days.
         test_days: Test window length in trading days.
         step_days: Advance between splits; defaults to `test_days`.
+        universe_fn: Optional ``as_of → tickers`` callable (e.g. from
+            :func:`src.data.universe.make_universe_fn`). Called with each
+            split's ``train_end``; the training slice passed to
+            ``weights_fn`` is restricted to those columns.
 
     Returns:
-        Out-of-sample NAV series indexed by date (normalized to 1.0 at start).
+        WalkForwardResult with net/gross NAV series (both normalised to 1.0
+        at the first out-of-sample date), per-rebalance turnover and costs,
+        and the splits used.
     """
     if prices.empty:
         raise ValueError("prices is empty.")
@@ -112,13 +141,15 @@ def walk_forward_backtest(
     if not splits:
         raise ValueError("Not enough data to generate walk-forward splits.")
 
-    # Precompute returns once.
-    returns = prices.pct_change(fill_method=None)
-
-    oos_returns: list[pd.Series] = []
+    rebalance_targets: dict[pd.Timestamp, pd.Series] = {}
     for s in splits:
         train_prices = prices.loc[s.train_start : s.train_end]
-        test_returns = returns.loc[s.test_start : s.test_end].dropna(how="all")
+
+        if universe_fn is not None:
+            universe = [t for t in universe_fn(s.train_end) if t in prices.columns]
+            if not universe:
+                raise ValueError(f"universe_fn returned no tradable tickers at {s.train_end}.")
+            train_prices = train_prices[universe]
 
         if benchmark_prices is not None:
             train_bench = benchmark_prices.loc[s.train_start : s.train_end]
@@ -126,19 +157,31 @@ def walk_forward_backtest(
             train_bench = None
 
         w = weights_fn(train_prices, train_bench)
-        w = w.reindex(prices.columns).fillna(0.0)
+        w = w[w != 0.0].dropna()
         total = float(w.sum())
         if total == 0.0:
             raise ValueError("weights_fn returned all-zero weights.")
-        w = w / total
+        rebalance_targets[s.train_end] = w / total
 
-        # Use fixed weights over the test window (rebalance at test start).
-        test_portfolio = (test_returns * w).sum(axis=1)
-        oos_returns.append(test_portfolio)
+    returns = prices.pct_change(fill_method=None)
+    oos_returns = returns.loc[splits[0].test_start : splits[-1].test_end]
 
-    out = pd.concat(oos_returns).sort_index()
-    nav = (1 + out.fillna(0.0)).cumprod()
+    sim = simulate_portfolio(oos_returns, rebalance_targets)
+
+    nav = (1 + sim["net_return"]).cumprod()
     nav = nav / nav.iloc[0]
     nav.name = "nav"
-    return nav
+
+    nav_gross = (1 + sim["gross_return"]).cumprod()
+    nav_gross = nav_gross / nav_gross.iloc[0]
+    nav_gross.name = "nav_gross"
+
+    trade_days = sim.index[sim["turnover"] > 0]
+    return WalkForwardResult(
+        nav=nav,
+        nav_gross=nav_gross,
+        turnover=sim.loc[trade_days, "turnover"],
+        costs=sim.loc[trade_days, "cost"],
+        splits=splits,
+    )
 

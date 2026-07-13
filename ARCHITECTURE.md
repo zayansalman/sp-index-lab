@@ -38,6 +38,26 @@
 │   ├── build_mirror_index()      Cap-weighted NAV construction    │
 │   └── compute_performance_metrics()  15+ risk-adjusted metrics   │
 │                                                                  │
+│   src/features/ ── ML feature engineering                        │
+│   ├── technical.py   Momentum, vol, RSI, MA distance             │
+│   ├── regime.py      3-state HMM (bull/transition/bear)          │
+│   ├── factors.py     LightGBM forward return predictor           │
+│   ├── sentiment.py   FinBERT (HuggingFace) + backtest proxy     │
+│   └── beta.py        Rolling stock & portfolio beta              │
+│                                                                  │
+│   src/optimizer/ ── Portfolio optimization                        │
+│   ├── hrp.py         Hierarchical Risk Parity (PyPortfolioOpt)   │
+│   ├── mvo.py         Mean-Variance Optimization + fallback       │
+│   └── ensemble.py    Regime-weighted HRP + factor-MVO blend      │
+│                                                                  │
+│   src/strategies/ ── Portfolio strategies                         │
+│   ├── alpha.py       SP-N Alpha; public export uses max-Sharpe   │
+│   └── hedged.py      Archived hedged research prototype          │
+│                                                                  │
+│   src/backtest/ ── Walk-forward backtesting                       │
+│   ├── engine.py      756D train / 21D test, WeightsFn interface  │
+│   └── metrics.py     CAGR, Sharpe, Sortino, alpha, beta, etc.   │
+│                                                                  │
 │   src/data/storage.py ── load_parquet() / save_parquet()        │
 │   src/data/fetcher.py ── yfinance with retry + validation       │
 │   src/config.py ── TOP_50_TICKERS, INCEPTION_DATE, thresholds   │
@@ -51,9 +71,10 @@
 │   ├── Fetches latest prices from yfinance                       │
 │   ├── Updates Parquet files in data/                            │
 │   ├── Commits + pushes to GitHub                                │
-│   └── (Planned) Triggers JSON export + Vercel redeploy          │
+│   ├── Exports frontend/public/data/*.json                        │
+│   └── Triggers Vercel redeploy on push                           │
 │                                                                  │
-│   Supabase (PostgreSQL) ── Source of truth                      │
+│   Supabase (PostgreSQL) ── Write-only backup of price data      │
 │   ├── daily_prices, index_values, portfolio_weights             │
 │   ├── rebalance_log, backtest_results, proof_stats              │
 │   └── 500MB free tier                                           │
@@ -200,11 +221,12 @@ LAYER 1: FEATURE ENGINEERING
   src/features/technical.py           momentum 1M/3M/6M/12M, realized vol, RSI, MA distance
 
 LAYER 2: ML SIGNAL GENERATION
-  src/optimizer/classical.py          PyPortfolioOpt: HRP, MVO, Black-Litterman
-  src/optimizer/regime.py             hmmlearn: 3-state HMM (bull/bear/transition)
-  src/optimizer/factor_model.py       LightGBM: forward 21D return quintile predictor
-  src/optimizer/ensemble.py           regime-weighted combination
-  src/optimizer/rebalancer.py         drift (2%) + regime-change + quarterly calendar
+  src/optimizer/hrp.py                PyPortfolioOpt: HRP
+  src/optimizer/mvo.py                PyPortfolioOpt: MVO max-Sharpe/min-vol
+  src/features/regime.py              hmmlearn: 3-state HMM (bull/bear/transition)
+  src/features/factors.py             LightGBM: forward 21D return predictor
+  src/optimizer/ensemble.py           regime-weighted combination [research-only]
+  src/optimizer/rebalancer.py         drift (2%) + regime-change + quarterly calendar [planned]
 
 LAYER 3: STRATEGY PODS
   src/strategies/pod_base.py          PodBase ABC + Signal dataclass

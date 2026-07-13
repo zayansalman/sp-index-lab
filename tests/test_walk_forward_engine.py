@@ -37,8 +37,40 @@ def test_walk_forward_backtest_no_lookahead_by_construction() -> None:
         winner = tr.idxmax()
         return pd.Series({winner: 1.0})
 
-    nav = walk_forward_backtest(prices, weights_fn=weights_fn, train_days=756, test_days=21)
+    result = walk_forward_backtest(prices, weights_fn=weights_fn, train_days=756, test_days=21)
+    nav = result.nav
     assert isinstance(nav, pd.Series)
     assert nav.index.is_monotonic_increasing
     assert float(nav.iloc[0]) == 1.0
+
+    # Net NAV can never beat the frictionless NAV (up to float noise).
+    assert float(nav.iloc[-1]) <= float(result.nav_gross.iloc[-1]) + 1e-9
+
+
+def test_walk_forward_backtest_universe_fn_restricts_training_columns() -> None:
+    dates = pd.date_range("2020-01-01", periods=1000, freq="B")
+    prices = pd.DataFrame(
+        {
+            "A": 100.0 * (1.0 + 0.0002) ** np.arange(len(dates)),
+            "B": 100.0 * (1.0 + 0.0001) ** np.arange(len(dates)),
+            "C": 100.0 * (1.0 + 0.00005) ** np.arange(len(dates)),
+        },
+        index=dates,
+    )
+
+    seen: set[str] = set()
+
+    def weights_fn(train_prices: pd.DataFrame, _bench: pd.Series | None) -> pd.Series:
+        seen.update(train_prices.columns)
+        return pd.Series(1.0, index=train_prices.columns)
+
+    result = walk_forward_backtest(
+        prices,
+        weights_fn=weights_fn,
+        train_days=756,
+        test_days=21,
+        universe_fn=lambda as_of: ["B", "C"],
+    )
+    assert seen == {"B", "C"}
+    assert len(result.turnover) == len(result.splits)
 

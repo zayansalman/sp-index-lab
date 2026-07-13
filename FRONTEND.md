@@ -67,9 +67,10 @@ frontend/
 - Hero: "S&P INDEX LAB" — Space Grotesk, uppercase, tracking-widest
 - Tagline: "The S&P 500 is a 20-stock index. Here's the machine that proves it."
 - 3 stat cards with staggered Framer Motion entrance:
-  - R² = 94.9% (green)
-  - CAGR = 15.3% (gold)
-  - Alpha = +4.0% (indigo)
+  - Avg R² at 20 stocks (green)
+  - SP-N Alpha CAGR, net of costs (gold)
+  - SP-N Alpha Jensen alpha, net (indigo)
+  - Values load from `meta.json` `headline` — never hardcoded
 - CTA: "Enter the Lab →" with animated glow border
 - Footer: "Built by Zayan Khan"
 
@@ -142,11 +143,11 @@ Content sourced from `lib/tooltips.ts`. Positioned via HTML overlay `<div>` abov
 ## Results Panel
 Appears after machine `complete` stage. Framer Motion entrance animations:
 
-1. **4 Hero Metric Cards** — R² (94.9%), CAGR (15.3%), Excess Return (+4.0%), Tracking Error (9.41%)
+1. **4 Hero Metric Cards** — R², SP-N Alpha CAGR, Sharpe, Jensen alpha (all data-driven from the export)
    - `AnimatedCounter` counts from 0 to target value
 2. **Concentration Curve** (Recharts LineChart) — R² vs # stocks, annotations at N=20 and 95%
-3. **Growth of $1** (Recharts LineChart) — S&P 500 (gray) vs Mirror (green) vs Equal (gold)
-4. **Performance Table** — 11 metrics × 3 indices (Total Return, CAGR, Vol, Sharpe, Sortino, Max DD, Calmar, Beta, Alpha, TE, IR)
+3. **Growth of $1** (Recharts LineChart) — S&P 500 (gray) vs Mirror (green) vs Equal (gold) vs SP-N Alpha (pink)
+4. **Performance Table** — 11 metrics × retained indices (Total Return, CAGR, Vol, Sharpe, Sortino, Max DD, Calmar, Beta, Alpha, TE, IR)
 5. **Drawdown Chart** (Recharts AreaChart) — overlaid drawdown series
 6. **Holdings Table** — 20 rows: rank, ticker, name, sector, weight with proportional bars
 7. **"The Thinking" Panels** — 3 collapsible sections with methodology rationale
@@ -162,10 +163,10 @@ JSON files (pre-computed by `scripts/export_frontend_data.py`):
 - `meta.json` (1.0KB) — dates, counts, config
 - `concentration_curve.json` (6.4KB) — R² curve data
 - `variance_decomposition.json` (0.8KB) — per-N variance
-- `performance_nav.json` (106KB) — weekly NAV series
-- `performance_metrics.json` (1.4KB) — 15+ metrics × 3 indices
+- `performance_nav.json` (108KB) — weekly NAV series
+- `performance_metrics.json` (1.9KB) — 15+ metrics × retained indices
 - `holdings.json` (3.2KB) — tickers, names, sectors, weights
-- `drawdowns.json` (76KB) — weekly drawdown series
+- `drawdowns.json` (70KB) — weekly drawdown series
 - `daily_deviations.json` (5.7KB) — histogram bins
 
 ## Responsive Design

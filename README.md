@@ -1,194 +1,112 @@
 # SP Index Lab
 
-**20 stocks. 94.9% of the S&P 500. Optimised to beat it.**
+**20 stocks. ~96% of the S&P 500's variance. Selected point-in-time, measured net of costs.**
 
-> From analytics proof to AI alpha hedge fund.
-
-SP Index Lab started as a research project proving the S&P 500 is driven by ~20 stocks (R²=94.9%). It has since evolved into a full algorithmic trading infrastructure for running an AI-powered optimised equity fund: the SP-N Alpha.
+SP Index Lab is a research and portfolio analytics project proving that the S&P 500 is largely explained by its largest constituents. A Python backend computes the proof, walk-forward strategy backtests, and static JSON exports; a Next.js frontend presents the results as an interactive lab experience.
 
 > **Live demo**: [sp-index-lab.vercel.app](https://sp-index-lab.vercel.app)
 
 ---
 
-## The Thesis
+## Current Results
 
-The top 20 S&P 500 stocks account for ~47% of total index weight. Using OLS regression across 3,062 trading days (2014–2026), these 20 stocks explain **94.9%** of S&P 500 variance. The other 480 contribute less than 5% of explanatory power.
+The point-in-time top-20 S&P 500 names explain **95.6%** of benchmark daily-return variance on average across rolling one-year windows (2014-01-02 onward; data refreshes daily). All strategy returns below are **net of transaction costs** (7 bps per one-way traded notional) against the **S&P 500 total-return index**.
 
-**Given that we know the S&P is a ~20-stock index in practice, we built an optimised version**: one that captures the same market exposure with better risk-adjusted returns through smarter weighting (HRP + LightGBM factor model), regime awareness (3-state HMM), and disciplined rebalancing.
+| Metric | S&P 500 (TR) | SP-20 Mirror | SP-20 Equal | SP-N Alpha* |
+|--------|--------------|--------------|-------------|-------------|
+| CAGR (net) | 13.9% | 18.4% | 16.9% | **20.9%** |
+| Sharpe | 0.57 | 0.70 | 0.71 | **0.81** |
+| Max Drawdown | -33.8% | -33.2% | -33.6% | **-31.0%** |
+| Jensen Alpha | – | +3.3% | +2.8% | **+5.2%** |
 
-| Metric | S&P 500 | SP-20 Mirror | SP-20 Equal | SP-N Alpha |
-|--------|---------|-------------|-------------|------------|
-| CAGR | 11.3% | 15.3% | 14.2% | **15.3%** |
-| Sharpe | 0.54 | 0.68 | 0.63 | **0.68** |
-| Max Drawdown | -33.7% | -37.4% | -39.8% | TBD |
-| Alpha | — | +4.0% | +2.9% | **+4.0%** |
+\* SP-N Alpha is out-of-sample walk-forward (first 3 years feed the initial training window, so its column spans 2016→present); relative metrics are computed on overlapping dates only.
 
-*SP-N Alpha uses ensemble optimizer (HRP + LightGBM-MVO) and HMM regime detection. Backtesting in progress.*
+Metrics are generated into `frontend/public/data/performance_metrics.json` by `scripts/export_frontend_data.py` and refresh with the daily pipeline — the table above is a snapshot and the site always shows the current values. The public site keeps only the two simple baselines and the one optimized strategy that clears them.
 
----
+### Methodology (what makes these numbers defensible)
 
-## Fund Architecture
-
-Three strategy pods, built modularly:
-
-| Pod | Strategy | Allocation | Status |
-|-----|----------|------------|--------|
-| Passive Core | SP-N Alpha: HRP + LightGBM + HMM | 70% of NAV | Sprint 1–3 |
-| Vol Overlay | Covered calls on passive core (BXM-style) | 15% of NAV | Sprint 9 (Q3 2026) |
-| Active Trading | Pairs trading + dispersion on 20-stock universe | 15% of NAV | Sprint 10 (Q4 2026) |
-
-Broker-agnostic by design: `BrokerInterface` ABC → swap Alpaca / IBKR via `RUN_MODE` env var, zero strategy code changes.
-
-**Fund phases**: Personal account (paper → live) → F&F fund → Registered fund.
+- **Point-in-time universe** — at each monthly rebalance, the top-20 is selected from the stocks that were actually in the S&P 500 *and* largest at that moment (vendored membership snapshots + an anchored market-cap proxy). No survivorship bias: NVDA is not in the 2014 portfolio.
+- **Transaction costs** — every rebalance is charged 7 bps per unit of one-way traded notional on actual turnover; portfolios drift buy-and-hold between rebalances.
+- **Total-return benchmark** — stock prices are dividend-adjusted, so the benchmark is ^SP500TR, not the price-only ^GSPC.
+- **Known limitations** — the cap proxy anchors today's share counts (buyback drift under-ranks repurchasers in early years; historical top-20 overlap is 75–90% at reference dates); five delisted ex-constituents are excluded (none was ever top-20). See [RESEARCH.md](RESEARCH.md).
 
 ---
 
-## 10-Layer System Architecture
+## Implemented Strategies
 
-```
-LAYER 0: DATA INGESTION
-  yfinance (equity, daily) [existing]    →  data/daily_prices.parquet
-  Polygon.io (options) [Phase 2]         →  data/options_chains/
-  FRED API (macro) [Phase 2]             →  data/macro_indicators.parquet
+| Portfolio | Strategy | Status |
+|-----------|----------|--------|
+| SP-20 Mirror | Point-in-time top-20, cap-proxy weights, monthly rebalance, net of costs | Built |
+| SP-20 Equal | Same point-in-time top-20, equal weighted | Built |
+| SP-N Alpha | Walk-forward max-Sharpe optimizer over the point-in-time top-20 | Built |
 
-LAYER 1: FEATURE ENGINEERING
-  src/features/technical.py              momentum 1M/3M/6M/12M, vol, RSI, MA distance
+Deferred fund infrastructure such as broker execution, live paper trading, private fund dashboards, risk operations, and reporting remains roadmap work rather than implemented repo surface area.
 
-LAYER 2: ML SIGNAL GENERATION
-  src/optimizer/classical.py             PyPortfolioOpt: HRP, MVO, Black-Litterman
-  src/optimizer/regime.py                hmmlearn: 3-state HMM (bull/bear/transition)
-  src/optimizer/factor_model.py          LightGBM: forward 21D return quintile
-  src/optimizer/ensemble.py              regime-weighted combination
+---
 
-LAYER 3: STRATEGY PODS
-  src/strategies/passive_core.py         SP-N Alpha (70% NAV)
-  src/strategies/vol_overlay.py          Covered calls (15% NAV, Phase 2)
-  src/strategies/active_trading.py       Pairs + dispersion (15% NAV, Phase 2)
+## Architecture
 
-LAYER 4: EXECUTION ABSTRACTION
-  src/execution/broker_base.py           BrokerInterface ABC
-  src/execution/paper_broker.py          PaperBroker (sqrt impact slippage, next-open fills)
-  src/execution/alpaca_broker.py         AlpacaBroker (Phase 2)
-  src/execution/__init__.py              get_broker(RUN_MODE) factory
-
-LAYER 5: RISK MANAGEMENT
-  src/risk/calculator.py                 VaR 95%, CVaR, beta, active share
-  src/risk/circuit_breaker.py            Halt: drawdown > 15% or VaR > 5% NAV
-  src/risk/monitor.py                    RiskSnapshot after every fill batch
-
-LAYER 6: BACKTESTING ENGINE
-  src/backtest/engine.py                 Walk-forward: 756D train / 21D test
-  src/backtest/simulator.py              Trade simulation with realistic slippage
-  src/backtest/report.py                 Promotion gate: Sharpe > 0.80, DD < 25%
-
-LAYER 7: PORTFOLIO TRACKING
-  src/portfolio/ledger.py                Immutable trade log (append-only Parquet)
-  src/portfolio/state.py                 Live positions, cash, NAV
-
-LAYER 8: REPORTING
-  src/reporting/tearsheet.py             Daily PDF via weasyprint + Jinja2
-  src/reporting/attribution.py           Brinson-Hood-Beebower attribution
-
-LAYER 9: ORCHESTRATION SCRIPTS
-  scripts/run_paper_trading.py           Nightly pipeline: signals → fills → tearsheet
-  scripts/run_full_backtest.py           Walk-forward backtest + gate check
-  scripts/export_fund_data.py            JSON bridge for fund dashboard
-
-LAYER 10: FRONTENDS
-  frontend/                              Public analytics site (Vercel)
-  frontend-fund/                         Private fund dashboard (Vercel, password-protected)
+```text
+yfinance
+  -> data/*.parquet
+  -> scripts/run_alpha_backtest.py
+  -> scripts/export_frontend_data.py
+  -> frontend/public/data/*.json
+  -> Next.js static frontend
+  -> Vercel
 ```
 
----
+Key modules:
 
-## 12-Sprint Roadmap
-
-| Sprint | Focus | Priority | Target |
-|--------|-------|----------|--------|
-| 1 | Foundation: backtest metrics, walk-forward engine, classical optimizers | CRITICAL | Apr 2026 |
-| 2 | ML Signal Stack: features, HMM, LightGBM, ensemble, rebalancer | HIGH | Apr 2026 |
-| 3 | Strategy Pods: PodBase, PassiveCore, FundPortfolio, index classes | HIGH | May 2026 |
-| 4 | Execution Abstraction: Order types, BrokerInterface, PaperBroker, factory | HIGH | May 2026 |
-| 5 | Risk Management: VaR/CVaR, circuit breaker, RiskSnapshot, ledger | HIGH | May 2026 |
-| 6 | Backtest Validation: simulator, BacktestReport, 5-gate promotion check | HIGH | Jun 2026 |
-| 7 | Reporting: PDF tearsheet, BHB attribution, export_fund_data.py | MEDIUM | Jun 2026 |
-| 8 | Paper Trading: nightly pipeline, GitHub Actions, fund dashboard | MEDIUM | Jul 2026 |
-| 9 | Vol Overlay: Polygon.io options, covered calls, BXM backtest | FUTURE | Q3 2026 |
-| 10 | Active Trading: pairs scanner, dispersion strategy, backtest | FUTURE | Q4 2026 |
-| 11 | Live Trading: AlpacaBroker, 30-day parallel run, go-live checklist | FUTURE | Q4 2026 |
-| 12 | Fund Operations: investor reports, Supabase Auth, reconciler, IBKR | FUTURE | 2027 |
-
-All sprint issues are tracked in [GitHub Issues](https://github.com/zayansalman/sp-index-lab/issues) with milestones.
+| Path | Purpose |
+|------|---------|
+| `src/config.py` | Ticker universe, constants, backtest windows, risk and optimizer parameters |
+| `src/data/fetcher.py` | yfinance data access |
+| `src/data/storage.py` | Parquet and Supabase storage helpers |
+| `src/proof/concentration.py` | R² curve, variance decomposition, mirror index construction |
+| `src/backtest/engine.py` | Walk-forward backtest engine |
+| `src/backtest/metrics.py` | Performance and relative-risk metrics |
+| `src/features/` | Technical, regime, factor, sentiment, and beta research features |
+| `src/optimizer/` | HRP, MVO, and ensemble optimizer research modules |
+| `src/strategies/` | SP-N Alpha strategy factories |
+| `scripts/daily_update.py` | Incremental market data refresh |
+| `scripts/run_alpha_backtest.py` | Walk-forward strategy backtests and strategy holdings export |
+| `scripts/export_frontend_data.py` | Static JSON bridge for the frontend |
+| `frontend/` | Public Next.js 16 analytics site |
 
 ---
 
-## Running the Fund Pipeline
+## Commands
+
+Python backend:
 
 ```bash
-# Install dependencies
 uv sync
-
-# Run full backtest (all 5 promotion gates must pass before paper trading)
-uv run python scripts/run_full_backtest.py
-
-# Run paper trading pipeline (nightly via GitHub Actions)
-uv run python scripts/run_paper_trading.py
-
-# Generate tearsheet PDF
-uv run python scripts/generate_tearsheet.py
-
-# Export fund data JSON for dashboard
-uv run python scripts/export_fund_data.py
+uv run python scripts/daily_update.py
+uv run python scripts/run_alpha_backtest.py
+uv run python scripts/export_frontend_data.py
+uv run pytest tests/ -v
+uv run ruff check src/ scripts/ tests/
+uv run mypy src/
 ```
 
-## Running the Public Analytics Site
+Frontend:
 
 ```bash
-# Update data
-uv run python scripts/daily_update.py
-uv run python scripts/export_frontend_data.py
-
-# Frontend dev server
-cd frontend && npm install && npm run dev
-# Open http://localhost:3000
+cd frontend
+npm ci
+npm run dev
+npm run lint
+npm run build
 ```
+
+The frontend dev server runs on [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Project Structure
+## Automation
 
-```
-sp-index-lab/
-├── src/
-│   ├── config.py             Constants + fund parameters (RUN_MODE, POD_ALLOCATIONS)
-│   ├── data/                 fetcher.py, storage.py
-│   ├── proof/                concentration.py (core analytics — R² proof)
-│   ├── features/             technical.py (momentum, vol, RSI, MA distance)
-│   ├── optimizer/            classical.py, regime.py, factor_model.py, ensemble.py
-│   ├── strategies/           pod_base.py, passive_core.py, portfolio.py
-│   ├── execution/            broker_base.py, paper_broker.py, order_router.py
-│   ├── risk/                 calculator.py, circuit_breaker.py, monitor.py
-│   ├── portfolio/            ledger.py, state.py
-│   ├── backtest/             metrics.py, engine.py, simulator.py, report.py
-│   ├── reporting/            tearsheet.py, attribution.py, templates/
-│   └── indices/              sp20_mirror.py, sp20_equal.py, sp20_alpha.py, spn_alpha.py
-├── scripts/
-│   ├── daily_update.py              Data refresh (GitHub Actions)
-│   ├── export_frontend_data.py      Public site JSON export
-│   ├── run_paper_trading.py         Nightly paper trading pipeline
-│   ├── run_full_backtest.py         Walk-forward backtest + promotion gates
-│   ├── generate_tearsheet.py        Daily PDF tearsheet
-│   └── export_fund_data.py          Fund dashboard JSON
-├── frontend/                Public Next.js analytics site
-├── frontend-fund/           Private fund dashboard (password-protected)
-├── data/                    Parquet cache (gitignored)
-├── .github/workflows/
-│   ├── daily_update.yml     Daily data + frontend export
-│   └── paper_trading.yml    Nightly paper trading (23:00 UTC)
-├── ARCHITECTURE.md          Full 10-layer system architecture
-├── RESEARCH.md              Concentration thesis + active strategy rationale
-└── TASKS.md                 Build plan with completion status
-```
+`.github/workflows/daily_update.yml` runs on weekdays at 22:30 UTC. The job restores cached parquet data, runs the daily market refresh, recomputes strategy backtests, exports `frontend/public/data/*.json`, and commits the generated frontend data when it changes.
 
 ---
 
@@ -196,27 +114,14 @@ sp-index-lab/
 
 | File | Purpose |
 |------|---------|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | 10-layer fund stack, data flow, key design decisions |
-| [RESEARCH.md](RESEARCH.md) | Concentration proof, active strategy rationale |
-| [TASKS.md](TASKS.md) | Sprint-by-sprint build plan (Phases 0–27) |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Long-form architecture and fund-stack roadmap |
+| [RESEARCH.md](RESEARCH.md) | Concentration thesis and methodology notes |
+| [PRD.md](PRD.md) | Product requirements and current product scope |
+| [TASKS.md](TASKS.md) | Build plan and sprint status |
+| [FRONTEND.md](FRONTEND.md) | Frontend visual and interaction spec |
+| [EXECUTION_PLAN.md](EXECUTION_PLAN.md) | Prioritized execution plan |
 
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend (public) | Next.js 16, React 19, TypeScript, Tailwind CSS v4, Recharts, Framer Motion |
-| Frontend (fund) | Next.js 16, Vercel password protection → Supabase Auth (Phase 3) |
-| Analytics | Python 3.11, pandas, numpy, scikit-learn |
-| ML Optimization | PyPortfolioOpt (HRP/MVO/BL), LightGBM, hmmlearn |
-| Execution | alpaca-py (Phase 2), ib_insync (Phase 3) |
-| Reporting | weasyprint, Jinja2 |
-| Data | yfinance, Parquet, Polygon.io (Phase 2), FRED API (Phase 2) |
-| CI/CD | GitHub Actions, Vercel |
-| Package Manager | uv (Python), npm (JavaScript) |
-
-Built with [Claude Code](https://claude.ai/code) as a co-developer.
+Roadmap documents may include future fund-management modules that are not yet implemented in the codebase.
 
 ## License
 

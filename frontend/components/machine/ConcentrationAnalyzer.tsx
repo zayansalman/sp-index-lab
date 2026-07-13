@@ -8,6 +8,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ComponentNode from "./ComponentNode";
+import { useLabDataSlice } from "@/hooks/useLabData";
 
 interface ConcentrationAnalyzerProps {
   isActive: boolean;
@@ -47,21 +48,22 @@ const PrismIcon: React.FC = () => (
 /* ── R-squared counter animation ──────────────────────────── */
 const RSquaredCounter: React.FC<{
   isActive: boolean;
+  target: number;
   x: number;
   y: number;
   width: number;
   height: number;
-}> = ({ isActive, x, y, width, height }) => {
+}> = ({ isActive, target, x, y, width, height }) => {
   const [value, setValue] = useState(0);
   const rafRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
-  const TARGET = 94.9;
   const DURATION = 1200; // ms
 
   useEffect(() => {
     if (!isActive) {
-      setValue(0);
-      return;
+      // Reset via rAF to avoid synchronous setState in the effect body
+      rafRef.current = requestAnimationFrame(() => setValue(0));
+      return () => cancelAnimationFrame(rafRef.current);
     }
 
     startTimeRef.current = performance.now();
@@ -71,7 +73,7 @@ const RSquaredCounter: React.FC<{
       const progress = Math.min(elapsed / DURATION, 1);
       // Ease-out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(eased * TARGET);
+      setValue(eased * target);
 
       if (progress < 1) {
         rafRef.current = requestAnimationFrame(animate);
@@ -83,7 +85,7 @@ const RSquaredCounter: React.FC<{
     return () => {
       cancelAnimationFrame(rafRef.current);
     };
-  }, [isActive]);
+  }, [isActive, target]);
 
   return (
     <AnimatePresence>
@@ -116,6 +118,12 @@ const ConcentrationAnalyzer: React.FC<ConcentrationAnalyzerProps> = ({
   const width = 300;
   const height = 110;
 
+  // Counter target comes from the exported data — never hardcode it.
+  const { data: rawCurve } = useLabDataSlice<{ r_squared_at_20?: number }>(
+    "concentrationCurve",
+  );
+  const target = (rawCurve?.r_squared_at_20 ?? 0) * 100;
+
   return (
     <ComponentNode
       id="concentration-analyzer"
@@ -130,6 +138,7 @@ const ConcentrationAnalyzer: React.FC<ConcentrationAnalyzerProps> = ({
     >
       <RSquaredCounter
         isActive={isActive}
+        target={target}
         x={x}
         y={y}
         width={width}

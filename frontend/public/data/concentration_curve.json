@@ -3,303 +3,997 @@
     {
       "n_stocks": 1,
       "ticker_added": "MSFT",
-      "r_squared": 0.59577,
-      "marginal_r_squared": 0.59577
+      "r_squared": 0.165074,
+      "marginal_r_squared": 0.165074
     },
     {
       "n_stocks": 2,
-      "ticker_added": "BRK-B",
-      "r_squared": 0.780468,
-      "marginal_r_squared": 0.184698
+      "ticker_added": "AAPL",
+      "r_squared": 0.364748,
+      "marginal_r_squared": 0.199673
     },
     {
       "n_stocks": 3,
-      "ticker_added": "MA",
-      "r_squared": 0.817238,
-      "marginal_r_squared": 0.036771
+      "ticker_added": "NVDA",
+      "r_squared": 0.580509,
+      "marginal_r_squared": 0.215762
     },
     {
       "n_stocks": 4,
-      "ticker_added": "V",
-      "r_squared": 0.820526,
-      "marginal_r_squared": 0.003288
+      "ticker_added": "AMZN",
+      "r_squared": 0.668301,
+      "marginal_r_squared": 0.087792
     },
     {
       "n_stocks": 5,
-      "ticker_added": "AAPL",
-      "r_squared": 0.850436,
-      "marginal_r_squared": 0.02991
+      "ticker_added": "GOOGL",
+      "r_squared": 0.715344,
+      "marginal_r_squared": 0.047043
     },
     {
       "n_stocks": 6,
-      "ticker_added": "JPM",
-      "r_squared": 0.873774,
-      "marginal_r_squared": 0.023339
+      "ticker_added": "META",
+      "r_squared": 0.73213,
+      "marginal_r_squared": 0.016786
     },
     {
       "n_stocks": 7,
-      "ticker_added": "ACN",
-      "r_squared": 0.88416,
-      "marginal_r_squared": 0.010386
+      "ticker_added": "BRK-B",
+      "r_squared": 0.754362,
+      "marginal_r_squared": 0.022232
     },
     {
       "n_stocks": 8,
-      "ticker_added": "TXN",
-      "r_squared": 0.898487,
-      "marginal_r_squared": 0.014327
+      "ticker_added": "TSLA",
+      "r_squared": 0.780894,
+      "marginal_r_squared": 0.026532
     },
     {
       "n_stocks": 9,
-      "ticker_added": "INTU",
-      "r_squared": 0.904879,
-      "marginal_r_squared": 0.006392
+      "ticker_added": "AVGO",
+      "r_squared": 0.810343,
+      "marginal_r_squared": 0.029449
     },
     {
       "n_stocks": 10,
-      "ticker_added": "GOOGL",
-      "r_squared": 0.913086,
-      "marginal_r_squared": 0.008208
+      "ticker_added": "WMT",
+      "r_squared": 0.816298,
+      "marginal_r_squared": 0.005955
     },
     {
       "n_stocks": 11,
-      "ticker_added": "BAC",
-      "r_squared": 0.914532,
-      "marginal_r_squared": 0.001446
+      "ticker_added": "LLY",
+      "r_squared": 0.826842,
+      "marginal_r_squared": 0.010545
     },
     {
       "n_stocks": 12,
-      "ticker_added": "LIN",
-      "r_squared": 0.919426,
-      "marginal_r_squared": 0.004894
+      "ticker_added": "V",
+      "r_squared": 0.843651,
+      "marginal_r_squared": 0.016809
     },
     {
       "n_stocks": 13,
-      "ticker_added": "HD",
-      "r_squared": 0.927358,
-      "marginal_r_squared": 0.007932
+      "ticker_added": "JPM",
+      "r_squared": 0.871653,
+      "marginal_r_squared": 0.028002
     },
     {
       "n_stocks": 14,
-      "ticker_added": "CSCO",
-      "r_squared": 0.93015,
-      "marginal_r_squared": 0.002792
+      "ticker_added": "MA",
+      "r_squared": 0.872207,
+      "marginal_r_squared": 0.000553
     },
     {
       "n_stocks": 15,
-      "ticker_added": "ADBE",
-      "r_squared": 0.930482,
-      "marginal_r_squared": 0.000332
+      "ticker_added": "NFLX",
+      "r_squared": 0.872358,
+      "marginal_r_squared": 0.000151
     },
     {
       "n_stocks": 16,
-      "ticker_added": "WFC",
-      "r_squared": 0.931578,
-      "marginal_r_squared": 0.001096
+      "ticker_added": "COST",
+      "r_squared": 0.873486,
+      "marginal_r_squared": 0.001128
     },
     {
       "n_stocks": 17,
-      "ticker_added": "AVGO",
-      "r_squared": 0.938772,
-      "marginal_r_squared": 0.007193
+      "ticker_added": "XOM",
+      "r_squared": 0.874765,
+      "marginal_r_squared": 0.001279
     },
     {
       "n_stocks": 18,
-      "ticker_added": "ISRG",
-      "r_squared": 0.941887,
-      "marginal_r_squared": 0.003115
+      "ticker_added": "ORCL",
+      "r_squared": 0.875833,
+      "marginal_r_squared": 0.001068
     },
     {
       "n_stocks": 19,
-      "ticker_added": "NVDA",
-      "r_squared": 0.944742,
-      "marginal_r_squared": 0.002855
+      "ticker_added": "PG",
+      "r_squared": 0.882595,
+      "marginal_r_squared": 0.006761
     },
     {
       "n_stocks": 20,
-      "ticker_added": "CAT",
-      "r_squared": 0.948822,
-      "marginal_r_squared": 0.00408
+      "ticker_added": "UNH",
+      "r_squared": 0.886585,
+      "marginal_r_squared": 0.00399
     },
     {
       "n_stocks": 21,
-      "ticker_added": "QCOM",
-      "r_squared": 0.949495,
-      "marginal_r_squared": 0.000673
+      "ticker_added": "JNJ",
+      "r_squared": 0.888762,
+      "marginal_r_squared": 0.002178
     },
     {
       "n_stocks": 22,
-      "ticker_added": "DIS",
-      "r_squared": 0.951288,
-      "marginal_r_squared": 0.001793
+      "ticker_added": "HD",
+      "r_squared": 0.906227,
+      "marginal_r_squared": 0.017465
     },
     {
       "n_stocks": 23,
-      "ticker_added": "AMZN",
-      "r_squared": 0.952813,
-      "marginal_r_squared": 0.001525
+      "ticker_added": "ABBV",
+      "r_squared": 0.908789,
+      "marginal_r_squared": 0.002562
     },
     {
       "n_stocks": 24,
-      "ticker_added": "TMO",
-      "r_squared": 0.955385,
-      "marginal_r_squared": 0.002572
+      "ticker_added": "KO",
+      "r_squared": 0.908923,
+      "marginal_r_squared": 0.000134
     },
     {
       "n_stocks": 25,
-      "ticker_added": "CRM",
-      "r_squared": 0.955483,
-      "marginal_r_squared": 9.8e-05
+      "ticker_added": "BAC",
+      "r_squared": 0.911645,
+      "marginal_r_squared": 0.002721
     },
     {
       "n_stocks": 26,
-      "ticker_added": "BKNG",
-      "r_squared": 0.955695,
-      "marginal_r_squared": 0.000211
+      "ticker_added": "CVX",
+      "r_squared": 0.911777,
+      "marginal_r_squared": 0.000133
     },
     {
       "n_stocks": 27,
-      "ticker_added": "META",
-      "r_squared": 0.956654,
-      "marginal_r_squared": 0.000959
+      "ticker_added": "TMUS",
+      "r_squared": 0.911839,
+      "marginal_r_squared": 6.2e-05
     },
     {
       "n_stocks": 28,
-      "ticker_added": "ABT",
-      "r_squared": 0.957657,
-      "marginal_r_squared": 0.001004
+      "ticker_added": "PLTR",
+      "r_squared": 0.913403,
+      "marginal_r_squared": 0.001564
     },
     {
       "n_stocks": 29,
-      "ticker_added": "NOW",
-      "r_squared": 0.957658,
-      "marginal_r_squared": 1e-06
+      "ticker_added": "PM",
+      "r_squared": 0.913554,
+      "marginal_r_squared": 0.000151
     },
     {
       "n_stocks": 30,
-      "ticker_added": "IBM",
-      "r_squared": 0.958594,
-      "marginal_r_squared": 0.000936
+      "ticker_added": "CSCO",
+      "r_squared": 0.920165,
+      "marginal_r_squared": 0.006611
     },
     {
       "n_stocks": 31,
-      "ticker_added": "CVX",
-      "r_squared": 0.961572,
-      "marginal_r_squared": 0.002977
+      "ticker_added": "IBM",
+      "r_squared": 0.921505,
+      "marginal_r_squared": 0.00134
     },
     {
       "n_stocks": 32,
-      "ticker_added": "COST",
-      "r_squared": 0.963754,
-      "marginal_r_squared": 0.002182
+      "ticker_added": "ABT",
+      "r_squared": 0.922454,
+      "marginal_r_squared": 0.000949
     },
     {
       "n_stocks": 33,
       "ticker_added": "GE",
-      "r_squared": 0.965206,
-      "marginal_r_squared": 0.001452
+      "r_squared": 0.927023,
+      "marginal_r_squared": 0.004569
     },
     {
       "n_stocks": 34,
-      "ticker_added": "ORCL",
-      "r_squared": 0.967079,
-      "marginal_r_squared": 0.001873
+      "ticker_added": "CRM",
+      "r_squared": 0.930076,
+      "marginal_r_squared": 0.003053
     },
     {
       "n_stocks": 35,
       "ticker_added": "MCD",
-      "r_squared": 0.967817,
-      "marginal_r_squared": 0.000738
+      "r_squared": 0.930185,
+      "marginal_r_squared": 0.000108
     },
     {
       "n_stocks": 36,
-      "ticker_added": "XOM",
-      "r_squared": 0.968275,
-      "marginal_r_squared": 0.000458
+      "ticker_added": "WFC",
+      "r_squared": 0.930811,
+      "marginal_r_squared": 0.000626
     },
     {
       "n_stocks": 37,
-      "ticker_added": "KO",
-      "r_squared": 0.970064,
-      "marginal_r_squared": 0.001789
+      "ticker_added": "LIN",
+      "r_squared": 0.937061,
+      "marginal_r_squared": 0.00625
     },
     {
       "n_stocks": 38,
-      "ticker_added": "AMGN",
-      "r_squared": 0.971234,
-      "marginal_r_squared": 0.00117
+      "ticker_added": "MRK",
+      "r_squared": 0.939305,
+      "marginal_r_squared": 0.002244
     },
     {
       "n_stocks": 39,
-      "ticker_added": "AMD",
-      "r_squared": 0.971651,
-      "marginal_r_squared": 0.000417
+      "ticker_added": "NOW",
+      "r_squared": 0.939497,
+      "marginal_r_squared": 0.000192
     },
     {
       "n_stocks": 40,
-      "ticker_added": "TSLA",
-      "r_squared": 0.972577,
-      "marginal_r_squared": 0.000926
+      "ticker_added": "AXP",
+      "r_squared": 0.944086,
+      "marginal_r_squared": 0.004589
     },
     {
       "n_stocks": 41,
-      "ticker_added": "JNJ",
-      "r_squared": 0.972949,
-      "marginal_r_squared": 0.000371
+      "ticker_added": "ACN",
+      "r_squared": 0.947338,
+      "marginal_r_squared": 0.003252
     },
     {
       "n_stocks": 42,
-      "ticker_added": "UNH",
-      "r_squared": 0.973779,
-      "marginal_r_squared": 0.00083
+      "ticker_added": "MS",
+      "r_squared": 0.951214,
+      "marginal_r_squared": 0.003876
     },
     {
       "n_stocks": 43,
-      "ticker_added": "PG",
-      "r_squared": 0.974186,
-      "marginal_r_squared": 0.000408
+      "ticker_added": "ISRG",
+      "r_squared": 0.951405,
+      "marginal_r_squared": 0.000191
     },
     {
       "n_stocks": 44,
-      "ticker_added": "NFLX",
-      "r_squared": 0.97419,
-      "marginal_r_squared": 4e-06
+      "ticker_added": "T",
+      "r_squared": 0.951749,
+      "marginal_r_squared": 0.000343
     },
     {
       "n_stocks": 45,
-      "ticker_added": "PFE",
-      "r_squared": 0.974451,
-      "marginal_r_squared": 0.00026
+      "ticker_added": "PEP",
+      "r_squared": 0.952316,
+      "marginal_r_squared": 0.000567
     },
     {
       "n_stocks": 46,
-      "ticker_added": "PM",
-      "r_squared": 0.974767,
-      "marginal_r_squared": 0.000317
+      "ticker_added": "INTU",
+      "r_squared": 0.952323,
+      "marginal_r_squared": 7e-06
     },
     {
       "n_stocks": 47,
-      "ticker_added": "ABBV",
-      "r_squared": 0.974866,
-      "marginal_r_squared": 9.9e-05
+      "ticker_added": "RTX",
+      "r_squared": 0.952956,
+      "marginal_r_squared": 0.000633
     },
     {
       "n_stocks": 48,
-      "ticker_added": "MRK",
-      "r_squared": 0.975113,
-      "marginal_r_squared": 0.000247
+      "ticker_added": "DIS",
+      "r_squared": 0.954845,
+      "marginal_r_squared": 0.001888
     },
     {
       "n_stocks": 49,
-      "ticker_added": "WMT",
-      "r_squared": 0.975317,
-      "marginal_r_squared": 0.000204
+      "ticker_added": "AMD",
+      "r_squared": 0.962248,
+      "marginal_r_squared": 0.007404
     },
     {
       "n_stocks": 50,
-      "ticker_added": "LLY",
-      "r_squared": 0.975808,
-      "marginal_r_squared": 0.000491
+      "ticker_added": "VZ",
+      "r_squared": 0.962721,
+      "marginal_r_squared": 0.000473
     }
   ],
-  "r_squared_at_20": 0.948822
+  "r_squared_at_20": 0.955859,
+  "r_squared_at_20_latest": 0.886585,
+  "r_squared_windows": [
+    {
+      "window_start": "2014-01-03",
+      "window_end": "2015-01-02",
+      "r_squared_at_20": 0.949487
+    },
+    {
+      "window_start": "2014-02-04",
+      "window_end": "2015-02-03",
+      "r_squared_at_20": 0.952944
+    },
+    {
+      "window_start": "2014-03-06",
+      "window_end": "2015-03-05",
+      "r_squared_at_20": 0.943519
+    },
+    {
+      "window_start": "2014-04-04",
+      "window_end": "2015-04-06",
+      "r_squared_at_20": 0.951604
+    },
+    {
+      "window_start": "2014-05-06",
+      "window_end": "2015-05-05",
+      "r_squared_at_20": 0.946131
+    },
+    {
+      "window_start": "2014-06-05",
+      "window_end": "2015-06-04",
+      "r_squared_at_20": 0.947494
+    },
+    {
+      "window_start": "2014-07-07",
+      "window_end": "2015-07-06",
+      "r_squared_at_20": 0.951804
+    },
+    {
+      "window_start": "2014-08-05",
+      "window_end": "2015-08-04",
+      "r_squared_at_20": 0.949595
+    },
+    {
+      "window_start": "2014-09-04",
+      "window_end": "2015-09-02",
+      "r_squared_at_20": 0.963491
+    },
+    {
+      "window_start": "2014-10-03",
+      "window_end": "2015-10-02",
+      "r_squared_at_20": 0.960682
+    },
+    {
+      "window_start": "2014-11-03",
+      "window_end": "2015-11-02",
+      "r_squared_at_20": 0.960688
+    },
+    {
+      "window_start": "2014-12-03",
+      "window_end": "2015-12-02",
+      "r_squared_at_20": 0.961343
+    },
+    {
+      "window_start": "2015-01-05",
+      "window_end": "2016-01-04",
+      "r_squared_at_20": 0.966203
+    },
+    {
+      "window_start": "2015-02-04",
+      "window_end": "2016-02-03",
+      "r_squared_at_20": 0.967141
+    },
+    {
+      "window_start": "2015-03-06",
+      "window_end": "2016-03-04",
+      "r_squared_at_20": 0.967425
+    },
+    {
+      "window_start": "2015-04-07",
+      "window_end": "2016-04-05",
+      "r_squared_at_20": 0.963957
+    },
+    {
+      "window_start": "2015-05-06",
+      "window_end": "2016-05-04",
+      "r_squared_at_20": 0.965765
+    },
+    {
+      "window_start": "2015-06-05",
+      "window_end": "2016-06-03",
+      "r_squared_at_20": 0.966132
+    },
+    {
+      "window_start": "2015-07-07",
+      "window_end": "2016-07-05",
+      "r_squared_at_20": 0.965361
+    },
+    {
+      "window_start": "2015-08-05",
+      "window_end": "2016-08-03",
+      "r_squared_at_20": 0.965696
+    },
+    {
+      "window_start": "2015-09-03",
+      "window_end": "2016-09-01",
+      "r_squared_at_20": 0.956823
+    },
+    {
+      "window_start": "2015-10-05",
+      "window_end": "2016-10-03",
+      "r_squared_at_20": 0.955121
+    },
+    {
+      "window_start": "2015-11-03",
+      "window_end": "2016-11-01",
+      "r_squared_at_20": 0.954427
+    },
+    {
+      "window_start": "2015-12-03",
+      "window_end": "2016-12-01",
+      "r_squared_at_20": 0.954533
+    },
+    {
+      "window_start": "2016-01-05",
+      "window_end": "2017-01-03",
+      "r_squared_at_20": 0.950115
+    },
+    {
+      "window_start": "2016-02-04",
+      "window_end": "2017-02-02",
+      "r_squared_at_20": 0.939644
+    },
+    {
+      "window_start": "2016-03-07",
+      "window_end": "2017-03-06",
+      "r_squared_at_20": 0.933654
+    },
+    {
+      "window_start": "2016-04-06",
+      "window_end": "2017-04-04",
+      "r_squared_at_20": 0.935116
+    },
+    {
+      "window_start": "2016-05-05",
+      "window_end": "2017-05-04",
+      "r_squared_at_20": 0.935972
+    },
+    {
+      "window_start": "2016-06-06",
+      "window_end": "2017-06-05",
+      "r_squared_at_20": 0.933469
+    },
+    {
+      "window_start": "2016-07-06",
+      "window_end": "2017-07-05",
+      "r_squared_at_20": 0.915131
+    },
+    {
+      "window_start": "2016-08-04",
+      "window_end": "2017-08-03",
+      "r_squared_at_20": 0.908992
+    },
+    {
+      "window_start": "2016-09-02",
+      "window_end": "2017-09-01",
+      "r_squared_at_20": 0.915395
+    },
+    {
+      "window_start": "2016-10-04",
+      "window_end": "2017-10-03",
+      "r_squared_at_20": 0.894918
+    },
+    {
+      "window_start": "2016-11-02",
+      "window_end": "2017-11-01",
+      "r_squared_at_20": 0.895276
+    },
+    {
+      "window_start": "2016-12-02",
+      "window_end": "2017-12-01",
+      "r_squared_at_20": 0.889676
+    },
+    {
+      "window_start": "2017-01-04",
+      "window_end": "2018-01-03",
+      "r_squared_at_20": 0.881465
+    },
+    {
+      "window_start": "2017-02-03",
+      "window_end": "2018-02-02",
+      "r_squared_at_20": 0.891602
+    },
+    {
+      "window_start": "2017-03-07",
+      "window_end": "2018-03-06",
+      "r_squared_at_20": 0.941229
+    },
+    {
+      "window_start": "2017-04-05",
+      "window_end": "2018-04-05",
+      "r_squared_at_20": 0.960096
+    },
+    {
+      "window_start": "2017-05-05",
+      "window_end": "2018-05-04",
+      "r_squared_at_20": 0.958324
+    },
+    {
+      "window_start": "2017-06-06",
+      "window_end": "2018-06-05",
+      "r_squared_at_20": 0.961072
+    },
+    {
+      "window_start": "2017-07-06",
+      "window_end": "2018-07-05",
+      "r_squared_at_20": 0.961641
+    },
+    {
+      "window_start": "2017-08-04",
+      "window_end": "2018-08-03",
+      "r_squared_at_20": 0.957791
+    },
+    {
+      "window_start": "2017-09-05",
+      "window_end": "2018-09-04",
+      "r_squared_at_20": 0.958682
+    },
+    {
+      "window_start": "2017-10-04",
+      "window_end": "2018-10-03",
+      "r_squared_at_20": 0.958794
+    },
+    {
+      "window_start": "2017-11-02",
+      "window_end": "2018-11-01",
+      "r_squared_at_20": 0.964028
+    },
+    {
+      "window_start": "2017-12-04",
+      "window_end": "2018-12-03",
+      "r_squared_at_20": 0.972152
+    },
+    {
+      "window_start": "2018-01-04",
+      "window_end": "2019-01-04",
+      "r_squared_at_20": 0.978765
+    },
+    {
+      "window_start": "2018-02-05",
+      "window_end": "2019-02-05",
+      "r_squared_at_20": 0.97755
+    },
+    {
+      "window_start": "2018-03-07",
+      "window_end": "2019-03-07",
+      "r_squared_at_20": 0.972611
+    },
+    {
+      "window_start": "2018-04-06",
+      "window_end": "2019-04-05",
+      "r_squared_at_20": 0.968491
+    },
+    {
+      "window_start": "2018-05-07",
+      "window_end": "2019-05-07",
+      "r_squared_at_20": 0.962449
+    },
+    {
+      "window_start": "2018-06-06",
+      "window_end": "2019-06-06",
+      "r_squared_at_20": 0.960716
+    },
+    {
+      "window_start": "2018-07-06",
+      "window_end": "2019-07-08",
+      "r_squared_at_20": 0.956083
+    },
+    {
+      "window_start": "2018-08-06",
+      "window_end": "2019-08-06",
+      "r_squared_at_20": 0.959521
+    },
+    {
+      "window_start": "2018-09-05",
+      "window_end": "2019-09-05",
+      "r_squared_at_20": 0.962961
+    },
+    {
+      "window_start": "2018-10-04",
+      "window_end": "2019-10-04",
+      "r_squared_at_20": 0.963358
+    },
+    {
+      "window_start": "2018-11-02",
+      "window_end": "2019-11-04",
+      "r_squared_at_20": 0.963707
+    },
+    {
+      "window_start": "2018-12-04",
+      "window_end": "2019-12-04",
+      "r_squared_at_20": 0.965703
+    },
+    {
+      "window_start": "2019-01-07",
+      "window_end": "2020-01-06",
+      "r_squared_at_20": 0.94775
+    },
+    {
+      "window_start": "2019-02-06",
+      "window_end": "2020-02-05",
+      "r_squared_at_20": 0.952835
+    },
+    {
+      "window_start": "2019-03-08",
+      "window_end": "2020-03-06",
+      "r_squared_at_20": 0.971364
+    },
+    {
+      "window_start": "2019-04-08",
+      "window_end": "2020-04-06",
+      "r_squared_at_20": 0.987289
+    },
+    {
+      "window_start": "2019-05-08",
+      "window_end": "2020-05-06",
+      "r_squared_at_20": 0.983691
+    },
+    {
+      "window_start": "2019-06-07",
+      "window_end": "2020-06-05",
+      "r_squared_at_20": 0.983885
+    },
+    {
+      "window_start": "2019-07-09",
+      "window_end": "2020-07-07",
+      "r_squared_at_20": 0.984719
+    },
+    {
+      "window_start": "2019-08-07",
+      "window_end": "2020-08-05",
+      "r_squared_at_20": 0.986582
+    },
+    {
+      "window_start": "2019-09-06",
+      "window_end": "2020-09-03",
+      "r_squared_at_20": 0.986988
+    },
+    {
+      "window_start": "2019-10-07",
+      "window_end": "2020-10-05",
+      "r_squared_at_20": 0.987753
+    },
+    {
+      "window_start": "2019-11-05",
+      "window_end": "2020-11-03",
+      "r_squared_at_20": 0.98863
+    },
+    {
+      "window_start": "2019-12-05",
+      "window_end": "2020-12-03",
+      "r_squared_at_20": 0.987899
+    },
+    {
+      "window_start": "2020-01-07",
+      "window_end": "2021-01-05",
+      "r_squared_at_20": 0.987528
+    },
+    {
+      "window_start": "2020-02-06",
+      "window_end": "2021-02-04",
+      "r_squared_at_20": 0.986906
+    },
+    {
+      "window_start": "2020-03-09",
+      "window_end": "2021-03-08",
+      "r_squared_at_20": 0.985023
+    },
+    {
+      "window_start": "2020-04-07",
+      "window_end": "2021-04-07",
+      "r_squared_at_20": 0.960473
+    },
+    {
+      "window_start": "2020-05-07",
+      "window_end": "2021-05-06",
+      "r_squared_at_20": 0.951027
+    },
+    {
+      "window_start": "2020-06-08",
+      "window_end": "2021-06-07",
+      "r_squared_at_20": 0.948454
+    },
+    {
+      "window_start": "2020-07-08",
+      "window_end": "2021-07-07",
+      "r_squared_at_20": 0.942245
+    },
+    {
+      "window_start": "2020-08-06",
+      "window_end": "2021-08-05",
+      "r_squared_at_20": 0.950932
+    },
+    {
+      "window_start": "2020-09-04",
+      "window_end": "2021-09-03",
+      "r_squared_at_20": 0.949047
+    },
+    {
+      "window_start": "2020-10-06",
+      "window_end": "2021-10-05",
+      "r_squared_at_20": 0.945835
+    },
+    {
+      "window_start": "2020-11-04",
+      "window_end": "2021-11-03",
+      "r_squared_at_20": 0.933047
+    },
+    {
+      "window_start": "2020-12-04",
+      "window_end": "2021-12-03",
+      "r_squared_at_20": 0.935113
+    },
+    {
+      "window_start": "2021-01-06",
+      "window_end": "2022-01-04",
+      "r_squared_at_20": 0.944397
+    },
+    {
+      "window_start": "2021-02-05",
+      "window_end": "2022-02-03",
+      "r_squared_at_20": 0.945224
+    },
+    {
+      "window_start": "2021-03-09",
+      "window_end": "2022-03-07",
+      "r_squared_at_20": 0.951123
+    },
+    {
+      "window_start": "2021-04-08",
+      "window_end": "2022-04-05",
+      "r_squared_at_20": 0.959435
+    },
+    {
+      "window_start": "2021-05-07",
+      "window_end": "2022-05-05",
+      "r_squared_at_20": 0.965072
+    },
+    {
+      "window_start": "2021-06-08",
+      "window_end": "2022-06-06",
+      "r_squared_at_20": 0.966171
+    },
+    {
+      "window_start": "2021-07-08",
+      "window_end": "2022-07-07",
+      "r_squared_at_20": 0.96994
+    },
+    {
+      "window_start": "2021-08-06",
+      "window_end": "2022-08-05",
+      "r_squared_at_20": 0.970263
+    },
+    {
+      "window_start": "2021-09-07",
+      "window_end": "2022-09-06",
+      "r_squared_at_20": 0.971816
+    },
+    {
+      "window_start": "2021-10-06",
+      "window_end": "2022-10-05",
+      "r_squared_at_20": 0.975749
+    },
+    {
+      "window_start": "2021-11-04",
+      "window_end": "2022-11-03",
+      "r_squared_at_20": 0.976384
+    },
+    {
+      "window_start": "2021-12-06",
+      "window_end": "2022-12-05",
+      "r_squared_at_20": 0.978646
+    },
+    {
+      "window_start": "2022-01-05",
+      "window_end": "2023-01-05",
+      "r_squared_at_20": 0.978405
+    },
+    {
+      "window_start": "2022-02-04",
+      "window_end": "2023-02-06",
+      "r_squared_at_20": 0.981648
+    },
+    {
+      "window_start": "2022-03-08",
+      "window_end": "2023-03-08",
+      "r_squared_at_20": 0.985196
+    },
+    {
+      "window_start": "2022-04-06",
+      "window_end": "2023-04-06",
+      "r_squared_at_20": 0.983639
+    },
+    {
+      "window_start": "2022-05-06",
+      "window_end": "2023-05-08",
+      "r_squared_at_20": 0.982689
+    },
+    {
+      "window_start": "2022-06-07",
+      "window_end": "2023-06-07",
+      "r_squared_at_20": 0.979017
+    },
+    {
+      "window_start": "2022-07-08",
+      "window_end": "2023-07-10",
+      "r_squared_at_20": 0.976178
+    },
+    {
+      "window_start": "2022-08-08",
+      "window_end": "2023-08-08",
+      "r_squared_at_20": 0.971854
+    },
+    {
+      "window_start": "2022-09-07",
+      "window_end": "2023-09-07",
+      "r_squared_at_20": 0.971004
+    },
+    {
+      "window_start": "2022-10-06",
+      "window_end": "2023-10-06",
+      "r_squared_at_20": 0.965635
+    },
+    {
+      "window_start": "2022-11-04",
+      "window_end": "2023-11-06",
+      "r_squared_at_20": 0.955116
+    },
+    {
+      "window_start": "2022-12-06",
+      "window_end": "2023-12-06",
+      "r_squared_at_20": 0.941942
+    },
+    {
+      "window_start": "2023-01-06",
+      "window_end": "2024-01-08",
+      "r_squared_at_20": 0.933675
+    },
+    {
+      "window_start": "2023-02-07",
+      "window_end": "2024-02-07",
+      "r_squared_at_20": 0.936723
+    },
+    {
+      "window_start": "2023-03-09",
+      "window_end": "2024-03-08",
+      "r_squared_at_20": 0.927841
+    },
+    {
+      "window_start": "2023-04-10",
+      "window_end": "2024-04-09",
+      "r_squared_at_20": 0.92757
+    },
+    {
+      "window_start": "2023-05-09",
+      "window_end": "2024-05-08",
+      "r_squared_at_20": 0.931092
+    },
+    {
+      "window_start": "2023-06-08",
+      "window_end": "2024-06-07",
+      "r_squared_at_20": 0.930248
+    },
+    {
+      "window_start": "2023-07-11",
+      "window_end": "2024-07-10",
+      "r_squared_at_20": 0.89755
+    },
+    {
+      "window_start": "2023-08-09",
+      "window_end": "2024-08-08",
+      "r_squared_at_20": 0.939794
+    },
+    {
+      "window_start": "2023-09-08",
+      "window_end": "2024-09-09",
+      "r_squared_at_20": 0.942696
+    },
+    {
+      "window_start": "2023-10-09",
+      "window_end": "2024-10-08",
+      "r_squared_at_20": 0.941419
+    },
+    {
+      "window_start": "2023-11-07",
+      "window_end": "2024-11-06",
+      "r_squared_at_20": 0.946593
+    },
+    {
+      "window_start": "2023-12-07",
+      "window_end": "2024-12-06",
+      "r_squared_at_20": 0.946599
+    },
+    {
+      "window_start": "2024-01-09",
+      "window_end": "2025-01-08",
+      "r_squared_at_20": 0.952804
+    },
+    {
+      "window_start": "2024-02-08",
+      "window_end": "2025-02-10",
+      "r_squared_at_20": 0.957829
+    },
+    {
+      "window_start": "2024-03-11",
+      "window_end": "2025-03-12",
+      "r_squared_at_20": 0.962777
+    },
+    {
+      "window_start": "2024-04-10",
+      "window_end": "2025-04-10",
+      "r_squared_at_20": 0.980963
+    },
+    {
+      "window_start": "2024-05-09",
+      "window_end": "2025-05-12",
+      "r_squared_at_20": 0.980693
+    },
+    {
+      "window_start": "2024-06-10",
+      "window_end": "2025-06-11",
+      "r_squared_at_20": 0.976252
+    },
+    {
+      "window_start": "2024-07-11",
+      "window_end": "2025-07-14",
+      "r_squared_at_20": 0.9765
+    },
+    {
+      "window_start": "2024-08-09",
+      "window_end": "2025-08-12",
+      "r_squared_at_20": 0.975101
+    },
+    {
+      "window_start": "2024-09-10",
+      "window_end": "2025-09-11",
+      "r_squared_at_20": 0.972482
+    },
+    {
+      "window_start": "2024-10-09",
+      "window_end": "2025-10-10",
+      "r_squared_at_20": 0.970391
+    },
+    {
+      "window_start": "2024-11-07",
+      "window_end": "2025-11-10",
+      "r_squared_at_20": 0.968818
+    },
+    {
+      "window_start": "2024-12-09",
+      "window_end": "2025-12-10",
+      "r_squared_at_20": 0.97089
+    },
+    {
+      "window_start": "2025-01-10",
+      "window_end": "2026-01-12",
+      "r_squared_at_20": 0.96866
+    },
+    {
+      "window_start": "2025-02-11",
+      "window_end": "2026-02-11",
+      "r_squared_at_20": 0.964469
+    },
+    {
+      "window_start": "2025-03-13",
+      "window_end": "2026-03-13",
+      "r_squared_at_20": 0.960412
+    },
+    {
+      "window_start": "2025-04-11",
+      "window_end": "2026-04-14",
+      "r_squared_at_20": 0.918497
+    },
+    {
+      "window_start": "2025-05-13",
+      "window_end": "2026-05-13",
+      "r_squared_at_20": 0.897526
+    },
+    {
+      "window_start": "2025-06-12",
+      "window_end": "2026-06-12",
+      "r_squared_at_20": 0.886585
+    }
+  ],
+  "method": "pit_rolling_ols_252d_step21d"
 }

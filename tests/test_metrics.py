@@ -46,3 +46,17 @@ def test_compute_performance_metrics_relative_metrics_present() -> None:
         "alpha",
     }
 
+
+def test_relative_metrics_align_benchmark_to_strategy_dates() -> None:
+    strategy_idx = pd.date_range("2021-01-01", periods=253, freq="B")
+    strategy_returns = pd.Series([0.0] + [0.001] * 252, index=strategy_idx)
+    nav = (1 + strategy_returns).cumprod()
+
+    benchmark_idx = pd.date_range("2020-01-01", periods=506, freq="B")
+    benchmark_returns = pd.Series([0.0] + [0.01] * 252 + [0.0] * 253, index=benchmark_idx)
+    benchmark_nav = (1 + benchmark_returns).cumprod()
+
+    metrics = compute_performance_metrics(nav, benchmark_nav=benchmark_nav)
+
+    assert np.isclose(metrics["excess_return"], metrics["cagr"])
+    assert np.isclose(metrics["alpha"], metrics["cagr"])

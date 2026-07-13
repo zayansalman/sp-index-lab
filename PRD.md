@@ -1,141 +1,114 @@
-# S&P Index Lab — Product Requirements Document
+# S&P Index Lab - Product Requirements Document
 
 ## Executive Summary
-S&P Index Lab is a live portfolio analytics platform that proves the S&P 500 is effectively a ~20-stock index, then builds AI-optimized derived indices that beat it. The platform consists of a Python analytics backend and an interactive React frontend that communicates the concentration thesis through a machine-metaphor visualization.
 
-**Core thesis**: The top 20 S&P 500 stocks explain 94.9% of index variance (R² = 0.949). A concentrated, intelligently-weighted portfolio of these stocks delivers superior risk-adjusted returns.
+S&P Index Lab is a live portfolio analytics platform that tests whether the S&P 500 can be explained and improved by a concentrated top-constituent universe. The product has two parts:
+
+- A Python analytics backend that fetches market data, computes concentration proof metrics, runs walk-forward strategy backtests, and exports static JSON.
+- A Next.js frontend that presents the proof and strategy results through an interactive machine-metaphor lab.
+
+The frontend is static at runtime. All financial analytics are precomputed before deployment.
 
 ## Target Audience
-1. **Hiring managers** at quant firms, MBB consulting, and tech companies — want to see rigorous methodology, clean code, independent thinking
-2. **Finance/tech community** — want a provocative claim backed by data with a live tracker
-3. **Personal use** — genuine alpha generation and portfolio tracking
+
+| Audience | Need |
+|----------|------|
+| Quant, finance, and engineering reviewers | Rigorous methodology, clear implementation, and reproducible results |
+| Finance/tech community | A provocative market thesis backed by inspectable data |
+| Personal research use | A reusable workflow for concentrated-index experimentation |
 
 ## Product Goals
+
 | Goal | Metric | Status |
 |------|--------|--------|
-| Prove concentration thesis | R² > 90% for top 20 | **Achieved: 94.9%** |
-| Build mirror index that beats S&P | Mirror CAGR > S&P CAGR | **Achieved: 15.3% vs 11.3%** |
-| Interactive web visualization | < 3s load, all animations smooth | **Built** |
-| Daily automated data updates | GitHub Actions cron running | **Configured** |
-| Enterprise-quality codebase | Typed, documented, tested | **In progress** |
+| Prove concentration thesis | Top 20 R² > 90% | Achieved: 95.6% rolling-window mean (point-in-time) |
+| Build simple concentrated baselines | SP-20 Mirror and Equal NAVs exported | Achieved |
+| Keep only strategies that matter | Mirror, Equal, and one SP-N Alpha exported | Achieved |
+| Interactive visualization | `/` landing and `/lab` machine/results flow | Built |
+| Daily automated data refresh | Cron exports and commits frontend JSON | Implemented in workflow |
+| Enterprise-quality codebase | Typed, linted, tested Python and strict TypeScript frontend | In progress |
 
-## The Four Indices
+## Product Surface
 
-### Index 1: SP-20 Mirror (Built)
-- **What**: Top 20 S&P 500 stocks by market cap, weighted proportionally
-- **Rebalancing**: Daily (price-proportional weights)
-- **Purpose**: Prove that 20 stocks closely track a 500-stock index
-- **Results**: CAGR 15.3%, Sharpe 0.68, R² 94.9% vs S&P 500
+### Index 1: SP-20 Mirror
 
-### Index 2: SP-20 Equal (Built)
-- **What**: Same top 20 stocks, equal weight (5% each)
-- **Rebalancing**: Daily reset to equal
-- **Purpose**: Test whether removing mega-cap concentration bias improves returns
-- **Results**: CAGR 14.2%, Sharpe 0.63
+- **What**: Point-in-time top 20 S&P 500 names (membership snapshots + anchored cap proxy).
+- **Weighting**: Cap-proxy proportional, rebalanced monthly, net of transaction costs.
+- **Purpose**: Show how closely a concentrated top-constituent basket tracks the benchmark.
+- **Current result**: CAGR 18.4% net, Sharpe 0.70, vs S&P 500 TR 13.9%.
 
-### Index 3: SP-20 Alpha (Planned)
-- **What**: Fixed 20 stocks, AI-optimized weights
-- **Rebalancing**: Dynamic — drift > 2%, regime change, or quarterly
-- **Optimization**: Ensemble of HRP + factor model + regime-aware tilts
-- **Constraints**: No stock > 15%, no stock < 1%
+### Index 2: SP-20 Equal
 
-### Index 4: SP-N Alpha (Planned)
-- **What**: AI selects both N (10-30) stocks and weights from top 50
-- **Rebalancing**: Dynamic (same triggers as SP-20 Alpha)
-- **Purpose**: Fully autonomous flagship index
+- **What**: Same point-in-time top 20 names.
+- **Weighting**: Equal weighted, rebalanced monthly, net of costs.
+- **Purpose**: Test whether reducing mega-cap concentration improves risk-adjusted returns.
+- **Current result**: CAGR 16.9% net, Sharpe 0.71.
 
-## The Proof Layer
+### Index 3: SP-N Alpha
 
-### P1: Variance Decomposition (Built)
-- OLS regression of S&P 500 returns against top-N stock returns
-- R² curve shows elbow at N ≈ 20 (R² = 94.9%)
-- Marginal R² drops below 0.5% after 20 stocks
+- **What**: Walk-forward max-Sharpe optimizer on the point-in-time top-20 universe.
+- **Optimization**: Mean-variance optimization with covariance shrinkage and position-size constraints.
+- **Purpose**: One retained optimized strategy that beats both baselines net of costs.
+- **Current result**: CAGR 20.9% net out-of-sample, Sharpe 0.81, Jensen alpha +5.2%.
 
-### P2: Concentration Curve (Built)
-- Cumulative R² plotted against number of stocks (1 to 50)
-- Clear visual inflection point at ~20 stocks
-- Interactive chart with tooltips showing which stock was added at each step
+## Proof Layer
 
-### P3: Performance Comparison (Built)
-- Growth of $1 chart: S&P 500 vs SP-20 Mirror vs SP-20 Equal
-- 15+ metrics computed: CAGR, Sharpe, Sortino, Max DD, Calmar, Beta, Alpha, TE, IR
-- Drawdown analysis with overlaid series
+| Capability | Status | Implementation |
+|------------|--------|----------------|
+| Variance decomposition | Built | `src/proof/concentration.py::variance_decomposition` |
+| Concentration curve | Built | `src/proof/concentration.py::concentration_curve` |
+| Mirror index construction | Built | `src/proof/concentration.py::build_mirror_index` |
+| Performance metrics | Built | `src/backtest/metrics.py` |
+| Holdings export | Built | `scripts/export_frontend_data.py` |
 
-### P4: Holdings Analysis (Built)
-- Top 20 holdings with ticker, company name, sector, weight
-- Cap-weighted vs equal-weighted weight comparison
-- Sector concentration visualization
+The proof layer uses the configured market-cap order from `src/config.py` for top-N selection.
 
 ## Frontend Experience
 
 ### Landing Page (`/`)
-- Dark cinematic background (`#0A0A0F`) with subtle grid and radial glow
-- Hero: "S&P INDEX LAB" with animated entrance
-- Three stat preview cards (R² 94.9%, CAGR 15.3%, Alpha +4.0%)
-- Glowing CTA: "Enter the Lab" → `/lab`
+
+- Dark editorial landing page for the project.
+- Hero introduces the concentration thesis.
+- Primary CTA routes to `/lab`.
 
 ### Machine Lab (`/lab`)
-- Full-viewport SVG machine with 5 interconnected components
-- Flip switch triggers sequential animation (~8 seconds)
-- Each component has rich tooltips explaining methodology ("The Thinking")
-- Results panel slides in after machine completes with all charts and metrics
 
-### Animation Sequence
-| Stage | Duration | Component |
-|-------|----------|-----------|
-| 1 | 1.2s | Powering Up — circuits initialize |
-| 2 | 1.5s | Data Pipeline — ticker scroll effect |
-| 3 | 1.5s | Concentration Analyzer — R² counter |
-| 4 | 1.5s | Mirror Index Builder — gears activate |
-| 5 | 1.5s | Alpha Optimizer — brain pulses |
-| 6 | 1.5s | Performance Monitor — gauges swing |
-| 7 | 0s | Complete — results panel appears |
-
-## ML/AI Optimization Engine (Planned)
-
-### Factor Model
-- Features: momentum (1M-12M), volatility (20D/60D), mean reversion (RSI, MA distance), quality (ROE, D/E), beta, correlation
-- Model: LightGBM with walk-forward cross-validation
-- Target: forward 1-month return quintile
-
-### Classical Optimization
-- HRP (Hierarchical Risk Parity) — most robust
-- Mean-Variance with Black-Litterman views
-- Minimum Variance with factor tilt
-- Ensemble: regime-weighted average
-
-### Regime Detection
-- 3-state HMM (bull/bear/transition)
-- Features: S&P 500 returns, realized vol, VIX, yield curve
-- Influences optimizer ensemble weights and position limits
+- Interactive machine visualization with sequential animation stages.
+- Results panel appears after completion.
+- Results include concentration curve, NAV comparison, metrics table, drawdowns, holdings, and methodology notes.
 
 ## Data Pipeline
-```
+
+```text
 GitHub Actions (weekdays 22:30 UTC)
-  → scripts/daily_update.py
-  → yfinance fetch (50 stocks + benchmarks)
-  → Compute daily returns & index NAVs
-  → Check rebalance triggers
-  → Write to Supabase + Parquet
-  → scripts/export_frontend_data.py
-  → Generate 8 JSON files → frontend/public/data/
-  → Commit + push → Vercel auto-deploys
+  -> restore cached data/*.parquet
+  -> scripts/daily_update.py
+  -> yfinance fetch for configured stocks, benchmark, and indicators
+  -> scripts/run_alpha_backtest.py
+  -> scripts/export_frontend_data.py
+  -> frontend/public/data/*.json
+  -> commit and push changed JSON
+  -> Vercel auto-deploy
 ```
+
+Supabase sync is optional and depends on repository secrets. The static frontend does not require Supabase at runtime.
 
 ## Non-Functional Requirements
-- Frontend loads in < 3 seconds (static JSON, no API calls)
-- Daily update completes in < 5 minutes
-- All Python code has type hints and docstrings
-- TypeScript strict mode with no `any` in component props
-- Accessible: keyboard navigation, ARIA labels, screen reader support
-- Responsive: desktop, tablet, mobile breakpoints
+
+- Frontend loads from static JSON with no runtime Python or database calls.
+- Public analytics data is downsampled for chart performance.
+- Python functions include type hints on public signatures.
+- TypeScript uses strict data types from `frontend/lib/types.ts`.
+- CI gates include Python lint/type/tests and frontend lint/build.
+- Strategy metrics must avoid look-ahead bias and align benchmark comparisons to overlapping dates.
 
 ## Success Criteria
-1. ✅ SP-20 Mirror tracks S&P 500 with high R² (achieved: 94.9%)
-2. ✅ SP-20 Mirror outperforms S&P 500 CAGR (achieved: 15.3% vs 11.3%)
-3. ✅ Interactive frontend communicates thesis visually
-4. ✅ Proof layer demonstrates top 20 explain > 90% variance
-5. ⬜ SP-20 Alpha achieves higher Sharpe than S&P 500
-6. ⬜ SP-N Alpha achieves highest risk-adjusted return
-7. ⬜ Daily automation running end-to-end
-8. ⬜ GitHub repo showcases enterprise-quality AI-assisted development
+
+| Criterion | Status |
+|-----------|--------|
+| SP-20 explains more than 90% of S&P 500 variance | Achieved |
+| Static frontend communicates the thesis and results clearly | Achieved |
+| Only the retained SP-N Alpha strategy is exported to frontend data | Achieved |
+| Daily workflow refreshes frontend JSON end-to-end | Implemented; requires live workflow confirmation after merge |
+| Docs match implemented code and commands | In progress |
+| Future broker execution, paper trading, and fund operations | Roadmap |
