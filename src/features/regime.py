@@ -78,17 +78,26 @@ def detect_regime(
     stds = features.std().replace(0, 1)
     x_scaled = ((features - means) / stds).values
 
-    # Fit HMM
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")  # hmmlearn convergence warnings
-        model = GaussianHMM(
-            n_components=n_states,
-            covariance_type="full",
-            n_iter=200,
-            random_state=random_state,
+    # Fit HMM. A degenerate window (near-constant VIX, collinear features)
+    # can make the covariance singular and raise — default to bull rather
+    # than crash the backtest.
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")  # hmmlearn convergence warnings
+            model = GaussianHMM(
+                n_components=n_states,
+                covariance_type="full",
+                n_iter=200,
+                random_state=random_state,
+            )
+            model.fit(x_scaled)
+            raw_states = model.predict(x_scaled)
+    except Exception:
+        logger.warning(
+            "HMM fit failed on a degenerate window (%d obs) — defaulting to bull.",
+            len(features),
         )
-        model.fit(x_scaled)
-        raw_states = model.predict(x_scaled)
+        return pd.Series(BULL, index=features.index, name="regime")
 
     # Map raw states to bull/transition/bear by mean VIX per state
     state_vix_means: dict[int, float] = {}

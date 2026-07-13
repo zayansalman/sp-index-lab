@@ -1,0 +1,33 @@
+{
+  "engine": "equal",
+  "n_policy": "elbow",
+  "overlay": "none",
+  "uses_cash": false,
+  "dev_score": {
+    "name": "s2:equal:elbow",
+    "window_start": "2016-01-04",
+    "window_end": "2023-12-05",
+    "n_days": 1995,
+    "cagr": 0.167518502575575,
+    "ann_vol": 0.20879136825764497,
+    "sharpe": 0.6107460458720656,
+    "sortino": 0.7734987817335828,
+    "max_drawdown": -0.3158776355200163,
+    "ann_turnover": 1.7664230606515916,
+    "cost_drag_bps": 97.88927794444238,
+    "excess_cagr": {
+      "sp500": 0.037824442941873926,
+      "sp20_equal": 0.025040892969983464
+    },
+    "excess_t_stat": {
+      "sp500": 1.3316329188794411,
+      "sp20_equal": 1.2546778708883253
+    },
+    "beats": {
+      "sp500": true,
+      "sp20_equal": true
+    }
+  },
+  "dev_trial_count": 11,
+  "dev_end": "2023-12-31"
+}
