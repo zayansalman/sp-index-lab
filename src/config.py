@@ -66,6 +66,16 @@ INCEPTION_DATE = date(2014, 1, 2)   # First trading day of 2014; NAV normalised 
 DATA_START_DATE = date(2013, 1, 2)
 
 # ──────────────────────────────────────────────
+# Research development / holdout split (anti-selection-bias)
+# ──────────────────────────────────────────────
+# All strategy development, tuning, and variant selection happens on data
+# through DEV_END. HOLDOUT_START onward is LOCKED: touched exactly once, by
+# scripts/run_holdout.py, for the final pre-registered evaluation of the one
+# frozen candidate. Never fit, tune, or select on holdout data.
+DEV_END = date(2023, 12, 31)
+HOLDOUT_START = date(2024, 1, 1)
+
+# ──────────────────────────────────────────────
 # Portfolio constraints
 # ──────────────────────────────────────────────
 REBALANCE_DRIFT_THRESHOLD = 0.02    # 2% absolute drift triggers rebalance check

@@ -2,8 +2,11 @@
 
 import numpy as np
 import pandas as pd
+from scipy import stats
 
 from src.config import TRADING_DAYS_PER_YEAR
+
+_EULER_MASCHERONI = 0.5772156649015329
 
 
 def compute_tracking_error(
@@ -122,3 +125,86 @@ def compute_performance_metrics(
         })
 
     return metrics
+
+
+def expected_max_sharpe(
+    n_trials: int,
+    sharpe_std: float,
+) -> float:
+    """Expected maximum Sharpe across N independent zero-edge trials.
+
+    Bailey & López de Prado's estimate of the best Sharpe you'd expect to
+    see from ``n_trials`` strategies that all have *no* true edge, purely
+    from selection noise. If an observed Sharpe doesn't clear this bar, it's
+    indistinguishable from having picked the luckiest backtest.
+
+    Args:
+        n_trials: Number of strategy configurations tried.
+        sharpe_std: Std dev of the Sharpe ratios across those trials
+            (per-period, matching the frequency used in
+            :func:`deflated_sharpe`).
+
+    Returns:
+        Expected maximum Sharpe under the null. 0.0 if inputs are degenerate.
+    """
+    if n_trials <= 1 or sharpe_std <= 0:
+        return 0.0
+    e = 1.0 - _EULER_MASCHERONI
+    z1 = stats.norm.ppf(1.0 - 1.0 / n_trials)
+    z2 = stats.norm.ppf(1.0 - 1.0 / (n_trials * np.e))
+    return float(sharpe_std * (e * z1 + _EULER_MASCHERONI * z2))
+
+
+def probabilistic_sharpe_ratio(
+    returns: pd.Series,
+    benchmark_sr: float = 0.0,
+) -> float:
+    """Probability that the true Sharpe exceeds ``benchmark_sr``.
+
+    PSR (Bailey & López de Prado) corrects the Sharpe estimate for sample
+    length, skew, and kurtosis of the return distribution.
+
+    Args:
+        returns: Per-period (e.g. daily) returns.
+        benchmark_sr: Per-period Sharpe threshold to beat.
+
+    Returns:
+        P(true SR > benchmark_sr) in [0, 1].
+    """
+    r = returns.dropna()
+    n = len(r)
+    if n < 3 or r.std(ddof=1) == 0:
+        return 0.0
+    sr = r.mean() / r.std(ddof=1)
+    skew = float(stats.skew(r))
+    kurt = float(stats.kurtosis(r, fisher=False))  # non-excess
+    denom = np.sqrt(1.0 - skew * sr + (kurt - 1.0) / 4.0 * sr**2)
+    if denom <= 0:
+        return 0.0
+    z = (sr - benchmark_sr) * np.sqrt(n - 1) / denom
+    return float(stats.norm.cdf(z))
+
+
+def deflated_sharpe(
+    returns: pd.Series,
+    n_trials: int,
+    sharpe_std: float,
+) -> float:
+    """Deflated Sharpe Ratio: PSR against the selection-adjusted benchmark.
+
+    Combines :func:`probabilistic_sharpe_ratio` with
+    :func:`expected_max_sharpe` — the probability the strategy's true Sharpe
+    beats what ``n_trials`` of pure noise would have produced. A DSR near 1
+    means the edge survives multiple-testing scrutiny; near 0.5 or below
+    means it's consistent with selection luck.
+
+    Args:
+        returns: Per-period (daily) returns of the selected strategy.
+        n_trials: Number of configurations tried before selecting it.
+        sharpe_std: Std dev of per-period Sharpe across those trials.
+
+    Returns:
+        Deflated Sharpe Ratio in [0, 1].
+    """
+    sr_star = expected_max_sharpe(n_trials, sharpe_std)
+    return probabilistic_sharpe_ratio(returns, benchmark_sr=sr_star)
