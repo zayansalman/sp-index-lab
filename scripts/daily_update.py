@@ -13,6 +13,7 @@ import logging
 import sys
 from datetime import date
 from pathlib import Path
+from typing import cast
 
 import pandas as pd
 
@@ -46,7 +47,7 @@ def _get_last_date(parquet_name: str, date_col: str = "date") -> date | None:
     if df.empty:
         return None
     dates = pd.to_datetime(df[date_col])
-    return dates.max().date()
+    return cast(date, dates.max().date())
 
 
 def _append_wide(new_rows: pd.DataFrame, parquet_name: str) -> None:

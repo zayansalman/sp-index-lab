@@ -61,8 +61,8 @@ TREASURY_10Y_TICKER = "^TNX"        # 10-year Treasury yield
 # Dates
 # ──────────────────────────────────────────────
 INCEPTION_DATE = date(2014, 1, 2)   # First trading day of 2014; NAV normalised to 1.0 here
-# Fetch history starts one year earlier so point-in-time dollar-volume
-# ranking (252-day lookback) has a full window at inception.
+# Fetch history starts one year earlier so the anchored cap-proxy ranking
+# (see UNIVERSE_LOOKBACK_DAYS below) has a full trailing window at inception.
 DATA_START_DATE = date(2013, 1, 2)
 
 # ──────────────────────────────────────────────

@@ -255,9 +255,12 @@ def fetch_daily_prices_and_volumes(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Fetch adjusted daily closes and share volumes in one API call.
 
-    Volumes feed the point-in-time dollar-volume ranking
-    (:mod:`src.data.universe`); they are aligned to the validated price
-    panel but not price-validated themselves.
+    Volumes feed abnormal-volume sentiment features
+    (:mod:`src.features.sentiment`), not universe ranking — the
+    point-in-time universe (:mod:`src.data.universe`) ranks on the
+    anchored cap proxy (price x shares outstanding) only. Volumes are
+    aligned to the validated price panel but not price-validated
+    themselves.
 
     Args:
         tickers: List of ticker symbols. Defaults to TOP_50_TICKERS.
@@ -387,7 +390,24 @@ def fetch_incremental(
         logger.info("Data is already up to date (last: %s, today: %s)", last_date, today)
         return pd.DataFrame(), pd.DataFrame()
 
-    return fetch_daily_prices_and_volumes(tickers=tickers, start=start, end=today)
+    try:
+        return fetch_daily_prices_and_volumes(tickers=tickers, start=start, end=today)
+    except RuntimeError as e:
+        # The T-1 fetch window is self-correcting day to day, except on the
+        # trading day immediately after a weekday market holiday: the window
+        # [start, today) then spans only the holiday date, yfinance returns
+        # zero rows for every ticker, and _fetch_with_retries raises after
+        # exhausting retries. That is a calendar gap, not a fetch failure —
+        # treat it as "no new data" so one holiday doesn't crash the cron.
+        if "empty DataFrame" in str(e):
+            logger.info(
+                "No trading days between %s and %s (holiday/weekend gap); "
+                "treating as no new data.",
+                start,
+                today,
+            )
+            return pd.DataFrame(), pd.DataFrame()
+        raise
 
 
 def prices_to_long_format(prices_wide: pd.DataFrame) -> pd.DataFrame:
