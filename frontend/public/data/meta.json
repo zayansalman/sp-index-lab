@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-07-14",
+  "last_updated": "2026-07-16",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3150,
+  "n_trading_days": 3152,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-07-14"
+    "end": "2026-07-16"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -57,14 +57,14 @@
     "ABBV",
     "BAC",
     "CVX",
-    "NFLX",
     "UNH",
+    "NFLX",
     "KO",
     "PG",
     "GE",
     "HD",
-    "PLTR",
     "MS",
+    "PLTR",
     "GS",
     "MRK",
     "PM",
@@ -83,17 +83,17 @@
     "NEE"
   ],
   "headline": {
-    "r_squared_at_20": 0.955859,
-    "sp500_cagr": 0.139892,
-    "mirror_cagr": 0.185609,
-    "mirror_alpha": 0.032213,
-    "equal_cagr": 0.170334,
-    "equal_alpha": 0.028094,
+    "r_squared_at_20": 0.955161,
+    "sp500_cagr": 0.139685,
+    "mirror_cagr": 0.18554,
+    "mirror_alpha": 0.032351,
+    "equal_cagr": 0.169331,
+    "equal_alpha": 0.027292,
     "net_of_costs": true,
     "alpha_cagr": 0.209044,
-    "alpha_sharpe": 0.913343,
+    "alpha_sharpe": 0.913288,
     "alpha_jensen": 0.051019,
     "alpha_max_drawdown": -0.309778
   },
-  "generated_at": "2026-07-15T23:26:59.544105+00:00"
+  "generated_at": "2026-07-17T23:14:53.457895+00:00"
 }

@@ -3709,9 +3709,16 @@
       "sp20_mirror": -0.038157,
       "sp20_equal": -0.031216,
       "spn_alpha": -0.017102
+    },
+    {
+      "date": "2026-07-16",
+      "sp500": -0.008583,
+      "sp20_mirror": -0.037552,
+      "sp20_equal": -0.040353,
+      "spn_alpha": -0.017102
     }
   ],
-  "n_points": 530,
+  "n_points": 531,
   "indices": [
     "sp500",
     "sp20_mirror",

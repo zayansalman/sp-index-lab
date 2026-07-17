@@ -3709,23 +3709,16 @@
       "sp20_mirror": 6.98334,
       "sp20_equal": 6.067408,
       "spn_alpha": 7.333585
+    },
+    {
+      "date": "2026-07-16",
+      "sp500": 4.47866,
+      "sp20_mirror": 6.987735,
+      "sp20_equal": 6.010186,
+      "spn_alpha": 7.333585
     }
   ],
   "recent_daily": [
-    {
-      "date": "2025-07-14",
-      "sp500": 3.681896,
-      "sp20_mirror": 5.694612,
-      "sp20_equal": 4.964367,
-      "spn_alpha": 5.82163
-    },
-    {
-      "date": "2025-07-15",
-      "sp500": 3.667672,
-      "sp20_mirror": 5.713399,
-      "sp20_equal": 4.952431,
-      "spn_alpha": 5.823163
-    },
     {
       "date": "2025-07-16",
       "sp500": 3.679385,
@@ -5475,10 +5468,24 @@
       "sp20_mirror": 6.98334,
       "sp20_equal": 6.067408,
       "spn_alpha": 7.333585
+    },
+    {
+      "date": "2026-07-15",
+      "sp500": 4.501625,
+      "sp20_mirror": 7.083771,
+      "sp20_equal": 6.080028,
+      "spn_alpha": 7.333585
+    },
+    {
+      "date": "2026-07-16",
+      "sp500": 4.47866,
+      "sp20_mirror": 6.987735,
+      "sp20_equal": 6.010186,
+      "spn_alpha": 7.333585
     }
   ],
-  "n_total_days": 2646,
-  "n_weekly_points": 530,
+  "n_total_days": 2648,
+  "n_weekly_points": 531,
   "n_recent_daily_points": 252,
   "indices": [
     "sp500",
