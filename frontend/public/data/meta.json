@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-07-17",
+  "last_updated": "2026-07-20",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3153,
+  "n_trading_days": 3154,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-07-17"
+    "end": "2026-07-20"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -51,8 +51,8 @@
     "INTC",
     "ORCL",
     "MA",
-    "COST",
     "CSCO",
+    "COST",
     "CAT",
     "ABBV",
     "BAC",
@@ -62,8 +62,8 @@
     "KO",
     "PG",
     "GE",
-    "HD",
     "MS",
+    "HD",
     "PLTR",
     "GS",
     "MRK",
@@ -80,20 +80,20 @@
     "PEP",
     "MCD",
     "VZ",
-    "NEE"
+    "AMGN"
   ],
   "headline": {
     "r_squared_at_20": 0.955161,
-    "sp500_cagr": 0.138715,
-    "mirror_cagr": 0.184304,
-    "mirror_alpha": 0.03219,
-    "equal_cagr": 0.1685,
-    "equal_alpha": 0.027458,
+    "sp500_cagr": 0.138495,
+    "mirror_cagr": 0.184318,
+    "mirror_alpha": 0.032451,
+    "equal_cagr": 0.168284,
+    "equal_alpha": 0.027466,
     "net_of_costs": true,
     "alpha_cagr": 0.209044,
-    "alpha_sharpe": 0.91326,
+    "alpha_sharpe": 0.913233,
     "alpha_jensen": 0.051019,
     "alpha_max_drawdown": -0.309778
   },
-  "generated_at": "2026-07-20T23:28:51.985856+00:00"
+  "generated_at": "2026-07-21T23:27:37.630966+00:00"
 }
