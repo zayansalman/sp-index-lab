@@ -176,7 +176,10 @@ def main() -> int:
 
     # Index max drawdown over the matched holdout window (both series sliced
     # to the strategy's common dates, then renormalised).
-    idx_window = bench_nav.loc[score.window_start : score.window_end]
+    idx_window = bench_nav[
+        (bench_nav.index >= pd.Timestamp(score.window_start))
+        & (bench_nav.index <= pd.Timestamp(score.window_end))
+    ]
     idx_window = idx_window / idx_window.iloc[0]
     idx_dd = float((idx_window / idx_window.cummax() - 1).min())
 
