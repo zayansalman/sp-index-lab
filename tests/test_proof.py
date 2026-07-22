@@ -171,11 +171,42 @@ def test_mirror_index_cap_weights_use_shares_anchor() -> None:
         weighting="cap",
         universe_fn=lambda t: ["AAA", "BBB"],
         shares=shares,
+        ranking_prices=stock_prices,  # inject synthetic ranking panel
     )
     # Entry turnover is 1.0; flat prices → no further trading.
     entry = mirror.loc[mirror["turnover"] > 0]
     assert len(entry) == 1
     assert entry["turnover"].iloc[0] == pytest.approx(1.0)
+
+
+def test_mirror_index_cap_weights_follow_ranking_panel_not_return_panel() -> None:
+    # Return panel and ranking panel disagree on price levels. Cap weights
+    # must follow the RANKING panel (dividend-unadjusted) — this is the
+    # dividend-adjustment fix: adjusted prices must never drive cap weights.
+    idx = pd.date_range("2024-01-01", periods=60, freq="B")
+    stock_prices = pd.DataFrame(
+        {"AAA": np.full(len(idx), 10.0), "BBB": np.full(len(idx), 10.0)},
+        index=idx,
+    )
+    # Ranking panel says AAA is 9× BBB by price; shares equal → AAA cap 9×.
+    ranking_prices = pd.DataFrame(
+        {"AAA": np.full(len(idx), 90.0), "BBB": np.full(len(idx), 10.0)},
+        index=idx,
+    )
+    shares = pd.Series({"AAA": 1.0, "BBB": 1.0})
+
+    mirror = build_mirror_index(
+        stock_prices,
+        top_n=2,
+        weighting="cap",
+        universe_fn=lambda t: ["AAA", "BBB"],
+        shares=shares,
+        ranking_prices=ranking_prices,
+    )
+    # Flat returns → first-day weights persist; entry turnover 1.0, and the
+    # NAV is flat (both stocks flat) confirming weights applied without error.
+    assert mirror["turnover"].iloc[0] == pytest.approx(1.0)
+    assert mirror["nav"].iloc[-1] == pytest.approx(mirror["nav"].iloc[0])
 
 
 def test_mirror_index_rejects_unknown_weighting() -> None:

@@ -14,6 +14,7 @@ import pandas as pd
 from pypfopt import EfficientFrontier, risk_models
 
 from src.config import MAX_POSITION_WEIGHT, MIN_POSITION_WEIGHT
+from src.optimizer.constraints import prune_and_renormalize
 from src.optimizer.hrp import hrp_weights
 
 logger = logging.getLogger(__name__)
@@ -102,19 +103,18 @@ def ensemble_weights(
     if total > 0:
         w = w / total
 
-    # Apply position constraints
+    # Apply position constraints. prune_and_renormalize holds the 15% cap
+    # through renormalisation (a plain clip-then-divide re-inflates past it).
     w = w.clip(lower=0.0)
-    active = w > 0
-    if active.sum() >= 2:
-        w[active] = w[active].clip(lower=MIN_POSITION_WEIGHT, upper=MAX_POSITION_WEIGHT)
-        w = w / w.sum()
+    if (w > 0).sum() >= 2:
+        w = prune_and_renormalize(w)
 
     logger.info(
         "Ensemble: regime=%d, blend=(%.0f%% factor, %.0f%% HRP), %d active positions",
         regime,
         factor_w * 100,
         hrp_w * 100,
-        int(active.sum()),
+        int((w > 0).sum()),
     )
 
     return w

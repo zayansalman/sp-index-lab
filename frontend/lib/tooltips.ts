@@ -84,17 +84,18 @@ export const tooltips: Record<string, ComponentTooltip> = {
   "alpha-optimizer": {
     id: "alpha-optimizer",
     title: "Alpha Optimizer",
-    subtitle: "Walk-forward max-Sharpe portfolio optimization",
+    subtitle: "Self-adjusting concentration-elbow portfolio",
     description:
-      "Runs the retained SP-N Alpha strategy: a walk-forward max-Sharpe " +
-      "optimizer over the point-in-time top-20 universe, net of transaction " +
-      "costs. Weights are computed on trailing training data only and applied " +
-      "to the following out-of-sample month.",
+      "Runs SP-N Alpha: each month it reads the concentration 'elbow' from " +
+      "trailing data and equal-weights that many point-in-time top names " +
+      "(dynamic N, 10–30), net of transaction costs. Selection uses only " +
+      "data available at each rebalance, applied to the following month.",
     thinking:
-      "The mirror and equal portfolios are the clean benchmarks. The public " +
-      "Alpha slot is reserved for the one optimizer that adds clear value in " +
-      "walk-forward testing; experimental ML and hedged variants stay out of " +
-      "the product surface until they earn their place.",
+      "Selected on a 2014–2023 development window against a locked 2024+ " +
+      "holdout (deflated Sharpe 0.96 across 14 trials, so it is not selection " +
+      "noise). It beat the S&P 500 out-of-sample but did not clear every " +
+      "pre-registered bar vs SP-20 Equal — so all strategies are shown side " +
+      "by side rather than one being crowned.",
     keyInsight:
       "Every number shown for SP-N Alpha is out-of-sample and net of costs " +
       "— see the results panel for current figures",

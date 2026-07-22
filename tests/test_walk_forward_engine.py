@@ -74,3 +74,59 @@ def test_walk_forward_backtest_universe_fn_restricts_training_columns() -> None:
     assert seen == {"B", "C"}
     assert len(result.turnover) == len(result.splits)
 
+
+def test_walk_forward_backtest_surfaces_fallback_rate() -> None:
+    dates = pd.date_range("2020-01-01", periods=850, freq="B")
+    prices = pd.DataFrame(
+        {
+            "A": 100.0 * (1.0 + 0.0002) ** np.arange(len(dates)),
+            "B": 100.0 * (1.0 + 0.0001) ** np.arange(len(dates)),
+        },
+        index=dates,
+    )
+
+    def flagged_weights_fn(
+        train_prices: pd.DataFrame, _bench: pd.Series | None
+    ) -> pd.Series:
+        w = pd.Series(0.5, index=train_prices.columns)
+        w.attrs["fallback"] = True
+        return w
+
+    result = walk_forward_backtest(
+        prices, weights_fn=flagged_weights_fn, train_days=756, test_days=21
+    )
+    assert len(result.fallback_dates) == len(result.splits)
+    assert result.fallback_rate == 1.0
+
+    def clean_weights_fn(
+        train_prices: pd.DataFrame, _bench: pd.Series | None
+    ) -> pd.Series:
+        return pd.Series(0.5, index=train_prices.columns)
+
+    clean = walk_forward_backtest(
+        prices, weights_fn=clean_weights_fn, train_days=756, test_days=21
+    )
+    assert clean.fallback_dates == []
+    assert clean.fallback_rate == 0.0
+
+
+def test_walk_forward_backtest_execution_lag_changes_first_effect_day() -> None:
+    dates = pd.date_range("2020-01-01", periods=850, freq="B")
+    prices = pd.DataFrame(
+        {
+            "A": 100.0 * (1.0 + 0.0003) ** np.arange(len(dates)),
+            "B": 100.0 * (1.0 + 0.0001) ** np.arange(len(dates)),
+        },
+        index=dates,
+    )
+
+    def weights_fn(train_prices: pd.DataFrame, _bench: pd.Series | None) -> pd.Series:
+        return pd.Series(0.5, index=train_prices.columns)
+
+    base = walk_forward_backtest(prices, weights_fn=weights_fn, train_days=756, test_days=21)
+    lagged = walk_forward_backtest(
+        prices, weights_fn=weights_fn, train_days=756, test_days=21, execution_lag_days=1
+    )
+    # Lagged portfolio enters one trading day later.
+    assert lagged.nav.index[0] == base.nav.index[1]
+

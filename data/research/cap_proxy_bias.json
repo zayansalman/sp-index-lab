@@ -1,0 +1,1266 @@
+{
+  "top_n": 20,
+  "n_months": 151,
+  "n_months_with_membership_diff": 115,
+  "pct_months_differing": 76.2,
+  "total_name_month_swaps": 208,
+  "affected_names": {
+    "PFE": 51,
+    "T": 50,
+    "VZ": 46,
+    "GE": 29,
+    "V": 26,
+    "DIS": 25,
+    "KO": 21,
+    "HD": 17,
+    "BAC": 16,
+    "PM": 14,
+    "MA": 14,
+    "WFC": 11,
+    "NFLX": 11,
+    "IBM": 10,
+    "UNH": 9,
+    "CVX": 7,
+    "ADBE": 7,
+    "PYPL": 7,
+    "BA": 6,
+    "SLB": 5,
+    "XOM": 5,
+    "AVGO": 5,
+    "CRM": 4,
+    "NVDA": 3,
+    "ORCL": 3,
+    "ABBV": 3,
+    "INTC": 2,
+    "CSCO": 2,
+    "LLY": 2,
+    "META": 1,
+    "PG": 1,
+    "MRK": 1,
+    "PLTR": 1,
+    "COST": 1
+  },
+  "diffs": [
+    {
+      "date": "2014-01-31",
+      "in_adjusted_only": [
+        "DIS",
+        "META"
+      ],
+      "in_split_only_only": [
+        "PM",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-02-28",
+      "in_adjusted_only": [
+        "DIS",
+        "V"
+      ],
+      "in_split_only_only": [
+        "SLB",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-03-31",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "SLB",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-04-30",
+      "in_adjusted_only": [
+        "GE"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2014-05-30",
+      "in_adjusted_only": [
+        "GE"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2014-06-30",
+      "in_adjusted_only": [
+        "GE",
+        "INTC"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-07-31",
+      "in_adjusted_only": [
+        "DIS",
+        "GE"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-08-29",
+      "in_adjusted_only": [
+        "DIS",
+        "GE"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-09-30",
+      "in_adjusted_only": [
+        "DIS",
+        "GE"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-10-31",
+      "in_adjusted_only": [
+        "GE",
+        "SLB"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-11-28",
+      "in_adjusted_only": [
+        "GE",
+        "SLB"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2014-12-31",
+      "in_adjusted_only": [
+        "GE",
+        "SLB",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-01-30",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-02-27",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-03-31",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-04-30",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-05-29",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-06-30",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-07-31",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-08-31",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-09-30",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "IBM",
+        "T"
+      ]
+    },
+    {
+      "date": "2015-10-30",
+      "in_adjusted_only": [
+        "GE"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2015-11-30",
+      "in_adjusted_only": [
+        "GE"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2015-12-31",
+      "in_adjusted_only": [
+        "V"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2016-01-29",
+      "in_adjusted_only": [
+        "V"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2016-02-29",
+      "in_adjusted_only": [
+        "V"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2016-03-31",
+      "in_adjusted_only": [
+        "V"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2016-04-29",
+      "in_adjusted_only": [
+        "V"
+      ],
+      "in_split_only_only": [
+        "T"
+      ]
+    },
+    {
+      "date": "2016-05-31",
+      "in_adjusted_only": [
+        "V",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PM",
+        "T"
+      ]
+    },
+    {
+      "date": "2016-06-30",
+      "in_adjusted_only": [
+        "V",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PM",
+        "T"
+      ]
+    },
+    {
+      "date": "2016-07-29",
+      "in_adjusted_only": [
+        "V",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PM",
+        "T"
+      ]
+    },
+    {
+      "date": "2016-08-31",
+      "in_adjusted_only": [
+        "V",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PM",
+        "T"
+      ]
+    },
+    {
+      "date": "2016-09-30",
+      "in_adjusted_only": [
+        "V",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PM",
+        "T"
+      ]
+    },
+    {
+      "date": "2016-10-31",
+      "in_adjusted_only": [
+        "GE",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PM",
+        "T"
+      ]
+    },
+    {
+      "date": "2016-11-30",
+      "in_adjusted_only": [
+        "GE",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PM",
+        "T"
+      ]
+    },
+    {
+      "date": "2016-12-30",
+      "in_adjusted_only": [
+        "GE",
+        "UNH"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2017-01-31",
+      "in_adjusted_only": [
+        "BAC",
+        "V"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2017-02-28",
+      "in_adjusted_only": [
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T"
+      ]
+    },
+    {
+      "date": "2017-03-31",
+      "in_adjusted_only": [
+        "GE",
+        "UNH",
+        "V"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-04-28",
+      "in_adjusted_only": [
+        "BA",
+        "BAC",
+        "GE",
+        "V"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "PM",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-05-31",
+      "in_adjusted_only": [
+        "BA",
+        "BAC",
+        "GE",
+        "UNH"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "PM",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-06-30",
+      "in_adjusted_only": [
+        "BA",
+        "BAC",
+        "GE",
+        "UNH"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "PM",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-07-31",
+      "in_adjusted_only": [
+        "BA",
+        "BAC",
+        "UNH",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "PM",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-08-31",
+      "in_adjusted_only": [
+        "BA",
+        "BAC",
+        "UNH",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "PM",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-09-29",
+      "in_adjusted_only": [
+        "BAC",
+        "DIS",
+        "UNH",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "PM",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-10-31",
+      "in_adjusted_only": [
+        "BAC",
+        "DIS",
+        "WFC"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-11-30",
+      "in_adjusted_only": [
+        "BAC",
+        "DIS",
+        "HD"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2017-12-29",
+      "in_adjusted_only": [
+        "DIS",
+        "HD"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-01-31",
+      "in_adjusted_only": [
+        "DIS",
+        "HD"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-02-28",
+      "in_adjusted_only": [
+        "DIS",
+        "HD"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-03-29",
+      "in_adjusted_only": [
+        "DIS",
+        "HD",
+        "KO"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-04-30",
+      "in_adjusted_only": [
+        "DIS",
+        "HD",
+        "MA",
+        "PG"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "PFE",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-05-31",
+      "in_adjusted_only": [
+        "DIS",
+        "HD",
+        "MA"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "T",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-06-29",
+      "in_adjusted_only": [
+        "DIS",
+        "MA",
+        "NVDA"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-07-31",
+      "in_adjusted_only": [
+        "DIS",
+        "MA",
+        "NFLX"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-08-31",
+      "in_adjusted_only": [
+        "DIS",
+        "MA",
+        "NFLX"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-09-28",
+      "in_adjusted_only": [
+        "DIS",
+        "MA",
+        "NVDA"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-10-31",
+      "in_adjusted_only": [
+        "DIS",
+        "MA"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-11-30",
+      "in_adjusted_only": [
+        "DIS",
+        "MA"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2018-12-31",
+      "in_adjusted_only": [
+        "MA"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-01-31",
+      "in_adjusted_only": [
+        "MA"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-02-28",
+      "in_adjusted_only": [
+        "MA"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-03-29",
+      "in_adjusted_only": [
+        "DIS",
+        "MA"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-04-30",
+      "in_adjusted_only": [
+        "DIS",
+        "MA"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-05-31",
+      "in_adjusted_only": [
+        "BAC",
+        "MA"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-06-28",
+      "in_adjusted_only": [
+        "BAC",
+        "CSCO"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-07-31",
+      "in_adjusted_only": [
+        "CSCO",
+        "KO"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-08-30",
+      "in_adjusted_only": [
+        "HD"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-09-30",
+      "in_adjusted_only": [
+        "HD"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-10-31",
+      "in_adjusted_only": [
+        "UNH"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-11-29",
+      "in_adjusted_only": [
+        "BAC",
+        "UNH"
+      ],
+      "in_split_only_only": [
+        "CVX",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2019-12-31",
+      "in_adjusted_only": [
+        "BAC",
+        "HD"
+      ],
+      "in_split_only_only": [
+        "CVX",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2020-01-31",
+      "in_adjusted_only": [
+        "HD"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2020-02-28",
+      "in_adjusted_only": [
+        "HD"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2020-03-31",
+      "in_adjusted_only": [
+        "BAC"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2020-04-30",
+      "in_adjusted_only": [
+        "BA",
+        "BAC"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2020-05-29",
+      "in_adjusted_only": [
+        "NFLX",
+        "NVDA"
+      ],
+      "in_split_only_only": [
+        "MRK",
+        "PFE"
+      ]
+    },
+    {
+      "date": "2020-06-30",
+      "in_adjusted_only": [
+        "NFLX"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2020-07-31",
+      "in_adjusted_only": [
+        "NFLX"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2020-08-31",
+      "in_adjusted_only": [
+        "ADBE"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2020-09-30",
+      "in_adjusted_only": [
+        "ADBE",
+        "CRM"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2020-10-30",
+      "in_adjusted_only": [
+        "ADBE",
+        "CRM"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2020-11-30",
+      "in_adjusted_only": [
+        "ADBE",
+        "CRM"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2020-12-31",
+      "in_adjusted_only": [
+        "CRM",
+        "NFLX"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2021-01-29",
+      "in_adjusted_only": [
+        "NFLX",
+        "PYPL"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2021-02-26",
+      "in_adjusted_only": [
+        "PYPL"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2021-03-31",
+      "in_adjusted_only": [
+        "NFLX",
+        "PYPL"
+      ],
+      "in_split_only_only": [
+        "BAC",
+        "VZ"
+      ]
+    },
+    {
+      "date": "2021-04-30",
+      "in_adjusted_only": [
+        "PYPL"
+      ],
+      "in_split_only_only": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2021-05-28",
+      "in_adjusted_only": [
+        "PYPL"
+      ],
+      "in_split_only_only": [
+        "XOM"
+      ]
+    },
+    {
+      "date": "2021-06-30",
+      "in_adjusted_only": [
+        "PYPL"
+      ],
+      "in_split_only_only": [
+        "XOM"
+      ]
+    },
+    {
+      "date": "2021-07-30",
+      "in_adjusted_only": [
+        "PYPL"
+      ],
+      "in_split_only_only": [
+        "XOM"
+      ]
+    },
+    {
+      "date": "2021-09-30",
+      "in_adjusted_only": [
+        "ADBE"
+      ],
+      "in_split_only_only": [
+        "ORCL"
+      ]
+    },
+    {
+      "date": "2021-10-29",
+      "in_adjusted_only": [
+        "ADBE",
+        "NFLX"
+      ],
+      "in_split_only_only": [
+        "INTC",
+        "ORCL"
+      ]
+    },
+    {
+      "date": "2021-11-30",
+      "in_adjusted_only": [
+        "ADBE"
+      ],
+      "in_split_only_only": [
+        "ORCL"
+      ]
+    },
+    {
+      "date": "2021-12-31",
+      "in_adjusted_only": [
+        "NFLX"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-01-31",
+      "in_adjusted_only": [
+        "DIS",
+        "NFLX"
+      ],
+      "in_split_only_only": [
+        "PFE",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-02-28",
+      "in_adjusted_only": [
+        "DIS"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-03-31",
+      "in_adjusted_only": [
+        "AVGO",
+        "DIS"
+      ],
+      "in_split_only_only": [
+        "CVX",
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-04-29",
+      "in_adjusted_only": [
+        "AVGO"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-05-31",
+      "in_adjusted_only": [
+        "LLY"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-06-30",
+      "in_adjusted_only": [
+        "AVGO",
+        "LLY"
+      ],
+      "in_split_only_only": [
+        "KO",
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-07-29",
+      "in_adjusted_only": [
+        "KO"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-08-31",
+      "in_adjusted_only": [
+        "KO"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-09-30",
+      "in_adjusted_only": [
+        "KO"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-10-31",
+      "in_adjusted_only": [
+        "KO"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-11-30",
+      "in_adjusted_only": [
+        "KO"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2022-12-30",
+      "in_adjusted_only": [
+        "ABBV"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2023-01-31",
+      "in_adjusted_only": [
+        "AVGO"
+      ],
+      "in_split_only_only": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2023-02-28",
+      "in_adjusted_only": [
+        "AVGO"
+      ],
+      "in_split_only_only": [
+        "ABBV"
+      ]
+    },
+    {
+      "date": "2023-07-31",
+      "in_adjusted_only": [
+        "HD"
+      ],
+      "in_split_only_only": [
+        "CVX"
+      ]
+    },
+    {
+      "date": "2023-09-29",
+      "in_adjusted_only": [
+        "HD"
+      ],
+      "in_split_only_only": [
+        "CVX"
+      ]
+    },
+    {
+      "date": "2023-10-31",
+      "in_adjusted_only": [
+        "HD"
+      ],
+      "in_split_only_only": [
+        "CVX"
+      ]
+    },
+    {
+      "date": "2023-11-30",
+      "in_adjusted_only": [
+        "HD"
+      ],
+      "in_split_only_only": [
+        "CVX"
+      ]
+    },
+    {
+      "date": "2025-09-30",
+      "in_adjusted_only": [
+        "PLTR"
+      ],
+      "in_split_only_only": [
+        "HD"
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "in_adjusted_only": [
+        "COST"
+      ],
+      "in_split_only_only": [
+        "ABBV"
+      ]
+    }
+  ]
+}

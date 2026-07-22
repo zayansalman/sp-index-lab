@@ -24,6 +24,7 @@ from src.data.fetcher import (
     fetch_benchmark,
     fetch_incremental,
     fetch_market_indicators,
+    fetch_raw_closes_incremental,
     prices_to_long_format,
 )
 from src.data.storage import (
@@ -85,6 +86,14 @@ def daily_update(skip_supabase: bool = False) -> None:
 
     _append_wide(new_prices, "daily_prices")
     _append_wide(new_volumes, "daily_volumes")
+
+    # Raw (dividend-unadjusted) ranking panel — maintained in lockstep.
+    last_raw_date = _get_last_date("daily_prices_raw")
+    new_raw = fetch_raw_closes_incremental(
+        tickers=CANDIDATE_POOL_TICKERS, last_date=last_raw_date
+    )
+    if not new_raw.empty:
+        _append_wide(new_raw, "daily_prices_raw")
 
     # ── Benchmark ─────────────────────────────────────
     # Filter to the configured symbol so a benchmark change (e.g. ^GSPC →

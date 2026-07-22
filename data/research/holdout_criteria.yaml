@@ -1,0 +1,31 @@
+# Pre-registered holdout success criteria for SP-N Alpha v2.
+#
+# COMMITTED BEFORE any candidate was selected or the holdout was touched.
+# The winning dev-window candidate is frozen (git tag), then evaluated ONCE
+# on the locked holdout window (HOLDOUT_START .. present). It earns the
+# public `spn_alpha` slot only if it meets EVERY criterion below on that
+# window, net of costs, on the matched date range. Otherwise SP-20 Equal
+# remains the retained result and the failure is published.
+#
+# Rationale: the whole v1 failure was selecting on the evaluation window and
+# never holding anything back. These thresholds are the contract.
+
+window:
+  start: "2024-01-01"        # config.HOLDOUT_START
+  # end: latest available trading day at evaluation time
+
+benchmark: "^SP500TR"        # total-return; matches dividend-adjusted stocks
+
+criteria:
+  # All must hold on the matched holdout window, net of transaction costs.
+  beat_sp500_cagr: true          # net CAGR > S&P 500 TR net CAGR
+  beat_sp500_sharpe: true        # Sharpe > S&P 500 TR Sharpe
+  beat_equal_cagr: true          # net CAGR > SP-20 Equal net CAGR
+  beat_equal_sharpe: true        # Sharpe > SP-20 Equal Sharpe
+  max_drawdown_multiple: 1.2     # strategy maxDD <= 1.2 x index maxDD (both negative)
+
+disclosure_required:
+  - dev_trial_count              # N trials that fed selection
+  - deflated_sharpe              # DSR on the dev window given N
+  - holdout_window               # exact dates evaluated
+  - outcome                      # pass/fail per criterion, published either way

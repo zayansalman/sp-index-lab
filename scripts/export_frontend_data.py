@@ -27,11 +27,17 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from src.config import (
     BENCHMARK_TICKER,
     CANDIDATE_POOL_TICKERS,
+    DATA_DIR,
     INCEPTION_DATE,
     TRADING_DAYS_PER_YEAR,
 )
 from src.data.storage import load_parquet
-from src.data.universe import load_shares_outstanding, make_universe_fn, rank_by_cap_proxy
+from src.data.universe import (
+    load_ranking_prices,
+    load_shares_outstanding,
+    make_universe_fn,
+    rank_by_cap_proxy,
+)
 from src.proof.concentration import (
     build_mirror_index,
     compute_performance_metrics,
@@ -220,6 +226,47 @@ def realized_risk_free_rate(start: pd.Timestamp, end: pd.Timestamp) -> float:
 # Exporters for each JSON file
 # ---------------------------------------------------------------------------
 
+def _load_research_block() -> dict[str, Any]:
+    """Assemble the honest research-provenance block for meta.json.
+
+    Combines the frozen dev-winner spec (race_result.json) with the
+    one-shot holdout outcome (holdout_results.jsonl, latest) so the frontend
+    can show the full picture — dev/holdout split, trial count, deflated
+    Sharpe, and the pre-registered pass/fail — with no single crowned winner.
+    Returns an empty dict if the research artefacts are absent.
+    """
+    research_dir = DATA_DIR / "research"
+    block: dict[str, Any] = {}
+    race_path = research_dir / "race_result.json"
+    holdout_path = research_dir / "holdout_results.jsonl"
+
+    if race_path.exists():
+        race = json.loads(race_path.read_text())
+        block["dev_winner_spec"] = {
+            k: race[k] for k in ("engine", "n_policy", "overlay") if k in race
+        }
+        block["dev_trial_count"] = race.get("dev_trial_count")
+        block["dev_end"] = race.get("dev_end")
+    if holdout_path.exists():
+        lines = [x for x in holdout_path.read_text().splitlines() if x.strip()]
+        if lines:
+            h = json.loads(lines[-1])
+            block["holdout"] = {
+                "window": h.get("holdout_window"),
+                "passed": h.get("passed"),
+                "checks": h.get("checks"),
+                "deflated_sharpe": h.get("dev_deflated_sharpe"),
+                "score": h.get("score"),
+                "index_max_drawdown": h.get("index_max_drawdown"),
+            }
+            # The holdout record holds the FINAL dev trial count (after the
+            # legacy re-race), which the frozen race_result predates.
+            if h.get("dev_trial_count"):
+                block["dev_trial_count"] = h["dev_trial_count"]
+    block["retained_result"] = None  # shown side-by-side; no single headline
+    return block
+
+
 def export_meta(
     stock_prices: pd.DataFrame,
     benchmark: pd.Series,
@@ -230,7 +277,9 @@ def export_meta(
 
     ``headline`` is the single source of truth for every number the
     frontend displays outside the charts (landing stats, counters) —
-    components read it instead of hardcoding values that drift.
+    components read it instead of hardcoding values that drift. The
+    ``research`` block records the dev/holdout provenance so the site can
+    present strategies honestly without crowning one.
     """
     logger.info("Generating meta.json...")
 
@@ -251,6 +300,7 @@ def export_meta(
         "top_20_tickers": current_top50[:20],
         "top_50_tickers": current_top50,
         "headline": _clean_dict(headline),
+        "research": _clean_dict(_load_research_block()),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
 
@@ -357,8 +407,12 @@ def export_performance_nav(
     all_navs = pd.DataFrame(nav_dict).dropna(how="all")
     nav_columns = list(nav_dict.keys())
 
-    # Forward-fill small gaps, then drop any remaining NaN rows
-    all_navs = all_navs.ffill().dropna()
+    # Forward-fill interior gaps only. Truncate at the last date where EVERY
+    # series still has real data — ffill past a series' end would fabricate
+    # flat returns for a stale strategy (the frontend would chart performance
+    # that never happened).
+    last_real = min(s.last_valid_index() for s in nav_dict.values())
+    all_navs = all_navs.loc[:last_real].ffill().dropna()
 
     # CRITICAL: re-normalise every series to $1 at the first common date.
     # Otherwise baselines (which start at inception 2014) appear visually
@@ -536,7 +590,7 @@ def export_holdings(stock_prices: pd.DataFrame, current_top20: list[str]) -> Pat
     logger.info("Computing current holdings...")
 
     as_of = stock_prices.index.max()
-    caps = rank_by_cap_proxy(stock_prices, load_shares_outstanding(), as_of)
+    caps = rank_by_cap_proxy(load_ranking_prices(), load_shares_outstanding(), as_of)
     weights = caps.reindex(current_top20).dropna()
     weights = weights / weights.sum()
     last_prices = stock_prices.iloc[-1]
@@ -580,8 +634,10 @@ def export_drawdowns(
 
     dd_columns = list(dd_dict.keys())
 
-    # Align on common dates
-    dd = pd.DataFrame(dd_dict).dropna(how="all").ffill().dropna()
+    # Align on common dates; interior gaps only — truncate at the last date
+    # where every series has real data (no fabricated flat tail).
+    last_real = min(s.last_valid_index() for s in dd_dict.values())
+    dd = pd.DataFrame(dd_dict).dropna(how="all").loc[:last_real].ffill().dropna()
 
     # Downsample to weekly (every 5th trading day)
     weekly_indices = list(range(0, len(dd), 5))
@@ -821,7 +877,9 @@ def main() -> int:
     # Data before INCEPTION_DATE exists only as ranking lookback.
     # ------------------------------------------------------------------
     inception = pd.Timestamp(INCEPTION_DATE)
-    universe_fn = make_universe_fn(50, prices=stock_prices)
+    # Ranking uses the dividend-unadjusted panel (loaded inside universe/
+    # mirror helpers); stock_prices stays the dividend-adjusted return basis.
+    universe_fn = make_universe_fn(50)
 
     stock_returns = stock_prices.pct_change(fill_method=None).dropna(how="all")
     benchmark_display = benchmark[benchmark.index >= inception]

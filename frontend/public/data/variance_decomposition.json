@@ -2,51 +2,51 @@
   "decomposition": [
     {
       "n_stocks": 5,
-      "r_squared": 0.799249,
-      "r_squared_min": 0.451934,
+      "r_squared": 0.785453,
+      "r_squared_min": 0.559268,
       "r_squared_max": 0.947217
     },
     {
       "n_stocks": 10,
-      "r_squared": 0.906539,
-      "r_squared_min": 0.792828,
-      "r_squared_max": 0.970532
+      "r_squared": 0.905315,
+      "r_squared_min": 0.79181,
+      "r_squared_max": 0.976393
     },
     {
       "n_stocks": 15,
-      "r_squared": 0.936791,
-      "r_squared_min": 0.842671,
-      "r_squared_max": 0.984231
+      "r_squared": 0.931599,
+      "r_squared_min": 0.833399,
+      "r_squared_max": 0.982961
     },
     {
       "n_stocks": 20,
-      "r_squared": 0.955161,
-      "r_squared_min": 0.858798,
-      "r_squared_max": 0.98863
+      "r_squared": 0.952499,
+      "r_squared_min": 0.858889,
+      "r_squared_max": 0.988844
     },
     {
       "n_stocks": 25,
-      "r_squared": 0.964155,
-      "r_squared_min": 0.891927,
-      "r_squared_max": 0.991697
+      "r_squared": 0.962254,
+      "r_squared_min": 0.891349,
+      "r_squared_max": 0.992531
     },
     {
       "n_stocks": 30,
-      "r_squared": 0.971114,
-      "r_squared_min": 0.894476,
-      "r_squared_max": 0.993652
+      "r_squared": 0.970332,
+      "r_squared_min": 0.894293,
+      "r_squared_max": 0.993611
     },
     {
       "n_stocks": 40,
-      "r_squared": 0.98048,
-      "r_squared_min": 0.930503,
-      "r_squared_max": 0.995401
+      "r_squared": 0.980053,
+      "r_squared_min": 0.930443,
+      "r_squared_max": 0.995363
     },
     {
       "n_stocks": 50,
-      "r_squared": 0.986016,
-      "r_squared_min": 0.94888,
-      "r_squared_max": 0.996748
+      "r_squared": 0.98581,
+      "r_squared_min": 0.94883,
+      "r_squared_max": 0.996853
     }
   ],
   "method": "pit_rolling_windows_mean"

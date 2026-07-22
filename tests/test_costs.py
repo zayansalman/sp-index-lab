@@ -110,3 +110,29 @@ def test_no_rebalance_in_range_raises() -> None:
     returns = _flat_returns(["A"])
     with pytest.raises(ValueError, match="No rebalance date"):
         simulate_portfolio(returns, {IDX[-1] + pd.Timedelta(days=5): pd.Series({"A": 1.0})})
+
+
+def test_extra_lag_shifts_trade_day() -> None:
+    returns = _flat_returns(["A", "B"])
+    targets = {IDX[0] - pd.Timedelta(days=1): pd.Series({"A": 0.5, "B": 0.5})}
+
+    lagged = simulate_portfolio(returns, targets, extra_lag_days=1)
+
+    # Effect day moves from IDX[0] to IDX[1]; nothing happens before it.
+    assert lagged.index[0] == IDX[1]
+    assert lagged.loc[IDX[1], "turnover"] == pytest.approx(1.0)
+
+
+def test_extra_lag_pushes_trade_out_of_range() -> None:
+    returns = _flat_returns(["A"])
+    targets = {IDX[-2]: pd.Series({"A": 1.0})}  # would trade on IDX[-1]
+
+    with pytest.raises(ValueError, match="No rebalance date"):
+        simulate_portfolio(returns, targets, extra_lag_days=1)
+
+
+def test_negative_lag_rejected() -> None:
+    returns = _flat_returns(["A"])
+    targets = {IDX[0]: pd.Series({"A": 1.0})}
+    with pytest.raises(ValueError, match="extra_lag_days"):
+        simulate_portfolio(returns, targets, extra_lag_days=-1)

@@ -10,25 +10,27 @@ SP Index Lab is a research and portfolio analytics project proving that the S&P 
 
 ## Current Results
 
-The point-in-time top-20 S&P 500 names explain **95.6%** of benchmark daily-return variance on average across rolling one-year windows (2014-01-02 onward; data refreshes daily). All strategy returns below are **net of transaction costs** (7 bps per one-way traded notional) against the **S&P 500 total-return index**.
+The point-in-time top-20 S&P 500 names explain **~95%** of benchmark daily-return variance on average across rolling one-year windows (2014-01-02 onward; data refreshes daily). All strategy returns below are **net of transaction costs** (7 bps per one-way traded notional) against the **S&P 500 total-return index**. No single strategy is crowned — see the honest-evaluation note below.
+
+Full out-of-sample walk-forward (2016→present):
 
 | Metric | S&P 500 (TR) | SP-20 Mirror | SP-20 Equal | SP-N Alpha* |
 |--------|--------------|--------------|-------------|-------------|
-| CAGR (net) | 13.9% | 18.4% | 16.9% | **20.9%** |
-| Sharpe | 0.57 | 0.70 | 0.71 | **0.81** |
-| Max Drawdown | -33.8% | -33.2% | -33.6% | **-31.0%** |
-| Jensen Alpha | – | +3.3% | +2.8% | **+5.2%** |
+| CAGR (net) | ~13.9% | ~17.1% | ~15.8% | ~20.3% |
+| Sharpe | ~0.70 | ~0.77 | ~0.79 | ~0.88 |
+| Jensen Alpha | – | ~+2.3% | ~+2.0% | ~+3.8% |
 
-\* SP-N Alpha is out-of-sample walk-forward (first 3 years feed the initial training window, so its column spans 2016→present); relative metrics are computed on overlapping dates only.
+\* **SP-N Alpha** is the *self-adjusting* strategy: each month it reads the concentration "elbow" from trailing data and equal-weights that many point-in-time top names (dynamic N, 10–30). Metrics span 2016→present (first 3 years feed the initial training window); relative metrics use overlapping dates only.
 
-Metrics are generated into `frontend/public/data/performance_metrics.json` by `scripts/export_frontend_data.py` and refresh with the daily pipeline — the table above is a snapshot and the site always shows the current values. The public site keeps only the two simple baselines and the one optimized strategy that clears them.
+**Honest evaluation (the point of the project).** SP-N Alpha was selected on a 2014–2023 **development** window (14 strategies tried, logged in `data/research/trials.jsonl`; **deflated Sharpe 0.96** — the edge survives multiple-testing, unlike a naive best-of-N pick). It was then evaluated **once** on a locked 2024–present **holdout** against criteria pre-committed in [`data/research/holdout_criteria.yaml`](data/research/holdout_criteria.yaml). Result: it beat the S&P 500 by **+10.4pp CAGR** out-of-sample (32.1% vs 21.7%) but **did not clear every bar vs SP-20 Equal** (higher return, but lower Sharpe and a deeper drawdown). Per the contract, no strategy is declared the winner — all four are shown side by side for you to judge. Numbers live in `frontend/public/data/meta.json` (`headline` + `research`) and refresh daily.
 
 ### Methodology (what makes these numbers defensible)
 
-- **Point-in-time universe** — at each monthly rebalance, the top-20 is selected from the stocks that were actually in the S&P 500 *and* largest at that moment (vendored membership snapshots + an anchored market-cap proxy). No survivorship bias: NVDA is not in the 2014 portfolio.
-- **Transaction costs** — every rebalance is charged 7 bps per unit of one-way traded notional on actual turnover; portfolios drift buy-and-hold between rebalances.
+- **Point-in-time universe** — at each monthly rebalance, the top names are selected from the stocks actually in the S&P 500 *and* largest at that moment (membership snapshots + an anchored market-cap proxy on **dividend-unadjusted** prices; returns use dividend-adjusted prices). No survivorship bias: NVDA is not in the 2014 portfolio.
+- **Dev/holdout discipline** — nothing was tuned or selected on post-2023 data; the holdout was touched once, against pre-registered criteria, with the trial count disclosed.
+- **Transaction costs** — every rebalance charged 7 bps per unit of one-way traded notional on actual turnover; portfolios drift buy-and-hold between rebalances.
 - **Total-return benchmark** — stock prices are dividend-adjusted, so the benchmark is ^SP500TR, not the price-only ^GSPC.
-- **Known limitations** — the cap proxy anchors today's share counts (buyback drift under-ranks repurchasers in early years; historical top-20 overlap is 75–90% at reference dates); five delisted ex-constituents are excluded (none was ever top-20). See [RESEARCH.md](RESEARCH.md).
+- **Known limitations** — the cap proxy anchors today's share counts (buyback drift under-ranks repurchasers in early years); five delisted ex-constituents are excluded (none was ever top-20). See [RESEARCH.md](RESEARCH.md).
 
 ---
 
@@ -38,7 +40,7 @@ Metrics are generated into `frontend/public/data/performance_metrics.json` by `s
 |-----------|----------|--------|
 | SP-20 Mirror | Point-in-time top-20, cap-proxy weights, monthly rebalance, net of costs | Built |
 | SP-20 Equal | Same point-in-time top-20, equal weighted | Built |
-| SP-N Alpha | Walk-forward max-Sharpe optimizer over the point-in-time top-20 | Built |
+| SP-N Alpha | Self-adjusting: concentration-elbow dynamic-N (10–30), equal-weighted, monthly | Built |
 
 Deferred fund infrastructure such as broker execution, live paper trading, private fund dashboards, risk operations, and reporting remains roadmap work rather than implemented repo surface area.
 

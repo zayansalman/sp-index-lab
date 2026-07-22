@@ -16,18 +16,18 @@ Using OLS regressions of S&P 500 daily returns on point-in-time top-N portfolios
 
 | Metric | Value |
 |--------|-------|
-| R² at N=20 (mean across rolling windows) | **95.6%** |
-| SP-20 Mirror CAGR (net) | **18.4%** |
-| SP-20 Equal CAGR (net) | **16.9%** |
-| SP-N Alpha CAGR (net, out-of-sample) | **20.9%** |
-| S&P 500 TR CAGR | **13.9%** |
-| SP-N Alpha Jensen Alpha | **+5.2%** |
-| SP-N Alpha Sharpe | **0.81** |
-| S&P 500 TR Sharpe | **0.57** |
+| R² at N=20 (mean across rolling windows) | **~95.3%** |
+| SP-20 Mirror CAGR (net) | **~17.1%** |
+| SP-20 Equal CAGR (net) | **~15.8%** |
+| SP-N Alpha CAGR (net, full OOS 2016→) | **~20.3%** |
+| S&P 500 TR CAGR | **~13.9%** |
+| SP-N Alpha Jensen Alpha | **~+3.8%** |
+| SP-N Alpha Sharpe | **~0.88** |
+| S&P 500 TR Sharpe | **~0.70** |
 
-The concentration curve shows a clear elbow at N ≈ 20: marginal R² collapses after 20 stocks, meaning stocks 21–500 collectively add only a few points of explanatory power.
+The concentration curve shows a clear elbow at N ≈ 20: marginal R² collapses after 20 stocks, meaning stocks 21–500 collectively add only a few points of explanatory power. SP-N Alpha turns that elbow into a *policy* — see "SP-N Alpha" below.
 
-> **Why these numbers are smaller than earlier drafts.** Previous versions of this project selected *today's* top-20 and applied it back to 2014 (survivorship bias), charged no transaction costs, and benchmarked dividend-earning portfolios against the price-only ^GSPC. Fixing all three cut the Equal CAGR from 25.4% to 16.9% and the Alpha CAGR from 29.2% to 20.9% — and the thesis still holds. The concentration finding barely moved (95.1% → 95.6% under the honest rolling-window definition) because concentration is contemporaneous: whoever the top-20 are at the time, they explain the index.
+> **Why these numbers are smaller than earlier drafts.** Earlier versions selected *today's* top-20 and applied it back to 2014 (survivorship bias), charged no transaction costs, benchmarked against the price-only ^GSPC, and ranked on dividend-adjusted prices (which understate high-yield names' historical caps). Fixing all four, and replacing a selection-picked max-Sharpe optimizer with a pre-registered self-adjusting strategy, brought every number down to a defensible level — and the thesis still holds. Concentration barely moved (still ~95%) because it is contemporaneous: whoever the top-20 are at the time, they explain the index.
 
 ## Why 20? The Research
 
@@ -82,7 +82,7 @@ Implementation: `src/proof/concentration.py::rolling_concentration()`
 Implementation: `src/proof/concentration.py::build_mirror_index()` + `src/backtest/costs.py`
 
 ### Walk-Forward Alpha
-SP-N Alpha re-selects the point-in-time top-20 and re-optimizes max-Sharpe weights at each 21-day step using the trailing 756-day training window only; weights apply to the *following* out-of-sample window. The first training window consumes 2013–2015, so the out-of-sample record runs 2016→present (~10.4 years). Annualized turnover ≈ 3.6x → ~26 bps/yr cost drag.
+SP-N Alpha re-selects the point-in-time universe and re-derives its elbow-N equal weights at each 21-day step using the trailing 756-day window only; weights apply to the *following* out-of-sample window. The first training window consumes 2013–2015, so the out-of-sample record runs 2016→present (~10.4 years). Annualized turnover ≈ 1.8x → ~13 bps/yr cost drag.
 
 Implementation: `src/backtest/engine.py::walk_forward_backtest()` (returns net + gross NAV, turnover, and costs)
 
@@ -122,7 +122,7 @@ An intelligent optimization layer can exploit all three: reduce momentum overwei
 |-------|-----------|-----------|-------------|---------|
 | SP-20 Mirror | PIT top 20 by cap proxy | Cap-proxy proportional | Monthly, net of costs | Prove concentration tracks the index |
 | SP-20 Equal | PIT top 20 by cap proxy | Equal (5% each) | Monthly, net of costs | Test if removing cap-bias helps |
-| SP-N Alpha | PIT top 20 by cap proxy | Walk-forward max-Sharpe | Monthly test windows, net of costs | Retained optimizer that beats the baselines |
+| SP-N Alpha | PIT top-N (elbow, 10–30) | Equal-weight, dynamic N | Monthly test windows, net of costs | Self-adjusting; pre-registered holdout, shown side by side |
 
 The comparison tells a clean story:
 - **Mirror vs S&P 500**: "20 stocks is enough"
@@ -150,17 +150,19 @@ The comparison tells a clean story:
 
 *Why one optimized strategy, and why this one?*
 
-### SP-N Alpha — The Retained Optimizer
+### SP-N Alpha — The Self-Adjusting Strategy
 
-The public Alpha slot is deliberately narrow. The retained strategy is a walk-forward max-Sharpe optimizer over the point-in-time top-20 universe because it is the only optimized variant that clears both baselines net of costs.
+SP-N Alpha adapts *how many* stocks it holds. At each monthly rebalance it regresses trailing benchmark returns on the cap-ranked point-in-time top names and finds the concentration **elbow** — the smallest N (clamped to 10–30) past which the next stock adds < 0.5% marginal R². It equal-weights those N names, net of costs. When the index is top-heavy it concentrates toward 10; when breadth widens it holds up to 30. The universe and N use only trailing data, so it is point-in-time by construction.
 
-1. **It beats the simple bar**: SP-N Alpha reaches 20.9% CAGR and 0.81 Sharpe net of costs out-of-sample, compared with 18.4%/0.70 for SP-20 Mirror and 16.9%/0.71 for SP-20 Equal.
+**How it was chosen (anti-selection-bias protocol).** The whole failure mode of the earlier draft was picking the best of ~8 backtests on the same window it then advertised. This version enforces:
 
-2. **It remains interpretable**: The universe is the same point-in-time top-20 set, so the product can show whether weighting alone improves the concentrated basket.
+1. **Dev/holdout split** — every candidate was developed and scored on data through 2023-12-31 (`src/research/registry.py::run_experiment` hard-truncates there and logs each trial to `data/research/trials.jsonl`). A staged race (weighting engine → N policy → risk overlay) tried **14** configurations; the concentration-elbow equal-weight strategy won on the dev window (0.61 Sharpe, +2.5% CAGR vs Equal). Notably, the previous "winner" — MVO max-Sharpe — beat *neither* baseline under the honest methodology, confirming its old edge was selection noise.
 
-3. **It keeps the public surface honest**: Experimental ML ensemble and hedged variants stay out of the frontend export until they outperform this retained strategy and the Equal baseline.
+2. **Multiple-testing discount** — the winner's **deflated Sharpe is 0.96** across the 14 trials (Bailey & López de Prado), i.e. the dev edge is not explainable by having tried 14 things.
 
-Archived research modules for HRP, factor modeling, regime detection, sentiment, and hedging remain useful for future experiments, but they are not part of the current public strategy set.
+3. **One pre-registered holdout** — criteria were committed to `data/research/holdout_criteria.yaml` *before* selection; `scripts/run_holdout.py` evaluated the frozen spec once on 2024→present. Outcome: SP-N Alpha returned **32.1% CAGR (+10.4pp over the S&P 500)** out-of-sample, but with a higher volatility it **lost to SP-20 Equal on Sharpe (1.31 vs 1.43) and breached the 1.2×-index drawdown cap**. Per the contract, **no strategy is crowned** — the site shows S&P 500, Mirror, Equal, and Alpha side by side.
+
+Archived research modules (HRP, MVO min-vol, LightGBM factor model, HMM regime, sentiment, hedging) were re-raced under the honest methodology (`scripts/run_legacy_race.py`); none beat either baseline. They remain research-only and out of the public strategy set.
 
 ### Vol Overlay — Income Layer
 

@@ -52,13 +52,15 @@ const DEFAULT_SECTIONS: ThinkingSection[] = [
       "optimizer complexity.",
   },
   {
-    title: "Why One Alpha",
+    title: "The Self-Adjusting Alpha",
     content:
-      "The public Alpha slot belongs to the single strategy that earns it in walk-forward testing: " +
-      "max-Sharpe optimization over the point-in-time top-20 universe, net of costs, with weights chosen " +
-      "using only data available at each rebalance. Experimental ML and hedged variants stay out of the " +
-      "product surface until they beat the retained strategy and the Equal baseline on the metrics that " +
-      "matter.",
+      "SP-N Alpha adapts how many stocks it holds. Each month it reads the concentration 'elbow' from " +
+      "trailing data and equal-weights however many names still add explanatory power — as few as 10 when " +
+      "the index is top-heavy, up to 30 when breadth widens. It was chosen on a 2014–2023 development " +
+      "window (14 strategies tried; deflated Sharpe 0.96, so the edge survives multiple-testing) and never " +
+      "saw the 2024–present holdout until one pre-registered evaluation. On that holdout it beat the S&P 500 " +
+      "by a wide margin but did not clear every pre-committed bar against SP-20 Equal — so no strategy is " +
+      "crowned. All four are shown side by side, net of costs, for you to judge.",
   },
 ];
 

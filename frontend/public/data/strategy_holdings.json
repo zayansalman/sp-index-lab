@@ -1,166 +1,134 @@
 {
-  "as_of": "2026-07-20",
+  "as_of": "2026-07-21",
   "strategies": {
     "spn_alpha": [
       {
-        "ticker": "WMT",
-        "name": "Walmart Inc.",
-        "weight": 0.15,
-        "sector": "Consumer Staples",
-        "last_price": 112.199997,
-        "rank": 1
-      },
-      {
-        "ticker": "JNJ",
-        "name": "Johnson & Johnson",
-        "weight": 0.15,
-        "sector": "Health Care",
-        "last_price": 248.820007,
-        "rank": 2
-      },
-      {
-        "ticker": "MU",
-        "name": "Micron Technology Inc.",
-        "weight": 0.15,
+        "ticker": "NVDA",
+        "name": "NVIDIA Corp.",
+        "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 865.460022,
-        "rank": 3
-      },
-      {
-        "ticker": "JPM",
-        "name": "JPMorgan Chase & Co.",
-        "weight": 0.13141,
-        "sector": "Financials",
-        "last_price": 338.869995,
-        "rank": 4
-      },
-      {
-        "ticker": "XOM",
-        "name": "Exxon Mobil Corp.",
-        "weight": 0.12161,
-        "sector": "Energy",
-        "last_price": 148.360001,
-        "rank": 5
+        "last_price": 207.289993,
+        "rank": 1
       },
       {
         "ticker": "GOOGL",
         "name": "Alphabet Inc.",
-        "weight": 0.08515,
+        "weight": 0.0625,
         "sector": "Communication Services",
-        "last_price": 351.98999,
-        "rank": 6
-      },
-      {
-        "ticker": "LLY",
-        "name": "Eli Lilly and Co.",
-        "weight": 0.0795,
-        "sector": "Health Care",
-        "last_price": 1146.900024,
-        "rank": 7
-      },
-      {
-        "ticker": "NVDA",
-        "name": "NVIDIA Corp.",
-        "weight": 0.01233,
-        "sector": "Technology",
-        "last_price": 203.279999,
-        "rank": 8
-      },
-      {
-        "ticker": "MSFT",
-        "name": "Microsoft Corp.",
-        "weight": 0.01,
-        "sector": "Technology",
-        "last_price": 402.290009,
-        "rank": 9
+        "last_price": 347.149994,
+        "rank": 2
       },
       {
         "ticker": "AAPL",
         "name": "Apple Inc.",
-        "weight": 0.01,
+        "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 326.589996,
-        "rank": 10
+        "last_price": 327.73999,
+        "rank": 3
       },
       {
-        "ticker": "TSLA",
-        "name": "Tesla Inc.",
-        "weight": 0.01,
-        "sector": "Consumer Discretionary",
-        "last_price": 369.570007,
-        "rank": 11
+        "ticker": "MSFT",
+        "name": "Microsoft Corp.",
+        "weight": 0.0625,
+        "sector": "Technology",
+        "last_price": 397.75,
+        "rank": 4
       },
       {
         "ticker": "AMZN",
         "name": "Amazon.com Inc.",
-        "weight": 0.01,
+        "weight": 0.0625,
         "sector": "Consumer Discretionary",
-        "last_price": 249.990005,
-        "rank": 12
-      },
-      {
-        "ticker": "BRK-B",
-        "name": "Berkshire Hathaway Inc.",
-        "weight": 0.01,
-        "sector": "Financials",
-        "last_price": 491.25,
-        "rank": 13
+        "last_price": 247.550003,
+        "rank": 5
       },
       {
         "ticker": "AVGO",
         "name": "Broadcom Inc.",
-        "weight": 0.01,
+        "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 378.160004,
-        "rank": 14
+        "last_price": 386.5,
+        "rank": 6
       },
       {
         "ticker": "META",
         "name": "Meta Platforms Inc.",
-        "weight": 0.01,
+        "weight": 0.0625,
         "sector": "Communication Services",
-        "last_price": 645.849976,
-        "rank": 15
+        "last_price": 643.809998,
+        "rank": 7
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 0.0625,
+        "sector": "Consumer Discretionary",
+        "last_price": 378.929993,
+        "rank": 8
+      },
+      {
+        "ticker": "BRK-B",
+        "name": "Berkshire Hathaway Inc.",
+        "weight": 0.0625,
+        "sector": "Financials",
+        "last_price": 489.649994,
+        "rank": 9
+      },
+      {
+        "ticker": "MU",
+        "name": "Micron Technology Inc.",
+        "weight": 0.0625,
+        "sector": "Technology",
+        "last_price": 970.820007,
+        "rank": 10
+      },
+      {
+        "ticker": "WMT",
+        "name": "Walmart Inc.",
+        "weight": 0.0625,
+        "sector": "Consumer Staples",
+        "last_price": 110.389999,
+        "rank": 11
+      },
+      {
+        "ticker": "LLY",
+        "name": "Eli Lilly and Co.",
+        "weight": 0.0625,
+        "sector": "Health Care",
+        "last_price": 1175.410034,
+        "rank": 12
+      },
+      {
+        "ticker": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "weight": 0.0625,
+        "sector": "Financials",
+        "last_price": 345.230011,
+        "rank": 13
       },
       {
         "ticker": "AMD",
         "name": "Advanced Micro Devices Inc.",
-        "weight": 0.01,
+        "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 503.570007,
-        "rank": 16
+        "last_price": 544.429993,
+        "rank": 14
       },
       {
         "ticker": "V",
         "name": "Visa Inc.",
-        "weight": 0.01,
+        "weight": 0.0625,
         "sector": "Financials",
-        "last_price": 360.570007,
-        "rank": 17
+        "last_price": 355.820007,
+        "rank": 15
       },
       {
-        "ticker": "INTC",
-        "name": "Intel Corp.",
-        "weight": 0.01,
-        "sector": "Technology",
-        "last_price": 97.059998,
-        "rank": 18
-      },
-      {
-        "ticker": "ORCL",
-        "name": "Oracle Corp.",
-        "weight": 0.01,
-        "sector": "Technology",
-        "last_price": 121.379997,
-        "rank": 19
-      },
-      {
-        "ticker": "MA",
-        "name": "Mastercard Inc.",
-        "weight": 0.01,
-        "sector": "Financials",
-        "last_price": 547.440002,
-        "rank": 20
+        "ticker": "XOM",
+        "name": "Exxon Mobil Corp.",
+        "weight": 0.0625,
+        "sector": "Energy",
+        "last_price": 151.710007,
+        "rank": 16
       }
     ]
   }

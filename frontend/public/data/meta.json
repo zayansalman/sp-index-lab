@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-07-20",
+  "last_updated": "2026-07-21",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3154,
+  "n_trading_days": 3155,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-07-20"
+    "end": "2026-07-21"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -18,8 +18,8 @@
     "META",
     "TSLA",
     "BRK-B",
-    "WMT",
     "MU",
+    "WMT",
     "LLY",
     "JPM",
     "AMD",
@@ -40,8 +40,8 @@
     "META",
     "TSLA",
     "BRK-B",
-    "WMT",
     "MU",
+    "WMT",
     "LLY",
     "JPM",
     "AMD",
@@ -58,8 +58,8 @@
     "BAC",
     "CVX",
     "UNH",
-    "NFLX",
     "KO",
+    "NFLX",
     "PG",
     "GE",
     "MS",
@@ -83,17 +83,66 @@
     "AMGN"
   ],
   "headline": {
-    "r_squared_at_20": 0.955161,
-    "sp500_cagr": 0.138495,
-    "mirror_cagr": 0.184318,
-    "mirror_alpha": 0.032451,
-    "equal_cagr": 0.168284,
-    "equal_alpha": 0.027466,
+    "r_squared_at_20": 0.952499,
+    "sp500_cagr": 0.139251,
+    "mirror_cagr": 0.172327,
+    "mirror_alpha": 0.022699,
+    "equal_cagr": 0.157726,
+    "equal_alpha": 0.020179,
     "net_of_costs": true,
-    "alpha_cagr": 0.209044,
-    "alpha_sharpe": 0.913233,
-    "alpha_jensen": 0.051019,
-    "alpha_max_drawdown": -0.309778
+    "alpha_cagr": 0.203392,
+    "alpha_sharpe": 0.881075,
+    "alpha_jensen": 0.038396,
+    "alpha_max_drawdown": -0.315878
   },
-  "generated_at": "2026-07-21T23:27:37.630966+00:00"
+  "research": {
+    "dev_winner_spec": {
+      "engine": "equal",
+      "n_policy": "elbow",
+      "overlay": "none"
+    },
+    "dev_trial_count": 14,
+    "dev_end": "2023-12-31",
+    "holdout": {
+      "window": [
+        "2024-01-02",
+        "2026-06-11"
+      ],
+      "passed": false,
+      "checks": {
+        "beat_sp500_cagr_and_sharpe": true,
+        "beat_equal_cagr_and_sharpe": false,
+        "max_drawdown_within_multiple": false
+      },
+      "deflated_sharpe": 0.96201,
+      "score": {
+        "name": "spn_alpha_holdout",
+        "window_start": "2024-01-02",
+        "window_end": "2026-06-11",
+        "n_days": 613,
+        "cagr": 0.321381,
+        "ann_vol": 0.215434,
+        "sharpe": 1.306115,
+        "sortino": 1.834148,
+        "max_drawdown": -0.250628,
+        "ann_turnover": 1.98555,
+        "cost_drag_bps": 33.809502,
+        "excess_cagr": {
+          "sp500": 0.104881,
+          "sp20_equal": 0.036788
+        },
+        "excess_t_stat": {
+          "sp500": 1.343601,
+          "sp20_equal": 0.709966
+        },
+        "beats": {
+          "sp500": true,
+          "sp20_equal": false
+        }
+      },
+      "index_max_drawdown": -0.187471
+    },
+    "retained_result": null
+  },
+  "generated_at": "2026-07-22T09:42:17.871273+00:00"
 }

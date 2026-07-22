@@ -26,16 +26,50 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-_OPTIMIZERS = {
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
+    OptimizerFn = Callable[[pd.DataFrame, float | None], pd.Series]
+
+# All optimizers share the signature (train_prices, risk_free_rate=None);
+# HRP/min-vol ignore the rate. Uniform signature keeps dispatch type-safe.
+_OPTIMIZERS: dict[str, OptimizerFn] = {
     "hrp": hrp_weights,
     "mvo_sharpe": mvo_max_sharpe_weights,
     "mvo_minvol": mvo_min_vol_weights,
 }
 
 
+def trailing_risk_free(
+    market_indicators: pd.DataFrame | None,
+    as_of: pd.Timestamp,
+    window: int = 21,
+) -> float | None:
+    """Trailing mean annualised risk-free rate as of a date.
+
+    Args:
+        market_indicators: DataFrame with ``date`` and ``risk_free`` columns
+            (^IRX yield in percent, e.g. 3.66 = 3.66%). ``None`` → ``None``.
+        as_of: Decision date; only rows on or before it are used.
+        window: Trailing rows to average.
+
+    Returns:
+        Annualised rate as a decimal (0.0366), or ``None`` when unavailable.
+    """
+    if market_indicators is None or "risk_free" not in market_indicators.columns:
+        return None
+    mi = market_indicators
+    dates = pd.to_datetime(mi["date"]) if "date" in mi.columns else mi.index
+    values = mi["risk_free"].loc[pd.Series(dates).values <= pd.Timestamp(as_of)]
+    if values.empty:
+        return None
+    return float(values.tail(window).mean()) / 100.0
+
+
 def make_alpha_weights_fn(
     optimizer: str = "hrp",
     universe: list[str] | None = None,
+    market_indicators: pd.DataFrame | None = None,
 ) -> WeightsFn:
     """Factory returning a weights_fn closure for walk-forward backtesting.
 
@@ -44,6 +78,10 @@ def make_alpha_weights_fn(
         universe: Optional explicit ticker list. Defaults to every column
             passed in — the engine's ``universe_fn`` owns selection
             (point-in-time top-N).
+        market_indicators: Optional indicators frame (``date``,
+            ``risk_free`` in percent). When provided, the trailing T-bill
+            rate at each training window's end feeds the max-Sharpe
+            objective instead of the hardcoded default.
 
     Returns:
         A callable ``(train_prices, train_bench) -> pd.Series`` of weights.
@@ -73,8 +111,8 @@ def make_alpha_weights_fn(
             )
 
         filtered = train_prices[available]
-        w = opt_fn(filtered)
-        return w
+        rf = trailing_risk_free(market_indicators, filtered.index.max())
+        return opt_fn(filtered, rf)
 
     return weights_fn
 
