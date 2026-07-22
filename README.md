@@ -17,8 +17,8 @@ Full out-of-sample walk-forward (2016→present):
 | Metric | S&P 500 (TR) | SP-20 Mirror | SP-20 Equal | SP-N Alpha* |
 |--------|--------------|--------------|-------------|-------------|
 | CAGR (net) | ~13.9% | ~17.1% | ~15.8% | ~20.3% |
-| Sharpe | ~0.57 | ~0.66 | ~0.67 | ~0.78 |
-| Jensen Alpha | – | ~+2.3% | ~+2.0% | ~+4.1% |
+| Sharpe | ~0.70 | ~0.77 | ~0.79 | ~0.88 |
+| Jensen Alpha | – | ~+2.3% | ~+2.0% | ~+3.8% |
 
 \* **SP-N Alpha** is the *self-adjusting* strategy: each month it reads the concentration "elbow" from trailing data and equal-weights that many point-in-time top names (dynamic N, 10–30). Metrics span 2016→present (first 3 years feed the initial training window); relative metrics use overlapping dates only.
 

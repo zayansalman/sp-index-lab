@@ -48,7 +48,8 @@ def backfill(skip_supabase: bool = False) -> None:
 
     Steps:
         1. Fetch daily close prices + volumes for the candidate pool since
-           inception (volumes feed point-in-time universe ranking).
+           inception (volumes feed abnormal-volume sentiment features;
+           universe ranking uses the anchored cap proxy, not volume).
         2. Fetch S&P 500 total-return benchmark prices.
         3. Fetch market indicators (VIX, risk-free, 10Y Treasury).
         4. Save everything to Parquet.

@@ -110,16 +110,37 @@ export function transformMeta(raw: any): MetaData {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformConcentrationCurve(raw: any): ConcentrationCurveData {
-  const curve: ConcentrationPoint[] = (raw.curve || []).map(
+function transformConcentrationCurve(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  raw: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rawVarianceDecomp: any,
+): ConcentrationCurveData {
+  // The plotted curve must use the same point-in-time rolling-mean R² by N
+  // (variance_decomposition.json) that r_squared_at_20 (the "95.6%" stat
+  // card and the 95%/N=20 reference lines) is computed from — the mean OLS
+  // R² of the top-N at each rebalance across every rolling one-year window.
+  // concentration_curve.json's own `curve` field is only the single latest
+  // window's greedy-selection curve, which can diverge sharply from that
+  // mean (e.g. ~88.7% vs ~95.6% at N=20 in one observed run) because it's
+  // one arbitrary year's snapshot, not the robustness figure the rest of
+  // the page reports. Plotting it under a "95%" reference line falsely
+  // implies the two are the same measurement.
+  const decomposition = rawVarianceDecomp?.decomposition || [];
+  let prevRSquared = 0;
+  const curve: ConcentrationPoint[] = decomposition.map(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (p: any) => ({
-      n: p.n_stocks ?? p.n ?? 0,
-      rSquared: p.r_squared ?? p.rSquared ?? 0,
-      marginalRSquared: p.marginal_r_squared ?? p.marginalRSquared ?? 0,
-      tickers: p.ticker_added ? [p.ticker_added] : p.tickers ?? [],
-    }),
+    (d: any) => {
+      const rSquared = d.r_squared ?? 0;
+      const marginalRSquared = rSquared - prevRSquared;
+      prevRSquared = rSquared;
+      return {
+        n: d.n_stocks ?? 0,
+        rSquared,
+        marginalRSquared,
+        tickers: [] as string[],
+      };
+    },
   );
 
   return {
@@ -339,7 +360,10 @@ export function useLabData(): UseLabDataReturn {
       // Transform snake_case JSON → camelCase TypeScript types
       setData({
         meta: transformMeta(rawMeta),
-        concentrationCurve: transformConcentrationCurve(rawConcentration),
+        concentrationCurve: transformConcentrationCurve(
+          rawConcentration,
+          rawVarianceDecomp,
+        ),
         varianceDecomposition: transformVarianceDecomposition(rawVarianceDecomp),
         performanceNav: transformPerformanceNav(rawPerformanceNav),
         performanceNavBundle: transformPerformanceNavBundle(rawPerformanceNav),

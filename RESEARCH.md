@@ -21,9 +21,9 @@ Using OLS regressions of S&P 500 daily returns on point-in-time top-N portfolios
 | SP-20 Equal CAGR (net) | **~15.8%** |
 | SP-N Alpha CAGR (net, full OOS 2016→) | **~20.3%** |
 | S&P 500 TR CAGR | **~13.9%** |
-| SP-N Alpha Jensen Alpha | **~+4.1%** |
-| SP-N Alpha Sharpe | **~0.78** |
-| S&P 500 TR Sharpe | **~0.57** |
+| SP-N Alpha Jensen Alpha | **~+3.8%** |
+| SP-N Alpha Sharpe | **~0.88** |
+| S&P 500 TR Sharpe | **~0.70** |
 
 The concentration curve shows a clear elbow at N ≈ 20: marginal R² collapses after 20 stocks, meaning stocks 21–500 collectively add only a few points of explanatory power. SP-N Alpha turns that elbow into a *policy* — see "SP-N Alpha" below.
 

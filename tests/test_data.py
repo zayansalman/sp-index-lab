@@ -5,10 +5,12 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+from src.data import fetcher as fetcher_module
 from src.data.fetcher import (
     DataQualityError,
     _validate_prices,
     fetch_daily_prices,
+    fetch_incremental,
     prices_to_long_format,
 )
 
@@ -80,6 +82,53 @@ class TestPricesToLongFormat:
         assert set(long.columns) == {"date", "symbol", "close"}
         assert len(long) == 10
         assert set(long["symbol"].unique()) == {"AAPL", "MSFT"}
+
+
+# ──────────────────────────────────────────────
+# Incremental fetch: holiday/weekend gap handling
+# ──────────────────────────────────────────────
+
+
+class TestFetchIncremental:
+    """fetch_incremental must not crash when a window spans only non-trading days.
+
+    The T-1 fetch window self-corrects day to day, except on the trading day
+    immediately after a weekday market holiday: the window then lands
+    entirely on the holiday date and yfinance returns zero rows for every
+    ticker. That is a calendar gap, not a fetch failure, and must not crash
+    the daily cron. A genuine fetch failure (network, auth, rate limit) must
+    still propagate.
+    """
+
+    def test_holiday_only_window_returns_empty(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        def _raise_empty(**kwargs: object) -> tuple[pd.DataFrame, pd.DataFrame]:
+            raise RuntimeError(
+                "Failed to fetch data after 3 attempts: "
+                "yfinance returned an empty DataFrame"
+            )
+
+        monkeypatch.setattr(
+            fetcher_module, "fetch_daily_prices_and_volumes", _raise_empty
+        )
+        prices, volumes = fetch_incremental(tickers=["AAPL"], last_date="2025-12-31")
+        assert prices.empty
+        assert volumes.empty
+
+    def test_genuine_fetch_failure_still_raises(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        def _raise_network(**kwargs: object) -> tuple[pd.DataFrame, pd.DataFrame]:
+            raise RuntimeError(
+                "Failed to fetch data after 3 attempts: Connection reset by peer"
+            )
+
+        monkeypatch.setattr(
+            fetcher_module, "fetch_daily_prices_and_volumes", _raise_network
+        )
+        with pytest.raises(RuntimeError, match="Connection reset"):
+            fetch_incremental(tickers=["AAPL"], last_date="2025-12-31")
 
 
 # ──────────────────────────────────────────────

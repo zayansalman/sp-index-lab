@@ -3,306 +3,306 @@
     {
       "n_stocks": 1,
       "ticker_added": "MSFT",
-      "r_squared": 0.165075,
-      "marginal_r_squared": 0.165075
+      "r_squared": 0.134644,
+      "marginal_r_squared": 0.134644
     },
     {
       "n_stocks": 2,
-      "ticker_added": "AAPL",
-      "r_squared": 0.364748,
-      "marginal_r_squared": 0.199673
+      "ticker_added": "NVDA",
+      "r_squared": 0.455217,
+      "marginal_r_squared": 0.320574
     },
     {
       "n_stocks": 3,
-      "ticker_added": "NVDA",
-      "r_squared": 0.580509,
-      "marginal_r_squared": 0.215762
+      "ticker_added": "AAPL",
+      "r_squared": 0.557869,
+      "marginal_r_squared": 0.102652
     },
     {
       "n_stocks": 4,
       "ticker_added": "AMZN",
-      "r_squared": 0.668301,
-      "marginal_r_squared": 0.087791
+      "r_squared": 0.645436,
+      "marginal_r_squared": 0.087567
     },
     {
       "n_stocks": 5,
       "ticker_added": "GOOGL",
-      "r_squared": 0.715344,
-      "marginal_r_squared": 0.047043
+      "r_squared": 0.700898,
+      "marginal_r_squared": 0.055462
     },
     {
       "n_stocks": 6,
       "ticker_added": "META",
-      "r_squared": 0.73213,
-      "marginal_r_squared": 0.016786
+      "r_squared": 0.712346,
+      "marginal_r_squared": 0.011448
     },
     {
       "n_stocks": 7,
-      "ticker_added": "BRK-B",
-      "r_squared": 0.754362,
-      "marginal_r_squared": 0.022232
+      "ticker_added": "TSLA",
+      "r_squared": 0.752229,
+      "marginal_r_squared": 0.039883
     },
     {
       "n_stocks": 8,
-      "ticker_added": "TSLA",
-      "r_squared": 0.780894,
-      "marginal_r_squared": 0.026532
+      "ticker_added": "AVGO",
+      "r_squared": 0.774862,
+      "marginal_r_squared": 0.022633
     },
     {
       "n_stocks": 9,
-      "ticker_added": "AVGO",
-      "r_squared": 0.810343,
-      "marginal_r_squared": 0.029449
+      "ticker_added": "BRK-B",
+      "r_squared": 0.795135,
+      "marginal_r_squared": 0.020273
     },
     {
       "n_stocks": 10,
       "ticker_added": "WMT",
-      "r_squared": 0.816298,
-      "marginal_r_squared": 0.005955
+      "r_squared": 0.79968,
+      "marginal_r_squared": 0.004545
     },
     {
       "n_stocks": 11,
-      "ticker_added": "LLY",
-      "r_squared": 0.826842,
-      "marginal_r_squared": 0.010545
+      "ticker_added": "JPM",
+      "r_squared": 0.840209,
+      "marginal_r_squared": 0.040529
     },
     {
       "n_stocks": 12,
-      "ticker_added": "JPM",
-      "r_squared": 0.864015,
-      "marginal_r_squared": 0.037173
+      "ticker_added": "LLY",
+      "r_squared": 0.847463,
+      "marginal_r_squared": 0.007254
     },
     {
       "n_stocks": 13,
       "ticker_added": "V",
-      "r_squared": 0.871653,
-      "marginal_r_squared": 0.007638
+      "r_squared": 0.85355,
+      "marginal_r_squared": 0.006088
     },
     {
       "n_stocks": 14,
-      "ticker_added": "MA",
-      "r_squared": 0.872206,
-      "marginal_r_squared": 0.000553
+      "ticker_added": "ORCL",
+      "r_squared": 0.854377,
+      "marginal_r_squared": 0.000827
     },
     {
       "n_stocks": 15,
       "ticker_added": "NFLX",
-      "r_squared": 0.872358,
-      "marginal_r_squared": 0.000151
+      "r_squared": 0.85451,
+      "marginal_r_squared": 0.000133
     },
     {
       "n_stocks": 16,
-      "ticker_added": "XOM",
-      "r_squared": 0.873712,
-      "marginal_r_squared": 0.001355
+      "ticker_added": "MA",
+      "r_squared": 0.854917,
+      "marginal_r_squared": 0.000407
     },
     {
       "n_stocks": 17,
-      "ticker_added": "COST",
-      "r_squared": 0.874765,
-      "marginal_r_squared": 0.001052
+      "ticker_added": "XOM",
+      "r_squared": 0.855217,
+      "marginal_r_squared": 0.000301
     },
     {
       "n_stocks": 18,
-      "ticker_added": "ORCL",
-      "r_squared": 0.875833,
-      "marginal_r_squared": 0.001068
+      "ticker_added": "COST",
+      "r_squared": 0.855774,
+      "marginal_r_squared": 0.000556
     },
     {
       "n_stocks": 19,
       "ticker_added": "PG",
-      "r_squared": 0.882594,
-      "marginal_r_squared": 0.006761
+      "r_squared": 0.858271,
+      "marginal_r_squared": 0.002497
     },
     {
       "n_stocks": 20,
-      "ticker_added": "UNH",
-      "r_squared": 0.886584,
-      "marginal_r_squared": 0.00399
+      "ticker_added": "JNJ",
+      "r_squared": 0.858889,
+      "marginal_r_squared": 0.000618
     },
     {
       "n_stocks": 21,
-      "ticker_added": "JNJ",
-      "r_squared": 0.888762,
-      "marginal_r_squared": 0.002178
+      "ticker_added": "HD",
+      "r_squared": 0.881236,
+      "marginal_r_squared": 0.022347
     },
     {
       "n_stocks": 22,
-      "ticker_added": "HD",
-      "r_squared": 0.906227,
-      "marginal_r_squared": 0.017465
+      "ticker_added": "ABBV",
+      "r_squared": 0.884916,
+      "marginal_r_squared": 0.003681
     },
     {
       "n_stocks": 23,
-      "ticker_added": "ABBV",
-      "r_squared": 0.908789,
-      "marginal_r_squared": 0.002562
+      "ticker_added": "UNH",
+      "r_squared": 0.887876,
+      "marginal_r_squared": 0.00296
     },
     {
       "n_stocks": 24,
-      "ticker_added": "KO",
-      "r_squared": 0.908923,
-      "marginal_r_squared": 0.000134
+      "ticker_added": "BAC",
+      "r_squared": 0.891629,
+      "marginal_r_squared": 0.003753
     },
     {
       "n_stocks": 25,
-      "ticker_added": "BAC",
-      "r_squared": 0.911645,
-      "marginal_r_squared": 0.002721
+      "ticker_added": "KO",
+      "r_squared": 0.89179,
+      "marginal_r_squared": 0.00016
     },
     {
       "n_stocks": 26,
-      "ticker_added": "CVX",
-      "r_squared": 0.911777,
-      "marginal_r_squared": 0.000133
+      "ticker_added": "PLTR",
+      "r_squared": 0.891856,
+      "marginal_r_squared": 6.6e-05
     },
     {
       "n_stocks": 27,
-      "ticker_added": "TMUS",
-      "r_squared": 0.911839,
-      "marginal_r_squared": 6.2e-05
+      "ticker_added": "CVX",
+      "r_squared": 0.892345,
+      "marginal_r_squared": 0.000489
     },
     {
       "n_stocks": 28,
       "ticker_added": "PM",
-      "r_squared": 0.911968,
-      "marginal_r_squared": 0.000129
+      "r_squared": 0.892448,
+      "marginal_r_squared": 0.000103
     },
     {
       "n_stocks": 29,
-      "ticker_added": "PLTR",
-      "r_squared": 0.913554,
-      "marginal_r_squared": 0.001586
+      "ticker_added": "TMUS",
+      "r_squared": 0.892517,
+      "marginal_r_squared": 6.9e-05
     },
     {
       "n_stocks": 30,
-      "ticker_added": "CSCO",
-      "r_squared": 0.920165,
-      "marginal_r_squared": 0.006611
+      "ticker_added": "IBM",
+      "r_squared": 0.894293,
+      "marginal_r_squared": 0.001776
     },
     {
       "n_stocks": 31,
-      "ticker_added": "IBM",
-      "r_squared": 0.921505,
-      "marginal_r_squared": 0.00134
+      "ticker_added": "CSCO",
+      "r_squared": 0.903514,
+      "marginal_r_squared": 0.009221
     },
     {
       "n_stocks": 32,
-      "ticker_added": "ABT",
-      "r_squared": 0.922454,
-      "marginal_r_squared": 0.000949
+      "ticker_added": "GE",
+      "r_squared": 0.907962,
+      "marginal_r_squared": 0.004448
     },
     {
       "n_stocks": 33,
-      "ticker_added": "GE",
-      "r_squared": 0.927023,
-      "marginal_r_squared": 0.004569
+      "ticker_added": "ABT",
+      "r_squared": 0.907963,
+      "marginal_r_squared": 0.0
     },
     {
       "n_stocks": 34,
-      "ticker_added": "CRM",
-      "r_squared": 0.930076,
-      "marginal_r_squared": 0.003053
+      "ticker_added": "WFC",
+      "r_squared": 0.908411,
+      "marginal_r_squared": 0.000448
     },
     {
       "n_stocks": 35,
-      "ticker_added": "MCD",
-      "r_squared": 0.930184,
-      "marginal_r_squared": 0.000108
+      "ticker_added": "CRM",
+      "r_squared": 0.91043,
+      "marginal_r_squared": 0.002019
     },
     {
       "n_stocks": 36,
-      "ticker_added": "WFC",
-      "r_squared": 0.930811,
-      "marginal_r_squared": 0.000626
+      "ticker_added": "MCD",
+      "r_squared": 0.910506,
+      "marginal_r_squared": 7.6e-05
     },
     {
       "n_stocks": 37,
       "ticker_added": "LIN",
-      "r_squared": 0.937061,
-      "marginal_r_squared": 0.00625
+      "r_squared": 0.918646,
+      "marginal_r_squared": 0.00814
     },
     {
       "n_stocks": 38,
-      "ticker_added": "MRK",
-      "r_squared": 0.939305,
-      "marginal_r_squared": 0.002244
+      "ticker_added": "MS",
+      "r_squared": 0.9267,
+      "marginal_r_squared": 0.008055
     },
     {
       "n_stocks": 39,
-      "ticker_added": "T",
-      "r_squared": 0.939404,
-      "marginal_r_squared": 9.9e-05
+      "ticker_added": "NOW",
+      "r_squared": 0.927058,
+      "marginal_r_squared": 0.000358
     },
     {
       "n_stocks": 40,
-      "ticker_added": "MS",
-      "r_squared": 0.944668,
-      "marginal_r_squared": 0.005263
+      "ticker_added": "AXP",
+      "r_squared": 0.930443,
+      "marginal_r_squared": 0.003385
     },
     {
       "n_stocks": 41,
-      "ticker_added": "PEP",
-      "r_squared": 0.945311,
-      "marginal_r_squared": 0.000643
+      "ticker_added": "MRK",
+      "r_squared": 0.933786,
+      "marginal_r_squared": 0.003343
     },
     {
       "n_stocks": 42,
-      "ticker_added": "NOW",
-      "r_squared": 0.945499,
-      "marginal_r_squared": 0.000188
+      "ticker_added": "INTU",
+      "r_squared": 0.933801,
+      "marginal_r_squared": 1.5e-05
     },
     {
       "n_stocks": 43,
-      "ticker_added": "AXP",
-      "r_squared": 0.948895,
-      "marginal_r_squared": 0.003396
+      "ticker_added": "T",
+      "r_squared": 0.933846,
+      "marginal_r_squared": 4.5e-05
     },
     {
       "n_stocks": 44,
-      "ticker_added": "ACN",
-      "r_squared": 0.952099,
-      "marginal_r_squared": 0.003205
+      "ticker_added": "AMD",
+      "r_squared": 0.946251,
+      "marginal_r_squared": 0.012405
     },
     {
       "n_stocks": 45,
-      "ticker_added": "ISRG",
-      "r_squared": 0.952316,
-      "marginal_r_squared": 0.000217
+      "ticker_added": "DIS",
+      "r_squared": 0.947474,
+      "marginal_r_squared": 0.001223
     },
     {
       "n_stocks": 46,
-      "ticker_added": "VZ",
-      "r_squared": 0.952427,
-      "marginal_r_squared": 0.000111
+      "ticker_added": "ISRG",
+      "r_squared": 0.947773,
+      "marginal_r_squared": 0.000299
     },
     {
       "n_stocks": 47,
-      "ticker_added": "INTU",
-      "r_squared": 0.952438,
-      "marginal_r_squared": 1e-05
+      "ticker_added": "ACN",
+      "r_squared": 0.947858,
+      "marginal_r_squared": 8.5e-05
     },
     {
       "n_stocks": 48,
       "ticker_added": "RTX",
-      "r_squared": 0.953086,
-      "marginal_r_squared": 0.000648
+      "r_squared": 0.947962,
+      "marginal_r_squared": 0.000104
     },
     {
       "n_stocks": 49,
-      "ticker_added": "DIS",
-      "r_squared": 0.955021,
-      "marginal_r_squared": 0.001935
+      "ticker_added": "PEP",
+      "r_squared": 0.948007,
+      "marginal_r_squared": 4.4e-05
     },
     {
       "n_stocks": 50,
-      "ticker_added": "AMD",
-      "r_squared": 0.962721,
-      "marginal_r_squared": 0.0077
+      "ticker_added": "GS",
+      "r_squared": 0.94883,
+      "marginal_r_squared": 0.000824
     }
   ],
-  "r_squared_at_20": 0.953177,
-  "r_squared_at_20_latest": 0.886584,
+  "r_squared_at_20": 0.952499,
+  "r_squared_at_20_latest": 0.858889,
   "r_squared_windows": [
     {
       "window_start": "2014-01-03",
@@ -993,6 +993,11 @@
       "window_start": "2025-06-12",
       "window_end": "2026-06-12",
       "r_squared_at_20": 0.886584
+    },
+    {
+      "window_start": "2025-07-15",
+      "window_end": "2026-07-15",
+      "r_squared_at_20": 0.858889
     }
   ],
   "method": "pit_rolling_ols_252d_step21d"

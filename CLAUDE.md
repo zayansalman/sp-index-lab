@@ -14,7 +14,7 @@ shows all four side by side:
 - SP-20 Mirror: CAGR ~17.1%, Jensen alpha ~+2.3%
 - SP-20 Equal: CAGR ~15.8%, Jensen alpha ~+2.0%
 - SP-N Alpha (self-adjusting concentration-elbow, dynamic N 10–30, equal-weighted):
-  CAGR ~20.3%, Sharpe ~0.78, Jensen alpha ~+4.1%, turnover ~1.8x
+  CAGR ~20.3%, Sharpe ~0.88, Jensen alpha ~+3.8%, turnover ~1.8x
 
 Honest-evaluation protocol (the point of the project — do not regress these):
 - **Dev/holdout split**: `DEV_END=2023-12-31`. All development, tuning, and variant

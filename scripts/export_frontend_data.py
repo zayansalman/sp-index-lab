@@ -191,6 +191,37 @@ def load_all_data() -> tuple[pd.DataFrame, pd.Series]:
     return stock_prices, benchmark
 
 
+# ^IRX (13-week T-bill) is fetched but wasn't wired into Sharpe/Sortino/Jensen
+# alpha — every headline used a static 4% instead of the realized rate, a
+# ~15% swing on Sharpe over a period whose actual average was ~1.7%.
+_FALLBACK_RISK_FREE_RATE = 0.04
+
+
+def realized_risk_free_rate(start: pd.Timestamp, end: pd.Timestamp) -> float:
+    """Mean realized ^IRX yield (annual, decimal) over [start, end].
+
+    Falls back to ``_FALLBACK_RISK_FREE_RATE`` if market_indicators.parquet
+    is missing/empty so a stale cache never blocks the export.
+    """
+    indicators = load_parquet("market_indicators")
+    if indicators.empty or "risk_free" not in indicators.columns:
+        logger.warning(
+            "market_indicators.parquet missing 'risk_free' — falling back "
+            "to a static %.1f%% risk-free rate.",
+            _FALLBACK_RISK_FREE_RATE * 100,
+        )
+        return _FALLBACK_RISK_FREE_RATE
+
+    indicators["date"] = pd.to_datetime(indicators["date"])
+    window = indicators[(indicators["date"] >= start) & (indicators["date"] <= end)]
+    rate_pct = window["risk_free"].dropna()
+    if rate_pct.empty:
+        return _FALLBACK_RISK_FREE_RATE
+
+    # ^IRX quotes are annual percentage points (e.g. 3.668 == 3.668%).
+    return float(rate_pct.mean()) / 100.0
+
+
 # ---------------------------------------------------------------------------
 # Exporters for each JSON file
 # ---------------------------------------------------------------------------
@@ -477,11 +508,15 @@ def _window_info(nav: pd.Series) -> dict[str, Any]:
     }
 
 
-def _cost_info(nav_gross: pd.Series | None, turnover: pd.Series | None) -> dict[str, Any]:
+def _cost_info(
+    nav_gross: pd.Series | None,
+    turnover: pd.Series | None,
+    risk_free_rate: float = _FALLBACK_RISK_FREE_RATE,
+) -> dict[str, Any]:
     """Gross-of-costs counterpart metrics (net is canonical everywhere)."""
     info: dict[str, Any] = {}
     if nav_gross is not None and len(nav_gross) > 1:
-        gross = compute_performance_metrics(nav_gross)
+        gross = compute_performance_metrics(nav_gross, risk_free_rate=risk_free_rate)
         info["gross_cagr"] = gross.get("cagr")
         info["gross_sharpe"] = gross.get("sharpe_ratio")
     if turnover is not None and len(turnover) > 0 and nav_gross is not None:
@@ -496,19 +531,29 @@ def export_performance_metrics(
     benchmark_nav: pd.Series,
     alpha_nav: pd.Series | None = None,
     extras: dict[str, dict[str, Any]] | None = None,
+    risk_free_rate: float = _FALLBACK_RISK_FREE_RATE,
 ) -> Path:
     """Generate performance_metrics.json for all indices.
 
     All strategy NAVs are net of transaction costs; per-strategy ``extras``
     carry the gross counterparts, turnover, and window descriptors.
+    ``risk_free_rate`` should be the realized average ^IRX yield over the
+    analysis window (see ``realized_risk_free_rate``), not a static guess —
+    Sharpe/Sortino/Jensen alpha are all sensitive to this assumption.
     """
     logger.info("Computing performance metrics...")
 
     extras = extras or {}
 
-    mirror_metrics = compute_performance_metrics(mirror_nav, benchmark_nav)
-    equal_metrics = compute_performance_metrics(equal_nav, benchmark_nav)
-    bench_metrics = compute_performance_metrics(benchmark_nav)
+    mirror_metrics = compute_performance_metrics(
+        mirror_nav, benchmark_nav, risk_free_rate=risk_free_rate
+    )
+    equal_metrics = compute_performance_metrics(
+        equal_nav, benchmark_nav, risk_free_rate=risk_free_rate
+    )
+    bench_metrics = compute_performance_metrics(
+        benchmark_nav, risk_free_rate=risk_free_rate
+    )
 
     # Enrich with extra daily-return metrics
     bench_metrics.update(_compute_extra_metrics(benchmark_nav, None))
@@ -529,7 +574,9 @@ def export_performance_metrics(
     }
 
     if alpha_nav is not None:
-        alpha_metrics = compute_performance_metrics(alpha_nav, benchmark_nav)
+        alpha_metrics = compute_performance_metrics(
+            alpha_nav, benchmark_nav, risk_free_rate=risk_free_rate
+        )
         alpha_metrics.update(_compute_extra_metrics(alpha_nav, benchmark_nav))
         alpha_metrics["window"] = _window_info(alpha_nav)
         alpha_metrics.update(extras.get("spn_alpha", {}))
@@ -839,6 +886,13 @@ def main() -> int:
     benchmark_returns = benchmark_display.pct_change().dropna()
     benchmark_nav = benchmark_display / benchmark_display.iloc[0]
 
+    # Realized ^IRX average over the analysis window — every Sharpe/Sortino/
+    # Jensen-alpha below uses this instead of an assumed rate.
+    risk_free_rate = realized_risk_free_rate(
+        benchmark_display.index.min(), benchmark_display.index.max()
+    )
+    logger.info("Realized risk-free rate (^IRX mean): %.3f%%", risk_free_rate * 100)
+
     logger.info("Building SP-20 Mirror (cap-weighted)...")
     sp20_mirror = build_mirror_index(
         stock_prices, top_n=20, weighting="cap",
@@ -874,8 +928,21 @@ def main() -> int:
                 )
             _ALPHA_NAV_AVAILABLE = True
             logger.info("Loaded SP-N Alpha NAV (%d days)", len(alpha_nav))
+        else:
+            # load_parquet returns empty (with its own warning) when the file
+            # doesn't exist yet — the expected state before the first
+            # run_alpha_backtest.py run. Not an error.
+            logger.info("No SP-N Alpha NAV found — run scripts/run_alpha_backtest.py first")
     except Exception:
-        logger.info("No SP-N Alpha NAV found — run scripts/run_alpha_backtest.py first")
+        # alpha_nav.parquet EXISTS but failed to load (corrupt file, pyarrow
+        # error, missing "nav"/"date" columns from a schema change). This is
+        # a genuine regression, not the benign "not yet run" case above — it
+        # must be loud, or meta.json silently ships without every alpha_*
+        # headline key while the job still exits 0.
+        logger.exception(
+            "Failed to load SP-N Alpha NAV (alpha_nav.parquet exists but is "
+            "unreadable) — shipping meta.json WITHOUT alpha_* headline keys."
+        )
 
     # Rolling point-in-time concentration (windows start at inception)
     logger.info("Computing rolling PIT concentration windows...")
@@ -890,21 +957,29 @@ def main() -> int:
         "sp20_mirror": _cost_info(
             _nav_series(sp20_mirror, "nav_gross", "g"),
             pd.Series(sp20_mirror["turnover"].values),
+            risk_free_rate=risk_free_rate,
         ),
         "sp20_equal": _cost_info(
             _nav_series(sp20_equal, "nav_gross", "g"),
             pd.Series(sp20_equal["turnover"].values),
+            risk_free_rate=risk_free_rate,
         ),
     }
     if alpha_nav_gross is not None:
-        extras["spn_alpha"] = _cost_info(alpha_nav_gross, None)
+        extras["spn_alpha"] = _cost_info(
+            alpha_nav_gross, None, risk_free_rate=risk_free_rate
+        )
 
     # Headline block: single source of truth for numbers shown in the UI.
     current_top50 = universe_fn(stock_prices.index[-1])
     at20 = rolling[rolling["n_stocks"] == 20]
-    bench_m = compute_performance_metrics(benchmark_nav)
-    mirror_m = compute_performance_metrics(mirror_nav, benchmark_nav)
-    equal_m = compute_performance_metrics(equal_nav, benchmark_nav)
+    bench_m = compute_performance_metrics(benchmark_nav, risk_free_rate=risk_free_rate)
+    mirror_m = compute_performance_metrics(
+        mirror_nav, benchmark_nav, risk_free_rate=risk_free_rate
+    )
+    equal_m = compute_performance_metrics(
+        equal_nav, benchmark_nav, risk_free_rate=risk_free_rate
+    )
     headline: dict[str, Any] = {
         "r_squared_at_20": float(at20["r_squared"].mean()) if not at20.empty else None,
         "sp500_cagr": bench_m.get("cagr"),
@@ -915,7 +990,9 @@ def main() -> int:
         "net_of_costs": True,
     }
     if alpha_nav is not None:
-        alpha_m = compute_performance_metrics(alpha_nav, benchmark_nav)
+        alpha_m = compute_performance_metrics(
+            alpha_nav, benchmark_nav, risk_free_rate=risk_free_rate
+        )
         headline.update({
             "alpha_cagr": alpha_m.get("cagr"),
             "alpha_sharpe": alpha_m.get("sharpe_ratio"),
@@ -953,6 +1030,7 @@ def main() -> int:
             mirror_nav, equal_nav, benchmark_nav,
             alpha_nav=alpha_nav,
             extras=extras,
+            risk_free_rate=risk_free_rate,
         )
     )
     written_files.append(export_holdings(stock_prices, current_top50[:20]))
