@@ -80,48 +80,48 @@
     },
     {
       "bin_start": -0.7627,
-      "bin_end": -0.6678,
+      "bin_end": -0.6677,
       "bin_center": -0.7152,
       "count": 50
     },
     {
-      "bin_start": -0.6678,
-      "bin_end": -0.5729,
+      "bin_start": -0.6677,
+      "bin_end": -0.5728,
       "bin_center": -0.6203,
       "count": 62
     },
     {
-      "bin_start": -0.5729,
-      "bin_end": -0.478,
+      "bin_start": -0.5728,
+      "bin_end": -0.4779,
       "bin_center": -0.5254,
       "count": 79
     },
     {
-      "bin_start": -0.478,
-      "bin_end": -0.3831,
+      "bin_start": -0.4779,
+      "bin_end": -0.383,
       "bin_center": -0.4305,
       "count": 101
     },
     {
-      "bin_start": -0.3831,
-      "bin_end": -0.2882,
+      "bin_start": -0.383,
+      "bin_end": -0.2881,
       "bin_center": -0.3356,
       "count": 169
     },
     {
-      "bin_start": -0.2882,
-      "bin_end": -0.1933,
+      "bin_start": -0.2881,
+      "bin_end": -0.1932,
       "bin_center": -0.2407,
       "count": 243
     },
     {
-      "bin_start": -0.1933,
-      "bin_end": -0.0984,
+      "bin_start": -0.1932,
+      "bin_end": -0.0983,
       "bin_center": -0.1458,
       "count": 306
     },
     {
-      "bin_start": -0.0984,
+      "bin_start": -0.0983,
       "bin_end": -0.0034,
       "bin_center": -0.0509,
       "count": 387
@@ -309,7 +309,7 @@
     "median": 0.0119,
     "min": -1.9964,
     "max": 2.7487,
-    "skewness": 0.1074,
-    "kurtosis": 2.6488
+    "skewness": 0.1073,
+    "kurtosis": 2.6485
   }
 }

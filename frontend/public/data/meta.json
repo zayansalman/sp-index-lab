@@ -83,16 +83,16 @@
     "AMGN"
   ],
   "headline": {
-    "r_squared_at_20": 0.952499,
+    "r_squared_at_20": 0.952498,
     "sp500_cagr": 0.139251,
-    "mirror_cagr": 0.172327,
-    "mirror_alpha": 0.022699,
-    "equal_cagr": 0.157726,
-    "equal_alpha": 0.020179,
+    "mirror_cagr": 0.172342,
+    "mirror_alpha": 0.022714,
+    "equal_cagr": 0.157763,
+    "equal_alpha": 0.020215,
     "net_of_costs": true,
-    "alpha_cagr": 0.203392,
-    "alpha_sharpe": 0.881075,
-    "alpha_jensen": 0.038396,
+    "alpha_cagr": 0.203433,
+    "alpha_sharpe": 0.881287,
+    "alpha_jensen": 0.038435,
     "alpha_max_drawdown": -0.315878
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-07-22T09:42:17.871273+00:00"
+  "generated_at": "2026-07-22T23:29:10.572719+00:00"
 }
