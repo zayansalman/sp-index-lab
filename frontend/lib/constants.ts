@@ -117,7 +117,7 @@ export const machineStages: MachineStageConfig[] = [
     id: "data_pipeline",
     name: "Data Pipeline",
     duration: STAGE_DURATIONS.data_pipeline,
-    description: "Ingesting 12+ years of daily price data for 50 S&P 500 stocks...",
+    description: "Ingesting 12+ years of daily price data for ~90 S&P 500 large-caps...",
     order: 2,
   },
   {

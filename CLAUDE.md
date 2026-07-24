@@ -9,10 +9,10 @@ S&P Index Lab proves the S&P 500 is effectively a ~20-stock index. Python backen
 Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-return;
 full out-of-sample 2016→present unless noted). No single strategy is crowned — the site
 shows all four side by side:
-- R² ≈ 95.3% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window)
+- R² ≈ 95.2% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window)
 - S&P 500 TR: CAGR ~13.9%
-- SP-20 Mirror: CAGR ~17.1%, Jensen alpha ~+2.3%
-- SP-20 Equal: CAGR ~15.8%, Jensen alpha ~+2.0%
+- SP-20 Mirror: CAGR ~17.2%, Jensen alpha ~+2.3%
+- SP-20 Equal: CAGR ~15.7%, Jensen alpha ~+2.0%
 - SP-N Alpha (self-adjusting concentration-elbow, dynamic N 10–30, equal-weighted):
   CAGR ~20.3%, Sharpe ~0.88, Jensen alpha ~+3.8%, turnover ~1.8x
 
@@ -24,7 +24,7 @@ Honest-evaluation protocol (the point of the project — do not regress these):
 - **Multiple-testing disclosure**: deflated Sharpe (`src/backtest/metrics.py`) reported
   against the true trial count. SP-N Alpha's dev DSR is 0.96 across 14 trials.
 - **Pre-registered holdout** (`data/research/holdout_criteria.yaml`, committed before any
-  candidate chosen): SP-N Alpha beat the S&P 500 out-of-sample (+10.4pp CAGR, 2024–26) but
+  candidate chosen): SP-N Alpha beat the S&P 500 out-of-sample (+10.5pp CAGR, 2024–26) but
   did NOT clear every bar vs SP-20 Equal (lost on Sharpe, breached the drawdown cap) → the
   contract's outcome is "no single winner"; strategies are shown side by side.
 - Universe selection is point-in-time: membership snapshots + anchored market-cap proxy on
@@ -89,7 +89,10 @@ The export script (`scripts/export_frontend_data.py`) calls analytics from `src/
 - `src/optimizer/hrp.py` — Hierarchical Risk Parity weights via PyPortfolioOpt.
 - `src/optimizer/mvo.py` — Mean-Variance Optimization (max-Sharpe, min-vol) with fallback.
 - `src/optimizer/ensemble.py` — Regime-weighted blend of factor-MVO + HRP.
-- `src/strategies/alpha.py` — SP-N Alpha strategy factories (retained: mvo_sharpe; ML ensemble is research-only).
+- `src/strategies/dynamic_alpha.py` — Retained SP-N Alpha: self-adjusting concentration-elbow,
+  equal-weighted dynamic-N (`strategy_from_config`, frozen via `data/research/race_result.json`).
+- `src/strategies/alpha.py` — Legacy SP-N Alpha strategy factories (mvo_sharpe, ML ensemble);
+  research-only, NOT the retained public strategy.
 - `src/strategies/hedged.py` — Archived hedged strategy prototype (research only, not exported).
 - `src/utils/helpers.py` — CASH pseudo-ticker for research strategies' engine compatibility.
 - `frontend/lib/types.ts` — All TypeScript data types. Props and data must be typed here.

@@ -92,10 +92,10 @@ export const tooltips: Record<string, ComponentTooltip> = {
       "data available at each rebalance, applied to the following month.",
     thinking:
       "Selected on a 2014–2023 development window against a locked 2024+ " +
-      "holdout (deflated Sharpe 0.96 across 14 trials, so it is not selection " +
-      "noise). It beat the S&P 500 out-of-sample but did not clear every " +
-      "pre-registered bar vs SP-20 Equal — so all strategies are shown side " +
-      "by side rather than one being crowned.",
+      "holdout; its deflated Sharpe survives the multiple-testing discount, so " +
+      "the edge is not selection noise. It beat the S&P 500 out-of-sample but " +
+      "did not clear every pre-registered bar vs SP-20 Equal — so all " +
+      "strategies are shown side by side rather than one being crowned.",
     keyInsight:
       "Every number shown for SP-N Alpha is out-of-sample and net of costs " +
       "— see the results panel for current figures",

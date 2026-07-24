@@ -51,7 +51,8 @@
 │   └── ensemble.py    Regime-weighted HRP + factor-MVO blend      │
 │                                                                  │
 │   src/strategies/ ── Portfolio strategies                         │
-│   ├── alpha.py       SP-N Alpha; public export uses max-Sharpe   │
+│   ├── alpha.py        Legacy SP-N Alpha factories (research)     │
+│   ├── dynamic_alpha   Retained: concentration-elbow, equal-wt    │
 │   └── hedged.py      Archived hedged research prototype          │
 │                                                                  │
 │   src/backtest/ ── Walk-forward backtesting                       │

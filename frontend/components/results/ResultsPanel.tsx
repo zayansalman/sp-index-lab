@@ -22,6 +22,8 @@ import PerformanceChart from "./PerformanceChart";
 import DrawdownChart from "./DrawdownChart";
 import HoldingsTable from "./HoldingsTable";
 import ThinkingPanel from "./ThinkingPanel";
+import StrategyPlaybook from "./StrategyPlaybook";
+import HoldoutEvidence from "./HoldoutEvidence";
 
 /* ──────────────────────────────────────────────────────────────
    Props
@@ -143,12 +145,13 @@ function buildThinkingSections(
     {
       title: "Why One Alpha",
       content:
-        "The public Alpha slot belongs to the single strategy that earns it in walk-forward testing: " +
-        "max-Sharpe optimization over the point-in-time top-20 universe, with weights chosen using only " +
-        `data available at each rebalance. Net of costs it reaches ${pct(m.spnAlpha?.cagr)} CAGR, ` +
-        `${m.spnAlpha ? m.spnAlpha.sharpe.toFixed(2) : "—"} Sharpe, and ${pct(m.spnAlpha?.alpha, true)} ` +
-        "Jensen alpha out-of-sample. Experimental ML and hedged variants stay out of the product surface " +
-        "until they beat the retained strategy and the Equal baseline on the metrics that matter.",
+        "The public Alpha slot belongs to the self-adjusting strategy selected on the development window: " +
+        "it reads the concentration 'elbow' each month and equal-weights that many point-in-time top names " +
+        "(dynamic N, 10-30), using only data available at each rebalance. Net of costs it reaches " +
+        `${pct(m.spnAlpha?.cagr)} CAGR, ${m.spnAlpha ? m.spnAlpha.sharpe.toFixed(2) : "—"} Sharpe, and ` +
+        `${pct(m.spnAlpha?.alpha, true)} Jensen alpha out-of-sample. Experimental ML, mean-variance, and ` +
+        "hedged variants stay out of the product surface until they beat this retained strategy and the " +
+        "Equal baseline on the metrics that matter.",
     },
   ];
 }
@@ -347,7 +350,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               </motion.div>
 
               {/* ── Key Metrics ─────────────────────────────── */}
-              <SectionHeader>Retained Result</SectionHeader>
+              <SectionHeader>Headline Metrics</SectionHeader>
 
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                 <MetricCard
@@ -512,6 +515,22 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                   )}
                 </p>
               </motion.div>
+
+              {/* ── How Each Portfolio Works ──────────────────── */}
+              <SectionHeader>How Each Portfolio Works</SectionHeader>
+
+              <StrategyPlaybook
+                metrics={data.performanceMetrics}
+                research={data.meta.research}
+              />
+
+              {/* ── The Proof: out-of-sample holdout ──────────── */}
+              {data.meta.research?.score && (
+                <>
+                  <SectionHeader>The Proof — Out-of-Sample Holdout</SectionHeader>
+                  <HoldoutEvidence research={data.meta.research} />
+                </>
+              )}
 
               {/* ── Drawdown Chart ───────────────────────────── */}
               <SectionHeader>Risk Analysis</SectionHeader>

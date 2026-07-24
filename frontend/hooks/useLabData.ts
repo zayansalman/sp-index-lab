@@ -11,6 +11,7 @@ import { useState, useEffect, useCallback } from "react";
 import type {
   LabData,
   MetaData,
+  ResearchHoldout,
   ConcentrationCurveData,
   ConcentrationPoint,
   VarianceDecompositionPoint,
@@ -82,6 +83,64 @@ async function fetchJSON(url: string): Promise<any> {
    missing or renamed fields.
    ────────────────────────────────────────────────────────────── */
 
+/**
+ * Transform the honest research-provenance block (meta.json → research)
+ * into camelCase. Flattens the dev-window disclosure and the one-shot
+ * holdout scorecard so the UI can prove out-of-sample edge with its
+ * caveats. Returns undefined when the block is absent.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function transformResearch(raw: any): ResearchHoldout | undefined {
+  if (!raw) return undefined;
+  const spec = raw.dev_winner_spec;
+  const ho = raw.holdout;
+  const s = ho?.score;
+  return {
+    devWinnerSpec: spec
+      ? { engine: spec.engine, nPolicy: spec.n_policy, overlay: spec.overlay }
+      : undefined,
+    devTrialCount: raw.dev_trial_count,
+    devEnd: raw.dev_end,
+    window: ho?.window,
+    passed: ho?.passed,
+    checks: ho?.checks
+      ? {
+          beatSp500CagrAndSharpe: !!ho.checks.beat_sp500_cagr_and_sharpe,
+          beatEqualCagrAndSharpe: !!ho.checks.beat_equal_cagr_and_sharpe,
+          maxDrawdownWithinMultiple: !!ho.checks.max_drawdown_within_multiple,
+        }
+      : undefined,
+    deflatedSharpe: ho?.deflated_sharpe,
+    score: s
+      ? {
+          windowStart: s.window_start ?? "",
+          windowEnd: s.window_end ?? "",
+          nDays: s.n_days ?? 0,
+          cagr: s.cagr ?? 0,
+          annVol: s.ann_vol ?? 0,
+          sharpe: s.sharpe ?? 0,
+          sortino: s.sortino ?? 0,
+          maxDrawdown: s.max_drawdown ?? 0,
+          annTurnover: s.ann_turnover ?? 0,
+          costDragBps: s.cost_drag_bps ?? 0,
+          excessCagr: {
+            sp500: s.excess_cagr?.sp500 ?? 0,
+            sp20Equal: s.excess_cagr?.sp20_equal ?? 0,
+          },
+          excessTStat: {
+            sp500: s.excess_t_stat?.sp500 ?? 0,
+            sp20Equal: s.excess_t_stat?.sp20_equal ?? 0,
+          },
+          beats: {
+            sp500: !!s.beats?.sp500,
+            sp20Equal: !!s.beats?.sp20_equal,
+          },
+        }
+      : undefined,
+    indexMaxDrawdown: ho?.index_max_drawdown,
+  };
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function transformMeta(raw: any): MetaData {
   const h = raw.headline;
@@ -93,6 +152,7 @@ export function transformMeta(raw: any): MetaData {
     totalStocks: raw.top_50_tickers?.length ?? 50,
     topN: raw.top_20_tickers?.length ?? 20,
     benchmark: raw.benchmark ?? "^SP500TR",
+    universeMethod: raw.universe_method,
     headline: h
       ? {
           rSquaredAt20: h.r_squared_at_20 ?? 0,
@@ -105,8 +165,10 @@ export function transformMeta(raw: any): MetaData {
           alphaSharpe: h.alpha_sharpe,
           alphaJensen: h.alpha_jensen,
           alphaMaxDrawdown: h.alpha_max_drawdown,
+          netOfCosts: h.net_of_costs,
         }
       : undefined,
+    research: transformResearch(raw.research),
   };
 }
 
@@ -117,12 +179,12 @@ function transformConcentrationCurve(
   rawVarianceDecomp: any,
 ): ConcentrationCurveData {
   // The plotted curve must use the same point-in-time rolling-mean R² by N
-  // (variance_decomposition.json) that r_squared_at_20 (the "95.6%" stat
+  // (variance_decomposition.json) that r_squared_at_20 (the ~95% stat
   // card and the 95%/N=20 reference lines) is computed from — the mean OLS
   // R² of the top-N at each rebalance across every rolling one-year window.
   // concentration_curve.json's own `curve` field is only the single latest
   // window's greedy-selection curve, which can diverge sharply from that
-  // mean (e.g. ~88.7% vs ~95.6% at N=20 in one observed run) because it's
+  // mean (e.g. ~88.7% vs ~95.2% at N=20 in one observed run) because it's
   // one arbitrary year's snapshot, not the robustness figure the rest of
   // the page reports. Plotting it under a "95%" reference line falsely
   // implies the two are the same measurement.
@@ -215,6 +277,9 @@ function transformSingleMetrics(m: any): PerformanceMetrics {
     avgDailyReturn: m.avg_daily_return ?? m.avgDailyReturn ?? 0,
     windowStart: m.window?.start,
     windowYears: m.window?.n_years,
+    grossCagr: m.gross_cagr ?? m.grossCagr,
+    grossSharpe: m.gross_sharpe ?? m.grossSharpe,
+    annualizedTurnover: m.annualized_turnover ?? m.annualizedTurnover,
   };
 }
 
