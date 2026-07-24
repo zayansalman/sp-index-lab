@@ -13,7 +13,13 @@ import logging
 import pandas as pd
 from pypfopt import EfficientFrontier, risk_models
 
-from src.config import MAX_POSITION_WEIGHT, MIN_POSITION_WEIGHT
+from src.config import (
+    DEFAULT_RISK_FREE_RATE,
+    LGBM_FORWARD_DAYS,
+    MAX_POSITION_WEIGHT,
+    MIN_POSITION_WEIGHT,
+    TRADING_DAYS_PER_YEAR,
+)
 from src.optimizer.constraints import prune_and_renormalize
 from src.optimizer.hrp import hrp_weights
 
@@ -40,8 +46,8 @@ def _factor_mvo_weights(
     try:
         mu = predicted_returns.reindex(tickers, fill_value=0.0)
 
-        # Annualise the 21-day predicted returns
-        mu_annual = mu * (252 / 21)
+        # Annualise the LGBM_FORWARD_DAYS-horizon predicted returns
+        mu_annual = mu * (TRADING_DAYS_PER_YEAR / LGBM_FORWARD_DAYS)
 
         cov = risk_models.CovarianceShrinkage(train_prices).ledoit_wolf()
 
@@ -50,7 +56,7 @@ def _factor_mvo_weights(
             cov,
             weight_bounds=(MIN_POSITION_WEIGHT, MAX_POSITION_WEIGHT),
         )
-        ef.max_sharpe(risk_free_rate=0.04)
+        ef.max_sharpe(risk_free_rate=DEFAULT_RISK_FREE_RATE)
         raw = ef.clean_weights()
         w = pd.Series(raw, dtype=float)
         total = w.sum()

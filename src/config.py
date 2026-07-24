@@ -90,6 +90,7 @@ SLIPPAGE_BPS = 2                    # 2 basis points slippage assumption
 UNIVERSE_LOOKBACK_DAYS = 63         # Trailing smoothing window for cap-proxy ranking
 UNIVERSE_MIN_OBS = 20               # Min non-NaN days required to rank a ticker
 MIRROR_REBALANCE_FREQ = "M"         # Mirror/Equal rebalance at month-end (period freq)
+MIRROR_TOP_N = 20                   # Mirror/Equal universe size (top-N by cap proxy)
 
 # ──────────────────────────────────────────────
 # Backtesting
@@ -97,6 +98,9 @@ MIRROR_REBALANCE_FREQ = "M"         # Mirror/Equal rebalance at month-end (perio
 TRAIN_WINDOW_DAYS = 756             # ~3 years of trading days
 TEST_WINDOW_DAYS = 21               # ~1 month of trading days
 TRADING_DAYS_PER_YEAR = 252
+# Static fallback risk-free rate (annual, decimal). Live code prefers the
+# realized ^IRX average; this is the single source for the static default.
+DEFAULT_RISK_FREE_RATE = 0.04
 
 # ──────────────────────────────────────────────
 # SP-N Alpha bounds

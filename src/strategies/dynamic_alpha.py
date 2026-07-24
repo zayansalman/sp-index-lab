@@ -79,7 +79,7 @@ def _momentum_tilt_engine(
     equal base by ``1 + clip(score)`` so winners are overweighted and losers
     underweighted without going short; then bounds are enforced.
     """
-    lookback = min(len(prices) - 1, 252)
+    lookback = min(len(prices) - 1, TRADING_DAYS_PER_YEAR)
     skip = 21
     if lookback <= skip + 5:
         return _equal_engine(prices)

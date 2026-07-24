@@ -10,6 +10,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from src.config import TRADING_DAYS_PER_YEAR
+
 
 def compute_momentum(
     prices: pd.DataFrame,
@@ -50,7 +52,7 @@ def compute_realized_vol(
         DataFrame of annualised volatility per ticker.
     """
     daily_returns = prices.pct_change()
-    return daily_returns.rolling(window).std() * np.sqrt(252)
+    return daily_returns.rolling(window).std() * np.sqrt(TRADING_DAYS_PER_YEAR)
 
 
 def compute_rsi(
