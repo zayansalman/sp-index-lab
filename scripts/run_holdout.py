@@ -39,10 +39,12 @@ from src.backtest.engine import walk_forward_backtest
 from src.backtest.metrics import deflated_sharpe
 from src.config import (
     DATA_DIR,
+    DEV_END,
     HOLDOUT_START,
     INCEPTION_DATE,
     SPN_MAX_STOCKS,
     TEST_WINDOW_DAYS,
+    TRADING_DAYS_PER_YEAR,
     TRAIN_WINDOW_DAYS,
 )
 from src.data.storage import load_parquet
@@ -98,7 +100,7 @@ def _dev_deflated_sharpe(winner_dev_returns: pd.Series) -> tuple[float, int, flo
     n = len(trials)
     sharpe_std = float(np.std(sharpes, ddof=1)) if len(sharpes) > 1 else 0.0
     # Convert annualised-Sharpe spread to per-period for the PSR benchmark.
-    per_period_std = sharpe_std / np.sqrt(252)
+    per_period_std = sharpe_std / np.sqrt(TRADING_DAYS_PER_YEAR)
     dsr = deflated_sharpe(winner_dev_returns, n_trials=n, sharpe_std=per_period_std)
     return dsr, n, sharpe_std
 
@@ -162,7 +164,7 @@ def main() -> int:
     )
 
     # Deflated Sharpe on the dev portion (multiple-testing disclosure).
-    dev_returns = nav[nav.index <= pd.Timestamp("2023-12-31")].pct_change().dropna()
+    dev_returns = nav[nav.index <= pd.Timestamp(DEV_END)].pct_change().dropna()
     dsr, n_trials, sharpe_std = _dev_deflated_sharpe(dev_returns)
 
     # Score on the holdout window only.

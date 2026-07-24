@@ -30,7 +30,7 @@ import yfinance as yf
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.config import CANDIDATE_POOL_TICKERS, DATA_DIR, DATA_START_DATE
+from src.config import CANDIDATE_POOL_TICKERS, DATA_DIR, DATA_START_DATE, MIRROR_TOP_N
 from src.data.storage import load_parquet
 from src.data.universe import get_members_at, load_shares_outstanding, rank_by_cap_proxy
 
@@ -38,7 +38,6 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(levelname)-8s  %(
 logger = logging.getLogger(__name__)
 
 RESEARCH_DIR = DATA_DIR / "research"
-TOP_N = 20
 
 
 def fetch_split_adjusted_closes(tickers: list[str]) -> pd.DataFrame:
@@ -92,8 +91,8 @@ def main() -> int:
         members = get_members_at(dt)
         rank_adj = rank_by_cap_proxy(adjusted, shares, dt)
         rank_raw = rank_by_cap_proxy(split_only, shares, dt)
-        top_adj = [t for t in rank_adj.index if t in members][:TOP_N]
-        top_raw = [t for t in rank_raw.index if t in members][:TOP_N]
+        top_adj = [t for t in rank_adj.index if t in members][:MIRROR_TOP_N]
+        top_raw = [t for t in rank_raw.index if t in members][:MIRROR_TOP_N]
 
         only_adj = sorted(set(top_adj) - set(top_raw))
         only_raw = sorted(set(top_raw) - set(top_adj))
@@ -108,7 +107,7 @@ def main() -> int:
             })
 
     summary = {
-        "top_n": TOP_N,
+        "top_n": MIRROR_TOP_N,
         "n_months": len(dates),
         "n_months_with_membership_diff": n_diff_months,
         "pct_months_differing": round(n_diff_months / len(dates) * 100, 1),
@@ -124,7 +123,7 @@ def main() -> int:
     logger.info(
         "Top-%d membership differs in %d of %d months (%.1f%%); "
         "%d name-month swaps total. Written to %s",
-        TOP_N,
+        MIRROR_TOP_N,
         n_diff_months,
         len(dates),
         summary["pct_months_differing"],

@@ -28,6 +28,7 @@ from src.config import (
     BENCHMARK_TICKER,
     CANDIDATE_POOL_TICKERS,
     DATA_DIR,
+    DEFAULT_RISK_FREE_RATE,
     INCEPTION_DATE,
     TRADING_DAYS_PER_YEAR,
 )
@@ -193,8 +194,9 @@ def load_all_data() -> tuple[pd.DataFrame, pd.Series]:
 
 # ^IRX (13-week T-bill) is fetched but wasn't wired into Sharpe/Sortino/Jensen
 # alpha — every headline used a static 4% instead of the realized rate, a
-# ~15% swing on Sharpe over a period whose actual average was ~1.7%.
-_FALLBACK_RISK_FREE_RATE = 0.04
+# ~15% swing on Sharpe over a period whose actual average was ~1.7%. The
+# static fallback lives in src.config as the single source of truth.
+_FALLBACK_RISK_FREE_RATE = DEFAULT_RISK_FREE_RATE
 
 
 def realized_risk_free_rate(start: pd.Timestamp, end: pd.Timestamp) -> float:
@@ -458,17 +460,17 @@ def export_performance_nav(
     return _write_json(payload, "performance_nav.json")
 
 
-def _compute_extra_metrics(
-    nav: pd.Series,
-    benchmark_nav: pd.Series | None = None,
-) -> dict:
+def _compute_extra_metrics(nav: pd.Series) -> dict:
     """Compute additional daily-return metrics not in compute_performance_metrics.
 
-    Returns dict with keys: information_ratio, best_day, worst_day,
-    win_rate, avg_daily_return. Deliberately does NOT return "alpha" or
-    "beta" — compute_performance_metrics already provides Jensen's alpha
-    and regression beta, and overriding alpha with annualised mean excess
-    (as this function once did) silently changed its definition.
+    Returns dict with keys: best_day, worst_day, win_rate, avg_daily_return.
+    Deliberately does NOT return "information_ratio", "alpha", or "beta" —
+    compute_performance_metrics already provides all three (its information
+    ratio is CAGR-excess over annualised tracking error, its alpha is Jensen's
+    alpha, its beta the regression beta). Recomputing any of them here with a
+    different formula — as this function once did for alpha, and did for the
+    information ratio (annualised mean daily excess / its std) — silently
+    overrode the canonical definition via the caller's dict ``update``.
     """
     daily_returns = nav.pct_change().dropna()
 
@@ -477,21 +479,7 @@ def _compute_extra_metrics(
     win_rate = float((daily_returns > 0).mean()) if len(daily_returns) > 0 else 0.0
     avg_daily_return = float(daily_returns.mean()) if len(daily_returns) > 0 else 0.0
 
-    information_ratio = 0.0
-
-    if benchmark_nav is not None:
-        bench_returns = benchmark_nav.pct_change().dropna()
-        # Align on common index
-        common = daily_returns.index.intersection(bench_returns.index)
-        if len(common) > 10:
-            excess = daily_returns.loc[common] - bench_returns.loc[common]
-            excess_mean = float(excess.mean())
-            excess_std = float(excess.std())
-            if excess_std > 0:
-                information_ratio = (excess_mean / excess_std) * (252 ** 0.5)
-
     return {
-        "information_ratio": round(information_ratio, 6),
         "best_day": round(best_day, 6),
         "worst_day": round(worst_day, 6),
         "win_rate": round(win_rate, 6),
@@ -556,9 +544,9 @@ def export_performance_metrics(
     )
 
     # Enrich with extra daily-return metrics
-    bench_metrics.update(_compute_extra_metrics(benchmark_nav, None))
-    mirror_metrics.update(_compute_extra_metrics(mirror_nav, benchmark_nav))
-    equal_metrics.update(_compute_extra_metrics(equal_nav, benchmark_nav))
+    bench_metrics.update(_compute_extra_metrics(benchmark_nav))
+    mirror_metrics.update(_compute_extra_metrics(mirror_nav))
+    equal_metrics.update(_compute_extra_metrics(equal_nav))
 
     bench_metrics["window"] = _window_info(benchmark_nav)
     mirror_metrics["window"] = _window_info(mirror_nav)
@@ -577,7 +565,7 @@ def export_performance_metrics(
         alpha_metrics = compute_performance_metrics(
             alpha_nav, benchmark_nav, risk_free_rate=risk_free_rate
         )
-        alpha_metrics.update(_compute_extra_metrics(alpha_nav, benchmark_nav))
+        alpha_metrics.update(_compute_extra_metrics(alpha_nav))
         alpha_metrics["window"] = _window_info(alpha_nav)
         alpha_metrics.update(extras.get("spn_alpha", {}))
         payload["spn_alpha"] = _clean_dict(alpha_metrics)

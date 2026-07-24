@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import pandas as pd
 
+from src.config import TRADING_DAYS_PER_YEAR
+
 
 def add_cash_column(
     prices: pd.DataFrame,
@@ -21,7 +23,7 @@ def add_cash_column(
     Returns:
         Copy of *prices* with an additional ``CASH`` column.
     """
-    daily_rf = (1 + risk_free_rate) ** (1 / 252) - 1
+    daily_rf = (1 + risk_free_rate) ** (1 / TRADING_DAYS_PER_YEAR) - 1
 
     # Build a compounding cash price series starting at 100
     n = len(prices)
