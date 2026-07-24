@@ -8,6 +8,7 @@
    ================================================================ */
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import useLabData from "@/hooks/useLabData";
 import {
@@ -17,13 +18,33 @@ import {
 import type { LabData, PerformanceMetrics } from "@/lib/types";
 import GlowText from "@/components/ui/GlowText";
 import MetricCard from "./MetricCard";
-import ConcentrationChart from "./ConcentrationChart";
-import PerformanceChart from "./PerformanceChart";
-import DrawdownChart from "./DrawdownChart";
 import HoldingsTable from "./HoldingsTable";
 import ThinkingPanel from "./ThinkingPanel";
 import StrategyPlaybook from "./StrategyPlaybook";
 import HoldoutEvidence from "./HoldoutEvidence";
+
+/* ──────────────────────────────────────────────────────────────
+   Charts are code-split (next/dynamic) so the heavy Recharts bundle
+   only loads once results are revealed, keeping the initial payload
+   small. A shimmer placeholder holds the layout while each loads.
+   ────────────────────────────────────────────────────────────── */
+
+const ChartSkeleton: React.FC = () => (
+  <div className="shimmer h-80 w-full rounded-lg" />
+);
+
+const ConcentrationChart = dynamic(() => import("./ConcentrationChart"), {
+  ssr: false,
+  loading: () => <ChartSkeleton />,
+});
+const PerformanceChart = dynamic(() => import("./PerformanceChart"), {
+  ssr: false,
+  loading: () => <ChartSkeleton />,
+});
+const DrawdownChart = dynamic(() => import("./DrawdownChart"), {
+  ssr: false,
+  loading: () => <ChartSkeleton />,
+});
 
 /* ──────────────────────────────────────────────────────────────
    Props

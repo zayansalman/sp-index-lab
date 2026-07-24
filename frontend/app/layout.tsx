@@ -31,6 +31,15 @@ const geistMono = Geist_Mono({
    ────────────────────────────────────────────────────────────── */
 
 export const metadata: Metadata = {
+  // Resolves relative asset URLs (e.g. the generated opengraph-image) to
+  // absolute ones for crawlers. Uses the Vercel deployment URL in prod and
+  // falls back to localhost in dev, so no domain is hardcoded.
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000"),
+  ),
   title: "S&P Index Lab",
   description:
     "Proving the S&P 500 is driven by ~20 stocks. An interactive analytics platform that deconstructs index concentration, builds point-in-time mirror indices, and compares four portfolios side by side under a pre-registered holdout.",
