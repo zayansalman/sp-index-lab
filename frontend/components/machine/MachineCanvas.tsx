@@ -43,6 +43,9 @@ const COMPONENT_RECTS: Record<
   "performance-monitor": { x: 250, y: 640, w: 300, h: 100 },
 };
 
+/* Pipeline order used for the mobile stage list (below md). */
+const STAGE_IDS = Object.keys(COMPONENT_RECTS);
+
 const MachineCanvas: React.FC<MachineCanvasProps> = ({
   isOn,
   activeComponents,
@@ -67,21 +70,92 @@ const MachineCanvas: React.FC<MachineCanvasProps> = ({
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        width: "100%",
-        maxWidth: 800,
-        margin: "0 auto",
-        position: "relative",
-      }}
-    >
+    <>
+      {/* ── Mobile fallback (below md) ─────────────────────
+          The 800×780 SVG machine overflows and its labels become
+          illegible on small screens, so below md we hide it and show
+          an accessible power toggle plus a vertical stage list. */}
+      <div className="mx-auto w-full max-w-md md:hidden">
+        <button
+          type="button"
+          role="switch"
+          aria-checked={isOn}
+          aria-label={isOn ? "Stop analysis engine" : "Start analysis engine"}
+          onClick={onToggle}
+          className="mb-6 flex w-full items-center justify-between rounded-xl border border-wire-inactive bg-bg-secondary px-4 py-3 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-accent-primary"
+        >
+          <span className="heading-font text-xs uppercase tracking-widest text-text-secondary">
+            Power
+          </span>
+          <span
+            className={`text-sm font-semibold ${
+              isOn ? "text-accent-primary" : "text-text-muted"
+            }`}
+          >
+            {isOn ? "● ON" : "○ OFF"}
+          </span>
+        </button>
+
+        <ol className="space-y-2">
+          {STAGE_IDS.map((id, i) => {
+            const tip = tooltips[id];
+            if (!tip) return null;
+            const active = activeComponents.has(id);
+            return (
+              <li
+                key={id}
+                className={`rounded-lg border p-3 transition-colors ${
+                  active
+                    ? "border-accent-primary/40 bg-accent-primary/5"
+                    : "border-wire-inactive bg-bg-secondary"
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className={`flex h-5 w-5 flex-none items-center justify-center rounded-full text-[10px] font-bold ${
+                      active
+                        ? "bg-accent-primary/20 text-accent-primary"
+                        : "bg-bg-tertiary text-text-muted"
+                    }`}
+                  >
+                    {i + 1}
+                  </span>
+                  <span
+                    className={`text-sm font-semibold ${
+                      active ? "text-accent-primary" : "text-text-primary"
+                    }`}
+                  >
+                    {tip.title}
+                  </span>
+                </div>
+                <p className="mt-1 pl-[30px] text-xs leading-relaxed text-text-secondary">
+                  {tip.subtitle}
+                </p>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+
+      {/* ── Desktop machine (md and up) ───────────────────── */}
+      <div
+        ref={containerRef}
+        className="hidden md:block"
+        style={{
+          width: "100%",
+          maxWidth: 800,
+          margin: "0 auto",
+          position: "relative",
+        }}
+      >
       {/* ── SVG Machine ──────────────────────────────────── */}
       <svg
         viewBox="0 0 800 780"
         width="100%"
         height="100%"
         xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="Analysis engine diagram: a data pipeline feeds a concentration analyzer, which drives a mirror-index builder and an alpha optimizer, both feeding a performance monitor."
         style={{ overflow: "visible", display: "block" }}
       >
         <defs>
@@ -134,6 +208,10 @@ const MachineCanvas: React.FC<MachineCanvasProps> = ({
         return (
           <Tooltip key={id} content={tip} side="right" delayDuration={200}>
             <div
+              role="button"
+              tabIndex={0}
+              aria-label={tip.title}
+              className="rounded-md outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
               style={{
                 position: "absolute",
                 left: rect.x * scale,
@@ -142,12 +220,12 @@ const MachineCanvas: React.FC<MachineCanvasProps> = ({
                 height: rect.h * scale,
                 cursor: "pointer",
               }}
-              aria-label={tip.title}
             />
           </Tooltip>
         );
       })}
-    </div>
+      </div>
+    </>
   );
 };
 

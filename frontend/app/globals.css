@@ -221,6 +221,13 @@ body {
   animation: rotateGear 4s linear infinite;
 }
 
+/* Per-route enter transition (applied by app/template.tsx). Additive
+   only: resting opacity is 1, so the page is visible even if this never
+   plays. Neutralised by the reduced-motion block below. */
+.page-enter {
+  animation: fadeInUp 0.35s ease-out;
+}
+
 /* ============================================================
    Utility Classes -- Cards & Surfaces
    ============================================================ */
@@ -284,4 +291,53 @@ body {
 
 .accent-border-indigo {
   border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* ============================================================
+   Focus Visibility -- keyboard operability
+   The machine power switch is an SVG <g> made focusable in
+   FlipSwitch.tsx; give keyboard users a visible focus ring.
+   ============================================================ */
+
+#power-switch:focus {
+  outline: none;
+}
+
+#power-switch:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* ============================================================
+   Reduced Motion
+   Respect the user's OS-level "reduce motion" preference:
+   neutralise the CSS keyframe animations (wire electricity,
+   glow/breathe/button pulses, shimmer, float, gear) and collapse
+   transition durations so nothing autoplays or drifts.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .wire-active,
+  .glow-pulse,
+  .breathe-glow,
+  .button-pulse,
+  .float-animation,
+  .rotate-gear,
+  .shimmer,
+  .page-enter {
+    animation: none !important;
+  }
 }

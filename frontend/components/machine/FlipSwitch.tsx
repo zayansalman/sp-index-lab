@@ -64,10 +64,24 @@ const FlipSwitch: React.FC<FlipSwitchProps> = ({ isOn, onToggle }) => {
     setTimeout(() => setShowSparks(false), 500);
   };
 
+  // Keyboard support: Enter / Space toggle the switch, matching pointer
+  // behaviour. preventDefault stops Space from scrolling the page.
+  const handleKeyDown = (event: React.KeyboardEvent<SVGGElement>) => {
+    if (event.key === "Enter" || event.key === " " || event.key === "Spacebar") {
+      event.preventDefault();
+      handleClick();
+    }
+  };
+
   return (
     <g
       id="power-switch"
+      role="switch"
+      aria-checked={isOn}
+      aria-label="Start analysis engine"
+      tabIndex={0}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       style={{ cursor: "pointer" }}
     >
       <defs>
@@ -191,6 +205,7 @@ const FlipSwitch: React.FC<FlipSwitchProps> = ({ isOn, onToggle }) => {
         r={3}
         fill="white"
         opacity={0.08}
+        initial={false}
         animate={{
           cx: isOn ? handleOnX - 2 : handleOffX - 2,
         }}
