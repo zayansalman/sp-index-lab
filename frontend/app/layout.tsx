@@ -33,7 +33,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "S&P Index Lab",
   description:
-    "Proving the S&P 500 is driven by ~20 stocks. An interactive analytics platform that deconstructs index concentration, builds mirror indices, and compares the retained SP-N Alpha optimizer.",
+    "Proving the S&P 500 is driven by ~20 stocks. An interactive analytics platform that deconstructs index concentration, builds point-in-time mirror indices, and compares four portfolios side by side under a pre-registered holdout.",
   keywords: [
     "S&P 500",
     "index concentration",

@@ -16,9 +16,9 @@ Using OLS regressions of S&P 500 daily returns on point-in-time top-N portfolios
 
 | Metric | Value |
 |--------|-------|
-| R² at N=20 (mean across rolling windows) | **~95.3%** |
-| SP-20 Mirror CAGR (net) | **~17.1%** |
-| SP-20 Equal CAGR (net) | **~15.8%** |
+| R² at N=20 (mean across rolling windows) | **~95.2%** |
+| SP-20 Mirror CAGR (net) | **~17.2%** |
+| SP-20 Equal CAGR (net) | **~15.7%** |
 | SP-N Alpha CAGR (net, full OOS 2016→) | **~20.3%** |
 | S&P 500 TR CAGR | **~13.9%** |
 | SP-N Alpha Jensen Alpha | **~+3.8%** |
@@ -160,7 +160,7 @@ SP-N Alpha adapts *how many* stocks it holds. At each monthly rebalance it regre
 
 2. **Multiple-testing discount** — the winner's **deflated Sharpe is 0.96** across the 14 trials (Bailey & López de Prado), i.e. the dev edge is not explainable by having tried 14 things.
 
-3. **One pre-registered holdout** — criteria were committed to `data/research/holdout_criteria.yaml` *before* selection; `scripts/run_holdout.py` evaluated the frozen spec once on 2024→present. Outcome: SP-N Alpha returned **32.1% CAGR (+10.4pp over the S&P 500)** out-of-sample, but with a higher volatility it **lost to SP-20 Equal on Sharpe (1.31 vs 1.43) and breached the 1.2×-index drawdown cap**. Per the contract, **no strategy is crowned** — the site shows S&P 500, Mirror, Equal, and Alpha side by side.
+3. **One pre-registered holdout** — criteria were committed to `data/research/holdout_criteria.yaml` *before* selection; `scripts/run_holdout.py` evaluated the frozen spec once on 2024→present. Outcome: SP-N Alpha returned **32.1% CAGR (+10.5pp over the S&P 500)** out-of-sample, but with a higher volatility it **lost to SP-20 Equal on Sharpe (1.31 vs 1.43) and breached the 1.2×-index drawdown cap**. Per the contract, **no strategy is crowned** — the site shows S&P 500, Mirror, Equal, and Alpha side by side.
 
 Archived research modules (HRP, MVO min-vol, LightGBM factor model, HMM regime, sentiment, hedging) were re-raced under the honest methodology (`scripts/run_legacy_race.py`); none beat either baseline. They remain research-only and out of the public strategy set.
 

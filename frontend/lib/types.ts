@@ -34,6 +34,8 @@ export interface HeadlineStats {
   alphaJensen?: number;
   /** SP-N Alpha max drawdown */
   alphaMaxDrawdown?: number;
+  /** True when every strategy CAGR/alpha is reported net of transaction costs */
+  netOfCosts?: boolean;
 }
 
 export interface MetaData {
@@ -51,10 +53,83 @@ export interface MetaData {
   topN: number;
   /** S&P 500 benchmark ticker */
   benchmark: string;
+  /** Universe construction method (e.g. "pit_membership_cap_proxy") */
+  universeMethod?: string;
   /** Headline stats (data-driven numbers for the UI) */
   headline?: HeadlineStats;
+  /** Honest dev/holdout research provenance (the pre-registered proof) */
+  research?: ResearchHoldout;
   /** Pipeline version identifier */
   version?: string;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Research provenance — the pre-registered honest-evaluation block
+   Source: /data/meta.json → research
+   Records the dev/holdout split, multiple-testing discount, and the
+   one-shot holdout outcome so the site can prove out-of-sample edge
+   WITHOUT crowning a single winner.
+   ────────────────────────────────────────────────────────────── */
+
+/** The three pre-registered pass/fail checks (committed before selection). */
+export interface HoldoutChecks {
+  /** Beat S&P 500 TR on both CAGR and Sharpe, net of costs */
+  beatSp500CagrAndSharpe: boolean;
+  /** Beat SP-20 Equal on both CAGR and Sharpe, net of costs */
+  beatEqualCagrAndSharpe: boolean;
+  /** Max drawdown within 1.2× the index's max drawdown */
+  maxDrawdownWithinMultiple: boolean;
+}
+
+/** The frozen strategy's out-of-sample scorecard on the locked holdout. */
+export interface HoldoutScore {
+  /** First out-of-sample date (ISO) */
+  windowStart: string;
+  /** Last out-of-sample date (ISO) */
+  windowEnd: string;
+  /** Number of out-of-sample trading days */
+  nDays: number;
+  /** Net CAGR over the holdout */
+  cagr: number;
+  /** Annualised volatility */
+  annVol: number;
+  /** Sharpe ratio */
+  sharpe: number;
+  /** Sortino ratio */
+  sortino: number;
+  /** Max drawdown (negative) */
+  maxDrawdown: number;
+  /** Annualised turnover (multiple of NAV) */
+  annTurnover: number;
+  /** Realised cost drag in basis points */
+  costDragBps: number;
+  /** Excess CAGR vs each benchmark (decimal, e.g. 0.105 = +10.5pp) */
+  excessCagr: { sp500: number; sp20Equal: number };
+  /** t-stat of the excess return vs each benchmark (significance signal) */
+  excessTStat: { sp500: number; sp20Equal: number };
+  /** Whether it beat each benchmark on the pre-registered criteria */
+  beats: { sp500: boolean; sp20Equal: boolean };
+}
+
+export interface ResearchHoldout {
+  /** Frozen dev-window winner spec (engine × N-policy × overlay) */
+  devWinnerSpec?: { engine: string; nPolicy: string; overlay: string };
+  /** Number of trials that fed selection (multiple-testing count) */
+  devTrialCount?: number;
+  /** Dev/holdout split boundary (ISO); holdout is everything after */
+  devEnd?: string;
+  /** Locked holdout window [start, end] (ISO) */
+  window?: [string, string];
+  /** Whether the frozen spec cleared EVERY pre-registered criterion */
+  passed?: boolean;
+  /** Per-criterion pass/fail booleans */
+  checks?: HoldoutChecks;
+  /** Deflated Sharpe on the dev window given the trial count */
+  deflatedSharpe?: number;
+  /** Out-of-sample scorecard */
+  score?: HoldoutScore;
+  /** The index's own max drawdown over the holdout (drawdown-cap basis) */
+  indexMaxDrawdown?: number;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -118,7 +193,7 @@ export interface PerformanceNavPoint {
   sp20Mirror: number;
   /** SP-20 Equal-weighted normalised NAV */
   sp20Equal: number;
-  /** SP-N Alpha (retained max-Sharpe optimizer) normalised NAV */
+  /** SP-N Alpha (self-adjusting concentration-elbow, equal-weight) normalised NAV */
   spnAlpha?: number;
 }
 
@@ -174,6 +249,12 @@ export interface PerformanceMetrics {
   windowStart?: string;
   /** Window length in years (walk-forward strategies are shorter) */
   windowYears?: number;
+  /** Gross-of-costs CAGR (net is canonical; gross shows the cost drag) */
+  grossCagr?: number;
+  /** Gross-of-costs Sharpe ratio */
+  grossSharpe?: number;
+  /** Annualised turnover (multiple of NAV traded per year) */
+  annualizedTurnover?: number;
 }
 
 export interface AllPerformanceMetrics {

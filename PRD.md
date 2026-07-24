@@ -21,7 +21,7 @@ The frontend is static at runtime. All financial analytics are precomputed befor
 
 | Goal | Metric | Status |
 |------|--------|--------|
-| Prove concentration thesis | Top 20 R² > 90% | Achieved: 95.6% rolling-window mean (point-in-time) |
+| Prove concentration thesis | Top 20 R² > 90% | Achieved: ~95.2% rolling-window mean (point-in-time) |
 | Build simple concentrated baselines | SP-20 Mirror and Equal NAVs exported | Achieved |
 | Keep only strategies that matter | Mirror, Equal, and one SP-N Alpha exported | Achieved |
 | Interactive visualization | `/` landing and `/lab` machine/results flow | Built |
@@ -35,21 +35,27 @@ The frontend is static at runtime. All financial analytics are precomputed befor
 - **What**: Point-in-time top 20 S&P 500 names (membership snapshots + anchored cap proxy).
 - **Weighting**: Cap-proxy proportional, rebalanced monthly, net of transaction costs.
 - **Purpose**: Show how closely a concentrated top-constituent basket tracks the benchmark.
-- **Current result**: CAGR 18.4% net, Sharpe 0.70, vs S&P 500 TR 13.9%.
+- **Current result**: CAGR ~17.2% net, Sharpe ~0.77, vs S&P 500 TR ~13.9%.
 
 ### Index 2: SP-20 Equal
 
 - **What**: Same point-in-time top 20 names.
 - **Weighting**: Equal weighted, rebalanced monthly, net of costs.
 - **Purpose**: Test whether reducing mega-cap concentration improves risk-adjusted returns.
-- **Current result**: CAGR 16.9% net, Sharpe 0.71.
+- **Current result**: CAGR ~15.7% net, Sharpe ~0.79.
 
 ### Index 3: SP-N Alpha
 
-- **What**: Walk-forward max-Sharpe optimizer on the point-in-time top-20 universe.
-- **Optimization**: Mean-variance optimization with covariance shrinkage and position-size constraints.
-- **Purpose**: One retained optimized strategy that beats both baselines net of costs.
-- **Current result**: CAGR 20.9% net out-of-sample, Sharpe 0.81, Jensen alpha +5.2%.
+- **What**: Self-adjusting walk-forward strategy that reads the concentration "elbow" each
+  month and equal-weights that many point-in-time top names (dynamic N, 10–30).
+- **Construction**: Equal-weighted across a dynamic N chosen by the concentration elbow;
+  the spec was selected on the development window (through 2023-12-31), then frozen.
+- **Purpose**: Test whether a self-adjusting concentration strategy beats the baselines
+  out-of-sample under a pre-registered holdout.
+- **Current result**: CAGR ~20.3% net out-of-sample, Sharpe ~0.88, Jensen alpha ~+3.8%. On
+  the locked 2024→26 holdout it beat the S&P 500 (+10.5pp CAGR) but did not clear every
+  pre-registered bar vs SP-20 Equal — so no single strategy is crowned; all four are shown
+  side by side.
 
 ## Proof Layer
 

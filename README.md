@@ -1,6 +1,6 @@
 # SP Index Lab
 
-**20 stocks. ~96% of the S&P 500's variance. Selected point-in-time, measured net of costs.**
+**20 stocks. ~95% of the S&P 500's variance. Selected point-in-time, measured net of costs.**
 
 SP Index Lab is a research and portfolio analytics project proving that the S&P 500 is largely explained by its largest constituents. A Python backend computes the proof, walk-forward strategy backtests, and static JSON exports; a Next.js frontend presents the results as an interactive lab experience.
 
@@ -16,13 +16,13 @@ Full out-of-sample walk-forward (2016→present):
 
 | Metric | S&P 500 (TR) | SP-20 Mirror | SP-20 Equal | SP-N Alpha* |
 |--------|--------------|--------------|-------------|-------------|
-| CAGR (net) | ~13.9% | ~17.1% | ~15.8% | ~20.3% |
+| CAGR (net) | ~13.9% | ~17.2% | ~15.7% | ~20.3% |
 | Sharpe | ~0.70 | ~0.77 | ~0.79 | ~0.88 |
 | Jensen Alpha | – | ~+2.3% | ~+2.0% | ~+3.8% |
 
 \* **SP-N Alpha** is the *self-adjusting* strategy: each month it reads the concentration "elbow" from trailing data and equal-weights that many point-in-time top names (dynamic N, 10–30). Metrics span 2016→present (first 3 years feed the initial training window); relative metrics use overlapping dates only.
 
-**Honest evaluation (the point of the project).** SP-N Alpha was selected on a 2014–2023 **development** window (14 strategies tried, logged in `data/research/trials.jsonl`; **deflated Sharpe 0.96** — the edge survives multiple-testing, unlike a naive best-of-N pick). It was then evaluated **once** on a locked 2024–present **holdout** against criteria pre-committed in [`data/research/holdout_criteria.yaml`](data/research/holdout_criteria.yaml). Result: it beat the S&P 500 by **+10.4pp CAGR** out-of-sample (32.1% vs 21.7%) but **did not clear every bar vs SP-20 Equal** (higher return, but lower Sharpe and a deeper drawdown). Per the contract, no strategy is declared the winner — all four are shown side by side for you to judge. Numbers live in `frontend/public/data/meta.json` (`headline` + `research`) and refresh daily.
+**Honest evaluation (the point of the project).** SP-N Alpha was selected on a 2014–2023 **development** window (14 strategies tried, logged in `data/research/trials.jsonl`; **deflated Sharpe 0.96** — the edge survives multiple-testing, unlike a naive best-of-N pick). It was then evaluated **once** on a locked 2024–present **holdout** against criteria pre-committed in [`data/research/holdout_criteria.yaml`](data/research/holdout_criteria.yaml). Result: it beat the S&P 500 by **+10.5pp CAGR** out-of-sample (32.1% vs 21.6%) but **did not clear every bar vs SP-20 Equal** (higher return, but lower Sharpe and a deeper drawdown). Per the contract, no strategy is declared the winner — all four are shown side by side for you to judge. Numbers live in `frontend/public/data/meta.json` (`headline` + `research`) and refresh daily.
 
 ### Methodology (what makes these numbers defensible)
 
