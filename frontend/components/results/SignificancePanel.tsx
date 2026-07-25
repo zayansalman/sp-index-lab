@@ -151,7 +151,11 @@ export function SignificancePanel({ matched }: SignificancePanelProps) {
 
       <p className="mt-3 max-w-3xl text-[11px] leading-relaxed text-text-muted">
         Measured on daily active returns over the matched window (
-        {matched.windowStart} → {matched.windowEnd}). &ldquo;Years to Prove&rdquo;
+        {matched.windowStart} → {matched.windowEnd}). The information ratio here
+        is arithmetic (mean daily active return over its own volatility) so that
+        t = IR × √years holds exactly; the table above reports the canonical
+        CAGR-excess-over-tracking-error version, so the two differ slightly.
+        &ldquo;Years to Prove&rdquo;
         is how long this information ratio would need to run to reach |t| &gt;{" "}
         {matched.tHurdle.toFixed(1)}, since t = IR × √years; it is shown as
         &ldquo;&mdash;&rdquo; where the strategy trails its reference, because no

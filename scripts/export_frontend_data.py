@@ -588,7 +588,11 @@ def _matched_window_comparison(
         block = compute_performance_metrics(
             nav, relative_to, risk_free_rate=risk_free_rate
         )
-        block.update(_compute_extra_metrics(nav, relative_to))
+        # Relative metrics (information ratio, Jensen alpha, beta) come from
+        # compute_performance_metrics alone — _compute_extra_metrics must not
+        # be handed the benchmark, or its dict `update` would silently override
+        # the canonical definitions with differently-derived ones.
+        block.update(_compute_extra_metrics(nav))
         block["window"] = _window_info(nav)
         metrics[key] = _clean_dict(block)
 
