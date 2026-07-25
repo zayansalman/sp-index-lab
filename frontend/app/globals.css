@@ -3,6 +3,14 @@
 /* ============================================================
    S&P Index Lab -- Global Design Tokens & Utilities
    Tailwind CSS v4 -- @theme inline syntax (no config file)
+
+   Light institutional surface. The reference genre is a fund
+   product page (BlackRock / MSCI factsheet), not a dashboard:
+   white ground, near-black ink, hairline rules, and colour
+   reserved for semantic state rather than decoration.
+
+   Every ink/ground pair below clears WCAG AA (4.5:1) — the
+   figures in the comments are measured, not estimated.
    ============================================================ */
 
 @theme inline {
@@ -11,28 +19,44 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  /* ── Background palette ────────────────────────────────── */
-  --color-bg-primary: #0A0A0F;
-  --color-bg-secondary: #111118;
-  --color-bg-tertiary: #1A1A24;
+  /* ── Surfaces ──────────────────────────────────────────── */
+  --color-ground: #FFFFFF;
+  --color-surface: #F4F6F8;        /* section band, zebra row */
+  --color-surface-sunken: #EDF0F3; /* table header, inset panel */
 
-  /* ── Accent palette ────────────────────────────────────── */
-  --color-accent-primary: #00D4AA;
-  --color-accent-secondary: #FFD700;
-  --color-accent-tertiary: #6366F1;
+  /* ── Rules ─────────────────────────────────────────────── */
+  --color-border: #E3E7EB;
+  --color-border-strong: #C4CCD4;  /* table head underline */
 
-  /* ── Text palette ──────────────────────────────────────── */
-  --color-text-primary: #F0F0F0;
-  --color-text-secondary: #888899;
-  --color-text-muted: #555566;
+  /* ── Ink ───────────────────────────────────────────────── */
+  --color-ink: #0B1220;            /* 18.72:1 on ground */
+  --color-ink-secondary: #3D4855;  /*  9.31:1 on ground */
+  --color-ink-muted: #5C6875;      /*  5.69:1 on ground, 5.25:1 on surface */
 
-  /* ── Wire / circuit palette ────────────────────────────── */
-  --color-wire-inactive: #2A2A35;
-  --color-wire-active: #00D4AA;
+  /* ── Accent (institutional navy — one accent, one job) ─── */
+  --color-accent: #12395F;         /* 11.82:1 — active nav, selected pill */
+  --color-accent-link: #0B4F8A;    /*  8.40:1 — inline links */
+
+  /* ── Semantic state ────────────────────────────────────── */
+  --color-pass: #136A45;           /*  6.61:1 */
+  --color-fail: #9E2A2B;           /*  7.45:1 */
+  --color-caution: #8A5A00;        /*  5.93:1 — "not significant", partial period */
+
+  /* Tinted fills for state chips. Paired contrast measured:
+     pass 7.78:1 · fail 7.74:1 · accent 10.38:1 */
+  --color-pass-bg: #E8F3ED;
+  --color-fail-bg: #FBEAEA;
+  --color-caution-bg: #FAF1DF;
+  --color-accent-bg: #EAF1F8;
+
+  /* ── Dark chrome (the sticky section nav) ──────────────── */
+  --color-nav-bg: #0B1220;
+  --color-nav-ink: #FFFFFF;        /* 18.72:1 on nav */
+  --color-nav-ink-muted: #C4CCD4;  /* 11.53:1 on nav */
 
   /* ── Semantic aliases (Tailwind utilities) ──────────────── */
-  --color-background: var(--color-bg-primary);
-  --color-foreground: var(--color-text-primary);
+  --color-background: var(--color-ground);
+  --color-foreground: var(--color-ink);
 }
 
 /* ============================================================
@@ -45,6 +69,18 @@
   box-sizing: border-box;
 }
 
+/* Tailwind v4 defaults border-color to currentColor, which is why
+   `border-[#1A1A24]` was littered through the components. Defaulting
+   it to the rule token means a bare `border`/`border-b` is correct
+   and the palette stays re-themable from this file alone. */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-border);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -52,11 +88,17 @@ html {
 }
 
 body {
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  background-color: var(--color-ground);
+  color: var(--color-ink);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   min-height: 100dvh;
   overflow-x: hidden;
+}
+
+/* Figures line up in columns everywhere on a factsheet. */
+table,
+.num {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ============================================================
@@ -64,8 +106,8 @@ body {
    ============================================================ */
 
 ::selection {
-  background-color: rgba(0, 212, 170, 0.25);
-  color: #F0F0F0;
+  background-color: rgba(18, 57, 95, 0.16);
+  color: var(--color-ink);
 }
 
 /* ============================================================
@@ -73,84 +115,28 @@ body {
    ============================================================ */
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-primary);
+  background: var(--color-surface);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-wire-inactive);
-  border-radius: 3px;
+  background: var(--color-border-strong);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
+  background: var(--color-ink-muted);
 }
 
 /* ============================================================
    Keyframe Animations
+   Only two survive the machine deletion: a skeleton shimmer and
+   the route-enter fade. Nothing loops, nothing gates content.
    ============================================================ */
-
-@keyframes electricFlow {
-  0% {
-    stroke-dashoffset: 40;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes glowPulse {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 4px rgba(0, 212, 170, 0.4));
-  }
-  50% {
-    filter: drop-shadow(0 0 16px rgba(0, 212, 170, 0.9));
-  }
-}
-
-@keyframes rotateGear {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes breatheGlow {
-  0%,
-  100% {
-    box-shadow: 0 0 8px rgba(0, 212, 170, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(0, 212, 170, 0.6);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes buttonPulse {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(0, 212, 170, 0.6);
-  }
-}
 
 @keyframes shimmer {
   0% {
@@ -172,55 +158,6 @@ body {
   }
 }
 
-/* ============================================================
-   Utility Classes -- Wires & Circuits
-   ============================================================ */
-
-.wire-active {
-  stroke: var(--color-wire-active);
-  stroke-dasharray: 8 4;
-  animation: electricFlow 1s linear infinite;
-  filter: drop-shadow(0 0 4px rgba(0, 212, 170, 0.5));
-}
-
-.wire-inactive {
-  stroke: var(--color-wire-inactive);
-  stroke-dasharray: 0;
-  filter: none;
-  transition: stroke 0.4s ease, filter 0.4s ease;
-}
-
-/* ============================================================
-   Utility Classes -- Glow Effects
-   ============================================================ */
-
-.glow-text {
-  color: var(--color-accent-primary);
-  text-shadow:
-    0 0 8px rgba(0, 212, 170, 0.5),
-    0 0 20px rgba(0, 212, 170, 0.25);
-}
-
-.glow-pulse {
-  animation: glowPulse 2.5s ease-in-out infinite;
-}
-
-.breathe-glow {
-  animation: breatheGlow 3s ease-in-out infinite;
-}
-
-.button-pulse {
-  animation: buttonPulse 2s ease-in-out infinite;
-}
-
-.float-animation {
-  animation: float 4s ease-in-out infinite;
-}
-
-.rotate-gear {
-  animation: rotateGear 4s linear infinite;
-}
-
 /* Per-route enter transition (applied by app/template.tsx). Additive
    only: resting opacity is 1, so the page is visible even if this never
    plays. Neutralised by the reduced-motion block below. */
@@ -233,21 +170,15 @@ body {
    ============================================================ */
 
 .card-surface {
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-wire-inactive);
-  border-radius: 12px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-surface:hover {
-  border-color: rgba(0, 212, 170, 0.3);
-  box-shadow: 0 0 20px rgba(0, 212, 170, 0.08);
+  background-color: var(--color-ground);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
 }
 
 .card-surface-elevated {
-  background-color: var(--color-bg-tertiary);
-  border: 1px solid var(--color-wire-inactive);
-  border-radius: 12px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
 }
 
 /* ============================================================
@@ -257,9 +188,9 @@ body {
 .shimmer {
   background: linear-gradient(
     90deg,
-    var(--color-bg-secondary) 25%,
-    var(--color-bg-tertiary) 50%,
-    var(--color-bg-secondary) 75%
+    var(--color-surface) 25%,
+    var(--color-surface-sunken) 50%,
+    var(--color-surface) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.8s ease-in-out infinite;
@@ -277,44 +208,32 @@ body {
   font-family: var(--font-mono), ui-monospace, monospace;
 }
 
-/* ============================================================
-   Utility Classes -- Accent Borders
-   ============================================================ */
-
-.accent-border-green {
-  border-color: rgba(0, 212, 170, 0.3);
-}
-
-.accent-border-gold {
-  border-color: rgba(255, 215, 0, 0.3);
-}
-
-.accent-border-indigo {
-  border-color: rgba(99, 102, 241, 0.3);
+/* Small uppercase label used for eyebrows and table headers.
+   11px is a hard floor — below that, letter-spaced uppercase
+   stops being legible. */
+.label-micro {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
 }
 
 /* ============================================================
    Focus Visibility -- keyboard operability
-   The machine power switch is an SVG <g> made focusable in
-   FlipSwitch.tsx; give keyboard users a visible focus ring.
+   Tuned for a light ground: the previous ring was a mint glow
+   sized for near-black and is invisible here.
    ============================================================ */
 
-#power-switch:focus {
-  outline: none;
-}
-
-#power-switch:focus-visible {
-  outline: 2px solid var(--color-accent-primary);
-  outline-offset: 4px;
-  border-radius: 8px;
+:where(a, button, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* ============================================================
    Reduced Motion
-   Respect the user's OS-level "reduce motion" preference:
-   neutralise the CSS keyframe animations (wire electricity,
-   glow/breathe/button pulses, shimmer, float, gear) and collapse
-   transition durations so nothing autoplays or drifts.
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
@@ -330,12 +249,6 @@ body {
     transition-duration: 0.01ms !important;
   }
 
-  .wire-active,
-  .glow-pulse,
-  .breathe-glow,
-  .button-pulse,
-  .float-animation,
-  .rotate-gear,
   .shimmer,
   .page-enter {
     animation: none !important;

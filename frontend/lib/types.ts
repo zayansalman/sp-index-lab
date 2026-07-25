@@ -396,52 +396,6 @@ export interface DeviationData {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   Machine / Animation State
-   ────────────────────────────────────────────────────────────── */
-
-export type MachineStage =
-  | "idle"
-  | "powering_up"
-  | "data_pipeline"
-  | "concentration"
-  | "building"
-  | "optimizing"
-  | "monitoring"
-  | "complete";
-
-export interface MachineStageConfig {
-  /** Stage identifier */
-  id: MachineStage;
-  /** Human-readable label */
-  name: string;
-  /** Duration in milliseconds before advancing to the next stage */
-  duration: number;
-  /** Short description shown during animation */
-  description: string;
-  /** 0-based index for ordering */
-  order: number;
-}
-
-/* ──────────────────────────────────────────────────────────────
-   Component Tooltip
-   ────────────────────────────────────────────────────────────── */
-
-export interface ComponentTooltip {
-  /** Component identifier matching the machine diagram */
-  id: string;
-  /** Display title */
-  title: string;
-  /** One-line subtitle */
-  subtitle: string;
-  /** Multi-sentence technical description */
-  description: string;
-  /** Methodology rationale ("why we did it this way") */
-  thinking: string;
-  /** Single standout insight */
-  keyInsight: string;
-}
-
-/* ──────────────────────────────────────────────────────────────
    Aggregated Lab Data (returned by useLabData hook)
    ────────────────────────────────────────────────────────────── */
 

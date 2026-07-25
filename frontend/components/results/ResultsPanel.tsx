@@ -7,16 +7,15 @@
    the machine animation completes.
    ================================================================ */
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import useLabData from "@/hooks/useLabData";
 import {
   formatPercent,
   formatRatio,
 } from "@/lib/formatters";
 import type { LabData, PerformanceMetrics } from "@/lib/types";
-import GlowText from "@/components/ui/GlowText";
 import MetricCard from "./MetricCard";
 import HoldingsTable from "./HoldingsTable";
 import ThinkingPanel from "./ThinkingPanel";
@@ -205,15 +204,11 @@ function buildThinkingSections(
 const SectionHeader: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => (
-  <motion.h2
-    initial={{ opacity: 0, y: 12 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-30px" }}
-    transition={{ duration: 0.5, ease: "easeOut" }}
-    className="mb-6 mt-12 text-lg font-bold tracking-wide text-text-primary"
+  <h2
+    className="mb-6 mt-12 text-lg font-bold tracking-wide text-ink"
   >
     {children}
-  </motion.h2>
+  </h2>
 );
 
 /* ──────────────────────────────────────────────────────────────
@@ -231,30 +226,6 @@ const LoadingSkeleton: React.FC = () => (
     <div className="shimmer h-80 rounded-xl" />
     <div className="shimmer h-96 rounded-xl" />
   </div>
-);
-
-/* ──────────────────────────────────────────────────────────────
-   Check Icon SVG
-   ────────────────────────────────────────────────────────────── */
-
-const CheckIcon: React.FC = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="text-accent-primary"
-  >
-    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-    <path
-      d="M8 12L11 15L16 9"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
 );
 
 /* ──────────────────────────────────────────────────────────────
@@ -308,8 +279,8 @@ const HoldingsSelector: React.FC<HoldingsSelectorProps> = ({ holdings }) => {
               onClick={() => setSelectedKey(opt.key)}
               className={`rounded-full border px-3 py-1 text-xs transition-all ${
                 isActive
-                  ? "border-accent-primary bg-accent-primary/10 text-accent-primary"
-                  : "border-[#1A1A24] bg-bg-primary text-text-muted hover:text-text-secondary"
+                  ? "border-accent bg-accent/10 text-accent"
+                  : "bg-ground text-ink-muted hover:text-ink"
               }`}
               aria-pressed={isActive}
             >
@@ -331,40 +302,24 @@ const HoldingsSelector: React.FC<HoldingsSelectorProps> = ({ holdings }) => {
 
 const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
   const { data, isLoading, error } = useLabData();
-  const panelRef = useRef<HTMLDivElement>(null);
 
-  // Scroll to results when they become visible
-  useEffect(() => {
-    if (visible && panelRef.current) {
-      const timer = setTimeout(() => {
-        panelRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [visible]);
+  // The panel used to scroll itself into view when the machine finished
+  // its animation, and to fade up on mount. Both existed to choreograph
+  // that reveal. With the machine gone the panel IS the page, so a
+  // self-scroll just hides the heading the reader arrived at.
 
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
-          ref={panelRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 40 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full"
-        >
+        <div className="w-full">
           {/* Loading state */}
           {isLoading && <LoadingSkeleton />}
 
           {/* Error state */}
           {error && (
             <div className="mx-auto max-w-5xl px-6 py-12">
-              <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-6">
-                <p className="text-sm text-red-400">
+              <div className="rounded-xl border border-fail/30 bg-fail-bg p-6">
+                <p className="text-sm text-fail">
                   Failed to load analysis data: {error}
                 </p>
               </div>
@@ -375,21 +330,17 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
           {data && !isLoading && (
             <div className="mx-auto max-w-5xl px-6 pb-24 pt-8">
               {/* ── Header ──────────────────────────────────── */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="mb-8 flex items-center gap-3"
-              >
-                <CheckIcon />
-                <GlowText
-                  as="h1"
-                  className="text-2xl font-bold text-accent-primary"
-                >
-                  Analysis Complete
-                </GlowText>
-              </motion.div>
+              {/* Was "Analysis Complete" with a tick — the machine's
+                  completion ceremony. A fund page states what it is. */}
+              <div className="mb-8 border-b pb-6">
+                <p className="label-micro">
+                  {data.meta.startDate} &ndash; {data.meta.endDate} &middot;{" "}
+                  net of costs &middot; benchmark {data.meta.benchmark}
+                </p>
+                <h1 className="mt-3 text-balance text-3xl font-normal tracking-tight text-ink">
+                  Four portfolios on the concentration thesis
+                </h1>
+              </div>
 
               {/* ── Key Metrics ─────────────────────────────── */}
               <SectionHeader>Headline Metrics</SectionHeader>
@@ -441,36 +392,24 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               {/* ── Concentration Curve ──────────────────────── */}
               <SectionHeader>Concentration Analysis</SectionHeader>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="rounded-xl border border-[#1A1A24] bg-bg-secondary p-6"
+              <div
+                className="rounded-xl border bg-surface p-6"
               >
                 <ConcentrationChart data={data.concentrationCurve.curve} />
-              </motion.div>
+              </div>
 
               {/* ── Performance Chart ────────────────────────── */}
               <SectionHeader>Performance</SectionHeader>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="rounded-xl border border-[#1A1A24] bg-bg-secondary p-6"
+              <div
+                className="rounded-xl border bg-surface p-6"
               >
                 <PerformanceChart bundle={data.performanceNavBundle} />
-              </motion.div>
+              </div>
 
               {/* ── Performance Comparison Table ──────────────── */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="mt-6 overflow-x-auto rounded-xl border border-[#1A1A24] bg-bg-secondary p-6"
+              <div
+                className="mt-6 overflow-x-auto rounded-xl border bg-surface p-6"
               >
                 {(() => {
                   const matched = data.performanceMetrics.matchedWindow;
@@ -499,10 +438,10 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                   return (
                     <>
                       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-                        <h3 className="text-sm font-semibold tracking-wide text-text-secondary">
+                        <h3 className="text-sm font-semibold tracking-wide text-ink-secondary">
                           Performance Comparison
                         </h3>
-                        <span className="font-mono text-[11px] text-text-muted">
+                        <span className="font-mono text-[11px] text-ink-muted">
                           {matched
                             ? `matched window ${matched.windowStart} → ${matched.windowEnd} (${matched.windowYears.toFixed(1)}y)`
                             : "each column spans its own window — not directly comparable"}
@@ -511,14 +450,14 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
 
                       <table className="w-full text-left text-sm">
                         <thead>
-                          <tr className="border-b border-[#1A1A24]">
-                            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
+                          <tr className="border-b">
+                            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-ink-muted">
                               Metric
                             </th>
                             {columns.map((col) => (
                               <th
                                 key={col.exportKey}
-                                className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted"
+                                className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-ink-muted"
                               >
                                 {col.label}
                               </th>
@@ -544,11 +483,11 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                             return (
                               <tr
                                 key={row.key}
-                                className={`border-b border-[#1A1A24] ${
-                                  idx % 2 === 0 ? "bg-bg-secondary" : "bg-bg-primary"
+                                className={`border-b ${
+                                  idx % 2 === 0 ? "bg-surface" : "bg-ground"
                                 }`}
                               >
-                                <td className="px-3 py-2.5 text-xs text-text-secondary">
+                                <td className="px-3 py-2.5 text-xs text-ink-secondary">
                                   {row.label}
                                 </td>
                                 {values.map((val, colIdx) => (
@@ -556,8 +495,8 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                                     key={columns[colIdx].exportKey}
                                     className={`px-3 py-2.5 text-right font-mono text-xs tabular-nums ${
                                       colIdx === bestIdx
-                                        ? "font-semibold text-text-primary underline decoration-text-muted decoration-dotted underline-offset-4"
-                                        : "text-text-primary"
+                                        ? "font-semibold text-ink underline decoration-text-muted decoration-dotted underline-offset-4"
+                                        : "text-ink"
                                     }`}
                                   >
                                     {row.format(val)}
@@ -569,7 +508,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                         </tbody>
                       </table>
 
-                      <p className="mt-3 text-[11px] leading-relaxed text-text-muted">
+                      <p className="mt-3 text-[11px] leading-relaxed text-ink-muted">
                         All strategy returns are net of transaction costs (7 bps
                         per one-way traded notional) on a point-in-time universe,
                         benchmarked against the S&amp;P 500 total-return index.
@@ -601,7 +540,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                     </>
                   );
                 })()}
-              </motion.div>
+              </div>
 
               {/* ── Is any of it real? ────────────────────────── */}
               {data.performanceMetrics.matchedWindow && (
@@ -627,28 +566,20 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               {/* ── Drawdown Chart ───────────────────────────── */}
               <SectionHeader>Risk Analysis</SectionHeader>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="rounded-xl border border-[#1A1A24] bg-bg-secondary p-6"
+              <div
+                className="rounded-xl border bg-surface p-6"
               >
                 <DrawdownChart data={data.drawdown} />
-              </motion.div>
+              </div>
 
               {/* ── Holdings Table ───────────────────────────── */}
               <SectionHeader>Current Holdings</SectionHeader>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="rounded-xl border border-[#1A1A24] bg-bg-secondary p-4"
+              <div
+                className="rounded-xl border bg-surface p-4"
               >
                 <HoldingsSelector holdings={data.holdings} />
-              </motion.div>
+              </div>
 
               {/* ── Thinking Panel ──────────────────────────── */}
               <SectionHeader>The Thinking</SectionHeader>
@@ -656,22 +587,18 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               <ThinkingPanel sections={buildThinkingSections(data)} />
 
               {/* ── Footer ──────────────────────────────────── */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="mt-16 border-t border-[#1A1A24] pt-6 text-center"
+              <div
+                className="mt-16 border-t pt-6 text-center"
               >
-                <p className="text-xs text-text-muted">
+                <p className="text-xs text-ink-muted">
                   Data from {data.meta.startDate} to {data.meta.endDate}{" "}
                   &middot; {data.meta.tradingDays} trading days &middot;{" "}
                   {data.meta.totalStocks} stocks analysed
                 </p>
-              </motion.div>
+              </div>
             </div>
           )}
-        </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );
