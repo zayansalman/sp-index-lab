@@ -6,15 +6,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 S&P Index Lab proves the S&P 500 is effectively a ~20-stock index. Python backend computes analytics (OLS regression, variance decomposition, mirror index construction). React frontend displays results via an interactive machine-metaphor visualization. Static JSON bridge between the two — no Python at runtime.
 
-Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-return;
-full out-of-sample 2016→present unless noted). No single strategy is crowned — the site
-shows all four side by side:
-- R² ≈ 95.2% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window)
-- S&P 500 TR: CAGR ~13.9%
-- SP-20 Mirror: CAGR ~17.2%, Jensen alpha ~+2.3%
-- SP-20 Equal: CAGR ~15.7%, Jensen alpha ~+2.0%
-- SP-N Alpha (self-adjusting concentration-elbow, dynamic N 10–30, equal-weighted):
-  CAGR ~20.3%, Sharpe ~0.88, Jensen alpha ~+3.8%, turnover ~1.8x
+Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-return).
+No single strategy is crowned — the site shows all four side by side:
+- R² ≈ 95.2% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window).
+  This is the project's one statistically strong claim.
+- **Always quote the matched window** (2016-01-04→present, ~10.5y — the first date all four
+  series exist), from the `matched_window` block in `performance_metrics.json`:
+  S&P 500 ~15.4% CAGR · SP-20 Mirror ~19.3% · SP-20 Equal ~17.5% · SP-N Alpha ~20.3%.
+  The per-strategy blocks each span that strategy's OWN history (baselines from 2014,
+  SP-N Alpha from 2016 once its first walk-forward window closes). Comparing across those
+  is not apples-to-apples: it understates the S&P by ~1.5pp CAGR and lets a longer window
+  win on total return purely by compounding longer.
+- **No pairwise difference is statistically significant.** On the matched window, SP-N Alpha
+  beats the Mirror by only ~+0.9pp/yr (TE ~3.9%, IR ~0.22, t ≈ 0.7) — it would need ~178
+  years of data to clear the t > 3.0 multiple-testing hurdle. Even Alpha vs the S&P 500 is
+  t ≈ 2.0 (~25 years needed). Never describe any strategy as "beating" another without
+  this caveat; the ranking is real in the data and indistinguishable from luck.
+- Root cause is breadth, not costs: cost drag is only ~6–15 bps/yr (Mirror 0.83x turnover,
+  Equal 1.15x, Alpha ~1.8–2.0x) and mega-cap capacity is effectively unbounded. Grinold's
+  IR ≈ IC×√breadth caps what 20 names × 12 rebalances can demonstrate.
 
 Honest-evaluation protocol (the point of the project — do not regress these):
 - **Dev/holdout split**: `DEV_END=2023-12-31`. All development, tuning, and variant
@@ -31,8 +41,17 @@ Honest-evaluation protocol (the point of the project — do not regress these):
   the **dividend-unadjusted** `daily_prices_raw` panel (`src/data/universe.py`). Returns
   use the dividend-adjusted panel. Never rank by full-sample statistics.
 - All backtests net of turnover costs (`src/backtest/costs.py`). Benchmark is ^SP500TR.
+- **Significance hurdle**: `MULTIPLE_TESTING_T_HURDLE = 3.0` (`src/config.py`), per Harvey,
+  Liu & Zhu (2016) — with 14 logged dev trials the conventional t > 1.96 is invalid. The
+  `matched_window.significance` block reports the t-stat of every pairwise comparison and
+  `years_for_hurdle` (t = IR × √years), surfaced by `SignificancePanel.tsx`.
+- **SP-20 Mirror has never been a research reference.** All 14 dev trials scored only
+  against `^SP500TR` and `sp20_equal`, so no candidate has a dev-window excess-vs-Mirror
+  record. Any new race targeting the Mirror must add it to `references` and pre-register
+  updated criteria BEFORE selecting a candidate.
 - Exact current numbers live in `frontend/public/data/meta.json` (`headline` + `research`
-  blocks); components read them — never hardcode numbers in components or docs.
+  blocks) and `performance_metrics.json` (`matched_window`); components read them — never
+  hardcode numbers in components or docs.
 
 ## Commands
 

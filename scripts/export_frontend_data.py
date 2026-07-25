@@ -30,6 +30,7 @@ from src.config import (
     DATA_DIR,
     DEFAULT_RISK_FREE_RATE,
     INCEPTION_DATE,
+    MULTIPLE_TESTING_T_HURDLE,
     TRADING_DAYS_PER_YEAR,
 )
 from src.data.storage import load_parquet
@@ -496,6 +497,132 @@ def _window_info(nav: pd.Series) -> dict[str, Any]:
     }
 
 
+def _active_return_stats(nav: pd.Series, reference_nav: pd.Series) -> dict[str, Any]:
+    """Significance of one NAV's active return against a reference NAV.
+
+    Reports the annualised active return, tracking error, information ratio
+    and the t-statistic of the mean daily active return. ``significant`` is
+    measured against ``MULTIPLE_TESTING_T_HURDLE`` (t > 3.0), not the naive
+    t > 1.96 — this project has run many strategy variants, and Harvey, Liu &
+    Zhu (2016) show the conventional threshold is meaningless under that kind
+    of search.
+
+    ``years_for_hurdle`` answers the question the t-stat implies but does not
+    state: at this information ratio, how many years of data would be needed
+    to reach the hurdle? Since t = IR x sqrt(years), that is (hurdle / IR)^2.
+    It is None when the information ratio is non-positive (no amount of data
+    makes a negative edge significant in the intended direction).
+    """
+    returns = nav.pct_change().dropna()
+    ref_returns = reference_nav.pct_change().dropna()
+    common = returns.index.intersection(ref_returns.index)
+
+    if len(common) < 30:
+        return {}
+
+    active = returns.loc[common] - ref_returns.loc[common]
+    n = len(active)
+    mean = float(active.mean())
+    sd = float(active.std())
+
+    if sd <= 0:
+        return {}
+
+    ann_active = mean * TRADING_DAYS_PER_YEAR
+    tracking_error = sd * math.sqrt(TRADING_DAYS_PER_YEAR)
+    info_ratio = ann_active / tracking_error
+    t_stat = mean / (sd / math.sqrt(n))
+
+    years_for_hurdle = (
+        round((MULTIPLE_TESTING_T_HURDLE / info_ratio) ** 2, 1)
+        if info_ratio > 0
+        else None
+    )
+
+    return {
+        "annualised_active_return": round(ann_active, 6),
+        "tracking_error": round(tracking_error, 6),
+        "information_ratio": round(info_ratio, 6),
+        "t_stat": round(t_stat, 4),
+        "significant": bool(abs(t_stat) > MULTIPLE_TESTING_T_HURDLE),
+        "years_for_hurdle": years_for_hurdle,
+        "n_days": int(n),
+    }
+
+
+def _matched_window_comparison(
+    navs: dict[str, pd.Series],
+    benchmark_key: str = "sp500",
+    risk_free_rate: float = _FALLBACK_RISK_FREE_RATE,
+) -> dict[str, Any]:
+    """Recompute every strategy's metrics on the window they all share.
+
+    The top-level blocks in performance_metrics.json each cover that
+    strategy's own history: the baselines run from inception (2014) while
+    SP-N Alpha only starts once its first walk-forward training window closes
+    (2016). Reading those columns side by side is not apples-to-apples —
+    total return especially, since a longer window simply compounds more, and
+    a shorter-but-faster-compounding strategy can look like it lost.
+
+    This mirrors what ``export_performance_nav`` already does for the chart:
+    intersect to common dates, re-base every series to 1.0, then measure. It
+    also carries pairwise significance so the UI can say whether a gap is
+    distinguishable from noise instead of implying it with a bold number.
+    """
+    aligned = pd.DataFrame(navs).dropna()
+    if len(aligned) < TRADING_DAYS_PER_YEAR:
+        logger.warning(
+            "Matched window too short (%d days) — skipping comparison block",
+            len(aligned),
+        )
+        return {}
+
+    # Re-base so every series starts at 1.0 on the first shared date.
+    aligned = aligned.div(aligned.iloc[0])
+    benchmark_nav = aligned[benchmark_key]
+
+    metrics: dict[str, Any] = {}
+    for key in aligned.columns:
+        nav = aligned[key]
+        relative_to = None if key == benchmark_key else benchmark_nav
+        block = compute_performance_metrics(
+            nav, relative_to, risk_free_rate=risk_free_rate
+        )
+        block.update(_compute_extra_metrics(nav, relative_to))
+        block["window"] = _window_info(nav)
+        metrics[key] = _clean_dict(block)
+
+    # Every ordered pair — the UI decides which comparisons to surface, and
+    # "Mirror vs Equal" matters as much as "Alpha vs S&P 500" when the point
+    # is that none of the gaps clear the hurdle.
+    significance: dict[str, dict[str, Any]] = {}
+    for key in aligned.columns:
+        against = {
+            ref: stats
+            for ref in aligned.columns
+            if ref != key
+            and (stats := _active_return_stats(aligned[key], aligned[ref]))
+        }
+        if against:
+            significance[key] = against
+
+    any_significant = any(
+        pair.get("significant", False)
+        for pairs in significance.values()
+        for pair in pairs.values()
+    )
+
+    return {
+        "window": _window_info(aligned[benchmark_key]),
+        "risk_free_rate": round(risk_free_rate, 6),
+        "benchmark": benchmark_key,
+        "t_hurdle": MULTIPLE_TESTING_T_HURDLE,
+        "any_significant": any_significant,
+        "metrics": metrics,
+        "significance": significance,
+    }
+
+
 def _cost_info(
     nav_gross: pd.Series | None,
     turnover: pd.Series | None,
@@ -569,6 +696,31 @@ def export_performance_metrics(
         alpha_metrics["window"] = _window_info(alpha_nav)
         alpha_metrics.update(extras.get("spn_alpha", {}))
         payload["spn_alpha"] = _clean_dict(alpha_metrics)
+
+    # Apples-to-apples block: the per-strategy metrics above each span that
+    # strategy's own history, which makes the columns incomparable.
+    matched_navs: dict[str, pd.Series] = {
+        "sp500": benchmark_nav,
+        "sp20_mirror": mirror_nav,
+        "sp20_equal": equal_nav,
+    }
+    if alpha_nav is not None:
+        matched_navs["spn_alpha"] = alpha_nav
+
+    matched = _matched_window_comparison(
+        matched_navs, benchmark_key="sp500", risk_free_rate=risk_free_rate
+    )
+    if matched:
+        payload["matched_window"] = matched
+        logger.info(
+            "Matched window %s -> %s (%.2fy); any comparison significant at "
+            "|t| > %.1f: %s",
+            matched["window"]["start"],
+            matched["window"]["end"],
+            matched["window"]["n_years"],
+            MULTIPLE_TESTING_T_HURDLE,
+            matched["any_significant"],
+        )
 
     return _write_json(payload, "performance_metrics.json")
 

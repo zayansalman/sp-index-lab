@@ -257,11 +257,58 @@ export interface PerformanceMetrics {
   annualizedTurnover?: number;
 }
 
-export interface AllPerformanceMetrics {
+export interface StrategyMetricSet {
   sp500: PerformanceMetrics;
   sp20Mirror: PerformanceMetrics;
   sp20Equal: PerformanceMetrics;
   spnAlpha?: PerformanceMetrics;
+}
+
+/** Significance of one strategy's active return against a reference series. */
+export interface ActiveReturnStats {
+  /** Annualised mean active return vs the reference */
+  annualisedActiveReturn: number;
+  /** Annualised standard deviation of the active return */
+  trackingError: number;
+  /** Information ratio (active return / tracking error) */
+  informationRatio: number;
+  /** t-statistic of the mean daily active return */
+  tStat: number;
+  /** Whether |t| clears the multiple-testing hurdle (Harvey-Liu-Zhu, t > 3) */
+  significant: boolean;
+  /** Years of data this IR would need to reach the hurdle; null if IR <= 0 */
+  yearsForHurdle: number | null;
+  /** Overlapping observations behind the estimate */
+  nDays: number;
+}
+
+/**
+ * Every strategy measured on the window they all share.
+ *
+ * The top-level metrics each span that strategy's own history (baselines from
+ * 2014, SP-N Alpha from 2016 once its first walk-forward window closes), so
+ * reading them as columns of one table is not apples-to-apples. This block is
+ * the honest comparison, plus the pairwise t-stats needed to say whether any
+ * gap is distinguishable from noise.
+ */
+export interface MatchedWindowComparison {
+  windowStart: string;
+  windowEnd: string;
+  windowYears: number;
+  /** Series key used as the regression benchmark (e.g. "sp500") */
+  benchmark: string;
+  /** |t| required to call a difference real */
+  tHurdle: number;
+  /** True if ANY pairwise comparison clears the hurdle */
+  anySignificant: boolean;
+  metrics: StrategyMetricSet;
+  /** significance[strategyKey][referenceKey], keyed by raw export keys */
+  significance: Record<string, Record<string, ActiveReturnStats>>;
+}
+
+export interface AllPerformanceMetrics extends StrategyMetricSet {
+  /** Present once the export has regenerated; absent on older data bundles. */
+  matchedWindow?: MatchedWindowComparison;
 }
 
 /* ──────────────────────────────────────────────────────────────

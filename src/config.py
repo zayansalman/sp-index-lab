@@ -75,6 +75,14 @@ DATA_START_DATE = date(2013, 1, 2)
 DEV_END = date(2023, 12, 31)
 HOLDOUT_START = date(2024, 1, 1)
 
+# Minimum |t| for an excess return to count as distinguishable from noise.
+# Harvey, Liu & Zhu (2016, RFS 29:1) show that after decades of data mining
+# across hundreds of published factors, the conventional t > 1.96 threshold is
+# invalid; a newly proposed cross-sectional predictor needs t > 3.0. Every
+# strategy-vs-benchmark claim this project makes is measured against that bar,
+# not against 1.96 — see the matched-window block in performance_metrics.json.
+MULTIPLE_TESTING_T_HURDLE = 3.0
+
 # ──────────────────────────────────────────────
 # Portfolio constraints
 # ──────────────────────────────────────────────

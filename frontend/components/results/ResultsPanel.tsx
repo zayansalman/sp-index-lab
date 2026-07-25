@@ -22,6 +22,7 @@ import HoldingsTable from "./HoldingsTable";
 import ThinkingPanel from "./ThinkingPanel";
 import StrategyPlaybook from "./StrategyPlaybook";
 import HoldoutEvidence from "./HoldoutEvidence";
+import { SignificancePanel } from "./SignificancePanel";
 
 /* ──────────────────────────────────────────────────────────────
    Charts are code-split (next/dynamic) so the heavy Recharts bundle
@@ -74,21 +75,43 @@ interface MetricRowDef {
   format: (v: number) => string;
   /** Higher is better (true) or lower is better (false, e.g., drawdown) */
   higherIsBetter: boolean;
+  /**
+   * Metric defined *relative to* the benchmark, where the benchmark's own
+   * value is definitional rather than earned (its tracking error is 0.00% and
+   * its information ratio 0.00 by construction). Marking those as the "best"
+   * value is meaningless, so the benchmark column is excluded from ranking.
+   */
+  relativeToBenchmark?: boolean;
+  /**
+   * Metric that scales with window length rather than skill. Total return
+   * compounds, so a longer-running series can top the column purely by having
+   * existed longer — never rank it while the columns span different windows.
+   */
+  windowSensitive?: boolean;
 }
 
 const METRIC_ROWS: MetricRowDef[] = [
-  { label: "Total Return", key: "totalReturn", format: (v) => formatPercent(v, 1), higherIsBetter: true },
+  { label: "Total Return", key: "totalReturn", format: (v) => formatPercent(v, 1), higherIsBetter: true, windowSensitive: true },
   { label: "CAGR", key: "cagr", format: (v) => formatPercent(v, 1), higherIsBetter: true },
   { label: "Annualised Volatility", key: "annualizedVolatility", format: (v) => formatPercent(v, 1), higherIsBetter: false },
   { label: "Sharpe Ratio", key: "sharpe", format: (v) => formatRatio(v), higherIsBetter: true },
   { label: "Sortino Ratio", key: "sortino", format: (v) => formatRatio(v), higherIsBetter: true },
   { label: "Max Drawdown", key: "maxDrawdown", format: (v) => formatPercent(v, 1), higherIsBetter: false },
   { label: "Calmar Ratio", key: "calmar", format: (v) => formatRatio(v), higherIsBetter: true },
-  { label: "Beta", key: "beta", format: (v) => formatRatio(v), higherIsBetter: false },
-  { label: "Alpha", key: "alpha", format: (v) => formatPercent(v, 1), higherIsBetter: true },
-  { label: "Tracking Error", key: "trackingError", format: (v) => formatPercent(v, 2), higherIsBetter: false },
-  { label: "Information Ratio", key: "informationRatio", format: (v) => formatRatio(v), higherIsBetter: true },
+  { label: "Beta", key: "beta", format: (v) => formatRatio(v), higherIsBetter: false, relativeToBenchmark: true },
+  { label: "Alpha", key: "alpha", format: (v) => formatPercent(v, 1), higherIsBetter: true, relativeToBenchmark: true },
+  { label: "Tracking Error", key: "trackingError", format: (v) => formatPercent(v, 2), higherIsBetter: false, relativeToBenchmark: true },
+  { label: "Information Ratio", key: "informationRatio", format: (v) => formatRatio(v), higherIsBetter: true, relativeToBenchmark: true },
 ];
+
+/** Column order of the comparison table, paired with raw export keys so the
+ *  significance lookup (which is keyed by export key) can find each column. */
+const COMPARISON_COLUMNS = [
+  { label: "S&P 500", exportKey: "sp500" },
+  { label: "SP-20 Mirror", exportKey: "sp20_mirror" },
+  { label: "SP-20 Equal", exportKey: "sp20_equal" },
+  { label: "SP-N Alpha", exportKey: "spn_alpha" },
+] as const;
 
 /* ──────────────────────────────────────────────────────────────
    Helper: determine the best value index in a row
@@ -97,31 +120,29 @@ const METRIC_ROWS: MetricRowDef[] = [
 function getBestIndex(
   values: number[],
   higherIsBetter: boolean,
+  excludeIndices: readonly number[] = [],
 ): number {
-  if (values.length === 0) return -1;
+  const candidates = values
+    .map((value, index) => ({ value, index }))
+    .filter(({ index }) => !excludeIndices.includes(index));
 
-  if (!higherIsBetter) {
-    const allValuesAreNonPositive = values.every((v) => v <= 0);
-    let bestIdx = 0;
-    for (let i = 1; i < values.length; i++) {
-      const isBetter = allValuesAreNonPositive
-        ? values[i] > values[bestIdx]
-        : values[i] < values[bestIdx];
-      if (isBetter) {
-        bestIdx = i;
-      }
-    }
-    return bestIdx;
-  }
+  if (candidates.length === 0) return -1;
 
-  // For higher is better
-  let bestIdx = 0;
-  for (let i = 1; i < values.length; i++) {
-    if (values[i] > values[bestIdx]) {
-      bestIdx = i;
-    }
+  // Drawdowns are all non-positive, where "best" means closest to zero, i.e.
+  // the largest value — the opposite of the usual lower-is-better ordering.
+  const allValuesAreNonPositive =
+    !higherIsBetter && candidates.every(({ value }) => value <= 0);
+
+  let best = candidates[0];
+  for (const candidate of candidates.slice(1)) {
+    const isBetter = higherIsBetter
+      ? candidate.value > best.value
+      : allValuesAreNonPositive
+        ? candidate.value > best.value
+        : candidate.value < best.value;
+    if (isBetter) best = candidate;
   }
-  return bestIdx;
+  return best.index;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -451,91 +472,138 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="mt-6 overflow-x-auto rounded-xl border border-[#1A1A24] bg-bg-secondary p-6"
               >
-                <h3 className="mb-4 text-sm font-semibold tracking-wide text-text-secondary">
-                  Performance Comparison
-                </h3>
+                {(() => {
+                  const matched = data.performanceMetrics.matchedWindow;
+                  // Prefer the matched-window block: every series re-based to
+                  // the first date they all share. Without it we fall back to
+                  // each strategy's own window, which is NOT comparable — the
+                  // rendering below suppresses window-sensitive ranking then.
+                  const source = matched?.metrics ?? data.performanceMetrics;
+                  const columns = COMPARISON_COLUMNS.filter(
+                    (col) => col.exportKey !== "spn_alpha" || source.spnAlpha,
+                  );
+                  const metricsByColumn: PerformanceMetrics[] = columns.map(
+                    (col) =>
+                      col.exportKey === "sp500"
+                        ? source.sp500
+                        : col.exportKey === "sp20_mirror"
+                          ? source.sp20Mirror
+                          : col.exportKey === "sp20_equal"
+                            ? source.sp20Equal
+                            : source.spnAlpha!,
+                  );
+                  const benchmarkIdx = columns.findIndex(
+                    (col) => col.exportKey === (matched?.benchmark ?? "sp500"),
+                  );
 
-                <table className="w-full text-left text-sm">
-                  <thead>
-                    <tr className="border-b border-[#1A1A24]">
-                      <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
-                        Metric
-                      </th>
-                      <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                        S&P 500
-                      </th>
-                      <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                        SP-20 Mirror
-                      </th>
-                      <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                        SP-20 Equal
-                      </th>
-                      {data.performanceMetrics.spnAlpha && (
-                        <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted">
-                          SP-N Alpha*
-                        </th>
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {METRIC_ROWS.map((row, idx) => {
-                      const sp500Val = data.performanceMetrics.sp500[row.key];
-                      const mirrorVal = data.performanceMetrics.sp20Mirror[row.key];
-                      const equalVal = data.performanceMetrics.sp20Equal[row.key];
-                      const alphaVal = data.performanceMetrics.spnAlpha?.[row.key];
-
-                      const values: number[] = [sp500Val, mirrorVal, equalVal];
-                      if (alphaVal !== undefined) values.push(alphaVal);
-
-                      const bestIdx = getBestIndex(values, row.higherIsBetter);
-
-                      return (
-                        <tr
-                          key={row.key}
-                          className={`border-b border-[#1A1A24] ${
-                            idx % 2 === 0 ? "bg-bg-secondary" : "bg-bg-primary"
-                          }`}
-                        >
-                          <td className="px-3 py-2.5 text-xs text-text-secondary">
-                            {row.label}
-                          </td>
-                          {values.map((val, colIdx) => (
-                            <td
-                              key={colIdx}
-                              className={`px-3 py-2.5 text-right font-mono text-xs tabular-nums ${
-                                colIdx === bestIdx
-                                  ? "font-bold text-accent-primary"
-                                  : "text-text-primary"
-                              }`}
-                            >
-                              {row.format(val)}
-                            </td>
-                          ))}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-
-                <p className="mt-3 text-[11px] leading-relaxed text-text-muted">
-                  All strategy returns are net of transaction costs (7 bps per
-                  one-way traded notional) on a point-in-time top-20 universe,
-                  benchmarked against the S&amp;P 500 total-return index.
-                  {data.performanceMetrics.spnAlpha?.windowStart && (
+                  return (
                     <>
-                      {" "}
-                      *SP-N Alpha is out-of-sample walk-forward from{" "}
-                      {data.performanceMetrics.spnAlpha.windowStart} (
-                      {data.performanceMetrics.spnAlpha.windowYears?.toFixed(1)}{" "}
-                      years); baseline columns start at{" "}
-                      {data.performanceMetrics.sp500.windowStart ??
-                        data.meta.startDate}
-                      , so CAGRs span different windows — relative metrics
-                      (alpha, tracking error) are computed on overlapping dates.
+                      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+                        <h3 className="text-sm font-semibold tracking-wide text-text-secondary">
+                          Performance Comparison
+                        </h3>
+                        <span className="font-mono text-[11px] text-text-muted">
+                          {matched
+                            ? `matched window ${matched.windowStart} → ${matched.windowEnd} (${matched.windowYears.toFixed(1)}y)`
+                            : "each column spans its own window — not directly comparable"}
+                        </span>
+                      </div>
+
+                      <table className="w-full text-left text-sm">
+                        <thead>
+                          <tr className="border-b border-[#1A1A24]">
+                            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
+                              Metric
+                            </th>
+                            {columns.map((col) => (
+                              <th
+                                key={col.exportKey}
+                                className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-muted"
+                              >
+                                {col.label}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {METRIC_ROWS.map((row, idx) => {
+                            const values = metricsByColumn.map((m) => m[row.key]);
+
+                            // Two cases where crowning a "winner" would mislead:
+                            // a relative metric (the benchmark's own tracking
+                            // error is 0.00% by construction), and a
+                            // window-sensitive metric on unmatched columns.
+                            const excluded = row.relativeToBenchmark
+                              ? [benchmarkIdx]
+                              : [];
+                            const rankable = !(row.windowSensitive && !matched);
+                            const bestIdx = rankable
+                              ? getBestIndex(values, row.higherIsBetter, excluded)
+                              : -1;
+
+                            return (
+                              <tr
+                                key={row.key}
+                                className={`border-b border-[#1A1A24] ${
+                                  idx % 2 === 0 ? "bg-bg-secondary" : "bg-bg-primary"
+                                }`}
+                              >
+                                <td className="px-3 py-2.5 text-xs text-text-secondary">
+                                  {row.label}
+                                </td>
+                                {values.map((val, colIdx) => (
+                                  <td
+                                    key={columns[colIdx].exportKey}
+                                    className={`px-3 py-2.5 text-right font-mono text-xs tabular-nums ${
+                                      colIdx === bestIdx
+                                        ? "font-semibold text-text-primary underline decoration-text-muted decoration-dotted underline-offset-4"
+                                        : "text-text-primary"
+                                    }`}
+                                  >
+                                    {row.format(val)}
+                                  </td>
+                                ))}
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+
+                      <p className="mt-3 text-[11px] leading-relaxed text-text-muted">
+                        All strategy returns are net of transaction costs (7 bps
+                        per one-way traded notional) on a point-in-time top-20
+                        universe, benchmarked against the S&amp;P 500
+                        total-return index.{" "}
+                        {matched ? (
+                          <>
+                            Every column is re-based to{" "}
+                            {matched.windowStart}, the first date all four
+                            series exist, so the comparison is like-for-like.
+                            Underlining marks the leading value; it is not a
+                            claim that the lead is real — see below.
+                          </>
+                        ) : (
+                          <>
+                            SP-N Alpha is out-of-sample walk-forward from{" "}
+                            {source.spnAlpha?.windowStart} (
+                            {source.spnAlpha?.windowYears?.toFixed(1)} years)
+                            while the baselines start at{" "}
+                            {source.sp500.windowStart ?? data.meta.startDate},
+                            so these columns span different windows. Total
+                            return is left unranked because a longer window
+                            compounds more regardless of skill.
+                          </>
+                        )}
+                      </p>
                     </>
-                  )}
-                </p>
+                  );
+                })()}
               </motion.div>
+
+              {/* ── Is any of it real? ────────────────────────── */}
+              {data.performanceMetrics.matchedWindow && (
+                <SignificancePanel matched={data.performanceMetrics.matchedWindow} />
+              )}
 
               {/* ── How Each Portfolio Works ──────────────────── */}
               <SectionHeader>How Each Portfolio Works</SectionHeader>

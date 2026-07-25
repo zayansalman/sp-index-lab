@@ -17,8 +17,11 @@ import type {
   VarianceDecompositionPoint,
   PerformanceNavData,
   PerformanceNavPoint,
+  ActiveReturnStats,
   AllPerformanceMetrics,
+  MatchedWindowComparison,
   PerformanceMetrics,
+  StrategyMetricSet,
   HoldingsData,
   Holding,
   DrawdownData,
@@ -284,15 +287,67 @@ function transformSingleMetrics(m: any): PerformanceMetrics {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
-  const result: AllPerformanceMetrics = {
+function transformMetricSet(raw: any): StrategyMetricSet {
+  const set: StrategyMetricSet = {
     sp500: transformSingleMetrics(raw.sp500 || {}),
     sp20Mirror: transformSingleMetrics(raw.sp20_mirror || raw.sp20Mirror || {}),
     sp20Equal: transformSingleMetrics(raw.sp20_equal || raw.sp20Equal || {}),
   };
   const alphaRaw = raw.spn_alpha ?? raw.spnAlpha;
-  if (alphaRaw) result.spnAlpha = transformSingleMetrics(alphaRaw);
-  return result;
+  if (alphaRaw) set.spnAlpha = transformSingleMetrics(alphaRaw);
+  return set;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformActiveReturnStats(raw: any): ActiveReturnStats {
+  return {
+    annualisedActiveReturn: raw.annualised_active_return ?? 0,
+    trackingError: raw.tracking_error ?? 0,
+    informationRatio: raw.information_ratio ?? 0,
+    tStat: raw.t_stat ?? 0,
+    significant: !!raw.significant,
+    yearsForHurdle: raw.years_for_hurdle ?? null,
+    nDays: raw.n_days ?? 0,
+  };
+}
+
+/**
+ * The matched-window block is optional: it only exists after the export has
+ * been regenerated. Older bundles simply omit it and the UI falls back to the
+ * per-strategy (unmatched) metrics, so this must never throw on absence.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformMatchedWindow(raw: any): MatchedWindowComparison | undefined {
+  if (!raw?.metrics) return undefined;
+
+  const significance: Record<string, Record<string, ActiveReturnStats>> = {};
+  for (const [key, against] of Object.entries(raw.significance ?? {})) {
+    significance[key] = Object.fromEntries(
+      Object.entries(against as Record<string, unknown>).map(([ref, stats]) => [
+        ref,
+        transformActiveReturnStats(stats),
+      ]),
+    );
+  }
+
+  return {
+    windowStart: raw.window?.start ?? "",
+    windowEnd: raw.window?.end ?? "",
+    windowYears: raw.window?.n_years ?? 0,
+    benchmark: raw.benchmark ?? "sp500",
+    tHurdle: raw.t_hurdle ?? 3.0,
+    anySignificant: !!raw.any_significant,
+    metrics: transformMetricSet(raw.metrics),
+    significance,
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
+  return {
+    ...transformMetricSet(raw),
+    matchedWindow: transformMatchedWindow(raw.matched_window ?? raw.matchedWindow),
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
