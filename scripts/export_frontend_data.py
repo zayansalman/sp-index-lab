@@ -5,8 +5,14 @@ JSON files consumed by the Next.js static frontend.
 
 Usage:
     uv run python scripts/export_frontend_data.py
+    uv run python scripts/export_frontend_data.py --out-dir /tmp/export-check
+
+The committed JSON under ``frontend/public/data`` is owned by the daily-update
+workflow. Pass ``--out-dir`` for any local verification run so the working tree
+stays clean.
 """
 
+import argparse
 import json
 import logging
 import math
@@ -62,8 +68,19 @@ logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Output directory
+#
+# OUTPUT_DIR is the shipped location, written by the daily-update workflow.
+# ``--out-dir`` redirects a run elsewhere so local verification never dirties
+# the committed JSON; _OUTPUT_DIR_OVERRIDE holds that choice for _write_json.
 # ---------------------------------------------------------------------------
 OUTPUT_DIR = PROJECT_ROOT / "frontend" / "public" / "data"
+
+_OUTPUT_DIR_OVERRIDE: Path | None = None
+
+
+def _active_output_dir() -> Path:
+    """Return the directory exports are currently being written to."""
+    return _OUTPUT_DIR_OVERRIDE if _OUTPUT_DIR_OVERRIDE is not None else OUTPUT_DIR
 
 
 # ---------------------------------------------------------------------------
@@ -113,11 +130,11 @@ def _df_to_records(df: pd.DataFrame) -> list[dict]:
 
 
 def _write_json(data: Any, filename: str) -> Path:
-    """Write data to a JSON file in the output directory.
+    """Write data to a JSON file in the active output directory.
 
     Returns the path to the written file.
     """
-    filepath = OUTPUT_DIR / filename
+    filepath = _active_output_dir() / filename
     with open(filepath, "w") as f:
         json.dump(data, f, indent=2, default=str)
     return filepath
@@ -1001,15 +1018,46 @@ def export_daily_deviations(
 # Main
 # ---------------------------------------------------------------------------
 
-def main() -> int:
+def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Export analytics JSON files consumed by the Next.js frontend.",
+    )
+    parser.add_argument(
+        "--out-dir",
+        type=Path,
+        default=None,
+        metavar="DIR",
+        help=(
+            "Directory to write JSON into (default: frontend/public/data). "
+            "Use a scratch directory for local verification — the committed "
+            "JSON is owned by the daily-update workflow."
+        ),
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> int:
     """Run all data exports and print a summary."""
+    global _OUTPUT_DIR_OVERRIDE
+
+    args = _parse_args(argv)
+    _OUTPUT_DIR_OVERRIDE = args.out_dir
+
+    out_dir = _active_output_dir()
+
     logger.info("=" * 60)
     logger.info("SP Index Lab -- Frontend Data Export")
     logger.info("=" * 60)
 
     # Ensure output directory exists
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    logger.info("Output directory: %s", OUTPUT_DIR)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    logger.info("Output directory: %s", out_dir)
+    if _OUTPUT_DIR_OVERRIDE is None:
+        logger.warning(
+            "Writing to the committed data directory. Pass --out-dir for local "
+            "verification runs so the working tree stays clean."
+        )
 
     # ------------------------------------------------------------------
     # 1. Load raw data
@@ -1211,7 +1259,7 @@ def main() -> int:
     logger.info("-" * 60)
     logger.info("  %-35s  %s", "TOTAL", total_str)
     logger.info("=" * 60)
-    logger.info("Output directory: %s", OUTPUT_DIR)
+    logger.info("Output directory: %s", _active_output_dir())
 
     return 0
 

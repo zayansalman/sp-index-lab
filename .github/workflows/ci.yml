@@ -55,6 +55,21 @@ jobs:
         working-directory: frontend
         run: npm ci
 
+      # Colour must come from design tokens, never from arbitrary Tailwind
+      # values. Raw hexes cannot be re-themed and are why the dark palette was
+      # unpickable from the components. Warn-only until the token migration
+      # lands, then flipped to a hard failure.
+      - name: Check for hardcoded colour literals
+        working-directory: frontend
+        continue-on-error: true
+        run: |
+          if grep -rn --include='*.tsx' -E '(border|bg|text|fill|stroke|from|to|via)-\[#' \
+               app components lib hooks; then
+            echo "::warning::Hardcoded colour literals found — use design tokens instead."
+          else
+            echo "No hardcoded colour literals found."
+          fi
+
       - name: Lint
         working-directory: frontend
         run: npm run lint
