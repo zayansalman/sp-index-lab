@@ -6,6 +6,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 S&P Index Lab proves the S&P 500 is effectively a ~20-stock index. Python backend computes analytics (OLS regression, variance decomposition, mirror index construction). React frontend displays results via an interactive machine-metaphor visualization. Static JSON bridge between the two — no Python at runtime.
 
+**Primary mandate (owner, 2026-07-26).** SP-N: hold N stocks selected from the S&P 500 —
+N *solved* per rebalance, never hand-fixed — targeting maximum return with minimum
+volatility and drawdown, net of costs, re-run and rebalanced on the index's own schedule
+(S&P quarterly rebalance effective dates + membership-change events; the pipeline's current
+monthly month-end cadence is the finer-grained superset — aligning to quarterly is a spec
+change that must be pre-registered, not slipped in). Benchmarks are ALWAYS all three:
+`^SP500TR`, SP-20 Mirror, SP-20 Equal. "Max return, min risk" is not simultaneously
+optimizable; it is operationalized as the pre-registered multi-objective bar — beat
+benchmarks on CAGR **and** Sharpe with max drawdown ≤ 1.2× the index's. The concentration
+proof is step one (it establishes a small-N portfolio can carry the index); the active
+mandate is step two and is judged with IR/t-stats and full multiple-testing disclosure.
+Under this objective the dev-window record reads differently than under the old
+return-first criteria: `s3:equal:elbow:voltgt15` (trial 10) posted the highest Sharpe of
+all 14 trials (0.666) with maxDD −21.2%, and was eliminated only for giving up CAGR vs
+Equal — but dev has been SEEN, so any re-selection must validate on post-2026 data or
+forward paper-trading, with the peek disclosed.
+
 Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-return).
 No single strategy is crowned — the site shows all four side by side:
 - R² ≈ 95.2% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window).

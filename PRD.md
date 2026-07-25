@@ -2,7 +2,21 @@
 
 ## Executive Summary
 
-S&P Index Lab is a live portfolio analytics platform that tests whether the S&P 500 can be explained and improved by a concentrated top-constituent universe. The product has two parts:
+S&P Index Lab is a live portfolio analytics platform that tests whether the S&P 500 can be explained and improved by a concentrated top-constituent universe.
+
+**Primary mandate.** SP-N: hold N stocks selected from the S&P 500 — N solved per rebalance
+by an algorithm, never hand-fixed — targeting maximum return with minimum volatility and
+drawdown, net of transaction costs, re-run and rebalanced on the index's own schedule.
+Benchmarked, always, against all three references: the S&P 500 total-return index
+(`^SP500TR`), SP-20 Mirror (cap-weighted top-20 control), and SP-20 Equal (equal-weighted
+top-20 control). Since "maximum return" and "minimum risk" cannot be optimized
+simultaneously, the mandate is operationalized as the pre-registered bar: beat the
+references on CAGR **and** Sharpe with max drawdown no worse than 1.2× the index's. The
+concentration proof (step one) establishes that a small-N portfolio can carry the index's
+behaviour; the active mandate (step two) is evaluated under the honest-evaluation protocol
+— IR and t-stats against the multiple-testing hurdle, with the trial count disclosed.
+
+The product has two parts:
 
 - A Python analytics backend that fetches market data, computes concentration proof metrics, runs walk-forward strategy backtests, and exports static JSON.
 - A Next.js frontend that presents the proof and strategy results through an interactive machine-metaphor lab.
