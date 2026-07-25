@@ -397,7 +397,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                 <MetricCard
                   label="R-squared"
-                  value={data.concentrationCurve.elbowRSquared}
+                  value={data.concentrationCurve.rSquaredAt20}
                   format={(n) => formatPercent(n, 1)}
                   subtitle="20 stocks vs S&P 500"
                 />
@@ -571,9 +571,12 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
 
                       <p className="mt-3 text-[11px] leading-relaxed text-text-muted">
                         All strategy returns are net of transaction costs (7 bps
-                        per one-way traded notional) on a point-in-time top-20
-                        universe, benchmarked against the S&amp;P 500
-                        total-return index.{" "}
+                        per one-way traded notional) on a point-in-time universe,
+                        benchmarked against the S&amp;P 500 total-return index.
+                        The two baselines hold the top 20 by construction; SP-N
+                        Alpha selects from the top 30 and its concentration-elbow
+                        solver decides how many of those to hold at each
+                        rebalance.{" "}
                         {matched ? (
                           <>
                             Every column is re-based to{" "}

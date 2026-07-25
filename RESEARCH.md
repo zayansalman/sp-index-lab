@@ -34,7 +34,24 @@ The concentration curve shows a clear elbow at N ≈ 20: marginal R² collapses 
 ### The Weight Cliff
 S&P 500 weight distribution follows a power law. Position 1 (Nvidia, 7.14%) is 10x the weight of position 20 (Costco, 0.71%). By position 30, you're at ~0.4%. By position 50, you're below 0.3%. Adding stock #21 through #500 collectively accounts for ~53% of weight — spread across 480 names averaging 0.11% each.
 
-The marginal contribution per stock drops sharply after position 20. This is the natural breakpoint.
+The marginal contribution per stock drops sharply after position 20.
+
+**But 20 is a reporting convention, not a discovered constant — and the project's own
+solver disagrees with it.** `make_elbow_n` (`src/strategies/dynamic_alpha.py`) stops at the
+first N whose marginal R² falls below 0.5%, clamped to [`SPN_MIN_STOCKS`=10,
+`SPN_MAX_STOCKS`=30]. Replayed across 126 monthly rebalances it selects a **median of 11**
+names (mean 11.2, range 10–16) and has chosen 20 **exactly zero times**; it sits on the N=10
+floor 38.9% of the time, so the floor is load-bearing rather than the threshold. Two
+different questions are in play and must not be conflated:
+
+- *How much of the index do the 20 largest names explain?* → **95.2%** mean R² at a fixed
+  N=20 (`r_squared_at_20`). This is the concentration claim.
+- *What is the smallest N worth holding?* → the solver's answer, currently **16** names
+  (`data/strategy_holdings.parquet`). This is the portfolio-construction claim.
+
+Note also that ~87% of dynamic-N's return advantage is a *level* effect (holding ~11 rather
+than 20) rather than a *timing* effect from varying N month to month; the timing component is
++0.32pp/yr at t = 0.34.
 
 ### The R² Elbow
 When you regress S&P 500 daily returns against a cap-weighted portfolio of the top N stocks, the R² curve shows a clear elbow. Top 10: R² ≈ 0.85. Top 15: R² ≈ 0.92. Top 20: R² ≈ 0.95. Top 30: R² ≈ 0.97. Top 50: R² ≈ 0.99.

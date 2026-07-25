@@ -208,10 +208,14 @@ function transformConcentrationCurve(
     },
   );
 
+  // `elbowN: 20` used to be returned here as a hardcoded literal typed as if
+  // it were derived. Nothing in the pipeline exports a solved elbow N, and no
+  // component ever read it — so it was a fabricated number, not a stale one.
+  // Removed rather than defaulted: the strategy's own solver selects a median
+  // of 11 names, so any constant here would be wrong as well as invented.
   return {
     curve,
-    elbowN: 20,
-    elbowRSquared: raw.r_squared_at_20 ?? raw.elbowRSquared ?? 0,
+    rSquaredAt20: raw.r_squared_at_20 ?? raw.rSquaredAt20 ?? 0,
   };
 }
 

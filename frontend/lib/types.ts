@@ -151,10 +151,16 @@ export interface ConcentrationPoint {
 export interface ConcentrationCurveData {
   /** Ordered array of concentration measurements */
   curve: ConcentrationPoint[];
-  /** The elbow point N where marginal gain drops below threshold */
-  elbowN: number;
-  /** R-squared at the elbow */
-  elbowRSquared: number;
+  /**
+   * Mean R-squared at a FIXED N=20, across rolling one-year windows.
+   *
+   * Named for what it measures. This is not "R-squared at the elbow": the
+   * strategy's elbow solver (`make_elbow_n`) stops at the first N whose
+   * marginal R-squared falls below 0.5%, and it has selected a median of 11
+   * names — never 20 — across 126 monthly rebalances. The two numbers answer
+   * different questions and must not be conflated.
+   */
+  rSquaredAt20: number;
 }
 
 /* ──────────────────────────────────────────────────────────────

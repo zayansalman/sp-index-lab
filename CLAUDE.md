@@ -10,6 +10,19 @@ Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-
 No single strategy is crowned — the site shows all four side by side:
 - R² ≈ 95.2% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window).
   This is the project's one statistically strong claim.
+- **"20" is a reporting convention, not a solved answer — never write copy implying it was
+  discovered.** Two different questions get conflated constantly:
+  (a) *how much do the 20 largest explain?* → 95.2% mean R² at a FIXED N=20 (`r_squared_at_20`);
+  (b) *what is the smallest N worth holding?* → `make_elbow_n` solves this per rebalance and
+  has selected a **median of 11** (mean 11.2, range 10–16) across 126 rebalances, choosing 20
+  **zero times**, sitting on the `SPN_MIN_STOCKS`=10 floor 38.9% of the time. Current live
+  holding is 16 names. ~87% of dynamic-N's edge is a *level* effect (hold ~11 not 20); the
+  *timing* component is +0.32pp/yr at t = 0.34.
+- **The concentration claim is a REPLICATION claim; the strategy claims are ACTIVE claims.**
+  They take different metrics and different bars. Replication is judged on R²/tracking error
+  and is already solid; active is judged on IR with the t > 3 hurdle and is not significant.
+  Applying the active bar to the replication finding understates the project's strongest
+  result — keep the two separate in docs and UI.
 - **Always quote the matched window** (2016-01-04→present, ~10.5y — the first date all four
   series exist), from the `matched_window` block in `performance_metrics.json`:
   S&P 500 ~15.4% CAGR · SP-20 Mirror ~19.3% · SP-20 Equal ~17.5% · SP-N Alpha ~20.3%.
