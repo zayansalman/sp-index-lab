@@ -130,3 +130,45 @@ def test_walk_forward_backtest_execution_lag_changes_first_effect_day() -> None:
     # Lagged portfolio enters one trading day later.
     assert lagged.nav.index[0] == base.nav.index[1]
 
+
+def test_walk_forward_backtest_collects_n_selected() -> None:
+    dates = pd.date_range("2020-01-01", periods=850, freq="B")
+    prices = pd.DataFrame(
+        {
+            "A": 100.0 * (1.0 + 0.0002) ** np.arange(len(dates)),
+            "B": 100.0 * (1.0 + 0.0001) ** np.arange(len(dates)),
+        },
+        index=dates,
+    )
+
+    def stamping_weights_fn(train_prices: pd.DataFrame, _bench: pd.Series | None) -> pd.Series:
+        w = pd.Series(1.0 / train_prices.shape[1], index=train_prices.columns)
+        w.attrs["n_selected"] = train_prices.shape[1]
+        return w
+
+    result = walk_forward_backtest(
+        prices, weights_fn=stamping_weights_fn, train_days=756, test_days=21
+    )
+    assert isinstance(result.n_selected, pd.Series)
+    assert len(result.n_selected) == len(result.splits)
+    assert (result.n_selected == prices.shape[1]).all()
+
+
+def test_walk_forward_backtest_n_selected_empty_when_not_stamped() -> None:
+    dates = pd.date_range("2020-01-01", periods=850, freq="B")
+    prices = pd.DataFrame(
+        {
+            "A": 100.0 * (1.0 + 0.0002) ** np.arange(len(dates)),
+            "B": 100.0 * (1.0 + 0.0001) ** np.arange(len(dates)),
+        },
+        index=dates,
+    )
+
+    def clean_weights_fn(train_prices: pd.DataFrame, _bench: pd.Series | None) -> pd.Series:
+        return pd.Series(0.5, index=train_prices.columns)
+
+    result = walk_forward_backtest(
+        prices, weights_fn=clean_weights_fn, train_days=756, test_days=21
+    )
+    assert result.n_selected.empty
+

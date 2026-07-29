@@ -211,6 +211,22 @@ def main() -> int:
     save_parquet(alpha_nav_df, "alpha_nav")
 
     # ------------------------------------------------------------------
+    # Save the solved-N series: the per-rebalance holding count the N
+    # policy chose, for strategies that stamp weights.attrs["n_selected"]
+    # (see src/strategies/dynamic_alpha.py). Empty for policies that don't.
+    # ------------------------------------------------------------------
+    if not result.n_selected.empty:
+        n_series_df = pd.DataFrame({
+            "date": result.n_selected.index,
+            "n": result.n_selected.values,
+        })
+        save_parquet(n_series_df, "alpha_n_series")
+        logger.info(
+            "Saved solved-N series: %d rebalances, median N=%d",
+            len(n_series_df), int(result.n_selected.median()),
+        )
+
+    # ------------------------------------------------------------------
     # Save final weights (holdings) for the retained alpha strategy, using
     # its own point-in-time top-SPN_MAX universe at the latest date. These
     # are the live target weights the EMS would rebalance toward.
