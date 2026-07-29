@@ -52,6 +52,9 @@ select = ["E", "F", "I", "N", "W"]
 "app/*.py" = ["E501", "N806"]
 # OLS regression convention uses X for feature matrices
 "src/proof/concentration.py" = ["N806"]
+"src/proof/replication.py" = ["N803", "N806"]
+# Linear algebra notation: X, y are standard in linear algebra, regression
+"tests/test_replication.py" = ["N806", "E702"]
 # Pre-existing long comment
 "tests/test_walk_forward_engine.py" = ["E501"]
 
