@@ -213,9 +213,25 @@ function transformConcentrationCurve(
   // component ever read it — so it was a fabricated number, not a stale one.
   // Removed rather than defaulted: the strategy's own solver selects a median
   // of 11 names, so any constant here would be wrong as well as invented.
+  // The dispersion behind the headline. `r_squared_windows` is one row per
+  // rolling window; without its range the mean reads as a constant, and the
+  // most recent window is the weakest in the record.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const windows: any[] = Array.isArray(raw.r_squared_windows)
+    ? raw.r_squared_windows
+    : [];
+  const windowValues = windows
+    .map((w) => w?.r_squared_at_20)
+    .filter((v): v is number => typeof v === "number");
+
   return {
     curve,
     rSquaredAt20: raw.r_squared_at_20 ?? raw.rSquaredAt20 ?? 0,
+    rSquaredAt20Latest: raw.r_squared_at_20_latest,
+    nWindows: windowValues.length || undefined,
+    rSquaredAt20Range: windowValues.length
+      ? { min: Math.min(...windowValues), max: Math.max(...windowValues) }
+      : undefined,
   };
 }
 

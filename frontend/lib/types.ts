@@ -161,6 +161,19 @@ export interface ConcentrationCurveData {
    * different questions and must not be conflated.
    */
   rSquaredAt20: number;
+  /**
+   * R-squared at N=20 in the most recent window only.
+   *
+   * Quoting the mean alone overstates the current state: the mean is taken
+   * across 139 windows spanning a decade, and the latest sits at the bottom
+   * of that range. Both are published so the headline cannot be read as
+   * "this is true right now".
+   */
+  rSquaredAt20Latest?: number;
+  /** Number of rolling windows behind the mean. */
+  nWindows?: number;
+  /** Lowest and highest R-squared at N=20 observed across those windows. */
+  rSquaredAt20Range?: { min: number; max: number };
 }
 
 /* ──────────────────────────────────────────────────────────────

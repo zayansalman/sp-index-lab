@@ -78,6 +78,7 @@ const CustomTooltip: React.FC<{
    ────────────────────────────────────────────────────────────── */
 
 const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
+  const rSquaredAtTwenty = data.find((p) => p.n === 20)?.rSquared;
   // Transform data for recharts (rSquared as percentage for display)
   const chartData = data.map((point) => ({
     ...point,
@@ -91,9 +92,11 @@ const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
       </h3>
 
       <ResponsiveContainer width="100%" height={360}>
+        {/* Right margin holds the derived R-squared label (e.g. "95.2%"),
+            which is wider than the "95%" literal it replaced. */}
         <AreaChart
           data={chartData}
-          margin={{ top: 10, right: 30, left: 10, bottom: 10 }}
+          margin={{ top: 10, right: 56, left: 10, bottom: 10 }}
         >
           <defs>
             <linearGradient id="gradientRSquared" x1="0" y1="0" x2="0" y2="1">
@@ -139,17 +142,19 @@ const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
           />
 
           {/* 95% R-squared reference line */}
-          <ReferenceLine
-            y={0.95}
-            stroke={chartTheme.referenceLine.stroke}
-            strokeDasharray="6 4"
-            label={{
-              value: "95%",
-              position: "right",
-              fill: chartTheme.axis.tick.fill,
-              fontSize: 10,
-            }}
-          />
+          {rSquaredAtTwenty !== undefined && (
+            <ReferenceLine
+              y={rSquaredAtTwenty}
+              stroke={chartTheme.referenceLine.stroke}
+              strokeDasharray="6 4"
+              label={{
+                value: `${(rSquaredAtTwenty * 100).toFixed(1)}%`,
+                position: "right",
+                fill: chartTheme.axis.tick.fill,
+                fontSize: 10,
+              }}
+            />
+          )}
 
           {/* 20 stocks reference line */}
           <ReferenceLine
@@ -157,7 +162,7 @@ const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
             stroke={chartTheme.referenceLine.stroke}
             strokeDasharray="6 4"
             label={{
-              value: "N=20",
+              value: "N=20 · reporting convention",
               position: "top",
               fill: chartTheme.axis.tick.fill,
               fontSize: 10,

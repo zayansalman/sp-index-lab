@@ -15,13 +15,20 @@ import {
   formatPercent,
   formatRatio,
 } from "@/lib/formatters";
-import type { LabData, PerformanceMetrics } from "@/lib/types";
+import type {
+  ConcentrationCurveData,
+  LabData,
+  PerformanceMetrics,
+} from "@/lib/types";
 import MetricCard from "./MetricCard";
 import HoldingsTable from "./HoldingsTable";
 import ThinkingPanel from "./ThinkingPanel";
 import StrategyPlaybook from "./StrategyPlaybook";
 import HoldoutEvidence from "./HoldoutEvidence";
 import { SignificancePanel } from "./SignificancePanel";
+import { Explainer, GlossaryList } from "./PlainEnglish";
+import { COMPARISON_GLOSSARY_KEYS } from "@/lib/glossary";
+import { chartTheme, withAlpha } from "@/lib/chartTheme";
 
 /* ──────────────────────────────────────────────────────────────
    Charts are code-split (next/dynamic) so the heavy Recharts bundle
@@ -113,35 +120,50 @@ const COMPARISON_COLUMNS = [
 ] as const;
 
 /* ──────────────────────────────────────────────────────────────
-   Helper: determine the best value index in a row
+   Helper: per-row heatmap intensity
+
+   Replaces the previous "underline the winner" treatment. A binary
+   crown is the strongest possible claim a table can make, and this
+   one sits on a page whose own significance block reports that no
+   pairwise difference clears the t > 3 hurdle — the ranking is real
+   in the arithmetic and indistinguishable from luck.
+
+   A continuous ramp is the honest form of the same information: it
+   shows where a value sits in the row's spread without declaring a
+   victor. Single hue, no red/green, so nothing carries a verdict.
    ────────────────────────────────────────────────────────────── */
 
-function getBestIndex(
+/** Peak tint. Ink stays >15:1 on it, so shading never costs legibility. */
+const HEATMAP_MAX_ALPHA = 0.16;
+
+function rowIntensities(
   values: number[],
   higherIsBetter: boolean,
   excludeIndices: readonly number[] = [],
-): number {
-  const candidates = values
+): number[] {
+  const included = values
     .map((value, index) => ({ value, index }))
     .filter(({ index }) => !excludeIndices.includes(index));
 
-  if (candidates.length === 0) return -1;
+  if (included.length < 2) return values.map(() => 0);
 
-  // Drawdowns are all non-positive, where "best" means closest to zero, i.e.
-  // the largest value — the opposite of the usual lower-is-better ordering.
-  const allValuesAreNonPositive =
-    !higherIsBetter && candidates.every(({ value }) => value <= 0);
+  // Drawdowns are all non-positive, where "better" means closer to zero —
+  // the opposite of the usual lower-is-better ordering.
+  const allNonPositive =
+    !higherIsBetter && included.every(({ value }) => value <= 0);
+  const betterIsLarger = higherIsBetter || allNonPositive;
 
-  let best = candidates[0];
-  for (const candidate of candidates.slice(1)) {
-    const isBetter = higherIsBetter
-      ? candidate.value > best.value
-      : allValuesAreNonPositive
-        ? candidate.value > best.value
-        : candidate.value < best.value;
-    if (isBetter) best = candidate;
-  }
-  return best.index;
+  const nums = included.map((c) => c.value);
+  const min = Math.min(...nums);
+  const max = Math.max(...nums);
+  const span = max - min;
+
+  return values.map((value, index) => {
+    if (excludeIndices.includes(index)) return 0;
+    if (span === 0) return 0;
+    const position = (value - min) / span;
+    return betterIsLarger ? position : 1 - position;
+  });
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -297,6 +319,61 @@ const HoldingsSelector: React.FC<HoldingsSelectorProps> = ({ holdings }) => {
 };
 
 /* ──────────────────────────────────────────────────────────────
+   ConcentrationFigures -- how the headline R-squared was measured,
+   and the dispersion the mean hides.
+
+   Every figure is read from the export. The mean alone reads as a
+   constant; the range and the latest window are what stop it being
+   quoted as "this is true right now".
+   ────────────────────────────────────────────────────────────── */
+
+const ConcentrationFigures: React.FC<{ curve: ConcentrationCurveData }> = ({
+  curve,
+}) => {
+  const pct = (v: number | undefined) =>
+    v === undefined ? "—" : formatPercent(v, 1);
+  const at = (n: number) => curve.curve.find((p) => p.n === n)?.rSquared;
+  const range = curve.rSquaredAt20Range;
+
+  return (
+    <>
+      <p>
+        <span className="font-semibold text-ink">How it is measured.</span>{" "}
+        Rolling one-year windows, stepped about a month apart
+        {curve.nWindows ? ` — ${curve.nWindows} of them` : ""}. Within each
+        window the 20 largest companies <em>as of that date</em> are picked
+        using only information available at the time, so the test never
+        benefits from knowing which companies later became the giants.
+      </p>
+      <p className="mt-2">
+        <span className="font-semibold text-ink">What comes out.</span> The
+        average across those windows is{" "}
+        <span className="num font-semibold text-ink">
+          {pct(curve.rSquaredAt20)}
+        </span>
+        {range
+          ? `, but individual windows run from ${pct(range.min)} to ${pct(range.max)}`
+          : ""}
+        {curve.rSquaredAt20Latest !== undefined
+          ? `, and the most recent window is ${pct(curve.rSquaredAt20Latest)}`
+          : ""}
+        . The headline is an average over a decade, not a reading of today.
+      </p>
+      <p className="mt-2">
+        <span className="font-semibold text-ink">Why twenty.</span> The number
+        climbs smoothly as you add companies —{" "}
+        <span className="num">{pct(at(5))}</span> at 5,{" "}
+        <span className="num">{pct(at(10))}</span> at 10,{" "}
+        <span className="num">{pct(at(20))}</span> at 20,{" "}
+        <span className="num">{pct(at(50))}</span> at 50. There is no sharp
+        kink at 20; it is a round number chosen for reporting, not a boundary
+        discovered in the data.
+      </p>
+    </>
+  );
+};
+
+/* ──────────────────────────────────────────────────────────────
    ResultsPanel Component
    ────────────────────────────────────────────────────────────── */
 
@@ -392,9 +469,13 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               {/* ── Concentration Curve ──────────────────────── */}
               <SectionHeader>Concentration Analysis</SectionHeader>
 
-              <div
-                className="rounded-xl border bg-surface p-6"
-              >
+              {/* R-squared is the one number the whole thesis rests on, and
+                  it was previously shown with no explanation anywhere. */}
+              <Explainer entry="rSquared">
+                <ConcentrationFigures curve={data.concentrationCurve} />
+              </Explainer>
+
+              <div className="mt-4 rounded-xl border bg-surface p-6">
                 <ConcentrationChart data={data.concentrationCurve.curve} />
               </div>
 
@@ -465,39 +546,42 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                           </tr>
                         </thead>
                         <tbody>
-                          {METRIC_ROWS.map((row, idx) => {
+                          {METRIC_ROWS.map((row) => {
                             const values = metricsByColumn.map((m) => m[row.key]);
 
-                            // Two cases where crowning a "winner" would mislead:
-                            // a relative metric (the benchmark's own tracking
-                            // error is 0.00% by construction), and a
-                            // window-sensitive metric on unmatched columns.
+                            // Two cases where shading would mislead: a relative
+                            // metric (the benchmark's own tracking error is
+                            // 0.00% by construction), and a window-sensitive
+                            // metric on unmatched columns.
                             const excluded = row.relativeToBenchmark
                               ? [benchmarkIdx]
                               : [];
                             const rankable = !(row.windowSensitive && !matched);
-                            const bestIdx = rankable
-                              ? getBestIndex(values, row.higherIsBetter, excluded)
-                              : -1;
+                            const intensities = rowIntensities(
+                              values,
+                              row.higherIsBetter,
+                              rankable ? excluded : values.map((_, i) => i),
+                            );
 
                             return (
-                              <tr
-                                key={row.key}
-                                className={`border-b ${
-                                  idx % 2 === 0 ? "bg-surface" : "bg-ground"
-                                }`}
-                              >
-                                <td className="px-3 py-2.5 text-xs text-ink-secondary">
+                              <tr key={row.key} className="border-b">
+                                <td className="py-2.5 pr-3 text-xs text-ink-secondary">
                                   {row.label}
                                 </td>
                                 {values.map((val, colIdx) => (
                                   <td
                                     key={columns[colIdx].exportKey}
-                                    className={`px-3 py-2.5 text-right font-mono text-xs tabular-nums ${
-                                      colIdx === bestIdx
-                                        ? "font-semibold text-ink underline decoration-text-muted decoration-dotted underline-offset-4"
-                                        : "text-ink"
-                                    }`}
+                                    className="px-3 py-2.5 text-right font-mono text-xs tabular-nums text-ink"
+                                    style={
+                                      intensities[colIdx] > 0
+                                        ? {
+                                            backgroundColor: withAlpha(
+                                              chartTheme.accent,
+                                              intensities[colIdx] * HEATMAP_MAX_ALPHA,
+                                            ),
+                                          }
+                                        : undefined
+                                    }
                                   >
                                     {row.format(val)}
                                   </td>
@@ -521,8 +605,6 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                             Every column is re-based to{" "}
                             {matched.windowStart}, the first date all four
                             series exist, so the comparison is like-for-like.
-                            Underlining marks the leading value; it is not a
-                            claim that the lead is real — see below.
                           </>
                         ) : (
                           <>
@@ -532,11 +614,20 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
                             while the baselines start at{" "}
                             {source.sp500.windowStart ?? data.meta.startDate},
                             so these columns span different windows. Total
-                            return is left unranked because a longer window
+                            return is left unshaded because a longer window
                             compounds more regardless of skill.
                           </>
-                        )}
+                        )}{" "}
+                        Shading shows where each value sits within its own row —
+                        darker is the more favourable end. It ranks the
+                        arithmetic, not the evidence: no difference between any
+                        two of these strategies clears the significance bar this
+                        project holds itself to.
                       </p>
+
+                      <div className="mt-5">
+                        <GlossaryList entries={COMPARISON_GLOSSARY_KEYS} />
+                      </div>
                     </>
                   );
                 })()}
