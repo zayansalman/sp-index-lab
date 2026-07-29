@@ -202,7 +202,10 @@ const InteractiveLegend: React.FC<LegendProps> = ({ series, visibility, onToggle
    ────────────────────────────────────────────────────────────── */
 
 const PerformanceChart: React.FC<PerformanceChartProps> = ({ bundle }) => {
-  const [range, setRange] = useState<TimeRange>("5Y");
+  // Defaults to the full record. A 5Y default showed 2021 onward while the
+  // comparison table directly beneath described 2014-2026, so the chart and
+  // the table answered the same question differently.
+  const [range, setRange] = useState<TimeRange>("ALL");
   const rangeData = useRangeData(bundle, range);
   const data = useMemo(() => normaliseToOne(rangeData), [rangeData]);
 
@@ -229,6 +232,26 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ bundle }) => {
       ? data.filter((_, i) => i % Math.ceil(data.length / 500) === 0 || i === data.length - 1)
       : data;
 
+  const showMonthTicks = range === "1M" || range === "3M" || range === "6M";
+
+  // On year-labelled ranges, let recharts choose its own evenly-spaced ticks
+  // and several land in the same calendar year, so the axis reads
+  // "2022 2022 2023 2023". Pin one tick to the first point of each year
+  // instead. Month-labelled ranges keep the default behaviour.
+  const yearTicks = useMemo(() => {
+    if (showMonthTicks || thinned.length === 0) return undefined;
+    const seen = new Set<string>();
+    const ticks: string[] = [];
+    for (const point of thinned) {
+      const year = point.date.substring(0, 4);
+      if (!seen.has(year)) {
+        seen.add(year);
+        ticks.push(point.date);
+      }
+    }
+    return ticks.length > 1 ? ticks : undefined;
+  }, [thinned, showMonthTicks]);
+
   return (
     <div className="w-full">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -249,9 +272,8 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ bundle }) => {
             tick={chartTheme.axis.tick}
             axisLine={{ stroke: chartTheme.axis.stroke }}
             tickLine={{ stroke: chartTheme.axis.tickStroke }}
-            tickFormatter={(v: string) =>
-              formatDateTick(v, range === "1M" || range === "3M" || range === "6M")
-            }
+            tickFormatter={(v: string) => formatDateTick(v, showMonthTicks)}
+            {...(yearTicks ? { ticks: yearTicks } : {})}
             interval="preserveStartEnd"
             minTickGap={60}
           />
