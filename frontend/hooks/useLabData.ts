@@ -265,6 +265,9 @@ function transformReplication(raw: any): ReplicationQuality | undefined {
       teMax: r.te_max,
       nWindows: r.n_windows,
     })),
+    method: raw.method,
+    windowDays: raw.window_days,
+    stepDays: raw.step_days,
   };
 }
 
@@ -331,6 +334,7 @@ function transformAlphaNSeries(raw: any): AlphaNSeries | undefined {
     floor: raw.floor ?? 0,
     cap: raw.cap ?? 0,
     shareAtFloor: raw.share_at_floor ?? 0,
+    distribution: raw.distribution ?? {},
   };
 }
 

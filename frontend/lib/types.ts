@@ -224,6 +224,10 @@ export interface ReplicationLadder {
 export interface ReplicationQuality {
   ladder: ReplicationLadder;
   byN: ReplicationRow[];
+  /** Export provenance */
+  method?: string;
+  windowDays?: number;
+  stepDays?: number;
 }
 
 /** One point of the cardinality-vs-tracking frontier (out of sample). */
@@ -272,6 +276,8 @@ export interface AlphaNSeries {
   floor: number;
   cap: number;
   shareAtFloor: number;
+  /** Count of rebalances at each N, keyed by N as a string (e.g. {"10": 49}) */
+  distribution: Record<string, number>;
 }
 
 /* ──────────────────────────────────────────────────────────────
