@@ -136,7 +136,7 @@
       "bin_start": 0.0915,
       "bin_end": 0.1864,
       "bin_center": 0.1389,
-      "count": 360
+      "count": 361
     },
     {
       "bin_start": 0.1864,
@@ -301,15 +301,15 @@
       "count": 1
     }
   ],
-  "n_observations": 3158,
+  "n_observations": 3159,
   "unit": "percentage_points",
   "stats": {
-    "mean": 0.0127,
+    "mean": 0.0128,
     "std": 0.4179,
-    "median": 0.0112,
+    "median": 0.0113,
     "min": -1.9964,
     "max": 2.7487,
-    "skewness": 0.0965,
-    "kurtosis": 2.6583
+    "skewness": 0.0964,
+    "kurtosis": 2.6599
   }
 }
