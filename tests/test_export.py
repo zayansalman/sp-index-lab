@@ -201,3 +201,42 @@ def test_active_return_stats_needs_enough_overlap() -> None:
     dates = pd.bdate_range("2024-01-01", periods=20)
     series = _nav(dates, 0.0005, "a")
     assert export._active_return_stats(series, _nav(dates, 0.0004, "b")) == {}
+
+
+def test_variance_decomposition_carries_replication_block(
+    captured: dict[str, Any],
+) -> None:
+    rolling = pd.DataFrame({
+        "n_stocks": [20, 20], "r_squared": [0.95, 0.96],
+        "window_start": pd.to_datetime(["2020-01-01", "2020-02-01"]),
+        "window_end": pd.to_datetime(["2020-12-31", "2021-01-31"]),
+    })
+    replication = {
+        "method": "pit_investable_baskets_rolling",
+        "window_days": 252, "step_days": 21,
+        "ladder": {"investable_cap": 0.91, "investable_equal": 0.94},
+        "by_n": [{"n": 20, "weighting": "equal", "tracking_error": 0.04,
+                  "replication_r2": 0.94, "te_min": 0.03, "te_max": 0.06,
+                  "n_windows": 100}],
+    }
+    export.export_variance_decomposition(rolling, replication=replication)
+
+    payload = captured["variance_decomposition.json"]
+    rep = payload["replication"]
+    # export must stamp the OLS ceiling next to the investable numbers
+    assert rep["ladder"]["ols_ceiling"] == pytest.approx(0.955)
+    assert rep["ladder"]["investable_equal"] == 0.94
+    assert rep["ladder"]["investable_equal"] <= rep["ladder"]["ols_ceiling"]
+
+
+def test_variance_decomposition_replication_optional(
+    captured: dict[str, Any],
+) -> None:
+    """Absent replication data must not break the existing export."""
+    rolling = pd.DataFrame({
+        "n_stocks": [20], "r_squared": [0.95],
+        "window_start": pd.to_datetime(["2020-01-01"]),
+        "window_end": pd.to_datetime(["2020-12-31"]),
+    })
+    export.export_variance_decomposition(rolling)
+    assert "replication" not in captured["variance_decomposition.json"]
