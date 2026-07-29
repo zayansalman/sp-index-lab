@@ -240,3 +240,24 @@ def test_variance_decomposition_replication_optional(
     })
     export.export_variance_decomposition(rolling)
     assert "replication" not in captured["variance_decomposition.json"]
+
+
+def test_variance_decomposition_carries_tracking_frontier(
+    captured: dict[str, Any],
+) -> None:
+    rolling = pd.DataFrame({
+        "n_stocks": [20], "r_squared": [0.95],
+        "window_start": pd.to_datetime(["2020-01-01"]),
+        "window_end": pd.to_datetime(["2020-12-31"]),
+    })
+    frontier = {
+        "method": "simplex_ls_topk_walkforward",
+        "train_days": 252, "test_days": 21,
+        "frontier": [{"k": 20, "te_oos": 0.033, "replication_r2_oos": 0.964,
+                      "mean_monthly_churn": 0.2, "max_weight": 0.1,
+                      "n_windows": 100}],
+        "n_fallback_windows": 0,
+    }
+    export.export_variance_decomposition(rolling, tracking_frontier=frontier)
+    payload = captured["variance_decomposition.json"]
+    assert payload["tracking_frontier"]["frontier"][0]["k"] == 20
