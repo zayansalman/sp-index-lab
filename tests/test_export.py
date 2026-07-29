@@ -261,3 +261,37 @@ def test_variance_decomposition_carries_tracking_frontier(
     export.export_variance_decomposition(rolling, tracking_frontier=frontier)
     payload = captured["variance_decomposition.json"]
     assert payload["tracking_frontier"]["frontier"][0]["k"] == 20
+
+
+def test_export_alpha_n_series(captured: dict[str, Any]) -> None:
+    df = pd.DataFrame({
+        "date": pd.bdate_range("2020-01-31", periods=6, freq="21B"),
+        "n": [10, 10, 11, 12, 11, 16],
+    })
+    export.export_alpha_n_series(df)
+    p = captured["alpha_n_series.json"]
+    assert p["median"] == 11
+    assert p["min"] == 10 and p["max"] == 16
+    assert p["floor"] == 10 and p["cap"] == 30          # SPN bounds from config
+    assert p["share_at_floor"] == pytest.approx(2 / 6, abs=1e-4)
+    assert p["distribution"]["10"] == 2
+    assert len(p["series"]) == 6
+
+
+def test_export_universe_rotation(captured: dict[str, Any]) -> None:
+    sched = pd.DataFrame({
+        "rebalance_date": pd.to_datetime(
+            ["2020-01-31"] * 3 + ["2020-02-28"] * 3),
+        "rank": [1, 2, 3, 1, 2, 3],
+        "ticker": ["A", "B", "C", "A", "B", "D"],
+        "cap_proxy": [3.0, 2.0, 1.0, 3.1, 2.1, 1.1],
+    })
+    export.export_universe_rotation(sched)
+    p = captured["universe_rotation.json"]
+    s = p["summary"]
+    assert s["distinct_tickers"] == 4
+    assert s["n_rebalances"] == 2
+    assert s["entries"] == 1 and s["exits"] == 1
+    assert s["never_left"] == ["A", "B"]
+    ev = p["events"]
+    assert ev == [{"date": "2020-02-28", "entered": ["D"], "exited": ["C"]}]

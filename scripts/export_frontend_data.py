@@ -38,10 +38,13 @@ from src.config import (
     DEFAULT_RISK_FREE_RATE,
     INCEPTION_DATE,
     MULTIPLE_TESTING_T_HURDLE,
+    SPN_MAX_STOCKS,
+    SPN_MIN_STOCKS,
     TRADING_DAYS_PER_YEAR,
 )
 from src.data.storage import load_parquet
 from src.data.universe import (
+    build_universe_schedule,
     load_ranking_prices,
     load_shares_outstanding,
     make_universe_fn,
@@ -932,6 +935,83 @@ _SECTORS: dict[str, str] = {
 }
 
 
+def export_alpha_n_series(n_df: pd.DataFrame) -> Path:
+    """Publish the solved-N series — the number the strategy ACTUALLY holds.
+
+    Exists to kill the fabricated-elbow problem at the root: the UI once
+    hardcoded `elbowN: 20` while the solver's median was 11. The chart's
+    reference line reads this export from now on.
+    """
+    n = n_df["n"].astype(int)
+    payload = {
+        "series": [
+            {"date": str(pd.Timestamp(d).date()), "n": int(v)}
+            for d, v in zip(n_df["date"], n)
+        ],
+        "mean": round(float(n.mean()), 2),
+        "median": int(n.median()),
+        "min": int(n.min()),
+        "max": int(n.max()),
+        "floor": SPN_MIN_STOCKS,
+        "cap": SPN_MAX_STOCKS,
+        "share_at_floor": round(float((n == SPN_MIN_STOCKS).mean()), 4),
+        "distribution": {
+            str(k): int(v) for k, v in n.value_counts().sort_index().items()
+        },
+    }
+    return _write_json(payload, "alpha_n_series.json")
+
+
+def export_universe_rotation(schedule: pd.DataFrame) -> Path:
+    """Membership rotation of the point-in-time top-N THIS PROJECT trades.
+
+    Framing rule (accuracy): this is the cap-proxy universe the backtests
+    actually hold — 80-90% overlap with the true historical S&P top-20 —
+    so copy must say "the universe this project trades", never "the
+    S&P 500's actual top 20".
+    """
+    dates = sorted(schedule["rebalance_date"].unique())
+    sets = {d: set(schedule.loc[schedule["rebalance_date"] == d, "ticker"])
+            for d in dates}
+    events = []
+    entries = exits = 0
+    for prev, cur in zip(dates, dates[1:]):
+        entered = sorted(sets[cur] - sets[prev])
+        exited = sorted(sets[prev] - sets[cur])
+        if entered or exited:
+            events.append({
+                "date": str(pd.Timestamp(cur).date()),
+                "entered": entered, "exited": exited,
+            })
+            entries += len(entered)
+            exits += len(exited)
+    ever = set().union(*sets.values())
+    always = sorted(t for t in ever if all(t in s for s in sets.values()))
+    span_years = (
+        (pd.Timestamp(dates[-1]) - pd.Timestamp(dates[0])).days / 365.25
+        if len(dates) > 1 else 0.0
+    )
+    payload = {
+        "summary": {
+            "n_rebalances": len(dates),
+            "first": str(pd.Timestamp(dates[0]).date()),
+            "last": str(pd.Timestamp(dates[-1]).date()),
+            "distinct_tickers": len(ever),
+            "entries": entries,
+            "exits": exits,
+            "avg_names_replaced_per_year": round(entries / span_years, 2)
+            if span_years > 0 else None,
+            "never_left": always,
+        },
+        "events": events,
+        "schedule": [
+            {"date": str(pd.Timestamp(d).date()), "tickers": sorted(sets[d])}
+            for d in dates
+        ],
+    }
+    return _write_json(payload, "universe_rotation.json")
+
+
 def export_strategy_holdings(stock_prices: pd.DataFrame) -> Path:
     """Generate strategy_holdings.json with retained strategy portfolio weights.
 
@@ -1292,6 +1372,21 @@ def main(argv: list[str] | None = None) -> int:
     written_files.append(
         export_daily_deviations(sp20_mirror, benchmark_returns)
     )
+
+    n_df = load_parquet("alpha_n_series")
+    if not n_df.empty:
+        n_df["date"] = pd.to_datetime(n_df["date"])
+        written_files.append(export_alpha_n_series(n_df))
+    else:
+        logger.info("No alpha_n_series parquet — run run_alpha_backtest.py first")
+
+    logger.info("Building universe rotation schedule...")
+    month_ends = stock_prices.index.to_series().groupby(
+        stock_prices.index.to_period("M")).max()
+    rotation_dates = pd.DatetimeIndex(
+        month_ends[month_ends >= pd.Timestamp(INCEPTION_DATE)])
+    rotation = build_universe_schedule(rotation_dates, 20)
+    written_files.append(export_universe_rotation(rotation))
 
     # ------------------------------------------------------------------
     # 4. Print summary
