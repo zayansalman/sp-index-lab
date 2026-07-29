@@ -14,9 +14,11 @@ tests/test_replication.py enforces this boundary.
 
 Why no LASSO: under w >= 0 and sum(w) = 1 the L1 norm is identically 1, so
 an L1 penalty is a constant and selects nothing (Brodie et al., PNAS 2009,
-eq. 5; verified numerically on this data — max weight change 7e-4 across
-lambda 0..100). The l1_penalty parameter below exists solely so the
-regression test can prove that inertness.
+eq. 5). An earlier real-data probe with an independent implementation measured
+max weight change ~7e-4 across λ ∈ [0, 100]; in this module the penalty
+reduces to a constant, so solutions are identical to solver precision (~1e-12),
+which the regression test asserts. The l1_penalty parameter below exists
+solely so that test can prove this inertness.
 """
 
 import logging
@@ -122,7 +124,12 @@ def tracking_frontier(
             y = bench_rets.iloc[lo - train_days:lo].to_numpy()
             try:
                 w = _cardinality_weights(X, y, k)
-            except RuntimeError:
+            except RuntimeError as exc:
+                logger.warning(
+                    "simplex LS failed at window %d (k=%d): %s — "
+                    "falling back to equal-weighted top-k by trailing mean return",
+                    lo, k, exc,
+                )
                 # cap-proxy-free fallback: equal weight the k largest
                 # trailing-mean-return names; counted, never silent
                 n_fallback += 1

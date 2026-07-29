@@ -18,7 +18,8 @@ from src.proof.replication import solve_simplex_ls, tracking_frontier
 def _tracking_problem(t=252, p=40, seed=3):
     rng = np.random.default_rng(seed)
     X = rng.normal(0.0004, 0.01, (t, p))
-    w_true = np.zeros(p); w_true[:8] = 1 / 8
+    w_true = np.zeros(p)
+    w_true[:8] = 1 / 8
     y = X @ w_true + rng.normal(0, 0.0005, t)
     return X, y
 
@@ -38,8 +39,11 @@ def test_simplex_ls_is_feasible_and_tracks():
 def test_l1_penalty_is_inert_under_simplex_constraints():
     """Brodie et al. (PNAS 2009, eq. 5): with w >= 0 and sum(w) = 1 the
     L1 norm is identically 1, so the penalty cannot change the argmin.
-    This test exists so LASSO-for-sparsity can never be reintroduced here
-    by assertion — it was measured inert (max |dw| ~ 7e-4) on real data."""
+    An earlier real-data probe with an independent implementation measured
+    max weight change ~7e-4 across λ ∈ [0, 100]; in this module the penalty
+    reduces to a constant, so solutions match to ~1e-12 (solver precision),
+    which this test asserts. LASSO-for-sparsity can never be reintroduced
+    here by assertion."""
     X, y = _tracking_problem()
     w0 = solve_simplex_ls(X, y, l1_penalty=0.0)
     w100 = solve_simplex_ls(X, y, l1_penalty=100.0)

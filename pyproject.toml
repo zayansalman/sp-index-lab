@@ -54,7 +54,7 @@ select = ["E", "F", "I", "N", "W"]
 "src/proof/concentration.py" = ["N806"]
 "src/proof/replication.py" = ["N803", "N806"]
 # Linear algebra notation: X, y are standard in linear algebra, regression
-"tests/test_replication.py" = ["N806", "E702"]
+"tests/test_replication.py" = ["N806"]
 # Pre-existing long comment
 "tests/test_walk_forward_engine.py" = ["E501"]
 
