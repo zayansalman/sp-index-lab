@@ -130,7 +130,7 @@
       "bin_start": -0.0034,
       "bin_end": 0.0915,
       "bin_center": 0.044,
-      "count": 384
+      "count": 385
     },
     {
       "bin_start": 0.0915,
@@ -172,7 +172,7 @@
       "bin_start": 0.6609,
       "bin_end": 0.7558,
       "bin_center": 0.7083,
-      "count": 47
+      "count": 48
     },
     {
       "bin_start": 0.7558,
@@ -301,15 +301,15 @@
       "count": 1
     }
   ],
-  "n_observations": 3159,
+  "n_observations": 3161,
   "unit": "percentage_points",
   "stats": {
-    "mean": 0.0128,
+    "mean": 0.013,
     "std": 0.4179,
-    "median": 0.0113,
+    "median": 0.0117,
     "min": -1.9964,
     "max": 2.7487,
-    "skewness": 0.0964,
-    "kurtosis": 2.6599
+    "skewness": 0.0959,
+    "kurtosis": 2.6562
   }
 }
