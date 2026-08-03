@@ -25,7 +25,7 @@ Using OLS regressions of S&P 500 daily returns on point-in-time top-N portfolios
 | SP-N Alpha Sharpe | **~0.88** |
 | S&P 500 TR Sharpe | **~0.70** |
 
-The concentration curve shows a clear elbow at N ≈ 20: marginal R² collapses after 20 stocks, meaning stocks 21–500 collectively add only a few points of explanatory power. SP-N Alpha turns that elbow into a *policy* — see "SP-N Alpha" below.
+The concentration curve is steep out to N ≈ 20: marginal R² from stocks 21–500 adds only a few points of explanatory power at that fixed count. That reading is a reporting convention, though — SP-N Alpha runs the same marginal-R² logic as a *live*, per-rebalance rule and lands on far fewer names in practice — see "Why 20?" and "SP-N Alpha" below.
 
 > **Why these numbers are smaller than earlier drafts.** Earlier versions selected *today's* top-20 and applied it back to 2014 (survivorship bias), charged no transaction costs, benchmarked against the price-only ^GSPC, and ranked on dividend-adjusted prices (which understate high-yield names' historical caps). Fixing all four, and replacing a selection-picked max-Sharpe optimizer with a pre-registered self-adjusting strategy, brought every number down to a defensible level — and the thesis still holds. Concentration barely moved (still ~95%) because it is contemporaneous: whoever the top-20 are at the time, they explain the index.
 
@@ -54,7 +54,7 @@ than 20) rather than a *timing* effect from varying N month to month; the timing
 +0.32pp/yr at t = 0.34.
 
 ### The R² Elbow
-When you regress S&P 500 daily returns against a cap-weighted portfolio of the top N stocks, the R² curve shows a clear elbow. Top 10: R² ≈ 0.85. Top 15: R² ≈ 0.92. Top 20: R² ≈ 0.95. Top 30: R² ≈ 0.97. Top 50: R² ≈ 0.99.
+When you regress S&P 500 daily returns on the individual top-N stocks' returns — coefficients fitted freely, in-sample, per rolling window — the R² curve is an *explanatory ceiling*: it says how much of the index's variance the names can account for with hindsight weights, not what a portfolio achieves. The investable counterparts (the exact baskets the Mirror and Equal indices trade) are published alongside it in the replication block, and sit a few points below the ceiling. Top 10: R² ≈ 0.85. Top 15: R² ≈ 0.92. Top 20: R² ≈ 0.95. Top 30: R² ≈ 0.97. Top 50: R² ≈ 0.99.
 
 The jump from 20 to 30 stocks buys you only ~2% more explanatory power. You're paying for 10 additional stocks to reduce tracking error from "very low" to "negligibly low." That's a poor trade.
 
@@ -117,9 +117,11 @@ All annualized using 252 trading days against the S&P 500 **total-return** index
 | Beta | cov(portfolio, benchmark) / var(benchmark) |
 | Alpha | portfolio_CAGR - beta × benchmark_CAGR |
 | Tracking Error | std(portfolio_return - benchmark_return) × sqrt(252) |
-| Information Ratio | mean(excess_return) / std(excess_return) × sqrt(252) |
+| Information Ratio | (portfolio_CAGR - benchmark_CAGR) / Tracking_Error |
 
 Implementation: `src/backtest/metrics.py::compute_performance_metrics()`
+
+> Information ratio in the headline tables is excess CAGR over annualised tracking error (`src/backtest/metrics.py`). The significance block uses the arithmetic variant — mean daily active return over its own volatility — because t = IR × √years holds exactly in that form; the two differ slightly and each table states which it uses.
 
 ## Why This Becomes an Alpha Opportunity
 
@@ -180,6 +182,12 @@ SP-N Alpha adapts *how many* stocks it holds. At each monthly rebalance it regre
 3. **One pre-registered holdout** — criteria were committed to `data/research/holdout_criteria.yaml` *before* selection; `scripts/run_holdout.py` evaluated the frozen spec once on 2024→present. Outcome: SP-N Alpha returned **32.1% CAGR (+10.5pp over the S&P 500)** out-of-sample, but with a higher volatility it **lost to SP-20 Equal on Sharpe (1.31 vs 1.43) and breached the 1.2×-index drawdown cap**. Per the contract, **no strategy is crowned** — the site shows S&P 500, Mirror, Equal, and Alpha side by side.
 
 Archived research modules (HRP, MVO min-vol, LightGBM factor model, HMM regime, sentiment, hedging) were re-raced under the honest methodology (`scripts/run_legacy_race.py`); none beat either baseline. They remain research-only and out of the public strategy set.
+
+### The Field's Ceiling, and a Retired Approach
+
+**The ceiling is the field's, not ours.** Kremer, Lee, Bogdan & Paterlini (*Sparse Portfolio Selection via the Sorted ℓ₁-Norm*, arXiv:1710.02435) ran nine portfolio constructions on S&P 500 individual stocks over 2004–2016 and found "no strategy is statistically significantly different from each other."
+
+**Why there is no LASSO in this project.** Under long-only, fully-invested constraints the L1 norm of the weights is identically 1, so an L1 penalty is a constant and selects nothing (Brodie et al., PNAS 2009, eq. 5). Measured on this data: max weight change 7e-4 across λ ∈ [0, 100]. The two-stage escape (select unconstrained, refit) tracked at 8.9% OOS TE versus 3.8% for naive equal-weight top-20 — worse in 109 of 109 windows. `tests/test_replication.py::test_l1_penalty_is_inert_under_simplex_constraints` enforces this permanently. The working formulation is cardinality-constrained simplex least squares (`src/proof/replication.py`), kept descriptive by `test_module_emits_no_performance_metrics`.
 
 ### Vol Overlay — Income Layer
 

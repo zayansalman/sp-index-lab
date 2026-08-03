@@ -184,6 +184,7 @@ function buildThinkingSections(
   };
   const h = data.meta.headline;
   const m = data.performanceMetrics;
+  const n = data.alphaNSeries;
 
   return [
     {
@@ -193,8 +194,9 @@ function buildThinkingSections(
         `daily returns on its 20 largest constituents explains ${pct(h?.rSquaredAt20)} of daily variance ` +
         "on average across rolling one-year windows. The selection is point-in-time: each window uses the " +
         "stocks that were actually the largest at that moment, not today's winners projected backwards. " +
-        "The concentration curve shows a clear 'elbow' around 18-20 stocks, where each additional stock " +
-        "stops adding meaningful explanatory power.",
+        "Twenty is a reporting convention for that fixed-N read, not a discovered answer: the strategy's " +
+        `own live stopping rule has held between ${n?.min ?? "—"} and ${n?.max ?? "—"} names ` +
+        `(median ${n?.median ?? "—"}), sitting on its floor ${pct(n?.shareAtFloor)} of the time.`,
     },
     {
       title: "Why The Baselines Stay",
