@@ -186,6 +186,36 @@ function buildThinkingSections(
   const m = data.performanceMetrics;
   const n = data.alphaNSeries;
 
+  /**
+   * Closing clause of "Why 20 Stocks?" — the evidence that 20 is a
+   * reporting convention rather than the solver's answer. `n`
+   * (`data.alphaNSeries`) is absent from the committed data bundle until
+   * the daily cron regenerates `alpha_n_series.json`; interpolating its
+   * fields with `?? "—"` in that state used to render four em-dash
+   * placeholders in a live sentence. Falls back to a numbers-free
+   * description of the stopping rule's mechanism instead, matching the
+   * phrasing already used for this same claim in `ThinkingPanel.tsx`'s
+   * `DEFAULT_SECTIONS` — same house pattern as `ReplicationLadderNote` /
+   * `TrackingFrontierNote` below (degrade gracefully when the optional
+   * export is missing, rather than rendering a broken sentence).
+   */
+  const elbowClause = (): string => {
+    if (!n) {
+      return (
+        "Twenty is a reporting convention for that fixed-N read, though, not a discovered " +
+        "answer: the strategy's own live stopping rule runs on four preset parameters — a " +
+        "marginal R-squared threshold, a trailing window, and a floor and a ceiling on stock " +
+        "count — rather than a fixed target of 20. It almost always settles on noticeably " +
+        "fewer names, and spends a large share of rebalances pinned to its floor."
+      );
+    }
+    return (
+      "Twenty is a reporting convention for that fixed-N read, not a discovered answer: the " +
+      `strategy's own live stopping rule has held between ${n.min} and ${n.max} names ` +
+      `(median ${n.median}), sitting on its floor ${pct(n.shareAtFloor)} of the time.`
+    );
+  };
+
   return [
     {
       title: "Why 20 Stocks?",
@@ -194,9 +224,7 @@ function buildThinkingSections(
         `daily returns on its 20 largest constituents explains ${pct(h?.rSquaredAt20)} of daily variance ` +
         "on average across rolling one-year windows. The selection is point-in-time: each window uses the " +
         "stocks that were actually the largest at that moment, not today's winners projected backwards. " +
-        "Twenty is a reporting convention for that fixed-N read, not a discovered answer: the strategy's " +
-        `own live stopping rule has held between ${n?.min ?? "—"} and ${n?.max ?? "—"} names ` +
-        `(median ${n?.median ?? "—"}), sitting on its floor ${pct(n?.shareAtFloor)} of the time.`,
+        elbowClause(),
     },
     {
       title: "Why The Baselines Stay",
