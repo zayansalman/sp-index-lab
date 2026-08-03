@@ -17,8 +17,10 @@ import {
 } from "@/lib/formatters";
 import type {
   ConcentrationCurveData,
+  FrontierPoint,
   LabData,
   PerformanceMetrics,
+  ReplicationLadder,
 } from "@/lib/types";
 import MetricCard from "./MetricCard";
 import HoldingsTable from "./HoldingsTable";
@@ -374,6 +376,70 @@ const ConcentrationFigures: React.FC<{ curve: ConcentrationCurveData }> = ({
 };
 
 /* ──────────────────────────────────────────────────────────────
+   ReplicationLadderNote -- three readings of the same R-squared
+   claim, in descending honesty of hindsight. `ladder` is absent on
+   data bundles exported before the replication block existed (the
+   committed JSON, until the daily cron regenerates it) — renders
+   nothing rather than throwing.
+   ────────────────────────────────────────────────────────────── */
+
+const ReplicationLadderNote: React.FC<{ ladder?: ReplicationLadder }> = ({
+  ladder,
+}) => {
+  if (!ladder) return null;
+
+  const pct = (v?: number) =>
+    v !== undefined ? `${(v * 100).toFixed(1)}%` : "—";
+
+  return (
+    <p className="mt-3 max-w-3xl text-xs leading-relaxed text-ink-secondary">
+      Three readings of the same claim, in descending honesty of hindsight:
+      with perfect-hindsight regression weights the top 20 explain{" "}
+      <span className="font-mono">{pct(ladder.olsCeiling)}</span> of daily
+      variance (a ceiling, not a portfolio); an investable equal-weight
+      basket of the same names replicates{" "}
+      <span className="font-mono">{pct(ladder.investableEqual)}</span> with
+      one free parameter; cap-weighted,{" "}
+      <span className="font-mono">{pct(ladder.investableCap)}</span>.
+    </p>
+  );
+};
+
+/* ──────────────────────────────────────────────────────────────
+   TrackingFrontierNote -- one honest sentence on what a
+   cardinality-constrained optimiser achieves at k=20, out of
+   sample. `frontier` is absent on data bundles exported before the
+   tracking-frontier block existed — renders nothing rather than
+   throwing, and also degrades gracefully if k=20 isn't present.
+   ────────────────────────────────────────────────────────────── */
+
+const TrackingFrontierNote: React.FC<{ frontier?: FrontierPoint[] }> = ({
+  frontier,
+}) => {
+  if (!frontier || frontier.length === 0) return null;
+
+  const p20 = frontier.find((f) => f.k === 20);
+  if (!p20) return null;
+
+  const ks = frontier.map((f) => f.k);
+  const min = Math.min(...ks);
+  const max = Math.max(...ks);
+
+  return (
+    <p className="mt-2 max-w-3xl text-xs leading-relaxed text-ink-secondary">
+      A cardinality-constrained optimiser (long-only least squares, top-k
+      re-solve) tracks the index at{" "}
+      <span className="font-mono">{(p20.teOos * 100).toFixed(2)}%</span>{" "}
+      out-of-sample tracking error with 20 names — replication R&sup2;{" "}
+      <span className="font-mono">
+        {(p20.replicationR2Oos * 100).toFixed(1)}%
+      </span>{" "}
+      — and the full frontier runs k={min}…{max}.
+    </p>
+  );
+};
+
+/* ──────────────────────────────────────────────────────────────
    ResultsPanel Component
    ────────────────────────────────────────────────────────────── */
 
@@ -476,8 +542,26 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({ visible }) => {
               </Explainer>
 
               <div className="mt-4 rounded-xl border bg-surface p-6">
-                <ConcentrationChart data={data.concentrationCurve.curve} />
+                <ConcentrationChart
+                  data={data.concentrationCurve.curve}
+                  solvedMedianN={data.alphaNSeries?.median}
+                />
               </div>
+
+              {/* R-squared ladder: three readings of the same claim, from
+                  hindsight ceiling down to what an investable basket holds.
+                  Absent until the export regenerates with the replication
+                  block (Task 7); must render nothing, not crash, until then. */}
+              <ReplicationLadderNote
+                ladder={data.varianceDecomposition.replication?.ladder}
+              />
+
+              {/* Tracking-frontier note: one honest sentence on what a
+                  cardinality-constrained optimiser achieves at k=20,
+                  out-of-sample. Same absence rule as the ladder above. */}
+              <TrackingFrontierNote
+                frontier={data.varianceDecomposition.trackingFrontier?.frontier}
+              />
 
               {/* ── Performance Chart ────────────────────────── */}
               <SectionHeader>Performance</SectionHeader>

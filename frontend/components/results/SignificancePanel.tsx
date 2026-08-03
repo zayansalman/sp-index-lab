@@ -157,7 +157,11 @@ export function SignificancePanel({ matched }: SignificancePanelProps) {
         amount of data would make a negative edge significant. The
         hurdle follows Harvey, Liu &amp; Zhu (2016), who show the conventional
         t &gt; 1.96 is invalid once many variants have been searched over. This
-        project has logged 14 development trials, so the stricter bar applies.
+        project has logged 14 development trials, so the stricter bar applies.{" "}
+        This ceiling is not unique to this project: Kremer, Lee, Bogdan &amp;
+        Paterlini (2020) ran nine portfolio constructions on S&amp;P 500 stocks
+        over 2004–2016 and concluded that no strategy was statistically
+        significantly different from any other.
       </p>
     </div>
   );
