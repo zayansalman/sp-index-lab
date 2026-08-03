@@ -16,9 +16,9 @@ Why no LASSO: under w >= 0 and sum(w) = 1 the L1 norm is identically 1, so
 an L1 penalty is a constant and selects nothing (Brodie et al., PNAS 2009,
 eq. 5). An earlier real-data probe with an independent implementation measured
 max weight change ~7e-4 across λ ∈ [0, 100]; in this module the penalty
-reduces to a constant, so solutions are identical to solver precision (~1e-12),
-which the regression test asserts. The l1_penalty parameter below exists
-solely so that test can prove this inertness.
+reduces to a constant, so solutions are identical up to solver tolerance —
+the regression test bounds the difference at 1e-3. The l1_penalty parameter
+below exists solely so that test can prove this inertness.
 """
 
 import logging
@@ -95,8 +95,10 @@ def tracking_frontier(
     (eligible names = full non-NaN history in the window), hold them for
     the next ``test_days``, record realised daily active returns. Pooled
     across all steps this yields the out-of-sample tracking error, the
-    replication R² it implies, monthly selection churn, and the largest
-    weight — per k. Returns a JSON-ready dict.
+    replication R² it implies, monthly selection churn, and
+    ``mean_max_weight`` — the mean, across windows, of each window's
+    single largest weight (not a max across windows) — per k. Returns a
+    JSON-ready dict.
     """
     k_values = k_values or DEFAULT_K_VALUES
     returns = stock_prices.pct_change(fill_method=None)
@@ -112,13 +114,16 @@ def tracking_frontier(
         active_oos: list[pd.Series] = []
         bench_oos: list[pd.Series] = []
         churns: list[float] = []
-        max_ws: list[float] = []
+        window_max_weights: list[float] = []
         prev_support: set[str] | None = None
 
         for lo in starts:
             train = returns.iloc[lo - train_days:lo]
             eligible = train.columns[train.notna().all()]
             if len(eligible) <= k:
+                # No fit this window — reset so churn never compares this
+                # window's (nonexistent) support against a non-adjacent one.
+                prev_support = None
                 continue
             X = train[eligible].to_numpy()
             y = bench_rets.iloc[lo - train_days:lo].to_numpy()
@@ -144,7 +149,7 @@ def tracking_frontier(
                     / (2 * max(len(support), 1))
                 )
             prev_support = support
-            max_ws.append(float(weights.max()))
+            window_max_weights.append(float(weights.max()))
 
             test = returns.iloc[lo:lo + test_days]
             port = (test[eligible].fillna(0.0) @ weights.values)
@@ -164,7 +169,7 @@ def tracking_frontier(
             "replication_r2_oos": round(max(0.0, 1 - (te / sigma) ** 2), 4)
             if sigma > 0 else 0.0,
             "mean_monthly_churn": round(float(np.mean(churns)), 4) if churns else 0.0,
-            "max_weight": round(float(np.mean(max_ws)), 4),
+            "mean_max_weight": round(float(np.mean(window_max_weights)), 4),
             "n_windows": len(active_oos),
         })
 

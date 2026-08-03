@@ -236,7 +236,8 @@ export interface FrontierPoint {
   teOos: number;
   replicationR2Oos: number;
   meanMonthlyChurn: number;
-  maxWeight: number;
+  /** Mean, across windows, of each window's single largest weight — not a max across windows. */
+  meanMaxWeight: number;
   nWindows: number;
 }
 

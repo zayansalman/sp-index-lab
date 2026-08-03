@@ -286,7 +286,7 @@ function transformTrackingFrontier(raw: any): TrackingFrontier | undefined {
       teOos: r.te_oos,
       replicationR2Oos: r.replication_r2_oos,
       meanMonthlyChurn: r.mean_monthly_churn,
-      maxWeight: r.max_weight,
+      meanMaxWeight: r.mean_max_weight,
       nWindows: r.n_windows,
     })),
   };

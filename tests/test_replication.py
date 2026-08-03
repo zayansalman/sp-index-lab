@@ -41,9 +41,9 @@ def test_l1_penalty_is_inert_under_simplex_constraints():
     L1 norm is identically 1, so the penalty cannot change the argmin.
     An earlier real-data probe with an independent implementation measured
     max weight change ~7e-4 across λ ∈ [0, 100]; in this module the penalty
-    reduces to a constant, so solutions match to ~1e-12 (solver precision),
-    which this test asserts. LASSO-for-sparsity can never be reintroduced
-    here by assertion."""
+    reduces to a constant, so solutions are identical up to solver
+    tolerance — this test bounds the difference at 1e-3. LASSO-for-sparsity
+    can never be reintroduced here by assertion."""
     X, y = _tracking_problem()
     w0 = solve_simplex_ls(X, y, l1_penalty=0.0)
     w100 = solve_simplex_ls(X, y, l1_penalty=100.0)

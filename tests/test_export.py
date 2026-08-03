@@ -254,7 +254,7 @@ def test_variance_decomposition_carries_tracking_frontier(
         "method": "simplex_ls_topk_walkforward",
         "train_days": 252, "test_days": 21,
         "frontier": [{"k": 20, "te_oos": 0.033, "replication_r2_oos": 0.964,
-                      "mean_monthly_churn": 0.2, "max_weight": 0.1,
+                      "mean_monthly_churn": 0.2, "mean_max_weight": 0.1,
                       "n_windows": 100}],
         "n_fallback_windows": 0,
     }

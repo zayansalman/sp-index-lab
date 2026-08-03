@@ -1252,27 +1252,49 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     logger.info("Computing investable replication quality...")
-    replication = rolling_replication_quality(
-        stock_prices, benchmark_display,
-        universe_fn=universe_fn, start=inception,
-    )
+    try:
+        replication = rolling_replication_quality(
+            stock_prices, benchmark_display,
+            universe_fn=universe_fn, start=inception,
+        )
+    except Exception:
+        # Mirrors the alpha-NAV load guard above: one bad window must not
+        # kill the other seven pre-existing export files. Log loud, degrade
+        # to None (export_variance_decomposition already treats it as
+        # optional), keep going so the job still exits 0.
+        logger.exception(
+            "Failed to compute investable replication quality — "
+            "shipping variance_decomposition.json WITHOUT the replication block."
+        )
+        replication = None
 
     logger.info("Computing simplex-LS tracking frontier...")
-    start_frontier = time.time()
-    frontier = tracking_frontier_fn(stock_prices, benchmark_display)
-    elapsed_frontier = time.time() - start_frontier
-    logger.info(
-        "Tracking frontier computed in %.1f seconds (k_values: %s)",
-        elapsed_frontier,
-        [f["k"] for f in frontier.get("frontier", [])],
-    )
-    if elapsed_frontier > 300:  # 5 minutes
-        logger.warning(
-            "Frontier computation exceeded 5 minutes (%.1f s). "
-            "On the real panel, consider limiting k_values to [10, 15, 20, 30] "
-            "to speed up subsequent runs.",
+    frontier = None
+    try:
+        start_frontier = time.time()
+        frontier = tracking_frontier_fn(stock_prices, benchmark_display)
+        elapsed_frontier = time.time() - start_frontier
+        logger.info(
+            "Tracking frontier computed in %.1f seconds (k_values: %s)",
             elapsed_frontier,
+            [f["k"] for f in frontier.get("frontier", [])],
         )
+        if elapsed_frontier > 300:  # 5 minutes
+            logger.warning(
+                "Frontier computation exceeded 5 minutes (%.1f s). "
+                "On the real panel, consider limiting k_values to [10, 15, 20, 30] "
+                "to speed up subsequent runs.",
+                elapsed_frontier,
+            )
+    except Exception:
+        # ~900 SLSQP solves in this block — one unexpected failure must not
+        # take down the whole daily export either. Same degrade-and-continue
+        # pattern as the replication guard above.
+        logger.exception(
+            "Failed to compute simplex-LS tracking frontier — "
+            "shipping variance_decomposition.json WITHOUT the tracking_frontier block."
+        )
+        frontier = None
 
     # Gross/turnover extras per strategy (net NAVs are canonical)
     extras: dict[str, dict[str, Any]] = {
