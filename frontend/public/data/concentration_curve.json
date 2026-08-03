@@ -140,15 +140,15 @@
     },
     {
       "n_stocks": 24,
-      "ticker_added": "BAC",
-      "r_squared": 0.891872,
-      "marginal_r_squared": 0.003671
+      "ticker_added": "KO",
+      "r_squared": 0.88833,
+      "marginal_r_squared": 0.000129
     },
     {
       "n_stocks": 25,
-      "ticker_added": "KO",
+      "ticker_added": "BAC",
       "r_squared": 0.892024,
-      "marginal_r_squared": 0.000151
+      "marginal_r_squared": 0.003693
     },
     {
       "n_stocks": 26,
@@ -224,15 +224,15 @@
     },
     {
       "n_stocks": 38,
-      "ticker_added": "MS",
-      "r_squared": 0.926755,
-      "marginal_r_squared": 0.007968
+      "ticker_added": "NOW",
+      "r_squared": 0.919222,
+      "marginal_r_squared": 0.000435
     },
     {
       "n_stocks": 39,
-      "ticker_added": "NOW",
+      "ticker_added": "MS",
       "r_squared": 0.927121,
-      "marginal_r_squared": 0.000366
+      "marginal_r_squared": 0.007899
     },
     {
       "n_stocks": 40,
@@ -254,27 +254,27 @@
     },
     {
       "n_stocks": 43,
-      "ticker_added": "T",
-      "r_squared": 0.933911,
-      "marginal_r_squared": 5.8e-05
+      "ticker_added": "AMD",
+      "r_squared": 0.946082,
+      "marginal_r_squared": 0.012229
     },
     {
       "n_stocks": 44,
-      "ticker_added": "AMD",
+      "ticker_added": "T",
       "r_squared": 0.946279,
-      "marginal_r_squared": 0.012368
+      "marginal_r_squared": 0.000197
     },
     {
       "n_stocks": 45,
-      "ticker_added": "DIS",
-      "r_squared": 0.947533,
-      "marginal_r_squared": 0.001254
+      "ticker_added": "ISRG",
+      "r_squared": 0.946783,
+      "marginal_r_squared": 0.000504
     },
     {
       "n_stocks": 46,
-      "ticker_added": "ISRG",
+      "ticker_added": "DIS",
       "r_squared": 0.947825,
-      "marginal_r_squared": 0.000292
+      "marginal_r_squared": 0.001042
     },
     {
       "n_stocks": 47,
@@ -301,7 +301,7 @@
       "marginal_r_squared": 0.000824
     }
   ],
-  "r_squared_at_20": 0.952498,
+  "r_squared_at_20": 0.952373,
   "r_squared_at_20_latest": 0.858798,
   "r_squared_windows": [
     {
@@ -312,7 +312,7 @@
     {
       "window_start": "2014-02-04",
       "window_end": "2015-02-03",
-      "r_squared_at_20": 0.940721
+      "r_squared_at_20": 0.939047
     },
     {
       "window_start": "2014-03-06",
@@ -482,12 +482,12 @@
     {
       "window_start": "2016-12-02",
       "window_end": "2017-12-01",
-      "r_squared_at_20": 0.879137
+      "r_squared_at_20": 0.872738
     },
     {
       "window_start": "2017-01-04",
       "window_end": "2018-01-03",
-      "r_squared_at_20": 0.876166
+      "r_squared_at_20": 0.872937
     },
     {
       "window_start": "2017-02-03",
@@ -562,12 +562,12 @@
     {
       "window_start": "2018-04-06",
       "window_end": "2019-04-05",
-      "r_squared_at_20": 0.968047
+      "r_squared_at_20": 0.964404
     },
     {
       "window_start": "2018-05-07",
       "window_end": "2019-05-07",
-      "r_squared_at_20": 0.963484
+      "r_squared_at_20": 0.960194
     },
     {
       "window_start": "2018-06-06",
@@ -617,7 +617,7 @@
     {
       "window_start": "2019-03-08",
       "window_end": "2020-03-06",
-      "r_squared_at_20": 0.970856
+      "r_squared_at_20": 0.970246
     },
     {
       "window_start": "2019-04-08",
@@ -627,7 +627,7 @@
     {
       "window_start": "2019-05-08",
       "window_end": "2020-05-06",
-      "r_squared_at_20": 0.98589
+      "r_squared_at_20": 0.985143
     },
     {
       "window_start": "2019-06-07",
@@ -667,7 +667,7 @@
     {
       "window_start": "2020-01-07",
       "window_end": "2021-01-05",
-      "r_squared_at_20": 0.980235
+      "r_squared_at_20": 0.981245
     },
     {
       "window_start": "2020-02-06",
@@ -682,7 +682,7 @@
     {
       "window_start": "2020-04-07",
       "window_end": "2021-04-07",
-      "r_squared_at_20": 0.958361
+      "r_squared_at_20": 0.959795
     },
     {
       "window_start": "2020-05-07",
@@ -702,7 +702,7 @@
     {
       "window_start": "2020-08-06",
       "window_end": "2021-08-05",
-      "r_squared_at_20": 0.948805
+      "r_squared_at_20": 0.947979
     },
     {
       "window_start": "2020-09-04",
@@ -767,7 +767,7 @@
     {
       "window_start": "2021-09-07",
       "window_end": "2022-09-06",
-      "r_squared_at_20": 0.971816
+      "r_squared_at_20": 0.972338
     },
     {
       "window_start": "2021-10-06",
