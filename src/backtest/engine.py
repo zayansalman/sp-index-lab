@@ -29,6 +29,8 @@ class WalkForwardResult:
     ``costs`` are indexed by trade date (each test-window start).
     ``fallback_dates`` lists the train-window ends where the optimizer
     fell back to equal weights (flagged via ``weights.attrs['fallback']``).
+    ``n_selected`` is the per-rebalance holding count for strategies that
+    stamp ``weights.attrs['n_selected']``; empty otherwise.
     """
 
     nav: pd.Series
@@ -37,6 +39,7 @@ class WalkForwardResult:
     costs: pd.Series
     splits: list[WalkForwardSplit]
     fallback_dates: list[pd.Timestamp] = field(default_factory=list)
+    n_selected: pd.Series = field(default_factory=lambda: pd.Series(dtype=int))
 
     @property
     def fallback_rate(self) -> float:
@@ -155,6 +158,7 @@ def walk_forward_backtest(
 
     rebalance_targets: dict[pd.Timestamp, pd.Series] = {}
     fallback_dates: list[pd.Timestamp] = []
+    n_selected_map: dict[pd.Timestamp, int] = {}
     for s in splits:
         train_prices = prices.loc[s.train_start : s.train_end]
 
@@ -172,6 +176,8 @@ def walk_forward_backtest(
         w = weights_fn(train_prices, train_bench)
         if bool(w.attrs.get("fallback", False)):
             fallback_dates.append(s.train_end)
+        if (n_sel := w.attrs.get("n_selected")) is not None:
+            n_selected_map[s.train_end] = int(n_sel)
         w = w[w != 0.0].dropna()
         total = float(w.sum())
         if total == 0.0:
@@ -201,5 +207,6 @@ def walk_forward_backtest(
         costs=sim.loc[trade_days, "cost"],
         splits=splits,
         fallback_dates=fallback_dates,
+        n_selected=pd.Series(n_selected_map, dtype=int),
     )
 

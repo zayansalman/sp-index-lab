@@ -15,6 +15,11 @@ import type {
   ConcentrationCurveData,
   ConcentrationPoint,
   VarianceDecompositionPoint,
+  VarianceDecompositionData,
+  ReplicationQuality,
+  TrackingFrontier,
+  AlphaNSeries,
+  UniverseRotation,
   PerformanceNavData,
   PerformanceNavPoint,
   ActiveReturnStats,
@@ -60,6 +65,8 @@ const DATA_FILES = {
   drawdown: "/data/drawdowns.json",
   deviation: "/data/daily_deviations.json",
   strategyHoldings: "/data/strategy_holdings.json",
+  alphaNSeries: "/data/alpha_n_series.json",
+  universeRotation: "/data/universe_rotation.json",
 } as const;
 
 type DataKey = keyof typeof DATA_FILES;
@@ -235,23 +242,125 @@ function transformConcentrationCurve(
   };
 }
 
+/**
+ * Investable-replication ladder + per-N tracking rows (variance_decomposition.json
+ * -> replication). Absent on data bundles exported before this block existed.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformVarianceDecomposition(raw: any): VarianceDecompositionPoint[] {
-  // JSON has { decomposition: [{ n_stocks, r_squared, adj_r_squared }] }
-  // TypeScript expects per-stock variance data. We adapt to a compatible shape.
-  const items = raw.decomposition || raw || [];
-  if (!Array.isArray(items)) return [];
+function transformReplication(raw: any): ReplicationQuality | undefined {
+  if (!raw?.by_n) return undefined;
+  return {
+    ladder: {
+      olsCeiling: raw.ladder?.ols_ceiling,
+      investableCap: raw.ladder?.investable_cap,
+      investableEqual: raw.ladder?.investable_equal,
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    byN: raw.by_n.map((r: any) => ({
+      n: r.n,
+      weighting: r.weighting,
+      trackingError: r.tracking_error,
+      replicationR2: r.replication_r2,
+      teMin: r.te_min,
+      teMax: r.te_max,
+      nWindows: r.n_windows,
+    })),
+    method: raw.method,
+    windowDays: raw.window_days,
+    stepDays: raw.step_days,
+  };
+}
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return items.map((d: any) => ({
-    ticker: d.ticker ?? `Top ${d.n_stocks ?? 0}`,
-    name: d.name ?? `Top ${d.n_stocks ?? 0} stocks`,
-    varianceExplained: d.variance_explained ?? d.r_squared ?? 0,
-    cumulativeVariance: d.cumulative_variance ?? d.r_squared ?? 0,
-    correlation: d.correlation ?? 0,
-    beta: d.beta ?? 0,
-    sector: d.sector ?? "",
-  }));
+/**
+ * Out-of-sample cardinality-vs-tracking-error frontier (variance_decomposition.json
+ * -> tracking_frontier). Absent on data bundles exported before this block existed.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformTrackingFrontier(raw: any): TrackingFrontier | undefined {
+  if (!raw?.frontier) return undefined;
+  return {
+    nFallbackWindows: raw.n_fallback_windows ?? 0,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    frontier: raw.frontier.map((r: any) => ({
+      k: r.k,
+      teOos: r.te_oos,
+      replicationR2Oos: r.replication_r2_oos,
+      meanMonthlyChurn: r.mean_monthly_churn,
+      meanMaxWeight: r.mean_max_weight,
+      nWindows: r.n_windows,
+    })),
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformVarianceDecomposition(raw: any): VarianceDecompositionData {
+  // JSON has { decomposition: [{ n_stocks, r_squared, adj_r_squared }], replication?, tracking_frontier? }
+  // TypeScript expects per-stock variance data for `points`. We adapt to a compatible shape.
+  const items = raw.decomposition || raw || [];
+  const points: VarianceDecompositionPoint[] = Array.isArray(items)
+    ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      items.map((d: any) => ({
+        ticker: d.ticker ?? `Top ${d.n_stocks ?? 0}`,
+        name: d.name ?? `Top ${d.n_stocks ?? 0} stocks`,
+        varianceExplained: d.variance_explained ?? d.r_squared ?? 0,
+        cumulativeVariance: d.cumulative_variance ?? d.r_squared ?? 0,
+        correlation: d.correlation ?? 0,
+        beta: d.beta ?? 0,
+        sector: d.sector ?? "",
+      }))
+    : [];
+
+  return {
+    points,
+    replication: transformReplication(raw.replication),
+    trackingFrontier: transformTrackingFrontier(raw.tracking_frontier),
+  };
+}
+
+/**
+ * The strategy's actual solved-N history (alpha_n_series.json). Absent when
+ * the walk-forward alpha backtest hasn't been run locally.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformAlphaNSeries(raw: any): AlphaNSeries | undefined {
+  if (!raw?.series) return undefined;
+  return {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    series: raw.series.map((s: any) => ({ date: s.date ?? "", n: s.n ?? 0 })),
+    mean: raw.mean ?? 0,
+    median: raw.median ?? 0,
+    min: raw.min ?? 0,
+    max: raw.max ?? 0,
+    floor: raw.floor ?? 0,
+    cap: raw.cap ?? 0,
+    shareAtFloor: raw.share_at_floor ?? 0,
+    distribution: raw.distribution ?? {},
+  };
+}
+
+/**
+ * Point-in-time universe membership rotation (universe_rotation.json).
+ * Absent on data bundles exported before this block existed.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformUniverseRotation(raw: any): UniverseRotation | undefined {
+  if (!raw?.summary) return undefined;
+  return {
+    summary: {
+      nRebalances: raw.summary.n_rebalances ?? 0,
+      distinctTickers: raw.summary.distinct_tickers ?? 0,
+      entries: raw.summary.entries ?? 0,
+      exits: raw.summary.exits ?? 0,
+      avgNamesReplacedPerYear: raw.summary.avg_names_replaced_per_year ?? null,
+      neverLeft: raw.summary.never_left ?? [],
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    events: (raw.events ?? []).map((e: any) => ({
+      date: e.date ?? "",
+      entered: e.entered ?? [],
+      exited: e.exited ?? [],
+    })),
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -485,6 +594,8 @@ export function useLabData(): UseLabDataReturn {
         rawDrawdown,
         rawDeviation,
         rawStrategyHoldings,
+        rawAlphaNSeries,
+        rawUniverseRotation,
       ] = await Promise.all([
         fetchJSON(DATA_FILES.meta),
         fetchJSON(DATA_FILES.concentrationCurve),
@@ -495,22 +606,37 @@ export function useLabData(): UseLabDataReturn {
         fetchJSON(DATA_FILES.drawdown),
         fetchJSON(DATA_FILES.deviation),
         fetchJSON(DATA_FILES.strategyHoldings).catch(() => null),
+        fetchJSON(DATA_FILES.alphaNSeries).catch(() => null),
+        fetchJSON(DATA_FILES.universeRotation).catch(() => null),
       ]);
 
       // Transform snake_case JSON → camelCase TypeScript types
+      const varianceDecomposition = transformVarianceDecomposition(rawVarianceDecomp);
+      if (
+        process.env.NODE_ENV !== "production" &&
+        rawVarianceDecomp?.replication &&
+        !varianceDecomposition.replication
+      ) {
+        console.warn(
+          "useLabData: replication block present in JSON but dropped by transform",
+        );
+      }
+
       setData({
         meta: transformMeta(rawMeta),
         concentrationCurve: transformConcentrationCurve(
           rawConcentration,
           rawVarianceDecomp,
         ),
-        varianceDecomposition: transformVarianceDecomposition(rawVarianceDecomp),
+        varianceDecomposition,
         performanceNav: transformPerformanceNav(rawPerformanceNav),
         performanceNavBundle: transformPerformanceNavBundle(rawPerformanceNav),
         performanceMetrics: transformPerformanceMetrics(rawPerformanceMetrics),
         holdings: transformHoldings(rawHoldings, rawStrategyHoldings),
         drawdown: transformDrawdown(rawDrawdown),
         deviation: transformDeviation(rawDeviation),
+        alphaNSeries: transformAlphaNSeries(rawAlphaNSeries),
+        universeRotation: transformUniverseRotation(rawUniverseRotation),
       });
     } catch (err) {
       const message =

@@ -37,10 +37,11 @@ const DEFAULT_SECTIONS: ThinkingSection[] = [
     content:
       "The S&P 500 is marketed as diversification across 500 companies, but regressing the index's daily " +
       "returns on its largest constituents shows that roughly 20 stocks explain the overwhelming majority " +
-      "of its variance. The concentration curve shows a clear 'elbow' around 18-20 stocks, where each " +
-      "additional stock stops adding meaningful explanatory power. The selection is point-in-time: each " +
-      "rolling window uses the stocks that were actually the largest at that moment, not today's winners " +
-      "projected backwards.",
+      "of its variance. Twenty is a reporting convention for that fixed-count read, though, not a " +
+      "discovered answer: the strategy's own live stopping rule almost always settles on noticeably fewer " +
+      "names, and spends a large share of rebalances pinned to its floor. The selection is point-in-time: " +
+      "each rolling window uses the stocks that were actually the largest at that moment, not today's " +
+      "winners projected backwards.",
   },
   {
     title: "Why The Baselines Stay",

@@ -26,7 +26,7 @@ from src.backtest.metrics import (
 from src.backtest.metrics import (
     compute_tracking_error as _compute_tracking_error,
 )
-from src.config import MIRROR_REBALANCE_FREQ
+from src.config import MIRROR_REBALANCE_FREQ, TRADING_DAYS_PER_YEAR
 from src.data.universe import (
     load_ranking_prices,
     load_shares_outstanding,
@@ -36,6 +36,9 @@ from src.data.universe import (
 logger = logging.getLogger(__name__)
 
 RankingFn = Callable[[pd.Timestamp], "list[str]"]
+
+# Default top-N values for concentration analysis
+DEFAULT_TOP_N_VALUES = [5, 10, 15, 20, 25, 30, 40, 50]
 
 
 def variance_decomposition(
@@ -177,7 +180,7 @@ def rolling_concentration(
         r_squared.
     """
     if top_n_values is None:
-        top_n_values = [5, 10, 15, 20, 25, 30, 40, 50]
+        top_n_values = DEFAULT_TOP_N_VALUES
 
     common_idx = stock_returns.index.intersection(benchmark_returns.index)
     X_all = stock_returns.loc[common_idx]
@@ -312,6 +315,95 @@ def build_mirror_index(
         "turnover": sim["turnover"].values,
         "cost": sim["cost"].values,
     })
+
+
+def rolling_replication_quality(
+    stock_prices: pd.DataFrame,
+    benchmark: pd.Series,
+    *,
+    universe_fn: RankingFn,
+    top_n_values: list[int] | None = None,
+    weightings: list[str] | None = None,
+    window_days: int = 252,
+    step_days: int = 21,
+    start: pd.Timestamp | str | None = None,
+    shares: pd.Series | None = None,
+    ranking_prices: pd.DataFrame | None = None,
+) -> dict:
+    """Tracking quality of INVESTABLE top-N baskets, per rolling window.
+
+    The OLS numbers from ``rolling_concentration`` are an explanatory
+    ceiling: hindsight-fitted, sign-unconstrained coefficients no portfolio
+    can hold. This measures what an implementable basket — the exact
+    construction ``build_mirror_index`` trades, net of costs — actually
+    achieves: annualised tracking error vs the benchmark and the
+    replication R² it implies (1 − TE²/σ²_index), window by window.
+
+    Returns a JSON-ready dict:
+        {"method", "window_days", "step_days",
+         "ladder": {"investable_cap": float, "investable_equal": float},
+         "by_n": [{"n", "weighting", "tracking_error", "replication_r2",
+                   "te_min", "te_max", "n_windows"}]}
+    ``ladder`` holds the N=20 replication R² per weighting (the headline
+    companions to the OLS ceiling); ``by_n`` covers the full grid.
+    """
+    top_n_values = top_n_values or DEFAULT_TOP_N_VALUES
+    weightings = weightings or ["cap", "equal"]
+
+    bench_rets = benchmark.pct_change().dropna()
+    by_n: list[dict] = []
+    ladder: dict[str, float] = {}
+
+    for weighting in weightings:
+        for n in top_n_values:
+            mirror = build_mirror_index(
+                stock_prices, top_n=n, weighting=weighting,
+                universe_fn=universe_fn, start=start,
+                shares=shares, ranking_prices=ranking_prices,
+            )
+            nav = pd.Series(
+                mirror["nav"].values,
+                index=pd.to_datetime(mirror["date"]),
+            )
+            active = (nav.pct_change() - bench_rets).dropna()
+            if len(active) < window_days:
+                logger.warning(
+                    "replication_quality: %s N=%d has %d obs < window %d — skipped",
+                    weighting, n, len(active), window_days,
+                )
+                continue
+
+            te_windows: list[float] = []
+            r2_windows: list[float] = []
+            for lo in range(0, len(active) - window_days + 1, step_days):
+                chunk = active.iloc[lo:lo + window_days]
+                bench_chunk = bench_rets.loc[chunk.index]
+                te = float(chunk.std() * np.sqrt(TRADING_DAYS_PER_YEAR))
+                sigma = float(bench_chunk.std() * np.sqrt(TRADING_DAYS_PER_YEAR))
+                te_windows.append(te)
+                r2_windows.append(max(0.0, 1.0 - (te / sigma) ** 2) if sigma > 0 else 0.0)
+
+            replication_r2_val: float = round(float(np.mean(r2_windows)), 4)
+            row = {
+                "n": n,
+                "weighting": weighting,
+                "tracking_error": round(float(np.mean(te_windows)), 4),
+                "replication_r2": replication_r2_val,
+                "te_min": round(float(np.min(te_windows)), 4),
+                "te_max": round(float(np.max(te_windows)), 4),
+                "n_windows": len(te_windows),
+            }
+            by_n.append(row)
+            if n == 20:
+                ladder[f"investable_{weighting}"] = replication_r2_val
+
+    return {
+        "method": "pit_investable_baskets_rolling",
+        "window_days": window_days,
+        "step_days": step_days,
+        "ladder": ladder,
+        "by_n": by_n,
+    }
 
 
 def compute_tracking_error(

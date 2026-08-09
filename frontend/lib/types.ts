@@ -198,6 +198,107 @@ export interface VarianceDecompositionPoint {
   sector: string;
 }
 
+/** Tracking quality of an investable top-N basket (mean across windows). */
+export interface ReplicationRow {
+  n: number;
+  weighting: "cap" | "equal";
+  trackingError: number;
+  replicationR2: number;
+  teMin: number;
+  teMax: number;
+  nWindows: number;
+}
+
+/** The R² ladder: hindsight ceiling vs what an implementable basket achieves. */
+export interface ReplicationLadder {
+  olsCeiling?: number;
+  investableCap?: number;
+  investableEqual?: number;
+}
+
+/**
+ * Mean tracking quality of investable top-N baskets vs the hindsight OLS
+ * ceiling. Answers "what R² does a basket you could actually hold achieve?"
+ * — as opposed to `rSquaredAt20`, which is the unconstrained-hindsight figure.
+ */
+export interface ReplicationQuality {
+  ladder: ReplicationLadder;
+  byN: ReplicationRow[];
+  /** Export provenance */
+  method?: string;
+  windowDays?: number;
+  stepDays?: number;
+}
+
+/** One point of the cardinality-vs-tracking frontier (out of sample). */
+export interface FrontierPoint {
+  k: number;
+  teOos: number;
+  replicationR2Oos: number;
+  meanMonthlyChurn: number;
+  /** Mean, across windows, of each window's single largest weight — not a max across windows. */
+  meanMaxWeight: number;
+  nWindows: number;
+}
+
+/** Out-of-sample cardinality-vs-tracking-error frontier (walk-forward trained/tested). */
+export interface TrackingFrontier {
+  frontier: FrontierPoint[];
+  nFallbackWindows: number;
+}
+
+/**
+ * Full `variance_decomposition.json` payload: the per-N points plus the
+ * (optional) investable-replication ladder and OOS tracking frontier.
+ * `replication`/`trackingFrontier` are absent on data bundles exported
+ * before this block existed — both are optional so the page degrades
+ * gracefully rather than throwing.
+ */
+export interface VarianceDecompositionData {
+  points: VarianceDecompositionPoint[];
+  replication?: ReplicationQuality;
+  trackingFrontier?: TrackingFrontier;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Solved-N Series
+   Source: /data/alpha_n_series.json
+   The N-rule's actual selections across rebalances — what the strategy
+   held, not the fixed-N=20 reporting convention used elsewhere.
+   ────────────────────────────────────────────────────────────── */
+
+/** The solved-N series — what the strategy's N-rule actually held. */
+export interface AlphaNSeries {
+  series: { date: string; n: number }[];
+  mean: number;
+  median: number;
+  min: number;
+  max: number;
+  floor: number;
+  cap: number;
+  shareAtFloor: number;
+  /** Count of rebalances at each N, keyed by N as a string (e.g. {"10": 49}) */
+  distribution: Record<string, number>;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Universe Rotation
+   Source: /data/universe_rotation.json
+   ────────────────────────────────────────────────────────────── */
+
+/** Membership rotation of the point-in-time universe this project trades. */
+export interface UniverseRotation {
+  summary: {
+    nRebalances: number;
+    distinctTickers: number;
+    entries: number;
+    exits: number;
+    avgNamesReplacedPerYear: number | null;
+    neverLeft: string[];
+  };
+  events: { date: string; entered: string[]; exited: string[] }[];
+}
+
 /* ──────────────────────────────────────────────────────────────
    Performance -- NAV Time Series
    Source: /data/performance_nav.json
@@ -415,7 +516,7 @@ export interface DeviationData {
 export interface LabData {
   meta: MetaData;
   concentrationCurve: ConcentrationCurveData;
-  varianceDecomposition: VarianceDecompositionPoint[];
+  varianceDecomposition: VarianceDecompositionData;
   /** Backward-compat weekly series (default chart data) */
   performanceNav: PerformanceNavData;
   /** Both granularities for time-range switching */
@@ -424,4 +525,8 @@ export interface LabData {
   holdings: HoldingsData;
   drawdown: DrawdownData;
   deviation: DeviationData;
+  /** The strategy's actual solved-N history (absent on older data bundles) */
+  alphaNSeries?: AlphaNSeries;
+  /** Point-in-time universe membership rotation (absent on older data bundles) */
+  universeRotation?: UniverseRotation;
 }

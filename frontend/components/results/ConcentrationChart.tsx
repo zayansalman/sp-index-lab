@@ -29,6 +29,10 @@ const ACCENT = chartTheme.accent;
 
 interface ConcentrationChartProps {
   data: ConcentrationPoint[];
+  /** The strategy's actual solved-N median (alphaNSeries.median). Renders a
+   *  second reference line alongside the fixed N=20 reporting convention;
+   *  omitted entirely when absent (older data bundles, or pre-cron-refresh). */
+  solvedMedianN?: number;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -77,7 +81,10 @@ const CustomTooltip: React.FC<{
    Component
    ────────────────────────────────────────────────────────────── */
 
-const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
+const ConcentrationChart: React.FC<ConcentrationChartProps> = ({
+  data,
+  solvedMedianN,
+}) => {
   const rSquaredAtTwenty = data.find((p) => p.n === 20)?.rSquared;
   // Transform data for recharts (rSquared as percentage for display)
   const chartData = data.map((point) => ({
@@ -113,6 +120,16 @@ const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
 
           <XAxis
             dataKey="n"
+            // Numeric, not categorical: the sampled N values (5, 10, 15, 20,
+            // 25, 30, 40, 50) are unevenly spaced, and a category scale draws
+            // them at uniform intervals regardless. That also means a
+            // ReferenceLine can only land on an *exact* category value — a
+            // solver median like 11 would silently fail to render (no match,
+            // no error). A numeric scale positions any x by interpolation and
+            // draws the curve's true (decelerating) shape.
+            type="number"
+            domain={["dataMin", "dataMax"]}
+            ticks={data.map((p) => p.n)}
             tick={chartTheme.axis.tick}
             axisLine={{ stroke: chartTheme.axis.stroke }}
             tickLine={{ stroke: chartTheme.axis.tickStroke }}
@@ -168,6 +185,23 @@ const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
               fontSize: 10,
             }}
           />
+
+          {/* Solver-median reference line — what the strategy's N-rule
+              actually holds, as distinct from the N=20 reporting convention
+              above. Absent on data bundles without alphaNSeries. */}
+          {solvedMedianN !== undefined && (
+            <ReferenceLine
+              x={solvedMedianN}
+              stroke={chartTheme.referenceLine.stroke}
+              strokeDasharray="6 4"
+              label={{
+                value: `N=${solvedMedianN} · solver median`,
+                position: "top",
+                fill: chartTheme.axis.tick.fill,
+                fontSize: 10,
+              }}
+            />
+          )}
 
           <RechartsTooltip content={<CustomTooltip />} />
 

@@ -158,4 +158,5 @@ PARQUET_FILES = {
     "rebalance_log": DATA_DIR / "rebalance_log.parquet",
     "backtest_results": DATA_DIR / "backtest_results.parquet",
     "proof_stats": DATA_DIR / "proof_stats.parquet",
+    "alpha_n_series": DATA_DIR / "alpha_n_series.parquet",
 }

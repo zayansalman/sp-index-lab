@@ -370,6 +370,11 @@ def make_dynamic_alpha_weights_fn(
             raise ValueError("Weighting engine produced no positive weights.")
         base = base / base.sum()
 
-        return overlay_fn(base, equity, train_bench)
+        out = overlay_fn(base, equity, train_bench)
+        # Stamped AFTER the overlay: pd.concat inside the cash overlay does
+        # not propagate .attrs, so stamping `base` earlier would silently
+        # drop the value on every overlay path.
+        out.attrs["n_selected"] = int(n_t)
+        return out
 
     return weights_fn
