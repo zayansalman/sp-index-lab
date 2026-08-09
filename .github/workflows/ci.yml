@@ -55,6 +55,21 @@ jobs:
         working-directory: frontend
         run: npm ci
 
+      # Colour must come from design tokens, never from arbitrary Tailwind
+      # values. Raw hexes cannot be re-themed, which is why the dark palette
+      # was unpickable from the components. The count is zero — keep it there.
+      # Chart colours live in lib/chartTheme.ts because Recharts holds them
+      # in props that Tailwind cannot reach.
+      - name: Check for hardcoded colour literals
+        working-directory: frontend
+        run: |
+          if grep -rn --include='*.tsx' -E '(border|bg|text|fill|stroke|from|to|via)-\[#' \
+               app components lib hooks; then
+            echo "::error::Hardcoded colour literals found — use design tokens (app/globals.css) or lib/chartTheme.ts."
+            exit 1
+          fi
+          echo "No hardcoded colour literals found."
+
       - name: Lint
         working-directory: frontend
         run: npm run lint

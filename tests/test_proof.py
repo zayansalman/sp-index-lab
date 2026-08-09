@@ -8,6 +8,7 @@ from src.proof.concentration import (
     build_mirror_index,
     concentration_curve,
     rolling_concentration,
+    rolling_replication_quality,
     variance_decomposition,
 )
 
@@ -214,3 +215,75 @@ def test_mirror_index_rejects_unknown_weighting() -> None:
     prices = pd.DataFrame({"AAA": np.full(len(idx), 1.0)}, index=idx)
     with pytest.raises(ValueError, match="Unknown weighting"):
         build_mirror_index(prices, weighting="momentum", universe_fn=lambda t: ["AAA"])
+
+
+# ──────────────────────────────────────────────
+# Replication quality
+# ──────────────────────────────────────────────
+
+
+def _synth_panel(n_days=800, n_stocks=30, seed=7):
+    rng = np.random.default_rng(seed)
+    dates = pd.bdate_range("2020-01-01", periods=n_days)
+    market = rng.normal(0.0004, 0.01, n_days)
+    prices = {}
+    for i in range(n_stocks):
+        beta = 0.8 + 0.4 * rng.random()
+        idio = rng.normal(0, 0.008, n_days)
+        prices[f"S{i:02d}"] = 100 * np.cumprod(1 + beta * market + idio)
+    panel = pd.DataFrame(prices, index=dates)
+    bench = pd.Series(1000 * np.cumprod(1 + market), index=dates, name="bench")
+    return panel, bench
+
+
+def test_replication_quality_shape_and_ceiling():
+    panel, bench = _synth_panel()
+
+    def universe_fn(as_of: pd.Timestamp) -> list[str]:
+        hist = panel.loc[panel.index <= as_of]
+        return list(hist.tail(63).mean().nlargest(50).index)
+
+    # Provide synthetic shares for cap weighting test
+    shares = pd.Series({col: 1.0 for col in panel.columns})
+
+    out = rolling_replication_quality(
+        panel, bench, universe_fn=universe_fn,
+        top_n_values=[10, 20], weightings=["cap", "equal"],
+        shares=shares, ranking_prices=panel,
+    )
+    assert set(out) == {"method", "window_days", "step_days", "ladder", "by_n"}
+    keys = {(r["n"], r["weighting"]) for r in out["by_n"]}
+    assert keys == {(10, "cap"), (10, "equal"), (20, "cap"), (20, "equal")}
+    for row in out["by_n"]:
+        # replication R² is a fraction; TE annualised and positive
+        assert 0.0 < row["replication_r2"] <= 1.0
+        assert row["tracking_error"] > 0.0
+        assert row["te_min"] <= row["tracking_error"] <= row["te_max"]
+    # more names must not track worse on this clean synthetic panel
+    r10 = next(r for r in out["by_n"] if r["n"] == 10 and r["weighting"] == "cap")
+    r20 = next(r for r in out["by_n"] if r["n"] == 20 and r["weighting"] == "cap")
+    assert r20["tracking_error"] <= r10["tracking_error"] + 0.02
+
+
+def test_replication_ladder_below_ols_ceiling():
+    """Investable replication R² can never beat hindsight OLS R² (D2)."""
+    panel, bench = _synth_panel()
+    rets = panel.pct_change().dropna()
+    bench_rets = bench.pct_change().dropna()
+
+    def universe_fn(as_of: pd.Timestamp) -> list[str]:
+        hist = panel.loc[panel.index <= as_of]
+        return list(hist.tail(63).mean().nlargest(50).index)
+
+    roll = rolling_concentration(rets, bench_rets, universe_fn,
+                                 top_n_values=[20])
+    ols_r2 = roll[roll["n_stocks"] == 20]["r_squared"].mean()
+
+    shares = pd.Series({col: 1.0 for col in panel.columns})
+    out = rolling_replication_quality(
+        panel, bench, universe_fn=universe_fn,
+        top_n_values=[20], weightings=["equal"],
+        shares=shares, ranking_prices=panel,
+    )
+    inv = out["ladder"]["investable_equal"]
+    assert inv <= ols_r2 + 1e-6

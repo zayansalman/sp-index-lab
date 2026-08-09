@@ -15,10 +15,18 @@ import type {
   ConcentrationCurveData,
   ConcentrationPoint,
   VarianceDecompositionPoint,
+  VarianceDecompositionData,
+  ReplicationQuality,
+  TrackingFrontier,
+  AlphaNSeries,
+  UniverseRotation,
   PerformanceNavData,
   PerformanceNavPoint,
+  ActiveReturnStats,
   AllPerformanceMetrics,
+  MatchedWindowComparison,
   PerformanceMetrics,
+  StrategyMetricSet,
   HoldingsData,
   Holding,
   DrawdownData,
@@ -57,6 +65,8 @@ const DATA_FILES = {
   drawdown: "/data/drawdowns.json",
   deviation: "/data/daily_deviations.json",
   strategyHoldings: "/data/strategy_holdings.json",
+  alphaNSeries: "/data/alpha_n_series.json",
+  universeRotation: "/data/universe_rotation.json",
 } as const;
 
 type DataKey = keyof typeof DATA_FILES;
@@ -205,30 +215,152 @@ function transformConcentrationCurve(
     },
   );
 
+  // `elbowN: 20` used to be returned here as a hardcoded literal typed as if
+  // it were derived. Nothing in the pipeline exports a solved elbow N, and no
+  // component ever read it — so it was a fabricated number, not a stale one.
+  // Removed rather than defaulted: the strategy's own solver selects a median
+  // of 11 names, so any constant here would be wrong as well as invented.
+  // The dispersion behind the headline. `r_squared_windows` is one row per
+  // rolling window; without its range the mean reads as a constant, and the
+  // most recent window is the weakest in the record.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const windows: any[] = Array.isArray(raw.r_squared_windows)
+    ? raw.r_squared_windows
+    : [];
+  const windowValues = windows
+    .map((w) => w?.r_squared_at_20)
+    .filter((v): v is number => typeof v === "number");
+
   return {
     curve,
-    elbowN: 20,
-    elbowRSquared: raw.r_squared_at_20 ?? raw.elbowRSquared ?? 0,
+    rSquaredAt20: raw.r_squared_at_20 ?? raw.rSquaredAt20 ?? 0,
+    rSquaredAt20Latest: raw.r_squared_at_20_latest,
+    nWindows: windowValues.length || undefined,
+    rSquaredAt20Range: windowValues.length
+      ? { min: Math.min(...windowValues), max: Math.max(...windowValues) }
+      : undefined,
+  };
+}
+
+/**
+ * Investable-replication ladder + per-N tracking rows (variance_decomposition.json
+ * -> replication). Absent on data bundles exported before this block existed.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformReplication(raw: any): ReplicationQuality | undefined {
+  if (!raw?.by_n) return undefined;
+  return {
+    ladder: {
+      olsCeiling: raw.ladder?.ols_ceiling,
+      investableCap: raw.ladder?.investable_cap,
+      investableEqual: raw.ladder?.investable_equal,
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    byN: raw.by_n.map((r: any) => ({
+      n: r.n,
+      weighting: r.weighting,
+      trackingError: r.tracking_error,
+      replicationR2: r.replication_r2,
+      teMin: r.te_min,
+      teMax: r.te_max,
+      nWindows: r.n_windows,
+    })),
+    method: raw.method,
+    windowDays: raw.window_days,
+    stepDays: raw.step_days,
+  };
+}
+
+/**
+ * Out-of-sample cardinality-vs-tracking-error frontier (variance_decomposition.json
+ * -> tracking_frontier). Absent on data bundles exported before this block existed.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformTrackingFrontier(raw: any): TrackingFrontier | undefined {
+  if (!raw?.frontier) return undefined;
+  return {
+    nFallbackWindows: raw.n_fallback_windows ?? 0,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    frontier: raw.frontier.map((r: any) => ({
+      k: r.k,
+      teOos: r.te_oos,
+      replicationR2Oos: r.replication_r2_oos,
+      meanMonthlyChurn: r.mean_monthly_churn,
+      meanMaxWeight: r.mean_max_weight,
+      nWindows: r.n_windows,
+    })),
   };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformVarianceDecomposition(raw: any): VarianceDecompositionPoint[] {
-  // JSON has { decomposition: [{ n_stocks, r_squared, adj_r_squared }] }
-  // TypeScript expects per-stock variance data. We adapt to a compatible shape.
+function transformVarianceDecomposition(raw: any): VarianceDecompositionData {
+  // JSON has { decomposition: [{ n_stocks, r_squared, adj_r_squared }], replication?, tracking_frontier? }
+  // TypeScript expects per-stock variance data for `points`. We adapt to a compatible shape.
   const items = raw.decomposition || raw || [];
-  if (!Array.isArray(items)) return [];
+  const points: VarianceDecompositionPoint[] = Array.isArray(items)
+    ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      items.map((d: any) => ({
+        ticker: d.ticker ?? `Top ${d.n_stocks ?? 0}`,
+        name: d.name ?? `Top ${d.n_stocks ?? 0} stocks`,
+        varianceExplained: d.variance_explained ?? d.r_squared ?? 0,
+        cumulativeVariance: d.cumulative_variance ?? d.r_squared ?? 0,
+        correlation: d.correlation ?? 0,
+        beta: d.beta ?? 0,
+        sector: d.sector ?? "",
+      }))
+    : [];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return items.map((d: any) => ({
-    ticker: d.ticker ?? `Top ${d.n_stocks ?? 0}`,
-    name: d.name ?? `Top ${d.n_stocks ?? 0} stocks`,
-    varianceExplained: d.variance_explained ?? d.r_squared ?? 0,
-    cumulativeVariance: d.cumulative_variance ?? d.r_squared ?? 0,
-    correlation: d.correlation ?? 0,
-    beta: d.beta ?? 0,
-    sector: d.sector ?? "",
-  }));
+  return {
+    points,
+    replication: transformReplication(raw.replication),
+    trackingFrontier: transformTrackingFrontier(raw.tracking_frontier),
+  };
+}
+
+/**
+ * The strategy's actual solved-N history (alpha_n_series.json). Absent when
+ * the walk-forward alpha backtest hasn't been run locally.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformAlphaNSeries(raw: any): AlphaNSeries | undefined {
+  if (!raw?.series) return undefined;
+  return {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    series: raw.series.map((s: any) => ({ date: s.date ?? "", n: s.n ?? 0 })),
+    mean: raw.mean ?? 0,
+    median: raw.median ?? 0,
+    min: raw.min ?? 0,
+    max: raw.max ?? 0,
+    floor: raw.floor ?? 0,
+    cap: raw.cap ?? 0,
+    shareAtFloor: raw.share_at_floor ?? 0,
+    distribution: raw.distribution ?? {},
+  };
+}
+
+/**
+ * Point-in-time universe membership rotation (universe_rotation.json).
+ * Absent on data bundles exported before this block existed.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformUniverseRotation(raw: any): UniverseRotation | undefined {
+  if (!raw?.summary) return undefined;
+  return {
+    summary: {
+      nRebalances: raw.summary.n_rebalances ?? 0,
+      distinctTickers: raw.summary.distinct_tickers ?? 0,
+      entries: raw.summary.entries ?? 0,
+      exits: raw.summary.exits ?? 0,
+      avgNamesReplacedPerYear: raw.summary.avg_names_replaced_per_year ?? null,
+      neverLeft: raw.summary.never_left ?? [],
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    events: (raw.events ?? []).map((e: any) => ({
+      date: e.date ?? "",
+      entered: e.entered ?? [],
+      exited: e.exited ?? [],
+    })),
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -284,15 +416,67 @@ function transformSingleMetrics(m: any): PerformanceMetrics {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
-  const result: AllPerformanceMetrics = {
+function transformMetricSet(raw: any): StrategyMetricSet {
+  const set: StrategyMetricSet = {
     sp500: transformSingleMetrics(raw.sp500 || {}),
     sp20Mirror: transformSingleMetrics(raw.sp20_mirror || raw.sp20Mirror || {}),
     sp20Equal: transformSingleMetrics(raw.sp20_equal || raw.sp20Equal || {}),
   };
   const alphaRaw = raw.spn_alpha ?? raw.spnAlpha;
-  if (alphaRaw) result.spnAlpha = transformSingleMetrics(alphaRaw);
-  return result;
+  if (alphaRaw) set.spnAlpha = transformSingleMetrics(alphaRaw);
+  return set;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformActiveReturnStats(raw: any): ActiveReturnStats {
+  return {
+    annualisedActiveReturn: raw.annualised_active_return ?? 0,
+    trackingError: raw.tracking_error ?? 0,
+    informationRatio: raw.information_ratio ?? 0,
+    tStat: raw.t_stat ?? 0,
+    significant: !!raw.significant,
+    yearsForHurdle: raw.years_for_hurdle ?? null,
+    nDays: raw.n_days ?? 0,
+  };
+}
+
+/**
+ * The matched-window block is optional: it only exists after the export has
+ * been regenerated. Older bundles simply omit it and the UI falls back to the
+ * per-strategy (unmatched) metrics, so this must never throw on absence.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformMatchedWindow(raw: any): MatchedWindowComparison | undefined {
+  if (!raw?.metrics) return undefined;
+
+  const significance: Record<string, Record<string, ActiveReturnStats>> = {};
+  for (const [key, against] of Object.entries(raw.significance ?? {})) {
+    significance[key] = Object.fromEntries(
+      Object.entries(against as Record<string, unknown>).map(([ref, stats]) => [
+        ref,
+        transformActiveReturnStats(stats),
+      ]),
+    );
+  }
+
+  return {
+    windowStart: raw.window?.start ?? "",
+    windowEnd: raw.window?.end ?? "",
+    windowYears: raw.window?.n_years ?? 0,
+    benchmark: raw.benchmark ?? "sp500",
+    tHurdle: raw.t_hurdle ?? 3.0,
+    anySignificant: !!raw.any_significant,
+    metrics: transformMetricSet(raw.metrics),
+    significance,
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function transformPerformanceMetrics(raw: any): AllPerformanceMetrics {
+  return {
+    ...transformMetricSet(raw),
+    matchedWindow: transformMatchedWindow(raw.matched_window ?? raw.matchedWindow),
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -410,6 +594,8 @@ export function useLabData(): UseLabDataReturn {
         rawDrawdown,
         rawDeviation,
         rawStrategyHoldings,
+        rawAlphaNSeries,
+        rawUniverseRotation,
       ] = await Promise.all([
         fetchJSON(DATA_FILES.meta),
         fetchJSON(DATA_FILES.concentrationCurve),
@@ -420,22 +606,37 @@ export function useLabData(): UseLabDataReturn {
         fetchJSON(DATA_FILES.drawdown),
         fetchJSON(DATA_FILES.deviation),
         fetchJSON(DATA_FILES.strategyHoldings).catch(() => null),
+        fetchJSON(DATA_FILES.alphaNSeries).catch(() => null),
+        fetchJSON(DATA_FILES.universeRotation).catch(() => null),
       ]);
 
       // Transform snake_case JSON → camelCase TypeScript types
+      const varianceDecomposition = transformVarianceDecomposition(rawVarianceDecomp);
+      if (
+        process.env.NODE_ENV !== "production" &&
+        rawVarianceDecomp?.replication &&
+        !varianceDecomposition.replication
+      ) {
+        console.warn(
+          "useLabData: replication block present in JSON but dropped by transform",
+        );
+      }
+
       setData({
         meta: transformMeta(rawMeta),
         concentrationCurve: transformConcentrationCurve(
           rawConcentration,
           rawVarianceDecomp,
         ),
-        varianceDecomposition: transformVarianceDecomposition(rawVarianceDecomp),
+        varianceDecomposition,
         performanceNav: transformPerformanceNav(rawPerformanceNav),
         performanceNavBundle: transformPerformanceNavBundle(rawPerformanceNav),
         performanceMetrics: transformPerformanceMetrics(rawPerformanceMetrics),
         holdings: transformHoldings(rawHoldings, rawStrategyHoldings),
         drawdown: transformDrawdown(rawDrawdown),
         deviation: transformDeviation(rawDeviation),
+        alphaNSeries: transformAlphaNSeries(rawAlphaNSeries),
+        universeRotation: transformUniverseRotation(rawUniverseRotation),
       });
     } catch (err) {
       const message =

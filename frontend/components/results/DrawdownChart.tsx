@@ -16,7 +16,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { DrawdownPoint } from "@/lib/types";
-import { CHART_COLORS, CHART_LABELS } from "@/lib/constants";
+import { CHART_COLORS, SERIES_STYLE, chartTheme } from "@/lib/chartTheme";
 
 /* ──────────────────────────────────────────────────────────────
    Props + series config
@@ -41,10 +41,10 @@ interface SeriesConfig {
 }
 
 const SERIES_CONFIG: SeriesConfig[] = [
-  { key: "sp500",             label: CHART_LABELS.sp500,             color: CHART_COLORS.sp500,             gradientId: "ddSp500",       defaultVisible: true },
-  { key: "sp20Mirror",        label: CHART_LABELS.sp20Mirror,        color: "#EF4444",                      gradientId: "ddMirror",      defaultVisible: true },
-  { key: "sp20Equal",         label: CHART_LABELS.sp20Equal,         color: CHART_COLORS.sp20Equal,         gradientId: "ddEqual",       defaultVisible: true },
-  { key: "spnAlpha",          label: CHART_LABELS.spnAlpha,          color: CHART_COLORS.spnAlpha,          gradientId: "ddAlpha",       defaultVisible: true },
+  { key: "sp500",             label: SERIES_STYLE.sp500.label,             color: CHART_COLORS.sp500,             gradientId: "ddSp500",       defaultVisible: true },
+  { key: "sp20Mirror",        label: SERIES_STYLE.sp20Mirror.label,        color: CHART_COLORS.sp20Mirror,                      gradientId: "ddMirror",      defaultVisible: true },
+  { key: "sp20Equal",         label: SERIES_STYLE.sp20Equal.label,         color: CHART_COLORS.sp20Equal,         gradientId: "ddEqual",       defaultVisible: true },
+  { key: "spnAlpha",          label: SERIES_STYLE.spnAlpha.label,          color: CHART_COLORS.spnAlpha,          gradientId: "ddAlpha",       defaultVisible: true },
 ];
 
 /* ──────────────────────────────────────────────────────────────
@@ -65,19 +65,19 @@ const CustomTooltip: React.FC<{
 }> = ({ active, payload, label }) => {
   if (!active || !payload || payload.length === 0) return null;
   return (
-    <div className="rounded-lg border border-[#2A2A35] bg-[#111118] px-3 py-2 shadow-xl">
-      <p className="mb-1.5 text-xs font-medium text-text-muted">{label}</p>
+    <div className="rounded-lg border border-border-strong bg-ground px-3 py-2 shadow-xl">
+      <p className="mb-1.5 text-xs font-medium text-ink-muted">{label}</p>
       {payload.map((entry) => (
         <p
           key={entry.dataKey}
-          className="flex items-center gap-2 text-xs text-text-secondary"
+          className="flex items-center gap-2 text-xs text-ink-secondary"
         >
           <span
             className="inline-block h-2 w-2 rounded-full"
             style={{ backgroundColor: entry.color }}
           />
           <span>{entry.name}:</span>
-          <span className="font-medium text-text-primary">
+          <span className="font-medium text-ink">
             {((entry.value ?? 0) * 100).toFixed(1)}%
           </span>
         </p>
@@ -112,8 +112,8 @@ const InteractiveLegend: React.FC<LegendProps> = ({ series, visibility, onToggle
           onClick={() => onToggle(s.key)}
           className={`group flex items-center gap-2 rounded-full border px-3 py-1 text-xs transition-all ${
             isOn
-              ? "border-[#2A2A35] bg-bg-secondary text-text-primary"
-              : "border-[#1A1A24] bg-transparent text-text-muted opacity-50 hover:opacity-80"
+              ? "border-border-strong bg-surface text-ink"
+              : "bg-transparent text-ink-muted opacity-60 hover:opacity-100"
           }`}
           aria-pressed={isOn}
           title={`${isOn ? "Hide" : "Show"} ${s.label}`}
@@ -175,10 +175,10 @@ const DrawdownChart: React.FC<DrawdownChartProps> = ({ data }) => {
   return (
     <div className="w-full">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-sm font-semibold tracking-wide text-text-secondary">
+        <h3 className="text-sm font-semibold tracking-wide text-ink-secondary">
           Drawdown Analysis
         </h3>
-        <span className="text-xs text-text-muted">Click pills to toggle</span>
+        <span className="text-xs text-ink-muted">Click pills to toggle</span>
       </div>
 
       <ResponsiveContainer width="100%" height={320}>
@@ -202,21 +202,21 @@ const DrawdownChart: React.FC<DrawdownChartProps> = ({ data }) => {
             ))}
           </defs>
 
-          <CartesianGrid strokeDasharray="3 3" stroke="#1A1A24" vertical={false} />
+          <CartesianGrid {...chartTheme.grid} />
           <XAxis
             dataKey="date"
-            tick={{ fill: "#888899", fontSize: 11 }}
-            axisLine={{ stroke: "#1A1A24" }}
-            tickLine={{ stroke: "#1A1A24" }}
+            tick={chartTheme.axis.tick}
+            axisLine={{ stroke: chartTheme.axis.stroke }}
+            tickLine={{ stroke: chartTheme.axis.tickStroke }}
             tickFormatter={formatDateTick}
             interval="preserveStartEnd"
             minTickGap={60}
           />
           <YAxis
             domain={[yMin, 0]}
-            tick={{ fill: "#888899", fontSize: 11 }}
-            axisLine={{ stroke: "#1A1A24" }}
-            tickLine={{ stroke: "#1A1A24" }}
+            tick={chartTheme.axis.tick}
+            axisLine={{ stroke: chartTheme.axis.stroke }}
+            tickLine={{ stroke: chartTheme.axis.tickStroke }}
             tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`}
           />
           <RechartsTooltip content={<CustomTooltip />} />

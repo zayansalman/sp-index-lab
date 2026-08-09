@@ -85,9 +85,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${geistSans.variable} ${geistMono.variable} antialiased bg-bg-primary text-text-primary`}
+        className={`${spaceGrotesk.variable} ${geistSans.variable} ${geistMono.variable} antialiased bg-ground text-ink`}
       >
         {children}
       </body>

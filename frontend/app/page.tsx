@@ -1,45 +1,47 @@
-import Hero from "@/components/landing/Hero";
+import Link from "next/link";
 import StatsPreview from "@/components/landing/StatsPreview";
-import EnterButton from "@/components/landing/EnterButton";
 
 /* ================================================================
-   Landing Page
-   Dark, cinematic, minimal page that introduces the thesis.
-   Assembles Hero, StatsPreview, and EnterButton over a subtle
-   grid-patterned background with a radial accent glow.
+   Landing page -- interim.
+
+   Phase 3 replaces this with the fund-page masthead and the
+   per-strategy routes. Until then it states the thesis and links
+   through, without the cinematic dark treatment or the glowing
+   "ENTER THE LAB" gate.
    ================================================================ */
 
 export default function Home() {
   return (
-    <main
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-bg-primary"
-      style={{
-        backgroundImage: [
-          /* Radial green glow in the centre for depth */
-          "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0, 212, 170, 0.03) 0%, transparent 70%)",
-          /* Subtle grid pattern using repeating linear gradients */
-          "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px)",
-          "linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
-        ].join(", "),
-        backgroundSize: "100% 100%, 60px 60px, 60px 60px",
-      }}
-    >
-      {/* ── Hero Section ──────────────────────────────────────── */}
-      <Hero />
+    <main className="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-16">
+      <p className="label-micro">Point-in-time universe · net of costs · benchmark ^SP500TR</p>
 
-      {/* ── Stats Preview Cards ───────────────────────────────── */}
-      <div className="mt-16">
+      <h1 className="mt-4 text-balance text-4xl font-normal leading-tight tracking-tight">
+        The S&amp;P 500 is effectively a 20-stock index.
+      </h1>
+
+      <p className="mt-4 max-w-xl text-lg text-ink-secondary">
+        Twenty point-in-time constituents explain most of its daily variance.
+        Four portfolios built on that fact are shown side by side — and none is
+        crowned, because none of the differences between them clears the
+        significance hurdle this project holds itself to.
+      </p>
+
+      <div className="mt-10">
         <StatsPreview />
       </div>
 
-      {/* ── CTA Button ────────────────────────────────────────── */}
-      <div className="mt-12">
-        <EnterButton />
+      <div className="mt-10">
+        <Link
+          href="/lab"
+          className="inline-flex items-center gap-2 border border-border-strong px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-surface"
+        >
+          View the analysis <span aria-hidden="true">&rarr;</span>
+        </Link>
       </div>
 
-      {/* ── Footer Attribution ────────────────────────────────── */}
-      <p className="absolute bottom-8 text-xs text-text-muted">
-        Built by Zayan Khan
+      <p className="mt-16 text-xs text-ink-muted">
+        A research artifact by Zayan Khan. It manages no capital and is not
+        investment advice.
       </p>
     </main>
   );

@@ -35,7 +35,7 @@ const TimeRangeSelector: React.FC<TimeRangeSelectorProps> = ({
     : TIME_RANGES;
 
   return (
-    <div className="inline-flex items-center gap-1 rounded-lg border border-[#1A1A24] bg-bg-primary p-1">
+    <div className="inline-flex items-center gap-1 rounded-lg border bg-ground p-1">
       {ranges.map((r) => {
         const isActive = r.key === value;
         return (
@@ -45,8 +45,8 @@ const TimeRangeSelector: React.FC<TimeRangeSelectorProps> = ({
             onClick={() => onChange(r.key)}
             className={`rounded-md px-2.5 py-1 text-xs font-medium tabular-nums transition-all ${
               isActive
-                ? "bg-accent-primary/15 text-accent-primary"
-                : "text-text-muted hover:bg-bg-secondary hover:text-text-secondary"
+                ? "bg-accent/15 text-accent"
+                : "text-ink-muted hover:bg-surface hover:text-ink-secondary"
             }`}
             aria-pressed={isActive}
           >

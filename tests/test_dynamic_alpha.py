@@ -95,3 +95,37 @@ def test_cash_column_excluded_from_equity_selection() -> None:
     # No overlay → CASH must not be selected as an equity holding.
     assert CASH not in w.index
     assert len(w) == 15
+
+
+def test_weights_fn_stamps_n_selected() -> None:
+    prices = _panel()
+    wf = make_dynamic_alpha_weights_fn("equal", make_static_n(12))
+    w = wf(prices, None)
+    assert w.attrs["n_selected"] == 12
+
+
+def test_n_selected_survives_vol_target_overlay() -> None:
+    """pd.concat drops .attrs — the stamp must be applied AFTER the overlay.
+
+    Reuses the high-vol common-factor panel from
+    ``test_vol_target_adds_cash_when_realised_vol_high`` so the overlay
+    actually takes the CASH-concatenating branch (`_scale_to_cash`), not the
+    early-return no-op branch — proving the stamp survives the `pd.concat`.
+    """
+    rng = np.random.default_rng(3)
+    idx = pd.bdate_range("2019-01-01", periods=300)
+    cols = [f"T{i:02d}" for i in range(SPN_MAX_STOCKS)]
+    common = rng.normal(0.0005, 0.025, 300)  # ~40% annualised common factor
+    prices = pd.DataFrame(
+        {
+            c: 100 * np.cumprod(1 + common + rng.normal(0.0, 0.004, 300))
+            for c in cols
+        },
+        index=idx,
+    )
+    wf = make_dynamic_alpha_weights_fn(
+        "equal", make_static_n(12), overlay=make_vol_target(target_vol=0.05, window=21)
+    )
+    w = wf(prices, None)
+    assert CASH in w.index  # confirms the concat-based overlay path ran
+    assert w.attrs["n_selected"] == 12

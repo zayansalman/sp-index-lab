@@ -6,15 +6,55 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 S&P Index Lab proves the S&P 500 is effectively a ~20-stock index. Python backend computes analytics (OLS regression, variance decomposition, mirror index construction). React frontend displays results via an interactive machine-metaphor visualization. Static JSON bridge between the two — no Python at runtime.
 
-Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-return;
-full out-of-sample 2016→present unless noted). No single strategy is crowned — the site
-shows all four side by side:
-- R² ≈ 95.2% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window)
-- S&P 500 TR: CAGR ~13.9%
-- SP-20 Mirror: CAGR ~17.2%, Jensen alpha ~+2.3%
-- SP-20 Equal: CAGR ~15.7%, Jensen alpha ~+2.0%
-- SP-N Alpha (self-adjusting concentration-elbow, dynamic N 10–30, equal-weighted):
-  CAGR ~20.3%, Sharpe ~0.88, Jensen alpha ~+3.8%, turnover ~1.8x
+**Primary mandate (owner, 2026-07-26).** SP-N: hold N stocks selected from the S&P 500 —
+N *solved* per rebalance, never hand-fixed — targeting maximum return with minimum
+volatility and drawdown, net of costs, re-run and rebalanced on the index's own schedule
+(S&P quarterly rebalance effective dates + membership-change events; the pipeline's current
+monthly month-end cadence is the finer-grained superset — aligning to quarterly is a spec
+change that must be pre-registered, not slipped in). Benchmarks are ALWAYS all three:
+`^SP500TR`, SP-20 Mirror, SP-20 Equal. "Max return, min risk" is not simultaneously
+optimizable; it is operationalized as the pre-registered multi-objective bar — beat
+benchmarks on CAGR **and** Sharpe with max drawdown ≤ 1.2× the index's. The concentration
+proof is step one (it establishes a small-N portfolio can carry the index); the active
+mandate is step two and is judged with IR/t-stats and full multiple-testing disclosure.
+Under this objective the dev-window record reads differently than under the old
+return-first criteria: `s3:equal:elbow:voltgt15` (trial 10) posted the highest Sharpe of
+all 14 trials (0.666) with maxDD −21.2%, and was eliminated only for giving up CAGR vs
+Equal — but dev has been SEEN, so any re-selection must validate on post-2026 data or
+forward paper-trading, with the peek disclosed.
+
+Key results (point-in-time universe, net of transaction costs, vs S&P 500 total-return).
+No single strategy is crowned — the site shows all four side by side:
+- R² ≈ 95.2% with 20 stocks (mean across rolling 1-year windows, PIT top-20 per window).
+  This is the project's one statistically strong claim.
+- **"20" is a reporting convention, not a solved answer — never write copy implying it was
+  discovered.** Two different questions get conflated constantly:
+  (a) *how much do the 20 largest explain?* → 95.2% mean R² at a FIXED N=20 (`r_squared_at_20`);
+  (b) *what is the smallest N worth holding?* → `make_elbow_n` solves this per rebalance and
+  has selected a **median of 11** (mean 11.2, range 10–16) across 126 rebalances, choosing 20
+  **zero times**, sitting on the `SPN_MIN_STOCKS`=10 floor 38.9% of the time. Current live
+  holding is 16 names. ~87% of dynamic-N's edge is a *level* effect (hold ~11 not 20); the
+  *timing* component is +0.32pp/yr at t = 0.34.
+- **The concentration claim is a REPLICATION claim; the strategy claims are ACTIVE claims.**
+  They take different metrics and different bars. Replication is judged on R²/tracking error
+  and is already solid; active is judged on IR with the t > 3 hurdle and is not significant.
+  Applying the active bar to the replication finding understates the project's strongest
+  result — keep the two separate in docs and UI.
+- **Always quote the matched window** (2016-01-04→present, ~10.5y — the first date all four
+  series exist), from the `matched_window` block in `performance_metrics.json`:
+  S&P 500 ~15.4% CAGR · SP-20 Mirror ~19.3% · SP-20 Equal ~17.5% · SP-N Alpha ~20.3%.
+  The per-strategy blocks each span that strategy's OWN history (baselines from 2014,
+  SP-N Alpha from 2016 once its first walk-forward window closes). Comparing across those
+  is not apples-to-apples: it understates the S&P by ~1.5pp CAGR and lets a longer window
+  win on total return purely by compounding longer.
+- **No pairwise difference is statistically significant.** On the matched window, SP-N Alpha
+  beats the Mirror by only ~+0.9pp/yr (TE ~3.9%, IR ~0.22, t ≈ 0.7) — it would need ~178
+  years of data to clear the t > 3.0 multiple-testing hurdle. Even Alpha vs the S&P 500 is
+  t ≈ 2.0 (~25 years needed). Never describe any strategy as "beating" another without
+  this caveat; the ranking is real in the data and indistinguishable from luck.
+- Root cause is breadth, not costs: cost drag is only ~6–15 bps/yr (Mirror 0.83x turnover,
+  Equal 1.15x, Alpha ~1.8–2.0x) and mega-cap capacity is effectively unbounded. Grinold's
+  IR ≈ IC×√breadth caps what 20 names × 12 rebalances can demonstrate.
 
 Honest-evaluation protocol (the point of the project — do not regress these):
 - **Dev/holdout split**: `DEV_END=2023-12-31`. All development, tuning, and variant
@@ -31,8 +71,17 @@ Honest-evaluation protocol (the point of the project — do not regress these):
   the **dividend-unadjusted** `daily_prices_raw` panel (`src/data/universe.py`). Returns
   use the dividend-adjusted panel. Never rank by full-sample statistics.
 - All backtests net of turnover costs (`src/backtest/costs.py`). Benchmark is ^SP500TR.
+- **Significance hurdle**: `MULTIPLE_TESTING_T_HURDLE = 3.0` (`src/config.py`), per Harvey,
+  Liu & Zhu (2016) — with 14 logged dev trials the conventional t > 1.96 is invalid. The
+  `matched_window.significance` block reports the t-stat of every pairwise comparison and
+  `years_for_hurdle` (t = IR × √years), surfaced by `SignificancePanel.tsx`.
+- **SP-20 Mirror has never been a research reference.** All 14 dev trials scored only
+  against `^SP500TR` and `sp20_equal`, so no candidate has a dev-window excess-vs-Mirror
+  record. Any new race targeting the Mirror must add it to `references` and pre-register
+  updated criteria BEFORE selecting a candidate.
 - Exact current numbers live in `frontend/public/data/meta.json` (`headline` + `research`
-  blocks); components read them — never hardcode numbers in components or docs.
+  blocks) and `performance_metrics.json` (`matched_window`); components read them — never
+  hardcode numbers in components or docs.
 
 ## Commands
 

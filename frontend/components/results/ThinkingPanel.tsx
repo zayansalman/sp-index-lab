@@ -37,10 +37,11 @@ const DEFAULT_SECTIONS: ThinkingSection[] = [
     content:
       "The S&P 500 is marketed as diversification across 500 companies, but regressing the index's daily " +
       "returns on its largest constituents shows that roughly 20 stocks explain the overwhelming majority " +
-      "of its variance. The concentration curve shows a clear 'elbow' around 18-20 stocks, where each " +
-      "additional stock stops adding meaningful explanatory power. The selection is point-in-time: each " +
-      "rolling window uses the stocks that were actually the largest at that moment, not today's winners " +
-      "projected backwards.",
+      "of its variance. Twenty is a reporting convention for that fixed-count read, though, not a " +
+      "discovered answer: the strategy's own live stopping rule almost always settles on noticeably fewer " +
+      "names, and spends a large share of rebalances pinned to its floor. The selection is point-in-time: " +
+      "each rolling window uses the stocks that were actually the largest at that moment, not today's " +
+      "winners projected backwards.",
   },
   {
     title: "Why The Baselines Stay",
@@ -95,27 +96,22 @@ const ChevronIcon: React.FC<{ isOpen: boolean }> = ({ isOpen }) => (
 
 const CollapsibleSection: React.FC<{
   section: ThinkingSection;
-  index: number;
-}> = ({ section, index }) => {
+}> = ({ section }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
-      className="overflow-hidden rounded-xl border border-[#1A1A24] bg-bg-secondary"
+    <div
+      className="overflow-hidden rounded-xl border bg-surface"
     >
       {/* Header */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-bg-tertiary"
+        className="flex w-full items-center justify-between px-5 py-4 text-left transition-colors hover:bg-surface-sunken"
       >
-        <span className="text-sm font-semibold text-text-primary">
+        <span className="text-sm font-semibold text-ink">
           {section.title}
         </span>
-        <span className="text-text-muted">
+        <span className="text-ink-muted">
           <ChevronIcon isOpen={isOpen} />
         </span>
       </button>
@@ -130,15 +126,15 @@ const CollapsibleSection: React.FC<{
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="border-t border-[#1A1A24] px-5 py-4">
-              <p className="text-sm leading-relaxed text-text-secondary">
+            <div className="border-t px-5 py-4">
+              <p className="text-sm leading-relaxed text-ink-secondary">
                 {section.content}
               </p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 };
 
@@ -151,11 +147,10 @@ const ThinkingPanel: React.FC<ThinkingPanelProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-3">
-      {sections.map((section, index) => (
+      {sections.map((section) => (
         <CollapsibleSection
           key={section.title}
           section={section}
-          index={index}
         />
       ))}
     </div>

@@ -7,12 +7,21 @@ import { ImageResponse } from "next/og";
    convention, so no manual metadata.openGraph.images entry is needed
    (adding one would duplicate the tag). Kept qualitative so it never
    contradicts the daily-refreshed numbers.
+
+   Light institutional card: this is the first thing a reader sees
+   when the link is pasted into a message, so it should look like the
+   page it opens — a document, not a product splash.
    ================================================================ */
 
 export const alt =
   "S&P Index Lab — the S&P 500 is effectively a ~20-stock index";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+const INK = "#0B1220";
+const INK_MUTED = "#5C6875";
+const BORDER = "#E3E7EB";
+const SURFACE = "#F4F6F8";
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -24,26 +33,38 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "80px",
-          backgroundColor: "#0A0A0F",
-          backgroundImage:
-            "radial-gradient(ellipse 70% 60% at 50% 40%, rgba(0,212,170,0.10) 0%, transparent 70%)",
+          padding: "72px 80px",
+          backgroundColor: "#FFFFFF",
           fontFamily: "sans-serif",
         }}
       >
-        {/* Eyebrow */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            color: "#00D4AA",
-            fontSize: 26,
-            fontWeight: 700,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-          }}
-        >
-          S&P Index Lab
+        {/* Masthead rule + eyebrow, as on a factsheet */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "baseline",
+              borderBottom: `2px solid ${INK}`,
+              paddingBottom: 18,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                color: INK,
+                fontSize: 24,
+                fontWeight: 700,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+              }}
+            >
+              S&P Index Lab
+            </div>
+            <div style={{ display: "flex", color: INK_MUTED, fontSize: 20 }}>
+              Point-in-time / net of costs / vs ^SP500TR
+            </div>
+          </div>
         </div>
 
         {/* Headline */}
@@ -51,11 +72,11 @@ export default function OpengraphImage() {
           <div
             style={{
               display: "flex",
-              color: "#F0F0F0",
-              fontSize: 76,
-              fontWeight: 700,
+              color: INK,
+              fontSize: 72,
+              fontWeight: 600,
               lineHeight: 1.1,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.025em",
             }}
           >
             The S&P 500 is effectively
@@ -63,51 +84,49 @@ export default function OpengraphImage() {
           <div
             style={{
               display: "flex",
-              fontSize: 76,
-              fontWeight: 700,
+              color: INK,
+              fontSize: 72,
+              fontWeight: 600,
               lineHeight: 1.1,
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.025em",
             }}
           >
-            <span style={{ color: "#F0F0F0" }}>a&nbsp;</span>
-            <span style={{ color: "#00D4AA" }}>~20-stock&nbsp;</span>
-            <span style={{ color: "#F0F0F0" }}>index.</span>
+            a ~20-stock index.
+          </div>
+          <div
+            style={{
+              display: "flex",
+              color: INK_MUTED,
+              fontSize: 28,
+              marginTop: 20,
+            }}
+          >
+            Four portfolios, shown side by side. None is crowned.
           </div>
         </div>
 
-        {/* Stat chips */}
+        {/* Fact chips — square, hairline, no colour dots */}
         <div style={{ display: "flex", alignItems: "center" }}>
           {[
-            { label: "R-squared ~95%", accent: "#00D4AA" },
-            { label: "20 stocks", accent: "#FFD700" },
-            { label: "Point-in-time, net of costs", accent: "#6366F1" },
-          ].map((chip) => (
+            "R-squared ~95% at 20 stocks",
+            "Pre-registered holdout",
+            "No difference clears t > 3",
+          ].map((label) => (
             <div
-              key={chip.label}
+              key={label}
               style={{
                 display: "flex",
                 alignItems: "center",
-                marginRight: 20,
-                padding: "12px 24px",
-                borderRadius: 999,
-                border: "1px solid #2A2A35",
-                backgroundColor: "#111118",
-                color: "#F0F0F0",
-                fontSize: 28,
-                fontWeight: 600,
+                marginRight: 16,
+                padding: "12px 22px",
+                border: `1px solid ${BORDER}`,
+                backgroundColor: SURFACE,
+                color: INK,
+                fontSize: 26,
+                fontWeight: 500,
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  width: 12,
-                  height: 12,
-                  borderRadius: 999,
-                  marginRight: 14,
-                  backgroundColor: chip.accent,
-                }}
-              />
-              {chip.label}
+              {label}
             </div>
           ))}
         </div>

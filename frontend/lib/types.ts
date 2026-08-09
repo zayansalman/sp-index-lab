@@ -151,10 +151,29 @@ export interface ConcentrationPoint {
 export interface ConcentrationCurveData {
   /** Ordered array of concentration measurements */
   curve: ConcentrationPoint[];
-  /** The elbow point N where marginal gain drops below threshold */
-  elbowN: number;
-  /** R-squared at the elbow */
-  elbowRSquared: number;
+  /**
+   * Mean R-squared at a FIXED N=20, across rolling one-year windows.
+   *
+   * Named for what it measures. This is not "R-squared at the elbow": the
+   * strategy's elbow solver (`make_elbow_n`) stops at the first N whose
+   * marginal R-squared falls below 0.5%, and it has selected a median of 11
+   * names — never 20 — across 126 monthly rebalances. The two numbers answer
+   * different questions and must not be conflated.
+   */
+  rSquaredAt20: number;
+  /**
+   * R-squared at N=20 in the most recent window only.
+   *
+   * Quoting the mean alone overstates the current state: the mean is taken
+   * across 139 windows spanning a decade, and the latest sits at the bottom
+   * of that range. Both are published so the headline cannot be read as
+   * "this is true right now".
+   */
+  rSquaredAt20Latest?: number;
+  /** Number of rolling windows behind the mean. */
+  nWindows?: number;
+  /** Lowest and highest R-squared at N=20 observed across those windows. */
+  rSquaredAt20Range?: { min: number; max: number };
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -177,6 +196,107 @@ export interface VarianceDecompositionPoint {
   beta: number;
   /** Sector classification */
   sector: string;
+}
+
+/** Tracking quality of an investable top-N basket (mean across windows). */
+export interface ReplicationRow {
+  n: number;
+  weighting: "cap" | "equal";
+  trackingError: number;
+  replicationR2: number;
+  teMin: number;
+  teMax: number;
+  nWindows: number;
+}
+
+/** The R² ladder: hindsight ceiling vs what an implementable basket achieves. */
+export interface ReplicationLadder {
+  olsCeiling?: number;
+  investableCap?: number;
+  investableEqual?: number;
+}
+
+/**
+ * Mean tracking quality of investable top-N baskets vs the hindsight OLS
+ * ceiling. Answers "what R² does a basket you could actually hold achieve?"
+ * — as opposed to `rSquaredAt20`, which is the unconstrained-hindsight figure.
+ */
+export interface ReplicationQuality {
+  ladder: ReplicationLadder;
+  byN: ReplicationRow[];
+  /** Export provenance */
+  method?: string;
+  windowDays?: number;
+  stepDays?: number;
+}
+
+/** One point of the cardinality-vs-tracking frontier (out of sample). */
+export interface FrontierPoint {
+  k: number;
+  teOos: number;
+  replicationR2Oos: number;
+  meanMonthlyChurn: number;
+  /** Mean, across windows, of each window's single largest weight — not a max across windows. */
+  meanMaxWeight: number;
+  nWindows: number;
+}
+
+/** Out-of-sample cardinality-vs-tracking-error frontier (walk-forward trained/tested). */
+export interface TrackingFrontier {
+  frontier: FrontierPoint[];
+  nFallbackWindows: number;
+}
+
+/**
+ * Full `variance_decomposition.json` payload: the per-N points plus the
+ * (optional) investable-replication ladder and OOS tracking frontier.
+ * `replication`/`trackingFrontier` are absent on data bundles exported
+ * before this block existed — both are optional so the page degrades
+ * gracefully rather than throwing.
+ */
+export interface VarianceDecompositionData {
+  points: VarianceDecompositionPoint[];
+  replication?: ReplicationQuality;
+  trackingFrontier?: TrackingFrontier;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Solved-N Series
+   Source: /data/alpha_n_series.json
+   The N-rule's actual selections across rebalances — what the strategy
+   held, not the fixed-N=20 reporting convention used elsewhere.
+   ────────────────────────────────────────────────────────────── */
+
+/** The solved-N series — what the strategy's N-rule actually held. */
+export interface AlphaNSeries {
+  series: { date: string; n: number }[];
+  mean: number;
+  median: number;
+  min: number;
+  max: number;
+  floor: number;
+  cap: number;
+  shareAtFloor: number;
+  /** Count of rebalances at each N, keyed by N as a string (e.g. {"10": 49}) */
+  distribution: Record<string, number>;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Universe Rotation
+   Source: /data/universe_rotation.json
+   ────────────────────────────────────────────────────────────── */
+
+/** Membership rotation of the point-in-time universe this project trades. */
+export interface UniverseRotation {
+  summary: {
+    nRebalances: number;
+    distinctTickers: number;
+    entries: number;
+    exits: number;
+    avgNamesReplacedPerYear: number | null;
+    neverLeft: string[];
+  };
+  events: { date: string; entered: string[]; exited: string[] }[];
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -257,11 +377,58 @@ export interface PerformanceMetrics {
   annualizedTurnover?: number;
 }
 
-export interface AllPerformanceMetrics {
+export interface StrategyMetricSet {
   sp500: PerformanceMetrics;
   sp20Mirror: PerformanceMetrics;
   sp20Equal: PerformanceMetrics;
   spnAlpha?: PerformanceMetrics;
+}
+
+/** Significance of one strategy's active return against a reference series. */
+export interface ActiveReturnStats {
+  /** Annualised mean active return vs the reference */
+  annualisedActiveReturn: number;
+  /** Annualised standard deviation of the active return */
+  trackingError: number;
+  /** Information ratio (active return / tracking error) */
+  informationRatio: number;
+  /** t-statistic of the mean daily active return */
+  tStat: number;
+  /** Whether |t| clears the multiple-testing hurdle (Harvey-Liu-Zhu, t > 3) */
+  significant: boolean;
+  /** Years of data this IR would need to reach the hurdle; null if IR <= 0 */
+  yearsForHurdle: number | null;
+  /** Overlapping observations behind the estimate */
+  nDays: number;
+}
+
+/**
+ * Every strategy measured on the window they all share.
+ *
+ * The top-level metrics each span that strategy's own history (baselines from
+ * 2014, SP-N Alpha from 2016 once its first walk-forward window closes), so
+ * reading them as columns of one table is not apples-to-apples. This block is
+ * the honest comparison, plus the pairwise t-stats needed to say whether any
+ * gap is distinguishable from noise.
+ */
+export interface MatchedWindowComparison {
+  windowStart: string;
+  windowEnd: string;
+  windowYears: number;
+  /** Series key used as the regression benchmark (e.g. "sp500") */
+  benchmark: string;
+  /** |t| required to call a difference real */
+  tHurdle: number;
+  /** True if ANY pairwise comparison clears the hurdle */
+  anySignificant: boolean;
+  metrics: StrategyMetricSet;
+  /** significance[strategyKey][referenceKey], keyed by raw export keys */
+  significance: Record<string, Record<string, ActiveReturnStats>>;
+}
+
+export interface AllPerformanceMetrics extends StrategyMetricSet {
+  /** Present once the export has regenerated; absent on older data bundles. */
+  matchedWindow?: MatchedWindowComparison;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -343,59 +510,13 @@ export interface DeviationData {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   Machine / Animation State
-   ────────────────────────────────────────────────────────────── */
-
-export type MachineStage =
-  | "idle"
-  | "powering_up"
-  | "data_pipeline"
-  | "concentration"
-  | "building"
-  | "optimizing"
-  | "monitoring"
-  | "complete";
-
-export interface MachineStageConfig {
-  /** Stage identifier */
-  id: MachineStage;
-  /** Human-readable label */
-  name: string;
-  /** Duration in milliseconds before advancing to the next stage */
-  duration: number;
-  /** Short description shown during animation */
-  description: string;
-  /** 0-based index for ordering */
-  order: number;
-}
-
-/* ──────────────────────────────────────────────────────────────
-   Component Tooltip
-   ────────────────────────────────────────────────────────────── */
-
-export interface ComponentTooltip {
-  /** Component identifier matching the machine diagram */
-  id: string;
-  /** Display title */
-  title: string;
-  /** One-line subtitle */
-  subtitle: string;
-  /** Multi-sentence technical description */
-  description: string;
-  /** Methodology rationale ("why we did it this way") */
-  thinking: string;
-  /** Single standout insight */
-  keyInsight: string;
-}
-
-/* ──────────────────────────────────────────────────────────────
    Aggregated Lab Data (returned by useLabData hook)
    ────────────────────────────────────────────────────────────── */
 
 export interface LabData {
   meta: MetaData;
   concentrationCurve: ConcentrationCurveData;
-  varianceDecomposition: VarianceDecompositionPoint[];
+  varianceDecomposition: VarianceDecompositionData;
   /** Backward-compat weekly series (default chart data) */
   performanceNav: PerformanceNavData;
   /** Both granularities for time-range switching */
@@ -404,4 +525,8 @@ export interface LabData {
   holdings: HoldingsData;
   drawdown: DrawdownData;
   deviation: DeviationData;
+  /** The strategy's actual solved-N history (absent on older data bundles) */
+  alphaNSeries?: AlphaNSeries;
+  /** Point-in-time universe membership rotation (absent on older data bundles) */
+  universeRotation?: UniverseRotation;
 }

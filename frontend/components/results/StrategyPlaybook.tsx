@@ -12,8 +12,7 @@
    ================================================================ */
 
 import React from "react";
-import { motion } from "framer-motion";
-import { CHART_COLORS } from "@/lib/constants";
+import { CHART_COLORS } from "@/lib/chartTheme";
 import {
   STRATEGY_MECHANICS,
   STRATEGY_ORDER,
@@ -55,12 +54,12 @@ const Stat: React.FC<{ label: string; value: string; muted?: boolean }> = ({
   muted,
 }) => (
   <div className="flex flex-col">
-    <span className="text-[10px] uppercase tracking-wider text-text-muted">
+    <span className="text-[10px] uppercase tracking-wider text-ink-muted">
       {label}
     </span>
     <span
       className={`font-mono text-sm tabular-nums ${
-        muted ? "text-text-muted" : "text-text-primary"
+        muted ? "text-ink-muted" : "text-ink"
       }`}
     >
       {value}
@@ -74,33 +73,28 @@ const DefRow: React.FC<{ label: string; children: React.ReactNode }> = ({
   children,
 }) => (
   <div className="grid grid-cols-[92px_1fr] gap-3 py-1.5">
-    <span className="pt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+    <span className="pt-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
       {label}
     </span>
-    <span className="text-xs leading-relaxed text-text-secondary">
+    <span className="text-xs leading-relaxed text-ink-secondary">
       {children}
     </span>
   </div>
 );
 
 const StrategyCard: React.FC<{
-  index: number;
   strategyKey: StrategyKey;
   metrics?: PerformanceMetrics;
   turnover?: number;
   turnoverNote?: string;
-}> = ({ index, strategyKey, metrics, turnover, turnoverNote }) => {
+}> = ({ strategyKey, metrics, turnover, turnoverNote }) => {
   const mech = STRATEGY_MECHANICS[strategyKey];
   const color = CHART_COLORS[strategyKey as keyof typeof CHART_COLORS];
   const isBenchmark = mech.isBenchmark;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.06 }}
-      className="flex flex-col rounded-xl border border-[#1A1A24] bg-bg-secondary p-5"
+    <div
+      className="flex flex-col rounded-xl border bg-surface p-5"
     >
       {/* Header */}
       <div className="mb-3 flex items-center gap-2.5">
@@ -109,21 +103,21 @@ const StrategyCard: React.FC<{
           style={{ backgroundColor: color }}
           aria-hidden="true"
         />
-        <h3 className="text-sm font-bold tracking-wide text-text-primary">
+        <h3 className="text-sm font-bold tracking-wide text-ink">
           {mech.label}
         </h3>
         {isBenchmark && (
-          <span className="rounded-full border border-[#2A2A38] px-2 py-0.5 text-[9px] uppercase tracking-wider text-text-muted">
+          <span className="rounded-full border border-border-strong px-2 py-0.5 text-[9px] uppercase tracking-wider text-ink-muted">
             Benchmark
           </span>
         )}
       </div>
-      <p className="mb-3 text-xs italic leading-relaxed text-text-muted">
+      <p className="mb-3 text-xs italic leading-relaxed text-ink-muted">
         {mech.tagline}
       </p>
 
       {/* How it works + Rebalance */}
-      <div className="border-t border-[#1A1A24] pt-2">
+      <div className="border-t pt-2">
         <DefRow label="Universe">{mech.universe}</DefRow>
         <DefRow label="Weighting">{mech.weighting}</DefRow>
         <DefRow label="Rebalance">{mech.rebalance}</DefRow>
@@ -132,11 +126,11 @@ const StrategyCard: React.FC<{
           {turnover !== undefined && (
             <>
               {" · "}
-              <span className="text-text-secondary">
+              <span className="text-ink-secondary">
                 {formatRatio(turnover)}×/yr turnover
               </span>
               {turnoverNote && (
-                <span className="text-text-muted"> {turnoverNote}</span>
+                <span className="text-ink-muted"> {turnoverNote}</span>
               )}
             </>
           )}
@@ -145,7 +139,7 @@ const StrategyCard: React.FC<{
 
       {/* Track record */}
       {metrics && (
-        <div className="mt-3 grid grid-cols-4 gap-3 border-t border-[#1A1A24] pt-3">
+        <div className="mt-3 grid grid-cols-4 gap-3 border-t pt-3">
           <Stat label="CAGR" value={formatPercent(metrics.cagr, 1)} />
           <Stat label="Sharpe" value={formatRatio(metrics.sharpe)} />
           <Stat
@@ -156,7 +150,7 @@ const StrategyCard: React.FC<{
           <Stat label="Max DD" value={formatPercent(metrics.maxDrawdown, 1)} />
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 
@@ -168,7 +162,7 @@ const StrategyPlaybook: React.FC<StrategyPlaybookProps> = ({
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-      {STRATEGY_ORDER.map((key, i) => {
+      {STRATEGY_ORDER.map((key) => {
         const m = metricsFor(key, metrics);
         // Only strategies we trade carry a turnover figure. Mirror/Equal
         // report full-sample turnover; SP-N Alpha's isn't in its metrics
@@ -189,7 +183,6 @@ const StrategyPlaybook: React.FC<StrategyPlaybookProps> = ({
         return (
           <StrategyCard
             key={key}
-            index={i}
             strategyKey={key}
             metrics={m}
             turnover={turnover}

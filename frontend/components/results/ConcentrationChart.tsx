@@ -18,6 +18,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { ConcentrationPoint } from "@/lib/types";
+import { chartTheme } from "@/lib/chartTheme";
+
+/** Single-series chart: the accent carries the line, not a series colour. */
+const ACCENT = chartTheme.accent;
 
 /* ──────────────────────────────────────────────────────────────
    Props
@@ -25,6 +29,10 @@ import type { ConcentrationPoint } from "@/lib/types";
 
 interface ConcentrationChartProps {
   data: ConcentrationPoint[];
+  /** The strategy's actual solved-N median (alphaNSeries.median). Renders a
+   *  second reference line alongside the fixed N=20 reporting convention;
+   *  omitted entirely when absent (older data bundles, or pre-cron-refresh). */
+  solvedMedianN?: number;
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -49,19 +57,19 @@ const CustomTooltip: React.FC<{
   const data = payload[0].payload;
 
   return (
-    <div className="rounded-lg border border-[#2A2A35] bg-[#111118] px-3 py-2 shadow-xl">
-      <p className="text-xs font-bold text-accent-primary">
+    <div className="rounded-lg border border-border-strong bg-ground px-3 py-2 shadow-xl">
+      <p className="text-xs font-bold text-accent">
         {data.n} {data.n === 1 ? "Stock" : "Stocks"}
       </p>
-      <p className="mt-1 text-xs text-text-secondary">
+      <p className="mt-1 text-xs text-ink-secondary">
         R&sup2;:{" "}
-        <span className="font-medium text-text-primary">
+        <span className="font-medium text-ink">
           {(data.rSquared * 100).toFixed(1)}%
         </span>
       </p>
-      <p className="text-xs text-text-secondary">
+      <p className="text-xs text-ink-secondary">
         Marginal R&sup2;:{" "}
-        <span className="font-medium text-text-primary">
+        <span className="font-medium text-ink">
           {(data.marginalRSquared * 100).toFixed(2)}%
         </span>
       </p>
@@ -73,7 +81,11 @@ const CustomTooltip: React.FC<{
    Component
    ────────────────────────────────────────────────────────────── */
 
-const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
+const ConcentrationChart: React.FC<ConcentrationChartProps> = ({
+  data,
+  solvedMedianN,
+}) => {
+  const rSquaredAtTwenty = data.find((p) => p.n === 20)?.rSquared;
   // Transform data for recharts (rSquared as percentage for display)
   const chartData = data.map((point) => ({
     ...point,
@@ -82,97 +94,128 @@ const ConcentrationChart: React.FC<ConcentrationChartProps> = ({ data }) => {
 
   return (
     <div className="w-full">
-      <h3 className="mb-4 text-sm font-semibold tracking-wide text-text-secondary">
+      <h3 className="mb-4 text-sm font-semibold tracking-wide text-ink-secondary">
         Concentration Curve: R&sup2; vs Number of Stocks
       </h3>
 
       <ResponsiveContainer width="100%" height={360}>
+        {/* Right margin holds the derived R-squared label (e.g. "95.2%"),
+            which is wider than the "95%" literal it replaced. */}
         <AreaChart
           data={chartData}
-          margin={{ top: 10, right: 30, left: 10, bottom: 10 }}
+          margin={{ top: 10, right: 56, left: 10, bottom: 10 }}
         >
           <defs>
             <linearGradient id="gradientRSquared" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#00D4AA" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="#00D4AA" stopOpacity={0.02} />
+              <stop offset="0%" stopColor={ACCENT} stopOpacity={0.3} />
+              <stop offset="100%" stopColor={ACCENT} stopOpacity={0.02} />
             </linearGradient>
           </defs>
 
           <CartesianGrid
             strokeDasharray="3 3"
-            stroke="#1A1A24"
+            stroke={chartTheme.grid.stroke}
             vertical={false}
           />
 
           <XAxis
             dataKey="n"
-            tick={{ fill: "#888899", fontSize: 11 }}
-            axisLine={{ stroke: "#1A1A24" }}
-            tickLine={{ stroke: "#1A1A24" }}
+            // Numeric, not categorical: the sampled N values (5, 10, 15, 20,
+            // 25, 30, 40, 50) are unevenly spaced, and a category scale draws
+            // them at uniform intervals regardless. That also means a
+            // ReferenceLine can only land on an *exact* category value — a
+            // solver median like 11 would silently fail to render (no match,
+            // no error). A numeric scale positions any x by interpolation and
+            // draws the curve's true (decelerating) shape.
+            type="number"
+            domain={["dataMin", "dataMax"]}
+            ticks={data.map((p) => p.n)}
+            tick={chartTheme.axis.tick}
+            axisLine={{ stroke: chartTheme.axis.stroke }}
+            tickLine={{ stroke: chartTheme.axis.tickStroke }}
             label={{
               value: "# of Stocks",
               position: "insideBottom",
               offset: -5,
-              fill: "#555566",
+              fill: chartTheme.axis.tick.fill,
               fontSize: 11,
             }}
           />
 
           <YAxis
             domain={[0, 1]}
-            tick={{ fill: "#888899", fontSize: 11 }}
-            axisLine={{ stroke: "#1A1A24" }}
-            tickLine={{ stroke: "#1A1A24" }}
+            tick={chartTheme.axis.tick}
+            axisLine={{ stroke: chartTheme.axis.stroke }}
+            tickLine={{ stroke: chartTheme.axis.tickStroke }}
             tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`}
             label={{
               value: "R-squared",
               angle: -90,
               position: "insideLeft",
               offset: 10,
-              fill: "#555566",
+              fill: chartTheme.axis.tick.fill,
               fontSize: 11,
             }}
           />
 
           {/* 95% R-squared reference line */}
-          <ReferenceLine
-            y={0.95}
-            stroke="#888899"
-            strokeDasharray="6 4"
-            label={{
-              value: "95%",
-              position: "right",
-              fill: "#888899",
-              fontSize: 10,
-            }}
-          />
+          {rSquaredAtTwenty !== undefined && (
+            <ReferenceLine
+              y={rSquaredAtTwenty}
+              stroke={chartTheme.referenceLine.stroke}
+              strokeDasharray="6 4"
+              label={{
+                value: `${(rSquaredAtTwenty * 100).toFixed(1)}%`,
+                position: "right",
+                fill: chartTheme.axis.tick.fill,
+                fontSize: 10,
+              }}
+            />
+          )}
 
           {/* 20 stocks reference line */}
           <ReferenceLine
             x={20}
-            stroke="#888899"
+            stroke={chartTheme.referenceLine.stroke}
             strokeDasharray="6 4"
             label={{
-              value: "N=20",
+              value: "N=20 · reporting convention",
               position: "top",
-              fill: "#888899",
+              fill: chartTheme.axis.tick.fill,
               fontSize: 10,
             }}
           />
+
+          {/* Solver-median reference line — what the strategy's N-rule
+              actually holds, as distinct from the N=20 reporting convention
+              above. Absent on data bundles without alphaNSeries. */}
+          {solvedMedianN !== undefined && (
+            <ReferenceLine
+              x={solvedMedianN}
+              stroke={chartTheme.referenceLine.stroke}
+              strokeDasharray="6 4"
+              label={{
+                value: `N=${solvedMedianN} · solver median`,
+                position: "top",
+                fill: chartTheme.axis.tick.fill,
+                fontSize: 10,
+              }}
+            />
+          )}
 
           <RechartsTooltip content={<CustomTooltip />} />
 
           <Area
             type="monotone"
             dataKey="rSquaredPct"
-            stroke="#00D4AA"
+            stroke={ACCENT}
             strokeWidth={2}
             fill="url(#gradientRSquared)"
             dot={false}
             activeDot={{
               r: 4,
-              fill: "#00D4AA",
-              stroke: "#111118",
+              fill: ACCENT,
+              stroke: chartTheme.ground,
               strokeWidth: 2,
             }}
           />

@@ -6,7 +6,6 @@
    ================================================================ */
 
 import React from "react";
-import { motion } from "framer-motion";
 import type { Holding } from "@/lib/types";
 
 /* ──────────────────────────────────────────────────────────────
@@ -29,29 +28,25 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ holdings }) => {
   const maxWeight = sorted.length > 0 ? sorted[0].weight : 1;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+    <div
       className="w-full overflow-x-auto"
     >
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="border-b border-[#1A1A24]">
-            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
+          <tr className="border-b">
+            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-ink-muted">
               #
             </th>
-            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
+            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-ink-muted">
               Ticker
             </th>
-            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
+            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-ink-muted">
               Name
             </th>
-            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
+            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-ink-muted">
               Sector
             </th>
-            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted">
+            <th className="px-3 py-3 text-xs font-semibold uppercase tracking-wider text-ink-muted">
               Weight (%)
             </th>
           </tr>
@@ -60,39 +55,39 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ holdings }) => {
           {sorted.map((holding, index) => (
             <tr
               key={holding.ticker}
-              className={`border-b border-[#1A1A24] transition-colors hover:bg-bg-tertiary ${
-                index % 2 === 0 ? "bg-bg-secondary" : "bg-bg-primary"
+              className={`border-b transition-colors hover:bg-surface-sunken ${
+                index % 2 === 0 ? "bg-surface" : "bg-ground"
               }`}
             >
               {/* Rank */}
-              <td className="px-3 py-2.5 text-xs tabular-nums text-text-muted">
+              <td className="px-3 py-2.5 text-xs tabular-nums text-ink-muted">
                 {index + 1}
               </td>
 
               {/* Ticker */}
-              <td className="px-3 py-2.5 font-mono text-xs font-bold text-accent-primary">
+              <td className="px-3 py-2.5 font-mono text-xs font-bold text-accent">
                 {holding.ticker}
               </td>
 
               {/* Company Name */}
-              <td className="px-3 py-2.5 text-xs text-text-secondary">
+              <td className="px-3 py-2.5 text-xs text-ink-secondary">
                 {holding.name}
               </td>
 
               {/* Sector */}
-              <td className="px-3 py-2.5 text-xs text-text-muted">
+              <td className="px-3 py-2.5 text-xs text-ink-muted">
                 {holding.sector}
               </td>
 
               {/* Weight with proportional bar */}
               <td className="px-3 py-2.5">
                 <div className="flex items-center gap-2">
-                  <span className="min-w-[48px] text-right font-mono text-xs tabular-nums text-text-primary">
+                  <span className="min-w-[48px] text-right font-mono text-xs tabular-nums text-ink">
                     {(holding.weight * 100).toFixed(2)}%
                   </span>
-                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-bg-tertiary">
+                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-surface-sunken">
                     <div
-                      className="h-full rounded-full bg-accent-primary transition-all duration-700"
+                      className="h-full rounded-full bg-accent transition-all duration-700"
                       style={{
                         width: `${(holding.weight / maxWeight) * 100}%`,
                         opacity: 0.6,
@@ -105,7 +100,7 @@ const HoldingsTable: React.FC<HoldingsTableProps> = ({ holdings }) => {
           ))}
         </tbody>
       </table>
-    </motion.div>
+    </div>
   );
 };
 
