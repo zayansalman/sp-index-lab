@@ -1,0 +1,4387 @@
+{
+  "summary": {
+    "n_rebalances": 152,
+    "first": "2014-01-31",
+    "last": "2026-08-07",
+    "distinct_tickers": 42,
+    "entries": 64,
+    "exits": 64,
+    "avg_names_replaced_per_year": 5.11,
+    "never_left": [
+      "AAPL",
+      "AMZN",
+      "BRK-B",
+      "GOOGL",
+      "JPM",
+      "META",
+      "MSFT",
+      "WMT"
+    ]
+  },
+  "events": [
+    {
+      "date": "2014-02-28",
+      "entered": [
+        "SLB"
+      ],
+      "exited": [
+        "PM"
+      ]
+    },
+    {
+      "date": "2014-03-31",
+      "entered": [
+        "DIS"
+      ],
+      "exited": [
+        "GE"
+      ]
+    },
+    {
+      "date": "2014-07-31",
+      "entered": [
+        "INTC"
+      ],
+      "exited": [
+        "DIS"
+      ]
+    },
+    {
+      "date": "2014-10-31",
+      "entered": [
+        "DIS"
+      ],
+      "exited": [
+        "SLB"
+      ]
+    },
+    {
+      "date": "2015-10-30",
+      "entered": [
+        "V"
+      ],
+      "exited": [
+        "IBM"
+      ]
+    },
+    {
+      "date": "2015-12-31",
+      "entered": [
+        "GE"
+      ],
+      "exited": [
+        "V"
+      ]
+    },
+    {
+      "date": "2016-04-29",
+      "entered": [
+        "PM"
+      ],
+      "exited": [
+        "WFC"
+      ]
+    },
+    {
+      "date": "2016-10-31",
+      "entered": [
+        "V"
+      ],
+      "exited": [
+        "GE"
+      ]
+    },
+    {
+      "date": "2016-12-30",
+      "entered": [
+        "GE",
+        "WFC"
+      ],
+      "exited": [
+        "PM",
+        "V"
+      ]
+    },
+    {
+      "date": "2017-02-28",
+      "entered": [
+        "BAC"
+      ],
+      "exited": [
+        "GE"
+      ]
+    },
+    {
+      "date": "2017-04-28",
+      "entered": [
+        "PM"
+      ],
+      "exited": [
+        "BAC"
+      ]
+    },
+    {
+      "date": "2017-05-31",
+      "entered": [
+        "V"
+      ],
+      "exited": [
+        "WFC"
+      ]
+    },
+    {
+      "date": "2017-09-29",
+      "entered": [
+        "BA"
+      ],
+      "exited": [
+        "DIS"
+      ]
+    },
+    {
+      "date": "2017-10-31",
+      "entered": [
+        "UNH"
+      ],
+      "exited": [
+        "PM"
+      ]
+    },
+    {
+      "date": "2017-12-29",
+      "entered": [
+        "BAC"
+      ],
+      "exited": [
+        "T"
+      ]
+    },
+    {
+      "date": "2018-04-30",
+      "entered": [
+        "ABBV"
+      ],
+      "exited": [
+        "PG"
+      ]
+    },
+    {
+      "date": "2018-05-31",
+      "entered": [
+        "HD"
+      ],
+      "exited": [
+        "ABBV"
+      ]
+    },
+    {
+      "date": "2018-11-30",
+      "entered": [
+        "PG"
+      ],
+      "exited": [
+        "HD"
+      ]
+    },
+    {
+      "date": "2018-12-31",
+      "entered": [
+        "DIS"
+      ],
+      "exited": [
+        "BAC"
+      ]
+    },
+    {
+      "date": "2019-03-29",
+      "entered": [
+        "BAC"
+      ],
+      "exited": [
+        "DIS"
+      ]
+    },
+    {
+      "date": "2019-04-30",
+      "entered": [
+        "CSCO"
+      ],
+      "exited": [
+        "KO"
+      ]
+    },
+    {
+      "date": "2019-05-31",
+      "entered": [
+        "DIS"
+      ],
+      "exited": [
+        "BAC"
+      ]
+    },
+    {
+      "date": "2019-06-28",
+      "entered": [
+        "MA"
+      ],
+      "exited": [
+        "CSCO"
+      ]
+    },
+    {
+      "date": "2019-08-30",
+      "entered": [
+        "KO"
+      ],
+      "exited": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2019-10-31",
+      "entered": [
+        "HD"
+      ],
+      "exited": [
+        "UNH"
+      ]
+    },
+    {
+      "date": "2019-12-31",
+      "entered": [
+        "UNH"
+      ],
+      "exited": [
+        "HD"
+      ]
+    },
+    {
+      "date": "2020-01-31",
+      "entered": [
+        "BAC"
+      ],
+      "exited": [
+        "CVX"
+      ]
+    },
+    {
+      "date": "2020-03-31",
+      "entered": [
+        "HD"
+      ],
+      "exited": [
+        "BAC"
+      ]
+    },
+    {
+      "date": "2020-04-30",
+      "entered": [
+        "PFE"
+      ],
+      "exited": [
+        "BA"
+      ]
+    },
+    {
+      "date": "2020-05-29",
+      "entered": [
+        "MRK"
+      ],
+      "exited": [
+        "XOM"
+      ]
+    },
+    {
+      "date": "2020-06-30",
+      "entered": [
+        "NVDA"
+      ],
+      "exited": [
+        "MRK"
+      ]
+    },
+    {
+      "date": "2020-08-31",
+      "entered": [
+        "NFLX"
+      ],
+      "exited": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2020-12-31",
+      "entered": [
+        "TSLA"
+      ],
+      "exited": [
+        "NFLX"
+      ]
+    },
+    {
+      "date": "2021-03-31",
+      "entered": [
+        "BAC"
+      ],
+      "exited": [
+        "KO"
+      ]
+    },
+    {
+      "date": "2021-05-28",
+      "entered": [
+        "XOM"
+      ],
+      "exited": [
+        "VZ"
+      ]
+    },
+    {
+      "date": "2021-08-31",
+      "entered": [
+        "ORCL"
+      ],
+      "exited": [
+        "XOM"
+      ]
+    },
+    {
+      "date": "2021-11-30",
+      "entered": [
+        "NFLX"
+      ],
+      "exited": [
+        "INTC"
+      ]
+    },
+    {
+      "date": "2021-12-31",
+      "entered": [
+        "PFE"
+      ],
+      "exited": [
+        "NFLX"
+      ]
+    },
+    {
+      "date": "2022-01-31",
+      "entered": [
+        "AVGO",
+        "XOM"
+      ],
+      "exited": [
+        "DIS",
+        "ORCL"
+      ]
+    },
+    {
+      "date": "2022-03-31",
+      "entered": [
+        "CVX"
+      ],
+      "exited": [
+        "AVGO"
+      ]
+    },
+    {
+      "date": "2022-05-31",
+      "entered": [
+        "AVGO"
+      ],
+      "exited": [
+        "BAC"
+      ]
+    },
+    {
+      "date": "2022-06-30",
+      "entered": [
+        "KO"
+      ],
+      "exited": [
+        "AVGO"
+      ]
+    },
+    {
+      "date": "2022-07-29",
+      "entered": [
+        "LLY"
+      ],
+      "exited": [
+        "KO"
+      ]
+    },
+    {
+      "date": "2023-02-28",
+      "entered": [
+        "ABBV"
+      ],
+      "exited": [
+        "PFE"
+      ]
+    },
+    {
+      "date": "2023-03-31",
+      "entered": [
+        "AVGO"
+      ],
+      "exited": [
+        "ABBV"
+      ]
+    },
+    {
+      "date": "2023-06-30",
+      "entered": [
+        "ORCL"
+      ],
+      "exited": [
+        "HD"
+      ]
+    },
+    {
+      "date": "2023-08-31",
+      "entered": [
+        "HD"
+      ],
+      "exited": [
+        "CVX"
+      ]
+    },
+    {
+      "date": "2023-09-29",
+      "entered": [
+        "CVX"
+      ],
+      "exited": [
+        "HD"
+      ]
+    },
+    {
+      "date": "2023-12-29",
+      "entered": [
+        "HD"
+      ],
+      "exited": [
+        "CVX"
+      ]
+    },
+    {
+      "date": "2024-06-28",
+      "entered": [
+        "COST"
+      ],
+      "exited": [
+        "HD"
+      ]
+    },
+    {
+      "date": "2024-11-29",
+      "entered": [
+        "HD"
+      ],
+      "exited": [
+        "JNJ"
+      ]
+    },
+    {
+      "date": "2025-03-31",
+      "entered": [
+        "NFLX"
+      ],
+      "exited": [
+        "HD"
+      ]
+    },
+    {
+      "date": "2025-06-30",
+      "entered": [
+        "JNJ"
+      ],
+      "exited": [
+        "UNH"
+      ]
+    },
+    {
+      "date": "2025-08-29",
+      "entered": [
+        "HD"
+      ],
+      "exited": [
+        "PG"
+      ]
+    },
+    {
+      "date": "2025-10-31",
+      "entered": [
+        "PLTR"
+      ],
+      "exited": [
+        "HD"
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "entered": [
+        "ABBV"
+      ],
+      "exited": [
+        "COST"
+      ]
+    },
+    {
+      "date": "2026-01-30",
+      "entered": [
+        "COST"
+      ],
+      "exited": [
+        "ABBV"
+      ]
+    },
+    {
+      "date": "2026-02-27",
+      "entered": [
+        "ABBV"
+      ],
+      "exited": [
+        "NFLX"
+      ]
+    },
+    {
+      "date": "2026-03-31",
+      "entered": [
+        "MU"
+      ],
+      "exited": [
+        "PLTR"
+      ]
+    },
+    {
+      "date": "2026-05-29",
+      "entered": [
+        "AMD"
+      ],
+      "exited": [
+        "ABBV"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "entered": [
+        "INTC"
+      ],
+      "exited": [
+        "MA"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "entered": [
+        "CSCO"
+      ],
+      "exited": [
+        "COST"
+      ]
+    }
+  ],
+  "schedule": [
+    {
+      "date": "2014-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GE",
+        "GOOGL",
+        "IBM",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-02-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GE",
+        "GOOGL",
+        "IBM",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "SLB",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "SLB",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-04-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "SLB",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-05-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "SLB",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "SLB",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "SLB",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-08-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "SLB",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "SLB",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-11-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2014-12-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-01-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-02-27",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-04-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-05-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-08-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "IBM",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-10-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "V",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-11-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "V",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2015-12-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-01-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-02-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-04-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-05-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-07-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-08-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-11-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2016-12-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GE",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-02-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-04-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "VZ",
+        "WFC",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-05-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-08-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-09-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "PM",
+        "T",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-11-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "T",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2017-12-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-02-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-03-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-04-30",
+      "tickers": [
+        "AAPL",
+        "ABBV",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-05-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-06-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-08-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-09-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-11-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2018-12-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-02-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-03-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-04-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "CSCO",
+        "CVX",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-05-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CSCO",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-06-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-08-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PG",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-11-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PG",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2019-12-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "CVX",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2020-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2020-02-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2020-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BA",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2020-04-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2020-05-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MRK",
+        "MSFT",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2020-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2020-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2020-08-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2020-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2020-10-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2020-11-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "PG",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2020-12-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-01-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-02-26",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-04-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "VZ",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-05-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2021-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2021-07-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2021-08-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-10-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-11-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2021-12-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "DIS",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT"
+      ]
+    },
+    {
+      "date": "2022-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BAC",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-02-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BAC",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-04-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BAC",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-05-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "KO",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-07-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-08-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-11-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2022-12-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PFE",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-02-28",
+      "tickers": [
+        "AAPL",
+        "ABBV",
+        "AMZN",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-04-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-05-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-08-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-09-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-11-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CVX",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2023-12-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-02-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-03-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-04-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-05-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-06-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-08-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-11-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "HD",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2024-12-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "HD",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-01-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "HD",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-02-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "HD",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-03-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-04-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-05-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "UNH",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-06-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-07-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PG",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-08-29",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-09-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "HD",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-10-31",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PLTR",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-11-28",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PLTR",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "tickers": [
+        "AAPL",
+        "ABBV",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PLTR",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-01-30",
+      "tickers": [
+        "AAPL",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NFLX",
+        "NVDA",
+        "ORCL",
+        "PLTR",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-02-27",
+      "tickers": [
+        "AAPL",
+        "ABBV",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "NVDA",
+        "ORCL",
+        "PLTR",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-03-31",
+      "tickers": [
+        "AAPL",
+        "ABBV",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "MU",
+        "NVDA",
+        "ORCL",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-04-30",
+      "tickers": [
+        "AAPL",
+        "ABBV",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "MU",
+        "NVDA",
+        "ORCL",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-05-29",
+      "tickers": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "MU",
+        "NVDA",
+        "ORCL",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "tickers": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "COST",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "META",
+        "MSFT",
+        "MU",
+        "NVDA",
+        "ORCL",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "tickers": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CSCO",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "META",
+        "MSFT",
+        "MU",
+        "NVDA",
+        "ORCL",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-08-07",
+      "tickers": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CSCO",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "META",
+        "MSFT",
+        "MU",
+        "NVDA",
+        "ORCL",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    }
+  ]
+}
