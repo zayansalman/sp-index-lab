@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-07",
+  "last_updated": "2026-08-10",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3168,
+  "n_trading_days": 3169,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-07"
+    "end": "2026-08-10"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -58,8 +58,8 @@
     "BAC",
     "UNH",
     "CVX",
-    "KO",
     "GE",
+    "KO",
     "PG",
     "MS",
     "HD",
@@ -84,14 +84,14 @@
   ],
   "headline": {
     "r_squared_at_20": 0.952373,
-    "sp500_cagr": 0.141624,
-    "mirror_cagr": 0.17569,
-    "mirror_alpha": 0.023274,
-    "equal_cagr": 0.161235,
-    "equal_alpha": 0.021366,
+    "sp500_cagr": 0.141532,
+    "mirror_cagr": 0.175423,
+    "mirror_alpha": 0.023107,
+    "equal_cagr": 0.161405,
+    "equal_alpha": 0.021628,
     "net_of_costs": true,
     "alpha_cagr": 0.197599,
-    "alpha_sharpe": 0.85228,
+    "alpha_sharpe": 0.852253,
     "alpha_jensen": 0.032611,
     "alpha_max_drawdown": -0.330577
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-10T23:08:08.396013+00:00"
+  "generated_at": "2026-08-11T23:13:58.134035+00:00"
 }
