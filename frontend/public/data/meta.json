@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-10",
+  "last_updated": "2026-08-11",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3169,
+  "n_trading_days": 3170,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-10"
+    "end": "2026-08-11"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -15,8 +15,8 @@
     "MSFT",
     "AMZN",
     "AVGO",
-    "TSLA",
     "META",
+    "TSLA",
     "BRK-B",
     "MU",
     "LLY",
@@ -37,8 +37,8 @@
     "MSFT",
     "AMZN",
     "AVGO",
-    "TSLA",
     "META",
+    "TSLA",
     "BRK-B",
     "MU",
     "LLY",
@@ -84,14 +84,14 @@
   ],
   "headline": {
     "r_squared_at_20": 0.952373,
-    "sp500_cagr": 0.141532,
-    "mirror_cagr": 0.175423,
-    "mirror_alpha": 0.023107,
-    "equal_cagr": 0.161405,
-    "equal_alpha": 0.021628,
+    "sp500_cagr": 0.141195,
+    "mirror_cagr": 0.174435,
+    "mirror_alpha": 0.022478,
+    "equal_cagr": 0.160684,
+    "equal_alpha": 0.021233,
     "net_of_costs": true,
     "alpha_cagr": 0.197599,
-    "alpha_sharpe": 0.852253,
+    "alpha_sharpe": 0.852225,
     "alpha_jensen": 0.032611,
     "alpha_max_drawdown": -0.330577
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-11T23:13:58.134035+00:00"
+  "generated_at": "2026-08-12T23:13:27.087933+00:00"
 }
