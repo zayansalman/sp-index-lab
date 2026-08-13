@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-11",
+  "last_updated": "2026-08-12",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3170,
+  "n_trading_days": 3171,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-11"
+    "end": "2026-08-12"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -53,8 +53,8 @@
     "CSCO",
     "MA",
     "COST",
-    "CAT",
     "ABBV",
+    "CAT",
     "BAC",
     "UNH",
     "CVX",
@@ -63,8 +63,8 @@
     "PG",
     "MS",
     "HD",
-    "NFLX",
     "PLTR",
+    "NFLX",
     "GS",
     "MRK",
     "PM",
@@ -78,21 +78,21 @@
     "QCOM",
     "TMUS",
     "MCD",
-    "PEP",
     "AMGN",
+    "PEP",
     "VZ"
   ],
   "headline": {
     "r_squared_at_20": 0.952373,
-    "sp500_cagr": 0.141195,
-    "mirror_cagr": 0.174435,
-    "mirror_alpha": 0.022478,
-    "equal_cagr": 0.160684,
-    "equal_alpha": 0.021233,
+    "sp500_cagr": 0.141388,
+    "mirror_cagr": 0.174557,
+    "mirror_alpha": 0.022391,
+    "equal_cagr": 0.161263,
+    "equal_alpha": 0.021619,
     "net_of_costs": true,
-    "alpha_cagr": 0.197599,
-    "alpha_sharpe": 0.852225,
-    "alpha_jensen": 0.032611,
+    "alpha_cagr": 0.197598,
+    "alpha_sharpe": 0.851916,
+    "alpha_jensen": 0.030625,
     "alpha_max_drawdown": -0.330577
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-12T23:13:27.087933+00:00"
+  "generated_at": "2026-08-13T23:14:16.273754+00:00"
 }
