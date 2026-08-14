@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-12",
+  "last_updated": "2026-08-13",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3171,
+  "n_trading_days": 3172,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-12"
+    "end": "2026-08-13"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -83,16 +83,16 @@
     "VZ"
   ],
   "headline": {
-    "r_squared_at_20": 0.952373,
-    "sp500_cagr": 0.141388,
-    "mirror_cagr": 0.174557,
-    "mirror_alpha": 0.022391,
-    "equal_cagr": 0.161263,
-    "equal_alpha": 0.021619,
+    "r_squared_at_20": 0.951723,
+    "sp500_cagr": 0.141932,
+    "mirror_cagr": 0.175188,
+    "mirror_alpha": 0.022431,
+    "equal_cagr": 0.161685,
+    "equal_alpha": 0.021508,
     "net_of_costs": true,
     "alpha_cagr": 0.197598,
-    "alpha_sharpe": 0.851916,
-    "alpha_jensen": 0.030625,
+    "alpha_sharpe": 0.851889,
+    "alpha_jensen": 0.030626,
     "alpha_max_drawdown": -0.330577
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-13T23:14:16.273754+00:00"
+  "generated_at": "2026-08-14T22:50:54.319256+00:00"
 }
