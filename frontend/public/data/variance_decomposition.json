@@ -213,51 +213,51 @@
     "frontier": [
       {
         "k": 10,
-        "te_oos": 0.0531,
-        "replication_r2_oos": 0.9106,
-        "mean_monthly_churn": 0.219,
+        "te_oos": 0.0533,
+        "replication_r2_oos": 0.9096,
+        "mean_monthly_churn": 0.2174,
         "mean_max_weight": 0.196,
-        "n_windows": 138
+        "n_windows": 139
       },
       {
         "k": 15,
-        "te_oos": 0.0416,
-        "replication_r2_oos": 0.9451,
-        "mean_monthly_churn": 0.2048,
-        "mean_max_weight": 0.1299,
-        "n_windows": 138
+        "te_oos": 0.0419,
+        "replication_r2_oos": 0.944,
+        "mean_monthly_churn": 0.2043,
+        "mean_max_weight": 0.1302,
+        "n_windows": 139
       },
       {
         "k": 20,
-        "te_oos": 0.0357,
-        "replication_r2_oos": 0.9595,
-        "mean_monthly_churn": 0.1899,
+        "te_oos": 0.0359,
+        "replication_r2_oos": 0.9589,
+        "mean_monthly_churn": 0.1896,
         "mean_max_weight": 0.0983,
-        "n_windows": 138
+        "n_windows": 139
       },
       {
         "k": 25,
-        "te_oos": 0.0345,
-        "replication_r2_oos": 0.9623,
-        "mean_monthly_churn": 0.1789,
-        "mean_max_weight": 0.0826,
-        "n_windows": 138
+        "te_oos": 0.0346,
+        "replication_r2_oos": 0.9619,
+        "mean_monthly_churn": 0.1793,
+        "mean_max_weight": 0.0827,
+        "n_windows": 139
       },
       {
         "k": 30,
-        "te_oos": 0.032,
-        "replication_r2_oos": 0.9675,
-        "mean_monthly_churn": 0.1679,
-        "mean_max_weight": 0.0731,
-        "n_windows": 138
+        "te_oos": 0.0321,
+        "replication_r2_oos": 0.9672,
+        "mean_monthly_churn": 0.1682,
+        "mean_max_weight": 0.0732,
+        "n_windows": 139
       },
       {
         "k": 40,
         "te_oos": 0.0264,
-        "replication_r2_oos": 0.9779,
-        "mean_monthly_churn": 0.1488,
-        "mean_max_weight": 0.0635,
-        "n_windows": 138
+        "replication_r2_oos": 0.9777,
+        "mean_monthly_churn": 0.1497,
+        "mean_max_weight": 0.0637,
+        "n_windows": 139
       }
     ],
     "n_fallback_windows": 0

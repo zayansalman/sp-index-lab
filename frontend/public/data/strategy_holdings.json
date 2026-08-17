@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-13",
+  "as_of": "2026-08-14",
   "strategies": {
     "spn_alpha": [
       {
@@ -7,7 +7,7 @@
         "name": "NVIDIA Corp.",
         "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 225.300003,
+        "last_price": 225.160004,
         "rank": 1
       },
       {
@@ -15,7 +15,7 @@
         "name": "Apple Inc.",
         "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 305.26001,
+        "last_price": 305.929993,
         "rank": 2
       },
       {
@@ -23,7 +23,7 @@
         "name": "Alphabet Inc.",
         "weight": 0.0625,
         "sector": "Communication Services",
-        "last_price": 346.359985,
+        "last_price": 345.899994,
         "rank": 3
       },
       {
@@ -31,7 +31,7 @@
         "name": "Microsoft Corp.",
         "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 496.880005,
+        "last_price": 495.399994,
         "rank": 4
       },
       {
@@ -39,7 +39,7 @@
         "name": "Amazon.com Inc.",
         "weight": 0.0625,
         "sector": "Consumer Discretionary",
-        "last_price": 265.130005,
+        "last_price": 262.649994,
         "rank": 5
       },
       {
@@ -47,7 +47,7 @@
         "name": "Broadcom Inc.",
         "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 417.820007,
+        "last_price": 392.98999,
         "rank": 6
       },
       {
@@ -55,7 +55,7 @@
         "name": "Meta Platforms Inc.",
         "weight": 0.0625,
         "sector": "Communication Services",
-        "last_price": 594.969971,
+        "last_price": 589.849976,
         "rank": 7
       },
       {
@@ -63,7 +63,7 @@
         "name": "Tesla Inc.",
         "weight": 0.0625,
         "sector": "Consumer Discretionary",
-        "last_price": 339.959991,
+        "last_price": 342.269989,
         "rank": 8
       },
       {
@@ -71,7 +71,7 @@
         "name": "Berkshire Hathaway Inc.",
         "weight": 0.0625,
         "sector": "Financials",
-        "last_price": 506.929993,
+        "last_price": 504.029999,
         "rank": 9
       },
       {
@@ -79,7 +79,7 @@
         "name": "Micron Technology Inc.",
         "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 949.830017,
+        "last_price": 971.659973,
         "rank": 10
       },
       {
@@ -87,7 +87,7 @@
         "name": "Eli Lilly and Co.",
         "weight": 0.0625,
         "sector": "Health Care",
-        "last_price": 1209.0,
+        "last_price": 1180.160034,
         "rank": 11
       },
       {
@@ -95,7 +95,7 @@
         "name": "Walmart Inc.",
         "weight": 0.0625,
         "sector": "Consumer Staples",
-        "last_price": 115.720001,
+        "last_price": 115.269997,
         "rank": 12
       },
       {
@@ -103,7 +103,7 @@
         "name": "JPMorgan Chase & Co.",
         "weight": 0.0625,
         "sector": "Financials",
-        "last_price": 363.109985,
+        "last_price": 362.839996,
         "rank": 13
       },
       {
@@ -111,7 +111,7 @@
         "name": "Advanced Micro Devices Inc.",
         "weight": 0.0625,
         "sector": "Technology",
-        "last_price": 483.01001,
+        "last_price": 514.390015,
         "rank": 14
       },
       {
@@ -119,7 +119,7 @@
         "name": "Visa Inc.",
         "weight": 0.0625,
         "sector": "Financials",
-        "last_price": 365.450012,
+        "last_price": 364.149994,
         "rank": 15
       },
       {
@@ -127,7 +127,7 @@
         "name": "Exxon Mobil Corp.",
         "weight": 0.0625,
         "sector": "Energy",
-        "last_price": 158.610001,
+        "last_price": 160.100006,
         "rank": 16
       }
     ]

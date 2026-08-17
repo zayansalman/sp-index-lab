@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-13",
+  "last_updated": "2026-08-14",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3172,
+  "n_trading_days": 3173,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-13"
+    "end": "2026-08-14"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -77,21 +77,21 @@
     "AXP",
     "QCOM",
     "TMUS",
-    "MCD",
     "AMGN",
+    "MCD",
     "PEP",
-    "VZ"
+    "TMO"
   ],
   "headline": {
     "r_squared_at_20": 0.951723,
-    "sp500_cagr": 0.141932,
-    "mirror_cagr": 0.175188,
-    "mirror_alpha": 0.022431,
-    "equal_cagr": 0.161685,
-    "equal_alpha": 0.021508,
+    "sp500_cagr": 0.141741,
+    "mirror_cagr": 0.174716,
+    "mirror_alpha": 0.022165,
+    "equal_cagr": 0.161174,
+    "equal_alpha": 0.021182,
     "net_of_costs": true,
     "alpha_cagr": 0.197598,
-    "alpha_sharpe": 0.851889,
+    "alpha_sharpe": 0.851862,
     "alpha_jensen": 0.030626,
     "alpha_max_drawdown": -0.330577
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-14T22:50:54.319256+00:00"
+  "generated_at": "2026-08-17T22:50:48.252159+00:00"
 }
