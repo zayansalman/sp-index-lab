@@ -2,11 +2,11 @@
   "summary": {
     "n_rebalances": 152,
     "first": "2014-01-31",
-    "last": "2026-08-14",
+    "last": "2026-08-17",
     "distinct_tickers": 42,
     "entries": 64,
     "exits": 64,
-    "avg_names_replaced_per_year": 5.11,
+    "avg_names_replaced_per_year": 5.1,
     "never_left": [
       "AAPL",
       "AMZN",
@@ -4359,7 +4359,7 @@
       ]
     },
     {
-      "date": "2026-08-14",
+      "date": "2026-08-17",
       "tickers": [
         "AAPL",
         "AMD",
