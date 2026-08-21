@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-19",
+  "last_updated": "2026-08-20",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3176,
+  "n_trading_days": 3177,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-19"
+    "end": "2026-08-20"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -27,8 +27,8 @@
     "XOM",
     "JNJ",
     "INTC",
-    "ORCL",
-    "CSCO"
+    "CSCO",
+    "ORCL"
   ],
   "top_50_tickers": [
     "NVDA",
@@ -49,11 +49,11 @@
     "XOM",
     "JNJ",
     "INTC",
-    "ORCL",
     "CSCO",
+    "ORCL",
     "MA",
-    "COST",
     "ABBV",
+    "COST",
     "CAT",
     "BAC",
     "UNH",
@@ -65,8 +65,8 @@
     "HD",
     "PLTR",
     "NFLX",
-    "GS",
     "MRK",
+    "GS",
     "PM",
     "TXN",
     "RTX",
@@ -78,20 +78,20 @@
     "QCOM",
     "AMGN",
     "TMUS",
-    "MCD",
     "TMO",
+    "MCD",
     "PEP"
   ],
   "headline": {
     "r_squared_at_20": 0.951723,
-    "sp500_cagr": 0.140709,
-    "mirror_cagr": 0.173409,
-    "mirror_alpha": 0.021978,
-    "equal_cagr": 0.159593,
-    "equal_alpha": 0.020612,
+    "sp500_cagr": 0.139885,
+    "mirror_cagr": 0.172377,
+    "mirror_alpha": 0.021839,
+    "equal_cagr": 0.158574,
+    "equal_alpha": 0.0204,
     "net_of_costs": true,
     "alpha_cagr": 0.197598,
-    "alpha_sharpe": 0.85178,
+    "alpha_sharpe": 0.851753,
     "alpha_jensen": 0.030628,
     "alpha_max_drawdown": -0.330577
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-20T22:56:31.062233+00:00"
+  "generated_at": "2026-08-21T22:52:23.828671+00:00"
 }
