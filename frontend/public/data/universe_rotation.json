@@ -2,11 +2,11 @@
   "summary": {
     "n_rebalances": 152,
     "first": "2014-01-31",
-    "last": "2026-08-20",
+    "last": "2026-08-21",
     "distinct_tickers": 42,
-    "entries": 64,
-    "exits": 64,
-    "avg_names_replaced_per_year": 5.1,
+    "entries": 65,
+    "exits": 65,
+    "avg_names_replaced_per_year": 5.18,
     "never_left": [
       "AAPL",
       "AMZN",
@@ -579,6 +579,15 @@
       ],
       "exited": [
         "COST"
+      ]
+    },
+    {
+      "date": "2026-08-21",
+      "entered": [
+        "MA"
+      ],
+      "exited": [
+        "ORCL"
       ]
     }
   ],
@@ -4359,7 +4368,7 @@
       ]
     },
     {
-      "date": "2026-08-20",
+      "date": "2026-08-21",
       "tickers": [
         "AAPL",
         "AMD",
@@ -4372,11 +4381,11 @@
         "JNJ",
         "JPM",
         "LLY",
+        "MA",
         "META",
         "MSFT",
         "MU",
         "NVDA",
-        "ORCL",
         "TSLA",
         "V",
         "WMT",
