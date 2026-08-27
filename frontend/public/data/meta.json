@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-24",
+  "last_updated": "2026-08-26",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3179,
+  "n_trading_days": 3181,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-24"
+    "end": "2026-08-26"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -54,8 +54,8 @@
     "ORCL",
     "ABBV",
     "COST",
-    "CAT",
     "BAC",
+    "CAT",
     "UNH",
     "CVX",
     "GE",
@@ -76,23 +76,23 @@
     "C",
     "AXP",
     "AMGN",
-    "QCOM",
     "TMO",
     "TMUS",
+    "QCOM",
     "MCD",
-    "PEP"
+    "VZ"
   ],
   "headline": {
     "r_squared_at_20": 0.951723,
-    "sp500_cagr": 0.139936,
-    "mirror_cagr": 0.172028,
-    "mirror_alpha": 0.021435,
-    "equal_cagr": 0.158365,
-    "equal_alpha": 0.020135,
+    "sp500_cagr": 0.140117,
+    "mirror_cagr": 0.172116,
+    "mirror_alpha": 0.021325,
+    "equal_cagr": 0.158593,
+    "equal_alpha": 0.020182,
     "net_of_costs": true,
     "alpha_cagr": 0.197598,
-    "alpha_sharpe": 0.851699,
-    "alpha_jensen": 0.030629,
+    "alpha_sharpe": 0.851645,
+    "alpha_jensen": 0.03063,
     "alpha_max_drawdown": -0.330577
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-25T22:55:07.136797+00:00"
+  "generated_at": "2026-08-27T03:28:52.310549+00:00"
 }
