@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-26",
+  "last_updated": "2026-08-27",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3181,
+  "n_trading_days": 3182,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-26"
+    "end": "2026-08-27"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -56,13 +56,13 @@
     "COST",
     "BAC",
     "CAT",
-    "UNH",
     "CVX",
+    "UNH",
     "GE",
     "KO",
     "PG",
-    "MS",
     "PLTR",
+    "MS",
     "HD",
     "NFLX",
     "MRK",
@@ -78,20 +78,20 @@
     "AMGN",
     "TMO",
     "TMUS",
-    "QCOM",
     "MCD",
+    "QCOM",
     "VZ"
   ],
   "headline": {
     "r_squared_at_20": 0.951723,
-    "sp500_cagr": 0.140117,
-    "mirror_cagr": 0.172116,
-    "mirror_alpha": 0.021325,
-    "equal_cagr": 0.158593,
-    "equal_alpha": 0.020182,
+    "sp500_cagr": 0.140718,
+    "mirror_cagr": 0.173541,
+    "mirror_alpha": 0.022078,
+    "equal_cagr": 0.159133,
+    "equal_alpha": 0.02013,
     "net_of_costs": true,
     "alpha_cagr": 0.197598,
-    "alpha_sharpe": 0.851645,
+    "alpha_sharpe": 0.851618,
     "alpha_jensen": 0.03063,
     "alpha_max_drawdown": -0.330577
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-27T03:28:52.310549+00:00"
+  "generated_at": "2026-08-28T06:15:51.159145+00:00"
 }
