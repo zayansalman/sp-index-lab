@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-27",
+  "last_updated": "2026-08-28",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3182,
+  "n_trading_days": 3183,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-27"
+    "end": "2026-08-28"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -20,8 +20,8 @@
     "MU",
     "BRK-B",
     "LLY",
-    "WMT",
     "JPM",
+    "WMT",
     "AMD",
     "V",
     "XOM",
@@ -42,8 +42,8 @@
     "MU",
     "BRK-B",
     "LLY",
-    "WMT",
     "JPM",
+    "WMT",
     "AMD",
     "V",
     "XOM",
@@ -64,8 +64,8 @@
     "PLTR",
     "MS",
     "HD",
-    "NFLX",
     "MRK",
+    "NFLX",
     "GS",
     "PM",
     "RTX",
@@ -79,20 +79,20 @@
     "TMO",
     "TMUS",
     "MCD",
-    "QCOM",
-    "VZ"
+    "VZ",
+    "QCOM"
   ],
   "headline": {
     "r_squared_at_20": 0.951723,
-    "sp500_cagr": 0.140718,
-    "mirror_cagr": 0.173541,
-    "mirror_alpha": 0.022078,
-    "equal_cagr": 0.159133,
-    "equal_alpha": 0.02013,
+    "sp500_cagr": 0.140449,
+    "mirror_cagr": 0.173456,
+    "mirror_alpha": 0.022289,
+    "equal_cagr": 0.158949,
+    "equal_alpha": 0.020212,
     "net_of_costs": true,
     "alpha_cagr": 0.197598,
-    "alpha_sharpe": 0.851618,
-    "alpha_jensen": 0.03063,
+    "alpha_sharpe": 0.85159,
+    "alpha_jensen": 0.030631,
     "alpha_max_drawdown": -0.330577
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-28T06:15:51.159145+00:00"
+  "generated_at": "2026-08-29T03:50:37.799836+00:00"
 }
