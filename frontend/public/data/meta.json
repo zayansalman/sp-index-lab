@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-28",
+  "last_updated": "2026-08-31",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3183,
+  "n_trading_days": 3184,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-28"
+    "end": "2026-08-31"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -60,8 +60,8 @@
     "UNH",
     "GE",
     "KO",
-    "PG",
     "PLTR",
+    "PG",
     "MS",
     "HD",
     "MRK",
@@ -73,25 +73,25 @@
     "WFC",
     "IBM",
     "LIN",
-    "C",
     "AXP",
+    "C",
     "AMGN",
     "TMO",
     "TMUS",
     "MCD",
     "VZ",
-    "QCOM"
+    "PEP"
   ],
   "headline": {
     "r_squared_at_20": 0.951723,
-    "sp500_cagr": 0.140449,
-    "mirror_cagr": 0.173456,
-    "mirror_alpha": 0.022289,
-    "equal_cagr": 0.158949,
-    "equal_alpha": 0.020212,
+    "sp500_cagr": 0.140106,
+    "mirror_cagr": 0.173314,
+    "mirror_alpha": 0.022524,
+    "equal_cagr": 0.159095,
+    "equal_alpha": 0.020704,
     "net_of_costs": true,
     "alpha_cagr": 0.197598,
-    "alpha_sharpe": 0.85159,
+    "alpha_sharpe": 0.851563,
     "alpha_jensen": 0.030631,
     "alpha_max_drawdown": -0.330577
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-08-29T03:50:37.799836+00:00"
+  "generated_at": "2026-09-01T01:23:30.547350+00:00"
 }
