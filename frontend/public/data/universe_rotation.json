@@ -1,12 +1,12 @@
 {
   "summary": {
-    "n_rebalances": 152,
+    "n_rebalances": 153,
     "first": "2014-01-31",
-    "last": "2026-08-31",
+    "last": "2026-09-01",
     "distinct_tickers": 42,
-    "entries": 65,
-    "exits": 65,
-    "avg_names_replaced_per_year": 5.17,
+    "entries": 67,
+    "exits": 67,
+    "avg_names_replaced_per_year": 5.32,
     "never_left": [
       "AAPL",
       "AMZN",
@@ -38,7 +38,7 @@
       ]
     },
     {
-      "date": "2014-07-31",
+      "date": "2014-06-30",
       "entered": [
         "INTC"
       ],
@@ -157,9 +157,18 @@
       ]
     },
     {
-      "date": "2018-04-30",
+      "date": "2018-03-29",
       "entered": [
         "ABBV"
+      ],
+      "exited": [
+        "KO"
+      ]
+    },
+    {
+      "date": "2018-04-30",
+      "entered": [
+        "KO"
       ],
       "exited": [
         "PG"
@@ -225,6 +234,15 @@
         "MA"
       ],
       "exited": [
+        "UNH"
+      ]
+    },
+    {
+      "date": "2019-07-31",
+      "entered": [
+        "UNH"
+      ],
+      "exited": [
         "CSCO"
       ]
     },
@@ -238,7 +256,7 @@
       ]
     },
     {
-      "date": "2019-10-31",
+      "date": "2019-09-30",
       "entered": [
         "HD"
       ],
@@ -346,28 +364,19 @@
       ]
     },
     {
-      "date": "2021-11-30",
+      "date": "2021-12-31",
       "entered": [
-        "NFLX"
+        "PFE"
       ],
       "exited": [
         "INTC"
       ]
     },
     {
-      "date": "2021-12-31",
-      "entered": [
-        "PFE"
-      ],
-      "exited": [
-        "NFLX"
-      ]
-    },
-    {
       "date": "2022-01-31",
       "entered": [
         "AVGO",
-        "XOM"
+        "INTC"
       ],
       "exited": [
         "DIS",
@@ -375,7 +384,16 @@
       ]
     },
     {
-      "date": "2022-03-31",
+      "date": "2022-02-28",
+      "entered": [
+        "XOM"
+      ],
+      "exited": [
+        "INTC"
+      ]
+    },
+    {
+      "date": "2022-04-29",
       "entered": [
         "CVX"
       ],
@@ -447,7 +465,7 @@
       ]
     },
     {
-      "date": "2023-09-29",
+      "date": "2023-10-31",
       "entered": [
         "CVX"
       ],
@@ -724,9 +742,9 @@
         "AMZN",
         "BRK-B",
         "CVX",
-        "DIS",
         "GOOGL",
         "IBM",
+        "INTC",
         "JNJ",
         "JPM",
         "KO",
@@ -1846,6 +1864,7 @@
       "date": "2018-03-29",
       "tickers": [
         "AAPL",
+        "ABBV",
         "AMZN",
         "BA",
         "BAC",
@@ -1855,7 +1874,6 @@
         "INTC",
         "JNJ",
         "JPM",
-        "KO",
         "META",
         "MSFT",
         "PFE",
@@ -2224,6 +2242,7 @@
         "AMZN",
         "BA",
         "BRK-B",
+        "CSCO",
         "CVX",
         "DIS",
         "GOOGL",
@@ -2235,7 +2254,6 @@
         "MSFT",
         "PFE",
         "PG",
-        "UNH",
         "V",
         "VZ",
         "WMT",
@@ -2302,6 +2320,7 @@
         "CVX",
         "DIS",
         "GOOGL",
+        "HD",
         "INTC",
         "JNJ",
         "JPM",
@@ -2310,7 +2329,6 @@
         "META",
         "MSFT",
         "PG",
-        "UNH",
         "V",
         "VZ",
         "WMT",
@@ -2952,12 +2970,12 @@
         "DIS",
         "GOOGL",
         "HD",
+        "INTC",
         "JNJ",
         "JPM",
         "MA",
         "META",
         "MSFT",
-        "NFLX",
         "NVDA",
         "ORCL",
         "PG",
@@ -3002,6 +3020,7 @@
         "BRK-B",
         "GOOGL",
         "HD",
+        "INTC",
         "JNJ",
         "JPM",
         "MA",
@@ -3013,8 +3032,7 @@
         "TSLA",
         "UNH",
         "V",
-        "WMT",
-        "XOM"
+        "WMT"
       ]
     },
     {
@@ -3047,9 +3065,9 @@
       "tickers": [
         "AAPL",
         "AMZN",
+        "AVGO",
         "BAC",
         "BRK-B",
-        "CVX",
         "GOOGL",
         "HD",
         "JNJ",
@@ -3499,8 +3517,8 @@
         "AMZN",
         "AVGO",
         "BRK-B",
-        "CVX",
         "GOOGL",
+        "HD",
         "JNJ",
         "JPM",
         "LLY",
@@ -4369,6 +4387,31 @@
     },
     {
       "date": "2026-08-31",
+      "tickers": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "CSCO",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "MU",
+        "NVDA",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-09-01",
       "tickers": [
         "AAPL",
         "AMD",

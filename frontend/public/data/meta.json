@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-08-31",
+  "last_updated": "2026-09-01",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3184,
+  "n_trading_days": 3185,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-08-31"
+    "end": "2026-09-01"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -78,22 +78,22 @@
     "AMGN",
     "TMO",
     "TMUS",
+    "QCOM",
     "MCD",
-    "VZ",
-    "PEP"
+    "VZ"
   ],
   "headline": {
-    "r_squared_at_20": 0.951723,
-    "sp500_cagr": 0.140106,
-    "mirror_cagr": 0.173314,
-    "mirror_alpha": 0.022524,
-    "equal_cagr": 0.159095,
-    "equal_alpha": 0.020704,
+    "r_squared_at_20": 0.951859,
+    "sp500_cagr": 0.139423,
+    "mirror_cagr": 0.172822,
+    "mirror_alpha": 0.022663,
+    "equal_cagr": 0.158613,
+    "equal_alpha": 0.020734,
     "net_of_costs": true,
-    "alpha_cagr": 0.197598,
-    "alpha_sharpe": 0.851563,
-    "alpha_jensen": 0.030631,
-    "alpha_max_drawdown": -0.330577
+    "alpha_cagr": 0.203444,
+    "alpha_sharpe": 0.869288,
+    "alpha_jensen": 0.034059,
+    "alpha_max_drawdown": -0.321141
   },
   "research": {
     "dev_winner_spec": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-09-01T01:23:30.547350+00:00"
+  "generated_at": "2026-09-02T00:24:47.532424+00:00"
 }

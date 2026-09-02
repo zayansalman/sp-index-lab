@@ -164,21 +164,21 @@
     },
     {
       "n_stocks": 28,
-      "ticker_added": "UNH",
-      "r_squared": 0.890973,
-      "marginal_r_squared": 0.003173
+      "ticker_added": "CSCO",
+      "r_squared": 0.895144,
+      "marginal_r_squared": 0.007344
     },
     {
       "n_stocks": 29,
-      "ticker_added": "CSCO",
-      "r_squared": 0.898665,
-      "marginal_r_squared": 0.007692
+      "ticker_added": "GE",
+      "r_squared": 0.898848,
+      "marginal_r_squared": 0.003704
     },
     {
       "n_stocks": 30,
-      "ticker_added": "GE",
+      "ticker_added": "UNH",
       "r_squared": 0.903737,
-      "marginal_r_squared": 0.005071
+      "marginal_r_squared": 0.004889
     },
     {
       "n_stocks": 31,
@@ -248,33 +248,33 @@
     },
     {
       "n_stocks": 42,
-      "ticker_added": "DIS",
-      "r_squared": 0.939813,
-      "marginal_r_squared": 0.000171
+      "ticker_added": "NOW",
+      "r_squared": 0.940612,
+      "marginal_r_squared": 0.00097
     },
     {
       "n_stocks": 43,
-      "ticker_added": "NOW",
+      "ticker_added": "DIS",
       "r_squared": 0.940826,
-      "marginal_r_squared": 0.001013
+      "marginal_r_squared": 0.000214
     },
     {
       "n_stocks": 44,
-      "ticker_added": "GS",
-      "r_squared": 0.941665,
-      "marginal_r_squared": 0.000839
+      "ticker_added": "MRK",
+      "r_squared": 0.946409,
+      "marginal_r_squared": 0.005583
     },
     {
       "n_stocks": 45,
-      "ticker_added": "MRK",
-      "r_squared": 0.947027,
-      "marginal_r_squared": 0.005363
+      "ticker_added": "RTX",
+      "r_squared": 0.946719,
+      "marginal_r_squared": 0.00031
     },
     {
       "n_stocks": 46,
-      "ticker_added": "RTX",
+      "ticker_added": "GS",
       "r_squared": 0.947299,
-      "marginal_r_squared": 0.000272
+      "marginal_r_squared": 0.00058
     },
     {
       "n_stocks": 47,
@@ -301,7 +301,7 @@
       "marginal_r_squared": 9e-06
     }
   ],
-  "r_squared_at_20": 0.951723,
+  "r_squared_at_20": 0.951859,
   "r_squared_at_20_latest": 0.861434,
   "r_squared_windows": [
     {
@@ -317,7 +317,7 @@
     {
       "window_start": "2014-03-06",
       "window_end": "2015-03-05",
-      "r_squared_at_20": 0.933066
+      "r_squared_at_20": 0.930022
     },
     {
       "window_start": "2014-04-04",
@@ -337,7 +337,7 @@
     {
       "window_start": "2014-07-07",
       "window_end": "2015-07-06",
-      "r_squared_at_20": 0.949157
+      "r_squared_at_20": 0.947919
     },
     {
       "window_start": "2014-08-05",
@@ -562,7 +562,7 @@
     {
       "window_start": "2018-04-06",
       "window_end": "2019-04-05",
-      "r_squared_at_20": 0.964404
+      "r_squared_at_20": 0.96301
     },
     {
       "window_start": "2018-05-07",
@@ -597,7 +597,7 @@
     {
       "window_start": "2018-11-02",
       "window_end": "2019-11-04",
-      "r_squared_at_20": 0.966166
+      "r_squared_at_20": 0.96706
     },
     {
       "window_start": "2018-12-04",
@@ -637,7 +637,7 @@
     {
       "window_start": "2019-07-09",
       "window_end": "2020-07-07",
-      "r_squared_at_20": 0.985401
+      "r_squared_at_20": 0.984234
     },
     {
       "window_start": "2019-08-07",
@@ -782,7 +782,7 @@
     {
       "window_start": "2021-12-06",
       "window_end": "2022-12-05",
-      "r_squared_at_20": 0.977426
+      "r_squared_at_20": 0.97771
     },
     {
       "window_start": "2022-01-05",
@@ -892,7 +892,7 @@
     {
       "window_start": "2023-10-09",
       "window_end": "2024-10-08",
-      "r_squared_at_20": 0.91668
+      "r_squared_at_20": 0.941419
     },
     {
       "window_start": "2023-11-07",
