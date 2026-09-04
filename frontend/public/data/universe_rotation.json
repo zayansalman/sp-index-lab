@@ -2,7 +2,7 @@
   "summary": {
     "n_rebalances": 153,
     "first": "2014-01-31",
-    "last": "2026-09-02",
+    "last": "2026-09-03",
     "distinct_tickers": 42,
     "entries": 67,
     "exits": 67,
@@ -4411,7 +4411,7 @@
       ]
     },
     {
-      "date": "2026-09-02",
+      "date": "2026-09-03",
       "tickers": [
         "AAPL",
         "AMD",
