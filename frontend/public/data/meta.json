@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-04",
+  "last_updated": "2026-09-08",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3188,
+  "n_trading_days": 3189,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-09-04"
+    "end": "2026-09-08"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -69,8 +69,8 @@
     "GS",
     "PM",
     "RTX",
-    "TXN",
     "WFC",
+    "TXN",
     "LIN",
     "IBM",
     "AXP",
@@ -84,14 +84,14 @@
   ],
   "headline": {
     "r_squared_at_20": 0.951859,
-    "sp500_cagr": 0.140328,
-    "mirror_cagr": 0.174029,
-    "mirror_alpha": 0.022875,
-    "equal_cagr": 0.159807,
-    "equal_alpha": 0.021038,
+    "sp500_cagr": 0.139756,
+    "mirror_cagr": 0.173697,
+    "mirror_alpha": 0.023173,
+    "equal_cagr": 0.160009,
+    "equal_alpha": 0.021823,
     "net_of_costs": true,
     "alpha_cagr": 0.203444,
-    "alpha_sharpe": 0.869206,
+    "alpha_sharpe": 0.869178,
     "alpha_jensen": 0.034061,
     "alpha_max_drawdown": -0.321141
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-09-08T00:37:10.983786+00:00"
+  "generated_at": "2026-09-09T00:28:18.103756+00:00"
 }
