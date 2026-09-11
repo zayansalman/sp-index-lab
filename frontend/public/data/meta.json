@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-09",
+  "last_updated": "2026-09-10",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3190,
+  "n_trading_days": 3191,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-09-09"
+    "end": "2026-09-10"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -57,8 +57,8 @@
     "COST",
     "CAT",
     "CVX",
-    "UNH",
     "GE",
+    "UNH",
     "KO",
     "PLTR",
     "PG",
@@ -84,15 +84,15 @@
   ],
   "headline": {
     "r_squared_at_20": 0.951859,
-    "sp500_cagr": 0.139275,
-    "mirror_cagr": 0.173479,
-    "mirror_alpha": 0.023485,
-    "equal_cagr": 0.160376,
-    "equal_alpha": 0.02268,
+    "sp500_cagr": 0.138711,
+    "mirror_cagr": 0.173057,
+    "mirror_alpha": 0.023683,
+    "equal_cagr": 0.159418,
+    "equal_alpha": 0.02227,
     "net_of_costs": true,
     "alpha_cagr": 0.203444,
-    "alpha_sharpe": 0.86915,
-    "alpha_jensen": 0.034062,
+    "alpha_sharpe": 0.869121,
+    "alpha_jensen": 0.034063,
     "alpha_max_drawdown": -0.321141
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-09-10T00:26:59.918363+00:00"
+  "generated_at": "2026-09-11T00:22:17.646828+00:00"
 }
