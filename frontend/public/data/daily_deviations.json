@@ -70,7 +70,7 @@
       "bin_start": -0.9548,
       "bin_end": -0.859,
       "bin_center": -0.9069,
-      "count": 18
+      "count": 19
     },
     {
       "bin_start": -0.859,
@@ -136,7 +136,7 @@
       "bin_start": 0.0987,
       "bin_end": 0.1945,
       "bin_center": 0.1466,
-      "count": 344
+      "count": 343
     },
     {
       "bin_start": 0.1945,
@@ -154,7 +154,7 @@
       "bin_start": 0.386,
       "bin_end": 0.4818,
       "bin_center": 0.4339,
-      "count": 134
+      "count": 135
     },
     {
       "bin_start": 0.4818,
@@ -301,15 +301,15 @@
       "count": 1
     }
   ],
-  "n_observations": 3191,
+  "n_observations": 3192,
   "unit": "percentage_points",
   "stats": {
-    "mean": 0.014,
-    "std": 0.4206,
-    "median": 0.0132,
+    "mean": 0.0138,
+    "std": 0.4209,
+    "median": 0.013,
     "min": -2.0083,
     "max": 2.7804,
-    "skewness": 0.1034,
-    "kurtosis": 2.6379
+    "skewness": 0.1019,
+    "kurtosis": 2.6268
   }
 }

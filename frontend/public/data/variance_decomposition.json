@@ -2,49 +2,49 @@
   "decomposition": [
     {
       "n_stocks": 5,
-      "r_squared": 0.784423,
+      "r_squared": 0.783889,
       "r_squared_min": 0.559267,
       "r_squared_max": 0.947217
     },
     {
       "n_stocks": 10,
-      "r_squared": 0.904626,
+      "r_squared": 0.903885,
       "r_squared_min": 0.791809,
       "r_squared_max": 0.976393
     },
     {
       "n_stocks": 15,
-      "r_squared": 0.93135,
+      "r_squared": 0.930834,
       "r_squared_min": 0.819715,
       "r_squared_max": 0.982961
     },
     {
       "n_stocks": 20,
-      "r_squared": 0.951859,
+      "r_squared": 0.951374,
       "r_squared_min": 0.858798,
       "r_squared_max": 0.988844
     },
     {
       "n_stocks": 25,
-      "r_squared": 0.961776,
+      "r_squared": 0.961269,
       "r_squared_min": 0.887016,
       "r_squared_max": 0.992531
     },
     {
       "n_stocks": 30,
-      "r_squared": 0.969818,
+      "r_squared": 0.969372,
       "r_squared_min": 0.894476,
       "r_squared_max": 0.993611
     },
     {
       "n_stocks": 40,
-      "r_squared": 0.979824,
+      "r_squared": 0.979526,
       "r_squared_min": 0.930503,
       "r_squared_max": 0.995363
     },
     {
       "n_stocks": 50,
-      "r_squared": 0.985519,
+      "r_squared": 0.985324,
       "r_squared_min": 0.948016,
       "r_squared_max": 0.996853
     }
@@ -55,154 +55,154 @@
     "window_days": 252,
     "step_days": 21,
     "ladder": {
-      "investable_cap": 0.8134,
-      "investable_equal": 0.9177,
-      "ols_ceiling": 0.951859
+      "investable_cap": 0.8125,
+      "investable_equal": 0.9169,
+      "ols_ceiling": 0.951374
     },
     "by_n": [
       {
         "n": 5,
         "weighting": "cap",
         "tracking_error": 0.1259,
-        "replication_r2": 0.3376,
+        "replication_r2": 0.3364,
         "te_min": 0.0572,
         "te_max": 0.1966,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 10,
         "weighting": "cap",
-        "tracking_error": 0.0951,
-        "replication_r2": 0.5975,
+        "tracking_error": 0.0952,
+        "replication_r2": 0.596,
         "te_min": 0.041,
         "te_max": 0.1436,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 15,
         "weighting": "cap",
         "tracking_error": 0.0773,
-        "replication_r2": 0.7366,
+        "replication_r2": 0.7358,
         "te_min": 0.042,
         "te_max": 0.1195,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 20,
         "weighting": "cap",
-        "tracking_error": 0.0647,
-        "replication_r2": 0.8134,
+        "tracking_error": 0.0648,
+        "replication_r2": 0.8125,
         "te_min": 0.0355,
         "te_max": 0.1019,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 25,
         "weighting": "cap",
-        "tracking_error": 0.0568,
-        "replication_r2": 0.855,
+        "tracking_error": 0.0569,
+        "replication_r2": 0.8543,
         "te_min": 0.0311,
         "te_max": 0.092,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 30,
         "weighting": "cap",
         "tracking_error": 0.0515,
-        "replication_r2": 0.8811,
+        "replication_r2": 0.8804,
         "te_min": 0.0268,
         "te_max": 0.0851,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 40,
         "weighting": "cap",
-        "tracking_error": 0.0449,
-        "replication_r2": 0.9098,
+        "tracking_error": 0.045,
+        "replication_r2": 0.9093,
         "te_min": 0.0218,
         "te_max": 0.0762,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 50,
         "weighting": "cap",
         "tracking_error": 0.0403,
-        "replication_r2": 0.9278,
+        "replication_r2": 0.9274,
         "te_min": 0.0197,
         "te_max": 0.067,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 5,
         "weighting": "equal",
-        "tracking_error": 0.131,
-        "replication_r2": 0.3177,
+        "tracking_error": 0.1309,
+        "replication_r2": 0.3161,
         "te_min": 0.0582,
         "te_max": 0.2001,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 10,
         "weighting": "equal",
-        "tracking_error": 0.0815,
-        "replication_r2": 0.6887,
+        "tracking_error": 0.0816,
+        "replication_r2": 0.6871,
         "te_min": 0.0413,
         "te_max": 0.1365,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 15,
         "weighting": "equal",
         "tracking_error": 0.0552,
-        "replication_r2": 0.8573,
+        "replication_r2": 0.8567,
         "te_min": 0.0339,
         "te_max": 0.0795,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 20,
         "weighting": "equal",
-        "tracking_error": 0.0412,
-        "replication_r2": 0.9177,
+        "tracking_error": 0.0413,
+        "replication_r2": 0.9169,
         "te_min": 0.0287,
         "te_max": 0.0578,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 25,
         "weighting": "equal",
-        "tracking_error": 0.0363,
-        "replication_r2": 0.9357,
+        "tracking_error": 0.0364,
+        "replication_r2": 0.9351,
         "te_min": 0.0259,
         "te_max": 0.0492,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 30,
         "weighting": "equal",
-        "tracking_error": 0.0342,
-        "replication_r2": 0.9448,
+        "tracking_error": 0.0343,
+        "replication_r2": 0.9443,
         "te_min": 0.0242,
         "te_max": 0.0474,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 40,
         "weighting": "equal",
-        "tracking_error": 0.0308,
-        "replication_r2": 0.9547,
+        "tracking_error": 0.031,
+        "replication_r2": 0.9541,
         "te_min": 0.0195,
         "te_max": 0.0512,
-        "n_windows": 140
+        "n_windows": 141
       },
       {
         "n": 50,
         "weighting": "equal",
-        "tracking_error": 0.0282,
-        "replication_r2": 0.9613,
+        "tracking_error": 0.0283,
+        "replication_r2": 0.9605,
         "te_min": 0.0169,
-        "te_max": 0.0485,
-        "n_windows": 140
+        "te_max": 0.0498,
+        "n_windows": 141
       }
     ]
   },
