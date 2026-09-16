@@ -213,51 +213,51 @@
     "frontier": [
       {
         "k": 10,
-        "te_oos": 0.0533,
-        "replication_r2_oos": 0.9096,
-        "mean_monthly_churn": 0.2174,
-        "mean_max_weight": 0.196,
-        "n_windows": 139
+        "te_oos": 0.0532,
+        "replication_r2_oos": 0.9093,
+        "mean_monthly_churn": 0.2173,
+        "mean_max_weight": 0.1963,
+        "n_windows": 140
       },
       {
         "k": 15,
         "te_oos": 0.0419,
-        "replication_r2_oos": 0.944,
+        "replication_r2_oos": 0.9437,
         "mean_monthly_churn": 0.2043,
-        "mean_max_weight": 0.1302,
-        "n_windows": 139
+        "mean_max_weight": 0.13,
+        "n_windows": 140
       },
       {
         "k": 20,
-        "te_oos": 0.0359,
-        "replication_r2_oos": 0.9589,
-        "mean_monthly_churn": 0.1896,
+        "te_oos": 0.036,
+        "replication_r2_oos": 0.9586,
+        "mean_monthly_churn": 0.1904,
         "mean_max_weight": 0.0983,
-        "n_windows": 139
+        "n_windows": 140
       },
       {
         "k": 25,
         "te_oos": 0.0346,
-        "replication_r2_oos": 0.9619,
-        "mean_monthly_churn": 0.1793,
-        "mean_max_weight": 0.0827,
-        "n_windows": 139
+        "replication_r2_oos": 0.9616,
+        "mean_monthly_churn": 0.1806,
+        "mean_max_weight": 0.0828,
+        "n_windows": 140
       },
       {
         "k": 30,
         "te_oos": 0.0321,
-        "replication_r2_oos": 0.9672,
-        "mean_monthly_churn": 0.1682,
-        "mean_max_weight": 0.0732,
-        "n_windows": 139
+        "replication_r2_oos": 0.9669,
+        "mean_monthly_churn": 0.1689,
+        "mean_max_weight": 0.0734,
+        "n_windows": 140
       },
       {
         "k": 40,
-        "te_oos": 0.0264,
-        "replication_r2_oos": 0.9777,
-        "mean_monthly_churn": 0.1497,
-        "mean_max_weight": 0.0637,
-        "n_windows": 139
+        "te_oos": 0.0266,
+        "replication_r2_oos": 0.9773,
+        "mean_monthly_churn": 0.1511,
+        "mean_max_weight": 0.0639,
+        "n_windows": 140
       }
     ],
     "n_fallback_windows": 0
