@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-15",
+  "last_updated": "2026-09-16",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3194,
+  "n_trading_days": 3195,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-09-15"
+    "end": "2026-09-16"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -77,22 +77,22 @@
     "C",
     "AMGN",
     "TMO",
-    "TMUS",
     "VZ",
+    "TMUS",
     "PEP",
     "MCD"
   ],
   "headline": {
     "r_squared_at_20": 0.951374,
-    "sp500_cagr": 0.138524,
-    "mirror_cagr": 0.172503,
-    "mirror_alpha": 0.023368,
-    "equal_cagr": 0.159225,
-    "equal_alpha": 0.022297,
+    "sp500_cagr": 0.138079,
+    "mirror_cagr": 0.172352,
+    "mirror_alpha": 0.023709,
+    "equal_cagr": 0.159025,
+    "equal_alpha": 0.022541,
     "net_of_costs": true,
     "alpha_cagr": 0.201795,
-    "alpha_sharpe": 0.864042,
-    "alpha_jensen": 0.035211,
+    "alpha_sharpe": 0.864012,
+    "alpha_jensen": 0.035212,
     "alpha_max_drawdown": -0.321141
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-09-16T00:40:19.522965+00:00"
+  "generated_at": "2026-09-17T00:47:57.267708+00:00"
 }
