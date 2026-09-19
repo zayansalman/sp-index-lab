@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-17",
+  "last_updated": "2026-09-18",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3196,
+  "n_trading_days": 3197,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-09-17"
+    "end": "2026-09-18"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -63,8 +63,8 @@
     "PLTR",
     "PG",
     "MS",
-    "HD",
     "MRK",
+    "HD",
     "NFLX",
     "GS",
     "PM",
@@ -84,14 +84,14 @@
   ],
   "headline": {
     "r_squared_at_20": 0.951374,
-    "sp500_cagr": 0.139052,
-    "mirror_cagr": 0.17396,
-    "mirror_alpha": 0.024239,
-    "equal_cagr": 0.160665,
-    "equal_alpha": 0.023195,
+    "sp500_cagr": 0.139155,
+    "mirror_cagr": 0.174325,
+    "mirror_alpha": 0.02449,
+    "equal_cagr": 0.16096,
+    "equal_alpha": 0.023387,
     "net_of_costs": true,
     "alpha_cagr": 0.201795,
-    "alpha_sharpe": 0.863981,
+    "alpha_sharpe": 0.863951,
     "alpha_jensen": 0.035213,
     "alpha_max_drawdown": -0.321141
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-09-18T00:36:08.812479+00:00"
+  "generated_at": "2026-09-19T00:29:24.181992+00:00"
 }
