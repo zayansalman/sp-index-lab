@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-09-18",
+  "last_updated": "2026-09-21",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3197,
+  "n_trading_days": 3198,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-09-18"
+    "end": "2026-09-21"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -17,8 +17,8 @@
     "AVGO",
     "META",
     "TSLA",
-    "MU",
     "BRK-B",
+    "MU",
     "LLY",
     "JPM",
     "WMT",
@@ -28,7 +28,7 @@
     "JNJ",
     "INTC",
     "MA",
-    "CSCO"
+    "ABBV"
   ],
   "top_50_tickers": [
     "NVDA",
@@ -39,8 +39,8 @@
     "AVGO",
     "META",
     "TSLA",
-    "MU",
     "BRK-B",
+    "MU",
     "LLY",
     "JPM",
     "WMT",
@@ -50,8 +50,8 @@
     "JNJ",
     "INTC",
     "MA",
-    "CSCO",
     "ABBV",
+    "CSCO",
     "BAC",
     "COST",
     "ORCL",
@@ -75,8 +75,8 @@
     "AXP",
     "IBM",
     "C",
-    "AMGN",
     "TMO",
+    "AMGN",
     "VZ",
     "TMUS",
     "PEP",
@@ -84,15 +84,15 @@
   ],
   "headline": {
     "r_squared_at_20": 0.951374,
-    "sp500_cagr": 0.139155,
-    "mirror_cagr": 0.174325,
-    "mirror_alpha": 0.02449,
-    "equal_cagr": 0.16096,
-    "equal_alpha": 0.023387,
+    "sp500_cagr": 0.140448,
+    "mirror_cagr": 0.176401,
+    "mirror_alpha": 0.025128,
+    "equal_cagr": 0.163353,
+    "equal_alpha": 0.024448,
     "net_of_costs": true,
     "alpha_cagr": 0.201795,
-    "alpha_sharpe": 0.863951,
-    "alpha_jensen": 0.035213,
+    "alpha_sharpe": 0.86392,
+    "alpha_jensen": 0.035214,
     "alpha_max_drawdown": -0.321141
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-09-19T00:29:24.181992+00:00"
+  "generated_at": "2026-09-22T01:02:34.312388+00:00"
 }
