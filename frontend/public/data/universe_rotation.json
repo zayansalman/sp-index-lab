@@ -2,7 +2,7 @@
   "summary": {
     "n_rebalances": 153,
     "first": "2014-01-31",
-    "last": "2026-09-23",
+    "last": "2026-09-24",
     "distinct_tickers": 42,
     "entries": 68,
     "exits": 68,
@@ -609,7 +609,7 @@
       ]
     },
     {
-      "date": "2026-09-23",
+      "date": "2026-09-24",
       "entered": [
         "ABBV"
       ],
@@ -4420,7 +4420,7 @@
       ]
     },
     {
-      "date": "2026-09-23",
+      "date": "2026-09-24",
       "tickers": [
         "AAPL",
         "ABBV",
