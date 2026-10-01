@@ -1,134 +1,118 @@
 {
-  "as_of": "2026-09-29",
+  "as_of": "2026-09-30",
   "strategies": {
     "spn_alpha": [
       {
         "ticker": "NVDA",
         "name": "NVIDIA Corp.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Technology",
-        "last_price": 227.210007,
+        "last_price": 228.380005,
         "rank": 1
       },
       {
         "ticker": "AAPL",
         "name": "Apple Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Technology",
-        "last_price": 329.399994,
+        "last_price": 333.019989,
         "rank": 2
       },
       {
         "ticker": "GOOGL",
         "name": "Alphabet Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Communication Services",
-        "last_price": 340.920013,
+        "last_price": 344.079987,
         "rank": 3
       },
       {
         "ticker": "MSFT",
         "name": "Microsoft Corp.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Technology",
-        "last_price": 508.959991,
+        "last_price": 512.900024,
         "rank": 4
       },
       {
         "ticker": "AMZN",
         "name": "Amazon.com Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Consumer Discretionary",
-        "last_price": 246.669998,
+        "last_price": 249.149994,
         "rank": 5
       },
       {
         "ticker": "AVGO",
         "name": "Broadcom Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Technology",
-        "last_price": 355.100006,
+        "last_price": 351.190002,
         "rank": 6
       },
       {
         "ticker": "META",
         "name": "Meta Platforms Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Communication Services",
-        "last_price": 738.789978,
+        "last_price": 725.179993,
         "rank": 7
       },
       {
         "ticker": "TSLA",
         "name": "Tesla Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Consumer Discretionary",
-        "last_price": 352.839996,
+        "last_price": 354.809998,
         "rank": 8
       },
       {
         "ticker": "BRK-B",
         "name": "Berkshire Hathaway Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Financials",
-        "last_price": 502.350006,
+        "last_price": 497.950012,
         "rank": 9
       },
       {
         "ticker": "MU",
         "name": "Micron Technology Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Technology",
-        "last_price": 1065.079956,
+        "last_price": 1065.109985,
         "rank": 10
       },
       {
         "ticker": "LLY",
         "name": "Eli Lilly and Co.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Health Care",
-        "last_price": 1184.630005,
+        "last_price": 1157.079956,
         "rank": 11
       },
       {
         "ticker": "JPM",
         "name": "JPMorgan Chase & Co.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Financials",
-        "last_price": 334.980011,
+        "last_price": 330.829987,
         "rank": 12
       },
       {
         "ticker": "WMT",
         "name": "Walmart Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Consumer Staples",
-        "last_price": 106.800003,
+        "last_price": 103.919998,
         "rank": 13
       },
       {
         "ticker": "AMD",
         "name": "Advanced Micro Devices Inc.",
-        "weight": 0.0625,
+        "weight": 0.071429,
         "sector": "Technology",
-        "last_price": 607.570007,
+        "last_price": 611.76001,
         "rank": 14
-      },
-      {
-        "ticker": "V",
-        "name": "Visa Inc.",
-        "weight": 0.0625,
-        "sector": "Financials",
-        "last_price": 365.880005,
-        "rank": 15
-      },
-      {
-        "ticker": "XOM",
-        "name": "Exxon Mobil Corp.",
-        "weight": 0.0625,
-        "sector": "Energy",
-        "last_price": 161.350006,
-        "rank": 16
       }
     ]
   }
