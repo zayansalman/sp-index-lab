@@ -301,7 +301,7 @@
       "marginal_r_squared": 4.4e-05
     }
   ],
-  "r_squared_at_20": 0.951374,
+  "r_squared_at_20": 0.951342,
   "r_squared_at_20_latest": 0.883406,
   "r_squared_windows": [
     {
@@ -762,7 +762,7 @@
     {
       "window_start": "2021-08-06",
       "window_end": "2022-08-05",
-      "r_squared_at_20": 0.974261
+      "r_squared_at_20": 0.970825
     },
     {
       "window_start": "2021-09-07",
@@ -787,7 +787,7 @@
     {
       "window_start": "2022-01-05",
       "window_end": "2023-01-05",
-      "r_squared_at_20": 0.979656
+      "r_squared_at_20": 0.978597
     },
     {
       "window_start": "2022-02-04",
