@@ -1,146 +1,146 @@
 {
-  "as_of": "2026-10-09",
+  "as_of": "2026-10-12",
   "n_holdings": 20,
   "holdings": [
     {
       "ticker": "NVDA",
       "name": "NVIDIA Corp.",
-      "weight": 0.15206,
+      "weight": 0.152058,
       "sector": "Technology",
-      "last_price": 229.279999
+      "last_price": 226.320007
     },
     {
       "ticker": "AAPL",
       "name": "Apple Inc.",
-      "weight": 0.136382,
+      "weight": 0.136411,
       "sector": "Technology",
-      "last_price": 336.640015
+      "last_price": 340.970001
     },
     {
       "ticker": "GOOGL",
       "name": "Alphabet Inc.",
-      "weight": 0.121798,
+      "weight": 0.12163,
       "sector": "Communication Services",
-      "last_price": 351.660004
+      "last_price": 352.720001
     },
     {
       "ticker": "MSFT",
       "name": "Microsoft Corp.",
-      "weight": 0.102582,
+      "weight": 0.103003,
       "sector": "Technology",
-      "last_price": 535.070007
+      "last_price": 541.150024
     },
     {
       "ticker": "AMZN",
       "name": "Amazon.com Inc.",
-      "weight": 0.079438,
+      "weight": 0.079413,
       "sector": "Consumer Discretionary",
-      "last_price": 262.429993
+      "last_price": 259.529999
     },
     {
       "ticker": "AVGO",
       "name": "Broadcom Inc.",
-      "weight": 0.051533,
+      "weight": 0.051403,
       "sector": "Technology",
-      "last_price": 361.540009
+      "last_price": 354.730011
     },
     {
       "ticker": "META",
       "name": "Meta Platforms Inc.",
-      "weight": 0.046732,
+      "weight": 0.046778,
       "sector": "Communication Services",
-      "last_price": 718.669983
+      "last_price": 742.960022
     },
     {
       "ticker": "TSLA",
       "name": "Tesla Inc.",
-      "weight": 0.040283,
+      "weight": 0.040208,
       "sector": "Consumer Discretionary",
-      "last_price": 382.700012
+      "last_price": 378.029999
     },
     {
       "ticker": "MU",
       "name": "Micron Technology Inc.",
-      "weight": 0.03125,
+      "weight": 0.03122,
       "sector": "Technology",
-      "last_price": 1029.0
+      "last_price": 989.039978
     },
     {
       "ticker": "BRK-B",
       "name": "Berkshire Hathaway Inc.",
-      "weight": 0.031201,
+      "weight": 0.031194,
       "sector": "Financials",
-      "last_price": 515.619995
+      "last_price": 517.599976
     },
     {
       "ticker": "LLY",
       "name": "Eli Lilly and Co.",
-      "weight": 0.030213,
+      "weight": 0.030193,
       "sector": "Health Care",
-      "last_price": 1179.27002
+      "last_price": 1182.619995
     },
     {
       "ticker": "JPM",
       "name": "JPMorgan Chase & Co.",
-      "weight": 0.026804,
+      "weight": 0.026765,
       "sector": "Financials",
-      "last_price": 332.98999
+      "last_price": 334.299988
     },
     {
       "ticker": "WMT",
       "name": "Walmart Inc.",
-      "weight": 0.024992,
+      "weight": 0.024963,
       "sector": "Consumer Staples",
-      "last_price": 111.349998
+      "last_price": 113.080002
     },
     {
       "ticker": "AMD",
       "name": "Advanced Micro Devices Inc.",
-      "weight": 0.024698,
+      "weight": 0.024706,
       "sector": "Technology",
-      "last_price": 608.099976
+      "last_price": 594.23999
     },
     {
       "ticker": "V",
       "name": "Visa Inc.",
-      "weight": 0.019908,
+      "weight": 0.019915,
       "sector": "Financials",
-      "last_price": 385.450012
+      "last_price": 389.269989
     },
     {
       "ticker": "XOM",
       "name": "Exxon Mobil Corp.",
-      "weight": 0.018921,
+      "weight": 0.018952,
       "sector": "Energy",
-      "last_price": 168.940002
+      "last_price": 172.149994
     },
     {
       "ticker": "JNJ",
       "name": "Johnson & Johnson",
-      "weight": 0.018317,
+      "weight": 0.018308,
       "sector": "Health Care",
-      "last_price": 261.440002
+      "last_price": 263.730011
     },
     {
       "ticker": "INTC",
       "name": "Intel Corp.",
-      "weight": 0.015409,
+      "weight": 0.015377,
       "sector": "Technology",
-      "last_price": 104.699997
+      "last_price": 101.349998
     },
     {
       "ticker": "MA",
       "name": "Mastercard Inc.",
-      "weight": 0.014324,
+      "weight": 0.014332,
       "sector": "Financials",
-      "last_price": 589.140015
+      "last_price": 595.090027
     },
     {
       "ticker": "ABBV",
       "name": "AbbVie Inc.",
-      "weight": 0.013156,
+      "weight": 0.013172,
       "sector": "Health Care",
-      "last_price": 276.470001
+      "last_price": 281.119995
     }
   ]
 }
