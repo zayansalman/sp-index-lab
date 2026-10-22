@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-10-20",
+  "last_updated": "2026-10-21",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3219,
+  "n_trading_days": 3220,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-10-20"
+    "end": "2026-10-21"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -72,9 +72,9 @@
     "WFC",
     "TXN",
     "TMO",
+    "AMGN",
     "LIN",
     "C",
-    "AMGN",
     "AXP",
     "IBM",
     "VZ",
@@ -84,14 +84,14 @@
   ],
   "headline": {
     "r_squared_at_20": 0.950716,
-    "sp500_cagr": 0.138923,
-    "mirror_cagr": 0.174371,
-    "mirror_alpha": 0.024725,
-    "equal_cagr": 0.162216,
-    "equal_alpha": 0.024789,
+    "sp500_cagr": 0.139392,
+    "mirror_cagr": 0.174917,
+    "mirror_alpha": 0.02476,
+    "equal_cagr": 0.16262,
+    "equal_alpha": 0.024731,
     "net_of_costs": true,
     "alpha_cagr": 0.203447,
-    "alpha_sharpe": 0.871971,
+    "alpha_sharpe": 0.87194,
     "alpha_jensen": 0.035681,
     "alpha_max_drawdown": -0.314651
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-10-21T00:47:21.074345+00:00"
+  "generated_at": "2026-10-22T00:50:47.835923+00:00"
 }
