@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-10-22",
+  "last_updated": "2026-10-23",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3221,
+  "n_trading_days": 3222,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-10-22"
+    "end": "2026-10-23"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -59,8 +59,8 @@
     "CVX",
     "KO",
     "CAT",
-    "UNH",
     "MRK",
+    "UNH",
     "GE",
     "PG",
     "MS",
@@ -75,24 +75,24 @@
     "AMGN",
     "LIN",
     "C",
-    "AXP",
     "IBM",
+    "AXP",
     "VZ",
-    "TMUS",
     "CRM",
-    "PEP"
+    "PEP",
+    "TMUS"
   ],
   "headline": {
     "r_squared_at_20": 0.950716,
-    "sp500_cagr": 0.138263,
-    "mirror_cagr": 0.172839,
-    "mirror_alpha": 0.023878,
-    "equal_cagr": 0.161202,
-    "equal_alpha": 0.024415,
+    "sp500_cagr": 0.137758,
+    "mirror_cagr": 0.172366,
+    "mirror_alpha": 0.023959,
+    "equal_cagr": 0.160798,
+    "equal_alpha": 0.024512,
     "net_of_costs": true,
     "alpha_cagr": 0.203447,
-    "alpha_sharpe": 0.871909,
-    "alpha_jensen": 0.035682,
+    "alpha_sharpe": 0.871878,
+    "alpha_jensen": 0.035683,
     "alpha_max_drawdown": -0.314651
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-10-23T00:50:53.633604+00:00"
+  "generated_at": "2026-10-24T00:55:28.616754+00:00"
 }
