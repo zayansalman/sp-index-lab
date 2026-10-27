@@ -2,11 +2,11 @@
   "summary": {
     "n_rebalances": 154,
     "first": "2014-01-31",
-    "last": "2026-10-23",
+    "last": "2026-10-26",
     "distinct_tickers": 42,
     "entries": 67,
     "exits": 67,
-    "avg_names_replaced_per_year": 5.27,
+    "avg_names_replaced_per_year": 5.26,
     "never_left": [
       "AAPL",
       "AMZN",
@@ -4450,7 +4450,7 @@
       ]
     },
     {
-      "date": "2026-10-23",
+      "date": "2026-10-26",
       "tickers": [
         "AAPL",
         "ABBV",
