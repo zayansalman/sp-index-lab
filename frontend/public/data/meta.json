@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-10-28",
+  "last_updated": "2026-10-29",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3225,
+  "n_trading_days": 3226,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-10-28"
+    "end": "2026-10-29"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -74,8 +74,8 @@
     "TMO",
     "AMGN",
     "LIN",
-    "C",
     "IBM",
+    "C",
     "AXP",
     "VZ",
     "CRM",
@@ -84,14 +84,14 @@
   ],
   "headline": {
     "r_squared_at_20": 0.950716,
-    "sp500_cagr": 0.139017,
-    "mirror_cagr": 0.173997,
-    "mirror_alpha": 0.024214,
-    "equal_cagr": 0.162724,
-    "equal_alpha": 0.025184,
+    "sp500_cagr": 0.1387,
+    "mirror_cagr": 0.172567,
+    "mirror_alpha": 0.023117,
+    "equal_cagr": 0.162549,
+    "equal_alpha": 0.025325,
     "net_of_costs": true,
     "alpha_cagr": 0.203447,
-    "alpha_sharpe": 0.871786,
+    "alpha_sharpe": 0.871755,
     "alpha_jensen": 0.035685,
     "alpha_max_drawdown": -0.314651
   },
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-10-29T01:57:57.890922+00:00"
+  "generated_at": "2026-10-30T02:07:52.306587+00:00"
 }
