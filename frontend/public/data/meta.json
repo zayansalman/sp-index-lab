@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-10-29",
+  "last_updated": "2026-10-30",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3226,
+  "n_trading_days": 3227,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-10-29"
+    "end": "2026-10-30"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -51,8 +51,8 @@
     "INTC",
     "MA",
     "ABBV",
-    "CSCO",
     "PLTR",
+    "CSCO",
     "ORCL",
     "COST",
     "CVX",
@@ -80,19 +80,19 @@
     "VZ",
     "CRM",
     "QCOM",
-    "PEP"
+    "DIS"
   ],
   "headline": {
     "r_squared_at_20": 0.950716,
-    "sp500_cagr": 0.1387,
-    "mirror_cagr": 0.172567,
-    "mirror_alpha": 0.023117,
-    "equal_cagr": 0.162549,
-    "equal_alpha": 0.025325,
+    "sp500_cagr": 0.137031,
+    "mirror_cagr": 0.170544,
+    "mirror_alpha": 0.022905,
+    "equal_cagr": 0.160471,
+    "equal_alpha": 0.02487,
     "net_of_costs": true,
     "alpha_cagr": 0.203447,
-    "alpha_sharpe": 0.871755,
-    "alpha_jensen": 0.035685,
+    "alpha_sharpe": 0.871725,
+    "alpha_jensen": 0.035686,
     "alpha_max_drawdown": -0.314651
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-10-30T02:07:52.306587+00:00"
+  "generated_at": "2026-10-31T01:46:23.565005+00:00"
 }
