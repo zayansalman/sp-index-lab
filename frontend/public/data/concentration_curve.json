@@ -86,15 +86,15 @@
     },
     {
       "n_stocks": 15,
-      "ticker_added": "MA",
-      "r_squared": 0.859673,
-      "marginal_r_squared": 0.000521
+      "ticker_added": "NFLX",
+      "r_squared": 0.859451,
+      "marginal_r_squared": 0.0003
     },
     {
       "n_stocks": 16,
-      "ticker_added": "NFLX",
+      "ticker_added": "MA",
       "r_squared": 0.859991,
-      "marginal_r_squared": 0.000318
+      "marginal_r_squared": 0.00054
     },
     {
       "n_stocks": 17,
@@ -182,15 +182,15 @@
     },
     {
       "n_stocks": 31,
-      "ticker_added": "TMUS",
-      "r_squared": 0.92757,
-      "marginal_r_squared": 0.000276
+      "ticker_added": "PM",
+      "r_squared": 0.927827,
+      "marginal_r_squared": 0.000533
     },
     {
       "n_stocks": 32,
-      "ticker_added": "PM",
+      "ticker_added": "TMUS",
       "r_squared": 0.92813,
-      "marginal_r_squared": 0.00056
+      "marginal_r_squared": 0.000303
     },
     {
       "n_stocks": 33,
@@ -278,21 +278,21 @@
     },
     {
       "n_stocks": 47,
-      "ticker_added": "T",
-      "r_squared": 0.957008,
-      "marginal_r_squared": 2.3e-05
+      "ticker_added": "UBER",
+      "r_squared": 0.957086,
+      "marginal_r_squared": 0.000101
     },
     {
       "n_stocks": 48,
-      "ticker_added": "UBER",
-      "r_squared": 0.957108,
-      "marginal_r_squared": 0.0001
+      "ticker_added": "NOW",
+      "r_squared": 0.95725,
+      "marginal_r_squared": 0.000164
     },
     {
       "n_stocks": 49,
-      "ticker_added": "NOW",
+      "ticker_added": "T",
       "r_squared": 0.957268,
-      "marginal_r_squared": 0.00016
+      "marginal_r_squared": 1.8e-05
     },
     {
       "n_stocks": 50,
@@ -301,7 +301,7 @@
       "marginal_r_squared": 0.000328
     }
   ],
-  "r_squared_at_20": 0.950716,
+  "r_squared_at_20": 0.950849,
   "r_squared_at_20_latest": 0.862372,
   "r_squared_windows": [
     {
@@ -687,7 +687,7 @@
     {
       "window_start": "2020-05-07",
       "window_end": "2021-05-06",
-      "r_squared_at_20": 0.952435
+      "r_squared_at_20": 0.948022
     },
     {
       "window_start": "2020-06-08",
@@ -792,7 +792,7 @@
     {
       "window_start": "2022-02-04",
       "window_end": "2023-02-06",
-      "r_squared_at_20": 0.983888
+      "r_squared_at_20": 0.9809
     },
     {
       "window_start": "2022-03-08",
@@ -882,7 +882,7 @@
     {
       "window_start": "2023-08-09",
       "window_end": "2024-08-08",
-      "r_squared_at_20": 0.913472
+      "r_squared_at_20": 0.939794
     },
     {
       "window_start": "2023-09-08",

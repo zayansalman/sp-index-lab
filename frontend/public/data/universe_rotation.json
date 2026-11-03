@@ -1,12 +1,12 @@
 {
   "summary": {
-    "n_rebalances": 154,
+    "n_rebalances": 155,
     "first": "2014-01-31",
-    "last": "2026-10-30",
+    "last": "2026-11-02",
     "distinct_tickers": 42,
-    "entries": 67,
-    "exits": 67,
-    "avg_names_replaced_per_year": 5.26,
+    "entries": 69,
+    "exits": 69,
+    "avg_names_replaced_per_year": 5.41,
     "never_left": [
       "AAPL",
       "AMZN",
@@ -22,9 +22,11 @@
     {
       "date": "2014-02-28",
       "entered": [
+        "INTC",
         "SLB"
       ],
       "exited": [
+        "GE",
         "PM"
       ]
     },
@@ -34,7 +36,7 @@
         "DIS"
       ],
       "exited": [
-        "GE"
+        "INTC"
       ]
     },
     {
@@ -94,18 +96,11 @@
     {
       "date": "2016-12-30",
       "entered": [
+        "GE",
         "WFC"
       ],
       "exited": [
-        "PM"
-      ]
-    },
-    {
-      "date": "2017-01-31",
-      "entered": [
-        "GE"
-      ],
-      "exited": [
+        "PM",
         "V"
       ]
     },
@@ -220,19 +215,12 @@
     {
       "date": "2019-04-30",
       "entered": [
-        "CSCO"
-      ],
-      "exited": [
-        "KO"
-      ]
-    },
-    {
-      "date": "2019-05-31",
-      "entered": [
+        "CSCO",
         "DIS"
       ],
       "exited": [
-        "BAC"
+        "BAC",
+        "KO"
       ]
     },
     {
@@ -353,7 +341,7 @@
       ]
     },
     {
-      "date": "2021-05-28",
+      "date": "2021-06-30",
       "entered": [
         "XOM"
       ],
@@ -362,7 +350,7 @@
       ]
     },
     {
-      "date": "2021-08-31",
+      "date": "2021-07-30",
       "entered": [
         "ORCL"
       ],
@@ -506,9 +494,18 @@
       ]
     },
     {
-      "date": "2025-03-31",
+      "date": "2025-02-28",
       "entered": [
         "NFLX"
+      ],
+      "exited": [
+        "PG"
+      ]
+    },
+    {
+      "date": "2025-04-30",
+      "entered": [
+        "PG"
       ],
       "exited": [
         "HD"
@@ -656,9 +653,9 @@
         "AMZN",
         "BRK-B",
         "CVX",
-        "GE",
         "GOOGL",
         "IBM",
+        "INTC",
         "JNJ",
         "JPM",
         "KO",
@@ -1507,6 +1504,7 @@
         "BRK-B",
         "CVX",
         "DIS",
+        "GE",
         "GOOGL",
         "INTC",
         "JNJ",
@@ -1517,7 +1515,6 @@
         "PFE",
         "PG",
         "T",
-        "V",
         "VZ",
         "WFC",
         "WMT",
@@ -2205,10 +2202,10 @@
         "AAPL",
         "AMZN",
         "BA",
-        "BAC",
         "BRK-B",
         "CSCO",
         "CVX",
+        "DIS",
         "GOOGL",
         "INTC",
         "JNJ",
@@ -2845,8 +2842,8 @@
         "TSLA",
         "UNH",
         "V",
-        "WMT",
-        "XOM"
+        "VZ",
+        "WMT"
       ]
     },
     {
@@ -2891,12 +2888,12 @@
         "META",
         "MSFT",
         "NVDA",
+        "ORCL",
         "PG",
         "TSLA",
         "UNH",
         "V",
-        "WMT",
-        "XOM"
+        "WMT"
       ]
     },
     {
@@ -3964,9 +3961,9 @@
         "MA",
         "META",
         "MSFT",
+        "NFLX",
         "NVDA",
         "ORCL",
-        "PG",
         "TSLA",
         "UNH",
         "V",
@@ -3983,6 +3980,7 @@
         "BRK-B",
         "COST",
         "GOOGL",
+        "HD",
         "JPM",
         "LLY",
         "MA",
@@ -3991,7 +3989,6 @@
         "NFLX",
         "NVDA",
         "ORCL",
-        "PG",
         "TSLA",
         "UNH",
         "V",
@@ -4451,6 +4448,31 @@
     },
     {
       "date": "2026-10-30",
+      "tickers": [
+        "AAPL",
+        "ABBV",
+        "AMD",
+        "AMZN",
+        "AVGO",
+        "BRK-B",
+        "GOOGL",
+        "INTC",
+        "JNJ",
+        "JPM",
+        "LLY",
+        "MA",
+        "META",
+        "MSFT",
+        "MU",
+        "NVDA",
+        "TSLA",
+        "V",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "date": "2026-11-02",
       "tickers": [
         "AAPL",
         "ABBV",
