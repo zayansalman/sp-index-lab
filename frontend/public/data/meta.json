@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-11-02",
+  "last_updated": "2026-11-03",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3228,
+  "n_trading_days": 3229,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-11-02"
+    "end": "2026-11-03"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -80,19 +80,19 @@
     "VZ",
     "CRM",
     "QCOM",
-    "DIS"
+    "GILD"
   ],
   "headline": {
     "r_squared_at_20": 0.950849,
-    "sp500_cagr": 0.136537,
-    "mirror_cagr": 0.169578,
-    "mirror_alpha": 0.022396,
-    "equal_cagr": 0.159258,
-    "equal_alpha": 0.023997,
+    "sp500_cagr": 0.136815,
+    "mirror_cagr": 0.170234,
+    "mirror_alpha": 0.022745,
+    "equal_cagr": 0.159505,
+    "equal_alpha": 0.023968,
     "net_of_costs": true,
     "alpha_cagr": 0.200786,
-    "alpha_sharpe": 0.858181,
-    "alpha_jensen": 0.032846,
+    "alpha_sharpe": 0.85815,
+    "alpha_jensen": 0.032847,
     "alpha_max_drawdown": -0.320268
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-11-03T03:36:31.044479+00:00"
+  "generated_at": "2026-11-04T02:32:23.317233+00:00"
 }
