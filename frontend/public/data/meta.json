@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-11-05",
+  "last_updated": "2026-11-06",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3231,
+  "n_trading_days": 3232,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-11-05"
+    "end": "2026-11-06"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -65,8 +65,8 @@
     "GE",
     "HD",
     "MS",
-    "NFLX",
     "PM",
+    "NFLX",
     "GS",
     "RTX",
     "WFC",
@@ -79,20 +79,20 @@
     "AXP",
     "VZ",
     "CRM",
-    "QCOM",
-    "GILD"
+    "GILD",
+    "QCOM"
   ],
   "headline": {
     "r_squared_at_20": 0.950849,
-    "sp500_cagr": 0.13417,
-    "mirror_cagr": 0.167124,
-    "mirror_alpha": 0.022474,
-    "equal_cagr": 0.155665,
-    "equal_alpha": 0.022612,
+    "sp500_cagr": 0.134411,
+    "mirror_cagr": 0.167866,
+    "mirror_alpha": 0.02295,
+    "equal_cagr": 0.156737,
+    "equal_alpha": 0.023438,
     "net_of_costs": true,
     "alpha_cagr": 0.200786,
-    "alpha_sharpe": 0.858089,
-    "alpha_jensen": 0.032848,
+    "alpha_sharpe": 0.858059,
+    "alpha_jensen": 0.032849,
     "alpha_max_drawdown": -0.320268
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-11-06T02:42:47.019835+00:00"
+  "generated_at": "2026-11-07T02:10:21.268590+00:00"
 }
