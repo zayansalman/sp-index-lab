@@ -2,49 +2,49 @@
   "decomposition": [
     {
       "n_stocks": 5,
-      "r_squared": 0.783318,
+      "r_squared": 0.782689,
       "r_squared_min": 0.559267,
       "r_squared_max": 0.947217
     },
     {
       "n_stocks": 10,
-      "r_squared": 0.903018,
+      "r_squared": 0.90236,
       "r_squared_min": 0.791809,
       "r_squared_max": 0.976393
     },
     {
       "n_stocks": 15,
-      "r_squared": 0.930588,
+      "r_squared": 0.930243,
       "r_squared_min": 0.819715,
       "r_squared_max": 0.982961
     },
     {
       "n_stocks": 20,
-      "r_squared": 0.950849,
+      "r_squared": 0.950383,
       "r_squared_min": 0.858798,
       "r_squared_max": 0.988844
     },
     {
       "n_stocks": 25,
-      "r_squared": 0.960677,
+      "r_squared": 0.960505,
       "r_squared_min": 0.887016,
       "r_squared_max": 0.992531
     },
     {
       "n_stocks": 30,
-      "r_squared": 0.96893,
+      "r_squared": 0.968739,
       "r_squared_min": 0.894476,
       "r_squared_max": 0.993611
     },
     {
       "n_stocks": 40,
-      "r_squared": 0.979227,
+      "r_squared": 0.979113,
       "r_squared_min": 0.930433,
       "r_squared_max": 0.995363
     },
     {
       "n_stocks": 50,
-      "r_squared": 0.985183,
+      "r_squared": 0.985124,
       "r_squared_min": 0.948016,
       "r_squared_max": 0.996853
     }
@@ -55,154 +55,154 @@
     "window_days": 252,
     "step_days": 21,
     "ladder": {
-      "investable_cap": 0.8102,
-      "investable_equal": 0.9153,
-      "ols_ceiling": 0.950849
+      "investable_cap": 0.8096,
+      "investable_equal": 0.9144,
+      "ols_ceiling": 0.950383
     },
     "by_n": [
       {
         "n": 5,
         "weighting": "cap",
         "tracking_error": 0.1258,
-        "replication_r2": 0.3348,
+        "replication_r2": 0.3341,
         "te_min": 0.0573,
         "te_max": 0.1966,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 10,
         "weighting": "cap",
-        "tracking_error": 0.0955,
-        "replication_r2": 0.5916,
+        "tracking_error": 0.0956,
+        "replication_r2": 0.5906,
         "te_min": 0.0413,
         "te_max": 0.1438,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 15,
         "weighting": "cap",
         "tracking_error": 0.0777,
-        "replication_r2": 0.7325,
+        "replication_r2": 0.732,
         "te_min": 0.0419,
         "te_max": 0.1209,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 20,
         "weighting": "cap",
         "tracking_error": 0.0651,
-        "replication_r2": 0.8102,
+        "replication_r2": 0.8096,
         "te_min": 0.0356,
         "te_max": 0.102,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 25,
         "weighting": "cap",
         "tracking_error": 0.057,
-        "replication_r2": 0.8534,
+        "replication_r2": 0.8529,
         "te_min": 0.0309,
         "te_max": 0.0917,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 30,
         "weighting": "cap",
         "tracking_error": 0.0517,
-        "replication_r2": 0.8793,
+        "replication_r2": 0.8788,
         "te_min": 0.0268,
         "te_max": 0.0844,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 40,
         "weighting": "cap",
-        "tracking_error": 0.0451,
-        "replication_r2": 0.9083,
+        "tracking_error": 0.0452,
+        "replication_r2": 0.908,
         "te_min": 0.0218,
         "te_max": 0.0765,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 50,
         "weighting": "cap",
-        "tracking_error": 0.0404,
-        "replication_r2": 0.9267,
+        "tracking_error": 0.0405,
+        "replication_r2": 0.9264,
         "te_min": 0.0197,
         "te_max": 0.0672,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 5,
         "weighting": "equal",
-        "tracking_error": 0.1309,
-        "replication_r2": 0.3145,
+        "tracking_error": 0.1308,
+        "replication_r2": 0.3134,
         "te_min": 0.0582,
         "te_max": 0.2001,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 10,
         "weighting": "equal",
-        "tracking_error": 0.0821,
-        "replication_r2": 0.6809,
+        "tracking_error": 0.0822,
+        "replication_r2": 0.6796,
         "te_min": 0.0417,
         "te_max": 0.1365,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 15,
         "weighting": "equal",
-        "tracking_error": 0.0556,
-        "replication_r2": 0.8541,
+        "tracking_error": 0.0557,
+        "replication_r2": 0.8536,
         "te_min": 0.0339,
         "te_max": 0.08,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 20,
         "weighting": "equal",
-        "tracking_error": 0.0416,
-        "replication_r2": 0.9153,
+        "tracking_error": 0.0418,
+        "replication_r2": 0.9144,
         "te_min": 0.0287,
-        "te_max": 0.0599,
-        "n_windows": 142
+        "te_max": 0.0619,
+        "n_windows": 143
       },
       {
         "n": 25,
         "weighting": "equal",
-        "tracking_error": 0.0364,
-        "replication_r2": 0.9349,
+        "tracking_error": 0.0366,
+        "replication_r2": 0.9343,
         "te_min": 0.0259,
-        "te_max": 0.0495,
-        "n_windows": 142
+        "te_max": 0.0531,
+        "n_windows": 143
       },
       {
         "n": 30,
         "weighting": "equal",
-        "tracking_error": 0.0343,
-        "replication_r2": 0.9436,
+        "tracking_error": 0.0344,
+        "replication_r2": 0.9432,
         "te_min": 0.0243,
         "te_max": 0.0474,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 40,
         "weighting": "equal",
-        "tracking_error": 0.0312,
-        "replication_r2": 0.9533,
+        "tracking_error": 0.0313,
+        "replication_r2": 0.9529,
         "te_min": 0.0193,
         "te_max": 0.0512,
-        "n_windows": 142
+        "n_windows": 143
       },
       {
         "n": 50,
         "weighting": "equal",
-        "tracking_error": 0.0285,
-        "replication_r2": 0.9598,
+        "tracking_error": 0.0286,
+        "replication_r2": 0.9591,
         "te_min": 0.0169,
-        "te_max": 0.0498,
-        "n_windows": 142
+        "te_max": 0.0515,
+        "n_windows": 143
       }
     ]
   },
