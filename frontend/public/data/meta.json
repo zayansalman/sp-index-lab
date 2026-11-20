@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-11-18",
+  "last_updated": "2026-11-19",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3240,
+  "n_trading_days": 3241,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-11-18"
+    "end": "2026-11-19"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -78,21 +78,21 @@
     "AXP",
     "C",
     "VZ",
-    "CRM",
     "GILD",
+    "CRM",
     "DIS"
   ],
   "headline": {
     "r_squared_at_20": 0.950383,
-    "sp500_cagr": 0.133469,
-    "mirror_cagr": 0.166466,
-    "mirror_alpha": 0.0226,
-    "equal_cagr": 0.157115,
-    "equal_alpha": 0.024683,
+    "sp500_cagr": 0.131641,
+    "mirror_cagr": 0.164166,
+    "mirror_alpha": 0.022278,
+    "equal_cagr": 0.155023,
+    "equal_alpha": 0.024387,
     "net_of_costs": true,
     "alpha_cagr": 0.195786,
-    "alpha_sharpe": 0.832607,
-    "alpha_jensen": 0.03345,
+    "alpha_sharpe": 0.832575,
+    "alpha_jensen": 0.033451,
     "alpha_max_drawdown": -0.320268
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-11-19T03:45:42.420851+00:00"
+  "generated_at": "2026-11-20T03:39:17.448943+00:00"
 }
