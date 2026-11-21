@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-11-19",
+  "last_updated": "2026-11-20",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3241,
+  "n_trading_days": 3242,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-11-19"
+    "end": "2026-11-20"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -20,15 +20,15 @@
     "BRK-B",
     "LLY",
     "MU",
-    "JPM",
     "WMT",
+    "JPM",
     "AMD",
     "V",
     "XOM",
     "JNJ",
     "MA",
-    "INTC",
-    "ABBV"
+    "ABBV",
+    "INTC"
   ],
   "top_50_tickers": [
     "NVDA",
@@ -42,15 +42,15 @@
     "BRK-B",
     "LLY",
     "MU",
-    "JPM",
     "WMT",
+    "JPM",
     "AMD",
     "V",
     "XOM",
     "JNJ",
     "MA",
-    "INTC",
     "ABBV",
+    "INTC",
     "PLTR",
     "COST",
     "CSCO",
@@ -84,15 +84,15 @@
   ],
   "headline": {
     "r_squared_at_20": 0.950383,
-    "sp500_cagr": 0.131641,
-    "mirror_cagr": 0.164166,
-    "mirror_alpha": 0.022278,
-    "equal_cagr": 0.155023,
-    "equal_alpha": 0.024387,
+    "sp500_cagr": 0.128291,
+    "mirror_cagr": 0.159476,
+    "mirror_alpha": 0.02114,
+    "equal_cagr": 0.151245,
+    "equal_alpha": 0.023883,
     "net_of_costs": true,
     "alpha_cagr": 0.195786,
-    "alpha_sharpe": 0.832575,
-    "alpha_jensen": 0.033451,
+    "alpha_sharpe": 0.832543,
+    "alpha_jensen": 0.033452,
     "alpha_max_drawdown": -0.320268
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-11-20T03:39:17.448943+00:00"
+  "generated_at": "2026-11-21T03:21:51.110255+00:00"
 }
