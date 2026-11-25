@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-11-23",
+  "last_updated": "2026-11-24",
   "inception_date": "2014-01-02",
-  "n_trading_days": 3243,
+  "n_trading_days": 3244,
   "date_range": {
     "start": "2014-01-02",
-    "end": "2026-11-23"
+    "end": "2026-11-24"
   },
   "benchmark": "^SP500TR",
   "universe_method": "pit_membership_cap_proxy",
@@ -58,8 +58,8 @@
     "ORCL",
     "KO",
     "BAC",
-    "MRK",
     "PG",
+    "MRK",
     "UNH",
     "CAT",
     "GE",
@@ -77,22 +77,22 @@
     "IBM",
     "AXP",
     "C",
-    "VZ",
     "GILD",
+    "VZ",
     "CRM",
     "DIS"
   ],
   "headline": {
     "r_squared_at_20": 0.950383,
-    "sp500_cagr": 0.132309,
-    "mirror_cagr": 0.165374,
-    "mirror_alpha": 0.022426,
-    "equal_cagr": 0.155486,
-    "equal_alpha": 0.024113,
+    "sp500_cagr": 0.131833,
+    "mirror_cagr": 0.164204,
+    "mirror_alpha": 0.021768,
+    "equal_cagr": 0.154614,
+    "equal_alpha": 0.023707,
     "net_of_costs": true,
     "alpha_cagr": 0.195786,
-    "alpha_sharpe": 0.832511,
-    "alpha_jensen": 0.033452,
+    "alpha_sharpe": 0.832478,
+    "alpha_jensen": 0.033453,
     "alpha_max_drawdown": -0.320268
   },
   "research": {
@@ -144,5 +144,5 @@
     },
     "retained_result": null
   },
-  "generated_at": "2026-11-24T06:16:38.470443+00:00"
+  "generated_at": "2026-11-25T05:02:15.776012+00:00"
 }
